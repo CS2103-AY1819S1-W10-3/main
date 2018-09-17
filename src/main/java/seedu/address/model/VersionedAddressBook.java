@@ -1,9 +1,9 @@
 package seedu.address.model;
 
-import seedu.address.model.event.Event;
-
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 /**
  * {@code AddressBook} that keeps track of its own history.
@@ -90,7 +90,6 @@ public class VersionedAddressBook extends AddressBook {
                 && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
-
 
 
     /**

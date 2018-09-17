@@ -1,14 +1,15 @@
 package seedu.address.model;
 
+
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 
+import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.event.UniqueEventList;
 
 /**
  * Wraps all data at the address-book level
@@ -21,20 +22,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueEventList events;
 
 
-
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         persons = new UniquePersonList();
         events = new UniqueEventList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -78,6 +78,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    /**
+     * Returns true if an event with the same identity as {@code event} exists in the address book.
+     *
+     * @param event
+     * @return
+     */
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return events.contains(event);
@@ -91,6 +97,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
     }
 
+    /**
+     * Adds an event to the address book.
+     * The event must not already exist in the address book.
+     *
+     * @param p
+     */
     public void addEvent(Event p) {
         events.add(p);
     }
