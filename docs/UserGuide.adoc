@@ -67,7 +67,7 @@ Format: `listUsers`
 
 ==== Locating users: `findUser`
 
-Finds userss whose names contain any of the given keywords. +
+Finds users whose names contain any of the given keywords. +
 Format: `findUser [KEYWORD] [KEYWORDS]...`
 
 ****

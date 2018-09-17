@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.event.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -78,6 +79,15 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+    
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        String[] parts = trimmedTime.split(":");
+        //check
+        // if ()
+        return new Time(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
     }
 
     /**

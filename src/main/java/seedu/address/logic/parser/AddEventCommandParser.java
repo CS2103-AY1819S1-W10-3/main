@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
+import seedu.address.model.event.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,10 +43,11 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         //Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         //Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Event event = new Event(name, address, tagList);
+        Event event = new Event(name, time, address, tagList);
 
 
         return new AddEventCommand(event);

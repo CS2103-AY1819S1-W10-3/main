@@ -12,15 +12,17 @@ import java.util.Set;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.event.Time;
 
 /**
- * Represents a Person in the address book.
+ * Represents an Event in the event organiser. 
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
 
     // Identity fields
     private final Name name;
+    private final Time time;
 
     // Data fields
     private final Address address;
@@ -29,9 +31,10 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Address address, Set<Tag> tags) {
+    public Event(Name name, Time time, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
         this.name = name;
+        this.time = time;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -42,6 +45,10 @@ public class Event {
 
     public Address getAddress() {
         return address;
+    }
+    
+    public Time getTime() {
+        return time;
     }
 
     /**
