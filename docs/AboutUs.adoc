@@ -16,6 +16,7 @@ image::Adeel.png[width="150", align="left"]
 {empty} [https://github.com/adeeldb[github]] [<<johndoe#, portfolio>>]
 
 Role: ...
+Responsibilities: ...
 
 '''
 
@@ -38,7 +39,7 @@ Responsibilities: ...
 '''
 
 === Wang Yaofeng
-image::m133225.jpg[width="150", align="left"]
+image::Yaofeng.png[width="150", align="left"]
 {empty}[https://github.com/yao-feng[github]] [<<johndoe#, portfolio>>]
 
 Role: ...
