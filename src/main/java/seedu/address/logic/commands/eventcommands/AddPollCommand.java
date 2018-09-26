@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -17,11 +18,12 @@ public class AddPollCommand extends Command {
 
     public static final String COMMAND_WORD = "addPoll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a poll to the pre-selected event. "
+            + "Parameters: "
+            + PREFIX_NAME + "NAME ";
     public static final String MESSAGE_SUCCESS = "Poll %1$s created for %2$s";
 
     private final String pollName;
-    private Event event;
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
@@ -33,7 +35,7 @@ public class AddPollCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        event = history.getSelectedEvent();
+        Event event = history.getSelectedEvent();
         if (event == null) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }

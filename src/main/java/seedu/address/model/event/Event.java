@@ -9,12 +9,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,6 +42,8 @@ public class Event {
     private final Set<Tag> tags = new HashSet<>();
 
     private final ArrayList<Poll> polls;
+  
+    private final UniquePersonList personList;
 
     /**
      * Every field must be present and not null.
@@ -49,6 +56,7 @@ public class Event {
         this.location = address;
         this.tags.addAll(tags);
         polls = new ArrayList<>();
+        personList = new UniquePersonList();
     }
 
     public Name getName() {
@@ -97,6 +105,37 @@ public class Event {
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    /**
+     * Adds a new person to the event.
+     */
+    public void addPerson(Person person) throws DuplicatePersonException {
+        try {
+            personList.add(person);
+        } catch (DuplicatePersonException e){
+            throw e;
+        }
+    }
+
+    public UniquePersonList getPersonList() {
+        return personList;
+    }
+
+    /**
+     * Adds list of persons into the person list.
+     */
+    public void setPersonList(ArrayList<Person> personList) {
+        for (Person person : personList) {
+            this.personList.add(person);
+        }
+    }
+
+    /**
+     * Returns the name list of the people attending as a string.
+     */
+    public String getNameList() {
+        return personList.getNameList();
     }
 
     /**

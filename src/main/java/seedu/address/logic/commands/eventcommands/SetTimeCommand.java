@@ -20,7 +20,7 @@ public class SetTimeCommand extends Command {
 
     public static final String COMMAND_WORD = "setTime";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the time for the pre-selected event.";
     public static final String MESSAGE_SUCCESS = "Time %1$s set for %2$s";
 
     private final LocalTime time;

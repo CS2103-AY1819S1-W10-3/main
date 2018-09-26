@@ -2,7 +2,9 @@ package seedu.address.model.event;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
 
@@ -90,7 +92,18 @@ public class Poll {
         if (!pollData.isEmpty()) {
             mostPopularEntries = "Most popular options: " + getHighest().toString();
         }
-        String data = pollData.toString();
+        String data = displayPollData();
         return title + "\n" + mostPopularEntries + "\n" + data;
+    }
+
+    public String displayPollData() {
+        HashMap<String, List<String>> displayData = new HashMap<>();
+        pollData.forEach((k, v) -> {
+                List<String> nameList = v.stream()
+                        .map(person -> person.getName().toString())
+                        .collect(Collectors.toList());
+                displayData.put(k, nameList);
+        });
+        return displayData.toString();
     }
 }

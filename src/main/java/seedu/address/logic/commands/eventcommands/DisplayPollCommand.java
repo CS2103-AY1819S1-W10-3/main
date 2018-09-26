@@ -21,11 +21,10 @@ public class DisplayPollCommand extends Command {
 
     public static final String COMMAND_WORD = "displayPoll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the poll with the provided index";
     public static final String MESSAGE_SUCCESS = "Poll %1$s displayed.";
 
     private final Index targetIndex;
-    private Event event;
 
     /**
      * Creates an DisplayPollCommand to add the specified {@code Event}
@@ -37,7 +36,7 @@ public class DisplayPollCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        event = history.getSelectedEvent();
+        Event event = history.getSelectedEvent();
         if (event == null) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }

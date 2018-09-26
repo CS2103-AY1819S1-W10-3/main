@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -131,5 +132,15 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns the list of names of people who joined the event in a string.
+     */
+    public String getNameList() {
+        List<String> names = internalList.stream()
+                .map(p -> p.getName().toString())
+                .collect(Collectors.toList());
+        return names.toString();
     }
 }

@@ -17,6 +17,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,6 +40,8 @@ public class XmlAdaptedEvent {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedPoll> polls = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedPerson> personList = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -51,7 +54,8 @@ public class XmlAdaptedEvent {
      */
 
     public XmlAdaptedEvent(String name, String address, String date, String time,
-                           List<XmlAdaptedTag> tagged, List<XmlAdaptedPoll> polls) {
+                           List<XmlAdaptedTag> tagged, List<XmlAdaptedPoll> polls,
+                           List<XmlAdaptedPerson> personList) {
         this.name = name;
         this.address = address;
         this.date = date;
@@ -61,6 +65,9 @@ public class XmlAdaptedEvent {
         }
         if (polls != null) {
             this.polls = polls;
+        }
+        if (personList != null) {
+            this.personList = personList;
         }
     }
 
@@ -79,6 +86,11 @@ public class XmlAdaptedEvent {
         time = source.getTimeString();
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
+                .collect(Collectors.toList());
+        personList = source.getPersonList()
+                .asUnmodifiableObservableList()
+                .stream()
+                .map(XmlAdaptedPerson::new)
                 .collect(Collectors.toList());
     }
 
@@ -127,6 +139,12 @@ public class XmlAdaptedEvent {
             modelPolls.add(poll.toModelType());
         }
         event.setPolls(modelPolls);
+
+        final ArrayList<Person> modelPersonList = new ArrayList<>();
+        for (XmlAdaptedPerson person : personList) {
+            modelPersonList.add(person.toModelType());
+        }
+        event.setPersonList(modelPersonList);
         return event;
     }
 
