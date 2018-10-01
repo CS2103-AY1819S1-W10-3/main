@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
@@ -25,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private Person currentUser;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,10 +40,26 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
+        currentUser = null;
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    public void setCurrentUser(Person currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public boolean hasSetCurrentUser() {
+        return (currentUser != null);
+    }
+
+    public Person getCurrentUser() throws NoUserLoggedInException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        return currentUser;
     }
 
     @Override

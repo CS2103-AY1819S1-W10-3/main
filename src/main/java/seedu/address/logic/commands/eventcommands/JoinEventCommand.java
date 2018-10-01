@@ -16,7 +16,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
@@ -53,8 +52,8 @@ public class JoinEventCommand extends Command {
         history.setSelectedEvent(event);
 
         try {
-            Person person = history.getSelectedPerson();
-            event.addPerson(person);
+            //Person person = history.getSelectedPerson();
+            event.addPerson(model.getCurrentUser());
         } catch (DuplicatePersonException e) {
             throw new CommandException(Messages.MESSAGE_ALREADY_JOINED);
         } catch (NoUserLoggedInException e) {

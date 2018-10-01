@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddUserCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -17,6 +18,13 @@ import seedu.address.model.tag.Tag;
  * A utility class for Person.
  */
 public class PersonUtil {
+
+    /**
+     * Returns an login command string for logging in the {@code person}.
+     */
+    public static String getLoginCommand(Person person) {
+        return LoginCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    }
 
     /**
      * Returns an add command string for adding the {@code person}.

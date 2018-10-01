@@ -58,8 +58,20 @@ Shows all the commands in the app and how to use them.
 
 === Login : `login`
 
-Allows the user to login to the system. This is one of the only two commands that are available before an user logs in (the other being `setupUser`).
-Format: `login` USERNAME
+Allows the user to login to the system. A user must first log in to enable certain commands to be executed.
+Users can also use a the command alias `l` to replace the `login' command.
+
+Format:
+
+`login n/USERNAME p/PHONE e/EMAIL`
+
+`l n/USERNAME p/PHONE e/EMAIL`
+
+Examples:
+
+`login n/John Doe p/98765432 e/johnd@example.com`
+
+`l n/John Doe p/98765432 e/johnd@example.com`
 
 === User Commands
 
@@ -510,6 +522,8 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
+* *Login*  `login n/NAME p/PHONE_NUMBER e/EMAIL`
+e.g. `login n/John Doe p/98765432 e/johnd@example.com`
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`

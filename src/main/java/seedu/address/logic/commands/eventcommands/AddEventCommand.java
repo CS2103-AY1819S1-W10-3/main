@@ -48,7 +48,7 @@ public class AddEventCommand extends Command {
             if (model.hasEvent(toAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_EVENT);
             }
-            Person user = history.getSelectedPerson();
+            Person user = model.getCurrentUser();
             toAdd.setOrganiser(user);
             model.addEvent(toAdd);
             model.commitAddressBook();

@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
@@ -93,11 +94,39 @@ public interface Model {
      */
     void commitAddressBook();
 
+    /**
+     * adds an event to the address book.
+     * @param toAdd the event to be added.
+     */
     void addEvent(Event toAdd);
 
+    /**
+     * deletes an event from the address book.
+     * @param target the event to be deleted
+     */
     void deleteEvent(Event target);
 
+    /**
+     * Gets the event in the address book.
+     * @param targetIndex Index of the event.
+     */
     Event getEvent(Index targetIndex);
 
+    /**
+     * Sets the current user of the address book.
+     * @param currentUser
+     */
+    void setCurrentUser(Person currentUser);
+
+    /**
+     * Gets the current user of the address book.
+     */
+    Person getCurrentUser() throws NoUserLoggedInException;
+
+    /**
+     * Gets the person in the address book
+     * @param targetIndex Index of the person.
+     */
     Person getPerson(Index targetIndex);
+
 }

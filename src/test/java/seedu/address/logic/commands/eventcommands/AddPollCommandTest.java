@@ -29,7 +29,7 @@ public class AddPollCommandTest {
     public void execute_acceptedAddPoll() {
         AddPollCommand command = new AddPollCommand(POLLNAME);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(user);
         Event event = eventBuilder.withPoll().build();
@@ -61,7 +61,7 @@ public class AddPollCommandTest {
     public void execute_notEventOrganiserAddPoll() {
         AddPollCommand command = new AddPollCommand(POLLNAME);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         Person anotherUser = new PersonBuilder(user).withName("Bob").build();
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(anotherUser);

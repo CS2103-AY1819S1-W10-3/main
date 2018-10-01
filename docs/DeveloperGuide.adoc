@@ -1194,7 +1194,7 @@ _{More to be added}_
 
 [appendix]
 == Glossary
-[[user]] User::
+[[user]] User / Person::
 Refers to a person who uses EventOrganiser.
 
 [[user-profile]] User Profile::
@@ -1209,8 +1209,6 @@ Refers to the user currently identified by the system.
 [[event-organiser]] Event Organiser::
 Refers to a user who has created an event.
 
-[[attendee]] Attendee::
-Refers to a user who has indicated in EventOrganiser that they will attend the event.
 
 ////
 

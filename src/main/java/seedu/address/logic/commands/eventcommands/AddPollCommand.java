@@ -44,7 +44,7 @@ public class AddPollCommand extends Command {
         }
 
         try {
-            Person person = history.getSelectedPerson();
+            Person person = model.getCurrentUser();
             if (!person.equals(event.getOrganiser())) {
                 throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
             }

@@ -31,7 +31,7 @@ public class JoinEventCommandTest {
     public void execute_acceptedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = TypicalPersons.BENSON;
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, event);
         expectedMessage += "\n" + "People attending: [Alice Pauline, Benson Meier]";
@@ -61,7 +61,7 @@ public class JoinEventCommandTest {
     public void execute_alreadyJoinedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         model.getEvent(TypicalIndexes.INDEX_FIRST).addPerson(user);
         String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
