@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>AddressBook Level 4 - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Event Organiser - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level4</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level4"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>AddressBook Level 4 - User Guide</h1></div><div id="content"><div id="preamble">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">EventOrganiser</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-W10-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Event Organiser - User Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By: <code>Team SE-EDU</code>      Since: <code>Jun 2016</code>      Licence: <code>MIT</code></p>
+<p>By: <code>Team W10-3</code>      Since: <code>Aug 2018</code>      Licence: <code>MIT</code></p>
 </div>
 </div>
 <div id="toc" class="toc">
@@ -14,19 +14,17 @@
 <li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
 <li><a href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></li>
-<li><a href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></li>
-<li><a href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></li>
-<li><a href="#editing-a-person-code-edit-code">3.4. Editing a person : <code>edit</code></a></li>
-<li><a href="#locating-persons-by-name-code-find-code">3.5. Locating persons by name: <code>find</code></a></li>
-<li><a href="#deleting-a-person-code-delete-code">3.6. Deleting a person : <code>delete</code></a></li>
-<li><a href="#selecting-a-person-code-select-code">3.7. Selecting a person : <code>select</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.13. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#login-code-login-code">3.2. Login : <code>login</code></a></li>
+<li><a href="#user-commands">3.3. User Commands</a></li>
+<li><a href="#setup-user-commands">3.4. Setup user commands</a></li>
+<li><a href="#create-and-confirm-event-commands">3.5. Create and confirm event commands</a></li>
+<li><a href="#join-event-commands">3.6. Join event commands</a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.7. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.8. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.9. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.10. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.11. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.12. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -38,7 +36,7 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook Level 4 (AB4) is for those who <strong>prefer to use a desktop app for managing contacts</strong>. More importantly, AB4 is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
+<p>EventOrganiser is an application for managing and organising events built for NUS students. More importantly, EventOrganiser is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
 </div>
 </div>
 </div>
@@ -51,7 +49,7 @@
 <p>Ensure you have Java version <code>9</code> or later installed in your Computer.</p>
 </li>
 <li>
-<p>Download the latest <code>addressbook.jar</code> <a href="https://github.com/se-edu/addressbook-level4/releases">here</a>.</p>
+<p>Download the latest <code>addressbook.jar</code> <a href="https://github.com/CS2103-AY1819S1-W10-3/main/releases">here</a>.</p>
 </li>
 <li>
 <p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
@@ -73,7 +71,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>list</code></strong> : lists all contacts</p>
+<p><strong><code>listUsers</code></strong> : lists all contacts</p>
 </li>
 <li>
 <p><strong><code>add</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : adds a contact named <code>John Doe</code> to the Address Book.</p>
@@ -86,9 +84,6 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
 </li>
 </ol>
 </div>
@@ -123,98 +118,48 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect2">
 <h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></h3>
 <div class="paragraph">
-<p>Format: <code>help</code></p>
+<p>Shows all the commands in the app and how to use them.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></h3>
+<h3 id="login-code-login-code"><a class="link" href="#login-code-login-code">3.2. Login : <code>login</code></a></h3>
 <div class="paragraph">
-<p>Adds a person to the address book<br>
-Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
+<p>Allows the user to login to the system. A user must first log in to enable certain commands to be executed.
+Users can also use a the command alias <code>l</code> to replace the `login' command.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-A person can have any number of tags (including 0)
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="paragraph">
+<p><code>login n/USERNAME p/PHONE e/EMAIL</code></p>
+</div>
+<div class="paragraph">
+<p><code>l n/USERNAME p/PHONE e/EMAIL</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
-</li>
-<li>
-<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><code>login n/John Doe p/98765432 e/johnd@example.com</code></p>
+</div>
+<div class="paragraph">
+<p><code>l n/John Doe p/98765432 e/johnd@example.com</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-persons-code-list-code"><a class="link" href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></h3>
+<h3 id="user-commands"><a class="link" href="#user-commands">3.3. User Commands</a></h3>
+<div class="sect3">
+<h4 id="listing-all-users-code-listusers-code"><a class="link" href="#listing-all-users-code-listusers-code">3.3.1. Listing all users : <code>listUsers</code></a></h4>
 <div class="paragraph">
-<p>Shows a list of all persons in the address book.<br>
-Format: <code>list</code></p>
+<p>Shows a list of all users in the event organiser.<br>
+Format: <code>listUsers</code></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.4. Editing a person : <code>edit</code></a></h3>
+<div class="sect3">
+<h4 id="locating-users-code-finduser-code"><a class="link" href="#locating-users-code-finduser-code">3.3.2. Locating users: <code>findUser</code></a></h4>
 <div class="paragraph">
-<p>Edits an existing person in the address book.<br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Edits the person at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed person list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>At least one of the optional fields must be provided.</p>
-</li>
-<li>
-<p>Existing values will be updated to the input values.</p>
-</li>
-<li>
-<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
-</li>
-<li>
-<p>You can remove all the person&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>edit 1 p/91234567 e/johndoe@example.com</code><br>
-Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
-</li>
-<li>
-<p><code>edit 2 n/Betsy Crower t/</code><br>
-Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.5. Locating persons by name: <code>find</code></a></h3>
-<div class="paragraph">
-<p>Finds persons whose names contain any of the given keywords.<br>
-Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+<p>Finds users whose names contain any of the given keywords.<br>
+Format: <code>findUser [KEYWORD] [KEYWORDS]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -233,7 +178,7 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 <p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
 </li>
 <li>
-<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+<p>users matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
 </li>
 </ul>
 </div>
@@ -245,34 +190,101 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>find John</code><br>
+<p><code>findUser John</code><br>
 Returns <code>john</code> and <code>John Doe</code></p>
 </li>
 <li>
-<p><code>find Betsy Tim John</code><br>
-Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
+<p><code>findUser Betsy Tim John</code><br>
+Returns any user having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.6. Deleting a person : <code>delete</code></a></h3>
+<div class="sect3">
+<h4 id="locating-users-by-available-time-range-code-finduseravailat-code"><a class="link" href="#locating-users-by-available-time-range-code-finduseravailat-code">3.3.3. Locating users by available time range: <code>findUserAvailAt</code></a></h4>
 <div class="paragraph">
-<p>Deletes the specified person from the address book.<br>
-Format: <code>delete INDEX</code></p>
+<p>Finds users who are available between a start and end time on a specific day.
+Format: <code>findUserAvailAt t1/HOUR:MINUTE t2/HOUR:MINUTE d/DAY/MONTH/YEAR</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findUserAvailAt t1/08:00 t2/10:00 d/23-08-2018</code><br>
+Finds users available from 8am to 10am on 23 August.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="locating-users-who-live-close-to-a-mrt-station-code-findusercloseto-code"><a class="link" href="#locating-users-who-live-close-to-a-mrt-station-code-findusercloseto-code">3.3.4. Locating users who live close to a MRT station: <code>findUserCloseTo</code></a></h4>
+<div class="paragraph">
+<p>Finds users who live close to a MRT station.<br>
+Format: <code>findUserCloseTo MRTNAME r/SEARCH_RADIUS</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Deletes the person at the specified <code>INDEX</code>.</p>
+<p>SEARCH_RADIUS is defined by the number of MRT stations from MRTNAME</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findUserCloseTo Clementi r/2</code>
+Finds all users who live within 2 stops from Clementi MRT Station.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="locating-users-who-know-a-user-code-findfriendsof-code"><a class="link" href="#locating-users-who-know-a-user-code-findfriendsof-code">3.3.5. Locating users who know a user: <code>findFriendsOf</code></a></h4>
+<div class="paragraph">
+<p>Finds users who are friends of a user.<br>
+Format: <code>findFriendsOf USERNAME</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findFriendsOf John Doe</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-a-user-code-deleteuser-code"><a class="link" href="#deleting-a-user-code-deleteuser-code">3.3.6. Deleting a user : <code>deleteUser</code></a></h4>
+<div class="paragraph">
+<p>Deletes the specified user from the event organiser.<br>
+Format: <code>deleteUser INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the user at the specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed person list.</p>
+<p>The index refers to the index number shown in the displayed user list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>A user can only deleted by the owner of the user profile</p>
 </li>
 </ul>
 </div>
@@ -285,21 +297,21 @@ Format: <code>delete INDEX</code></p>
 <ul>
 <li>
 <p><code>list</code><br>
-<code>delete 2</code><br>
-Deletes the 2nd person in the address book.</p>
+<code>deleteUser 2</code><br>
+Deletes the 2nd user in the event organiser.</p>
 </li>
 <li>
 <p><code>find Betsy</code><br>
-<code>delete 1</code><br>
-Deletes the 1st person in the results of the <code>find</code> command.</p>
+<code>deleteUser 1</code><br>
+Deletes the 1st user in the results of the <code>find</code> command.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.7. Selecting a person : <code>select</code></a></h3>
+<div class="sect3">
+<h4 id="selecting-a-user-code-select-code"><a class="link" href="#selecting-a-user-code-select-code">3.3.7. Selecting a user : <code>select</code></a></h4>
 <div class="paragraph">
-<p>Selects the person identified by the index number used in the displayed person list.<br>
+<p>Selects the user identified by the index number used in the displayed user list.<br>
 Format: <code>select INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -307,10 +319,10 @@ Format: <code>select INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Selects the person and loads the Google search page the person at the specified <code>INDEX</code>.</p>
+<p>Selects the user and loads the Google search page the user at the specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed person list.</p>
+<p>The index refers to the index number shown in the displayed user list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
@@ -327,18 +339,578 @@ Format: <code>select INDEX</code></p>
 <li>
 <p><code>list</code><br>
 <code>select 2</code><br>
-Selects the 2nd person in the address book.</p>
+Selects the 2nd user in the event organiser.</p>
 </li>
 <li>
 <p><code>find Betsy</code><br>
 <code>select 1</code><br>
-Selects the 1st person in the results of the <code>find</code> command.</p>
+Selects the 1st user in the results of the <code>find</code> command.</p>
 </li>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="clearing-all-user-entries-code-clear-code"><a class="link" href="#clearing-all-user-entries-code-clear-code">3.3.8. Clearing all user entries : <code>clear</code></a></h4>
+<div class="paragraph">
+<p>Clears all users from the event organiser.<br>
+Format: <code>clear</code></p>
+</div>
+</div>
+</div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></h3>
+<h3 id="setup-user-commands"><a class="link" href="#setup-user-commands">3.4. Setup user commands</a></h3>
+<div class="sect3">
+<h4 id="setup-a-user-code-setupuser-code"><a class="link" href="#setup-a-user-code-setupuser-code">3.4.1. Setup a user : <code>setupUser</code></a></h4>
+<div class="paragraph">
+<p>Set up a new user to the event organiser. This is one of the only two commands that are available before an user logs in (the other being <code>setupUser</code>)<br>
+Format: <code>setupUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [i/INTEREST]&#8230;&#8203;</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A user can have any number of tags (including 0)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setupUser n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
+</li>
+<li>
+<p><code>setupUser n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="editing-a-user-code-edit-code"><a class="link" href="#editing-a-user-code-edit-code">3.4.2. Editing a user : <code>edit</code></a></h4>
+<div class="paragraph">
+<p>Edits an existing user in the event organiser.<br>
+Format: <code>edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the user at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed user list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>At least one of the optional fields must be provided.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.</p>
+</li>
+<li>
+<p>You can remove all the user&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit 1 p/91234567 e/johndoe@example.com</code><br>
+Edits the phone number and email address of the 1st user to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
+</li>
+<li>
+<p><code>edit 2 n/Betsy Crower t/</code><br>
+Edits the name of the 2nd user to be <code>Betsy Crower</code> and clears all existing tags.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-an-interest-code-addinterest-code"><a class="link" href="#add-an-interest-code-addinterest-code">3.4.3. Add an interest : <code>addInterest</code></a></h4>
+<div class="paragraph">
+<p>Adds an interest to the pre-selected user.<br>
+Format: <code>addInterest INTEREST</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addInterest Tennis</code><br>
+Adds the interest "Tennis" to the pre-selected user.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-group-code-addgroup-code"><a class="link" href="#add-a-group-code-addgroup-code">3.4.4. Add a group : <code>addGroup</code></a></h4>
+<div class="paragraph">
+<p>Adds a group to the pre-selected user.<br>
+Format: <code>addGroup GROUP</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addGroup SOC</code><br>
+Adds the group "SOC" to the pre-selected user.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">3.4.5. Add a friend : <code>addFriend</code></a></h4>
+<div class="paragraph">
+<p>Adds another user as a friend of the pre-selected user.<br>
+Format: <code>addFriend USERNAME</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addFriend John Doe</code><br>
+Adds the user 'John Doe' as a friend of pre-selected user.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setup-useral-weekly-schedule-code-addschedule-code"><a class="link" href="#setup-useral-weekly-schedule-code-addschedule-code">3.4.6. Setup useral weekly schedule : <code>addSchedule</code></a></h4>
+<div class="paragraph">
+<p>Sets up a user&#8217;s weekly schedule using NUSMods timetable.
+Format: <code>addSchedule NUSMODS_LINK</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addSchedule <a href="http://modsn.us/ij207" class="bare">http://modsn.us/ij207</a></code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-activity-to-schedule-code-addtoschedule-code"><a class="link" href="#add-activity-to-schedule-code-addtoschedule-code">3.4.7. Add activity to schedule : <code>addToSchedule</code></a></h4>
+<div class="paragraph">
+<p>Adds a range of unavailable times to the weekly schedule.
+Format: <code>addToSchedule t1/HOUR:MINUTE t2/HOUR:MINUTE [w/DAY_OF_WEEK]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addToSchedule t1/08:00 t2/12:00 w/Tuesday</code><br>
+Adds activity from 8am to 12pm every Tuesday.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-and-confirm-event-commands"><a class="link" href="#create-and-confirm-event-commands">3.5. Create and confirm event commands</a></h3>
+<div class="sect3">
+<h4 id="create-a-new-event-code-addevent-code"><a class="link" href="#create-a-new-event-code-addevent-code">3.5.1. Create a new event : <code>addEvent</code></a></h4>
+<div class="paragraph">
+<p>Adds a new event to the event organiser.<br>
+Format: <code>addEvent n/NAME</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addEvent NUS Tennis Welcome Session</code></p>
+</li>
+<li>
+<p><code>addEvent CS1101S Meet-up</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-an-event-code-deleteevent-code"><a class="link" href="#delete-an-event-code-deleteevent-code">3.5.2. Delete an event : <code>deleteEvent</code></a></h4>
+<div class="paragraph">
+<p>Deletes the specified event from the event organiser.<br>
+Format: <code>deleteUser INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the event at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed user list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>Event can only be deleted by the event organiser</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>deleteEvent 2</code><br>
+Deletes the 2nd event in the event organiser.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-the-event-date-code-setdate-code"><a class="link" href="#set-the-event-date-code-setdate-code">3.5.3. Set the event date : <code>setDate</code></a></h4>
+<div class="paragraph">
+<p>Sets the event date.<br>
+Format: <code>setDate DAY-MONTH-YEAR</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Day, month and year are specified as numbers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setDate 08-09-2018</code></p>
+</li>
+<li>
+<p><code>setDate 11-12-2019</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-the-event-time-code-settime-code"><a class="link" href="#set-the-event-time-code-settime-code">3.5.4. Set the event time : <code>setTime</code></a></h4>
+<div class="paragraph">
+<p>Sets the event time.<br>
+Format: <code>setTime HOUR:MINUTE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Time is specified in 24 hour format</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setTime 23:00</code></p>
+</li>
+<li>
+<p><code>setTime 13:30</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-the-event-location-code-setplace-code"><a class="link" href="#set-the-event-location-code-setplace-code">3.5.5. Set the event location : <code>setPlace</code></a></h4>
+<div class="paragraph">
+<p>Sets the location of the event.<br>
+Format: <code>setPlace PLACENAME</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setPlace Central Library</code></p>
+</li>
+<li>
+<p><code>setPlace Clementi Mall</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setup-poll-for-date-code-poll-code"><a class="link" href="#setup-poll-for-date-code-poll-code">3.5.6. Setup poll for date : <code>poll</code></a></h4>
+<div class="paragraph">
+<p>Sets up a poll for the event date.<br>
+Format: <code>pollDate</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setup-poll-for-location-code-addoption-code"><a class="link" href="#setup-poll-for-location-code-addoption-code">3.5.7. Setup poll for location : <code>addOption</code></a></h4>
+<div class="paragraph">
+<p>Add new poll option in the specified poll.<br>
+Format: <code>addOption POLL_ID OPTION</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>`addOption 1 11:00 `</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-poll-deadline-code-setpolldeadline-code"><a class="link" href="#set-poll-deadline-code-setpolldeadline-code">3.5.8. Set poll deadline : <code>setPollDeadline</code></a></h4>
+<div class="paragraph">
+<p>Sets a deadline for the poll.<br>
+Format: <code>setPollDeadline DAY/MONTH/YEAR HOUR:MINUTE</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setPollDeadline 08/09/2018 23:59</code></p>
+</li>
+<li>
+<p><code>setPollDeadline 10/11/2019 13:00</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="get-poll-result-code-getpollresult-code"><a class="link" href="#get-poll-result-code-getpollresult-code">3.5.9. Get poll result : <code>getPollResult</code></a></h4>
+<div class="paragraph">
+<p>Gets the result of a specified poll.<br>
+Format: <code>getPollResult POLL_RESULT</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getPollResult 1</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="confirm-all-event-details-code-confirmevent-code"><a class="link" href="#confirm-all-event-details-code-confirmevent-code">3.5.10. Confirm all event details : <code>confirmEvent</code></a></h4>
+
+</div>
+<div class="sect3">
+<h4 id="get-recommendation-for-time-code-recdaytime-code"><a class="link" href="#get-recommendation-for-time-code-recdaytime-code">3.5.11. Get recommendation for time : <code>recDayTime</code></a></h4>
+<div class="paragraph">
+<p>Retrieves recommendations for the best time on a specific day of a week to hold the event.<br>
+Format: <code>recDayTime</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The event organiser will calculate and display the time slots where the most participants can attend, based on their NUSMods schedule and stated unavailable timeslots.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="get-recommendation-for-location-code-recplace-code"><a class="link" href="#get-recommendation-for-location-code-recplace-code">3.5.12. Get recommendation for location : <code>recPlace</code></a></h4>
+<div class="paragraph">
+<p>Retrieves recommendations for the best location to hold the event.<br>
+Format: <code>recPlace</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The event organiser will compute the best event location (most central MRT station) based on the proximity of the participants' addresses.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="join-event-commands"><a class="link" href="#join-event-commands">3.6. Join event commands</a></h3>
+<div class="sect3">
+<h4 id="find-event-by-the-name-of-the-event-code-findeventbyname-code"><a class="link" href="#find-event-by-the-name-of-the-event-code-findeventbyname-code">3.6.1. Find event by the name of the event : <code>findEventByName</code></a></h4>
+<div class="paragraph">
+<p>Finds events based on name.+
+Format: <code>findEvent n/NAME</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findEvent FaceBook Recruitment Talk</code><br>
+Finds all event with the name "FaceBook Recruitment Talk".</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="find-event-by-a-date-range-code-findeventbydate-code"><a class="link" href="#find-event-by-a-date-range-code-findeventbydate-code">3.6.2. Find event by a date range : <code>findEventByDate</code></a></h4>
+<div class="paragraph">
+<p>Finds events based start and end date.<br>
+Format: <code>findEvent d1/FROMDATE d2/TODATE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Dates are specified in DAY/MONTH/YEAR format.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findEvent d1/23/08/2018 d2/25/08/2018</code><br>
+Finds all events held between 23 August and 25 August in 2018.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="find-event-by-a-time-interval-code-findeventbytime-code"><a class="link" href="#find-event-by-a-time-interval-code-findeventbytime-code">3.6.3. Find event by a time interval: <code>findEventByTime</code></a></h4>
+<div class="paragraph">
+<p>Finds events based start and end time.<br>
+Format: <code>findEvent t1/FROMTIME t2/TOTIME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Times are specfied in 24 hour, HOUR:MINUTE format.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findEvent t1/12:00 t2/18:00</code><br>
+Finds all events held between 12pm and 6pm on any day.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="find-event-by-a-time-interval-code-findeventbymrtstation-code"><a class="link" href="#find-event-by-a-time-interval-code-findeventbymrtstation-code">3.6.4. Find event by a time interval: <code>findEventByMRTStation</code></a></h4>
+<div class="paragraph">
+<p>Finds events based MRT Station.<br>
+Format: <code>findEvent p/PLACE</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findEvent Clementi</code><br>
+Finds all events held near Clementi.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="join-event-code-joinevent-code"><a class="link" href="#join-event-code-joinevent-code">3.6.5. Join event : <code>joinEvent</code></a></h4>
+<div class="paragraph">
+<p>Joins event identified by unique event ID.<br>
+Format: <code>joinEvent ID</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>joinEvent 213</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vote-for-date-code-voteoption-code"><a class="link" href="#vote-for-date-code-voteoption-code">3.6.6. Vote for date : <code>voteOption</code></a></h4>
+<div class="paragraph">
+<p>Vote for a option specified in a specified poll, if there is one.
+Format: <code>voteDate POLL_ID OPTION_ID</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>voteDate 3 1</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-joined-events-code-listjoinedevents-code"><a class="link" href="#list-joined-events-code-listjoinedevents-code">3.6.7. List joined events : <code>listJoinedEvents</code></a></h4>
+<div class="paragraph">
+<p>Lists all the events joined by the current user.
+Format: <code>listJoinedEvents</code></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.7. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -359,9 +931,9 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.8. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
+<p>Restores the event organiser to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
 </div>
 <div class="admonitionblock note">
@@ -372,7 +944,7 @@ Format: <code>undo</code></p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+<p>Undoable commands: those commands that modify the event organiser&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
 </div>
 </td>
 </tr>
@@ -404,7 +976,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.9. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -436,28 +1008,21 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></h3>
-<div class="paragraph">
-<p>Clears all entries from the address book.<br>
-Format: <code>clear</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.10. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.13. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.11. Saving the data</a></h3>
 <div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+<p>Event organiser data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.12. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -478,6 +1043,10 @@ There is no need to save manually.</p>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
+<li>
+<p><strong>Login</strong>  <code>login n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS</code>
+e.g. <code>login n/John Doe p/98765432 e/johnd@example.com a/123, Clementi Rd, 1234665</code></p>
+</li>
 <li>
 <p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
 e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
@@ -519,4 +1088,4 @@ e.g.<code>select 2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-09-03 07:12:38 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-09 04:51:14 UTC</div></div></div></body></html>
