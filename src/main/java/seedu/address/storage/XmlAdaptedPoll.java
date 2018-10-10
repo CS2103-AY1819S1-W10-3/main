@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Poll;
 import seedu.address.model.person.Person;
@@ -65,12 +66,12 @@ public class XmlAdaptedPoll {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted data
      */
-    public Poll toModelType() throws IllegalValueException {
+    public Poll toModelType(ObservableList<Person> personList) throws IllegalValueException {
         //need to check for illegal arguments
         HashMap<String, LinkedList<Person>> pollData = new HashMap<>();
         for (XmlAdaptedPollEntry entry : options) {
             try {
-                pollData.put(entry.getOptionName(), entry.getPersonList());
+                pollData.put(entry.getOptionName(), entry.getPersonList(personList));
             } catch (IllegalValueException e) {
                 throw e;
             }

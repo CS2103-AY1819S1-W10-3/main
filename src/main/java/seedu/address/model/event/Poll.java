@@ -69,6 +69,18 @@ public class Poll {
     }
 
     /**
+     * Updates the person in the poll votes.
+     */
+    public void updatePerson(Person target, Person editedPerson) {
+        pollData.forEach((k, v) -> {
+            if (v.contains(target)) {
+                int index = v.indexOf(target);
+                v.set(index, editedPerson);
+            }
+        });
+    }
+
+    /**
      * Retrieves most popular options by number of votes.
      */
     public LinkedList<String> getHighest() {

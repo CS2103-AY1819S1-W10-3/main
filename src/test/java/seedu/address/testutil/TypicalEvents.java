@@ -24,6 +24,9 @@ public class TypicalEvents {
             .withAddress("Arts Canteen")
             .withTags("friends")
             .build();
+    public static final EventBuilder MEETING_BUILDER = new EventBuilder().withName("Meeting")
+            .withAddress("SOC Canteen")
+            .withTags("friends");
     public static final Event TUTORIAL_WITH_PERSON = new EventBuilder().withName("Tutorial")
             .withAddress("NUS UTown")
             .withTags("friends")

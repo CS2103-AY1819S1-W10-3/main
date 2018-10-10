@@ -4,17 +4,24 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
+import static seedu.address.testutil.TypicalEvents.MEETING_BUILDER;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
+import seedu.address.testutil.TypicalPersons;
 
 public class XmlAdaptedEventTest {
     private static final String INVALID_NAME = " ";
@@ -30,20 +37,23 @@ public class XmlAdaptedEventTest {
     private static final String VALID_DATE = MEETING.getDate().toString();
     private static final String VALID_START_TIME = MEETING.getStartTime().toString();
     private static final String VALID_END_TIME = MEETING.getEndTime().toString();
-    private static final XmlAdaptedPerson VALID_ORGANISER = new XmlAdaptedPerson(MEETING.getOrganiser());
-    private static final List<XmlAdaptedPerson> VALID_PERSON_LIST = MEETING.getPersonList()
-            .asUnmodifiableObservableList()
-            .stream()
-            .map(XmlAdaptedPerson::new)
-            .collect(Collectors.toList());
+    private static final String VALID_ORGANISER = "0";
+    private static final List<XmlPersonIndex> VALID_PERSON_LIST = new ArrayList<>(0);
     private static final List<XmlAdaptedPoll> VALID_POLL_LIST = MEETING.getPolls().stream()
             .map(XmlAdaptedPoll::new)
             .collect(Collectors.toList());
 
+    @Before
+    public void initialise() {
+        ObservableList<Person> personList = TypicalPersons.getTypicalAddressBook().getPersonList();
+        XmlAdaptedEvent.setPersonList(personList);
+    }
+
     @Test
     public void toModelType_validEventDetails_returnsEvent() throws Exception {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(MEETING);
-        assertEquals(MEETING, event.toModelType());
+        Event event = MEETING_BUILDER.withOrganiser(ALICE).build();
+        XmlAdaptedEvent xmlEvent = new XmlAdaptedEvent(event);
+        assertEquals(event, xmlEvent.toModelType());
     }
 
     @Test

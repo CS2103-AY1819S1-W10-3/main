@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.util.TimeTableUtil;
-import seedu.address.logic.commands.AddUserCommand;
+import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;

@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.personcommands.SelectCommand;
 
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.

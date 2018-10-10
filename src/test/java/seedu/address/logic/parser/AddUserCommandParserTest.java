@@ -34,7 +34,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddUserCommand;
+import seedu.address.logic.commands.personcommands.AddUserCommand;
 //import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;

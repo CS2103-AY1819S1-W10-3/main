@@ -42,6 +42,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        XmlAdaptedEvent.setPersonList(src.getPersonList());
         events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
     }
 
@@ -62,6 +63,7 @@ public class XmlSerializableAddressBook {
             addressBook.addPerson(person);
         }
 
+        XmlAdaptedEvent.setPersonList(addressBook.getPersonList());
         for (XmlAdaptedEvent p : events) {
             Event event = p.toModelType();
             if (addressBook.hasEvent(event)) {

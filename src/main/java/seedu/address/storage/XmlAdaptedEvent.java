@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
@@ -26,13 +27,14 @@ import seedu.address.model.tag.Tag;
 public class XmlAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
+    private static ObservableList<Person> personList;
 
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
     private String address;
     @XmlElement(required = true)
-    private XmlAdaptedPerson organiser;
+    private String organiser;
     @XmlElement(required = false)
     private String startTime = "";
     @XmlElement(required = false)
@@ -45,7 +47,7 @@ public class XmlAdaptedEvent {
     @XmlElement
     private List<XmlAdaptedPoll> polls = new ArrayList<>();
     @XmlElement
-    private List<XmlAdaptedPerson> personList = new ArrayList<>();
+    private List<XmlPersonIndex> participants = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -57,9 +59,9 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
 
-    public XmlAdaptedEvent(String name, String address, XmlAdaptedPerson organiser, String date,
+    public XmlAdaptedEvent(String name, String address, String organiser, String date,
                            String startTime, String endTime, List<XmlAdaptedTag> tagged,
-                           List<XmlAdaptedPoll> polls, List<XmlAdaptedPerson> personList) {
+                           List<XmlAdaptedPoll> polls, List<XmlPersonIndex> personList) {
         this.name = name;
         this.address = address;
         this.organiser = organiser;
@@ -79,7 +81,7 @@ public class XmlAdaptedEvent {
             this.polls = polls;
         }
         if (personList != null) {
-            this.personList = personList;
+            this.participants = personList;
         }
     }
 
@@ -91,7 +93,8 @@ public class XmlAdaptedEvent {
     public XmlAdaptedEvent(Event source) {
         name = source.getName().fullName;
         address = source.getLocation().value;
-        organiser = new XmlAdaptedPerson(source.getOrganiser());
+        organiser = String.valueOf(personList.indexOf(source.getOrganiser()));
+        //organiser = new XmlAdaptedPerson(source.getOrganiser());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -107,11 +110,22 @@ public class XmlAdaptedEvent {
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());
-        personList = source.getPersonList()
+        participants = source.getPersonList()
                 .asUnmodifiableObservableList()
                 .stream()
-                .map(XmlAdaptedPerson::new)
+                .map(person -> String.valueOf(personList.indexOf(person)))
+                .map(XmlPersonIndex::new)
+                //.map(XmlAdaptedPerson::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Provides reference to the person list of the event organiser.
+     */
+    public static void setPersonList(ObservableList<Person> organiserPersonList) {
+        personList = organiserPersonList;
+        XmlAdaptedPollEntry.setPersonList(personList);
+        XmlPersonIndex.setPersonList(personList);
     }
 
     /**
@@ -142,7 +156,7 @@ public class XmlAdaptedEvent {
         }
         final Address modelAddress = new Address(address);
 
-        final Person modelOrganiser = organiser.toModelType();
+        final Person modelOrganiser = personList.get(Integer.valueOf(organiser));
 
         Event event = new Event(modelName, modelAddress, modelTags);
         event.setOrganiser(modelOrganiser);
@@ -160,13 +174,16 @@ public class XmlAdaptedEvent {
 
         final ArrayList<Poll> modelPolls = new ArrayList<>();
         for (XmlAdaptedPoll poll : polls) {
-            modelPolls.add(poll.toModelType());
+            modelPolls.add(poll.toModelType(personList));
         }
         event.setPolls(modelPolls);
 
         final ArrayList<Person> modelPersonList = new ArrayList<>();
-        for (XmlAdaptedPerson person : personList) {
-            modelPersonList.add(person.toModelType());
+
+        //need to catch exceptions
+        for (XmlPersonIndex personIndex : participants) {
+            Person modelPerson = personIndex.toModelType();
+            modelPersonList.add(modelPerson);
         }
         event.setPersonList(modelPersonList);
         return event;
