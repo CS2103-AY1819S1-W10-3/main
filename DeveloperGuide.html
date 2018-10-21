@@ -31,9 +31,10 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#poll-feature">3.2. Poll feature</a></li>
-<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
+<li><a href="#schedule-feature">3.3. Schedule feature</a></li>
+<li><a href="#timetable-feature">3.4. TimeTable feature</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -958,20 +959,100 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
+<h3 id="schedule-feature"><a class="link" href="#schedule-feature">3.3. Schedule feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current implementation</a></h4>
 <div class="paragraph">
-<p><em>{Explain here how the data encryption feature will be implemented}</em></p>
+<p>This section explains the implementation of the features associated with the Schedule class of each Schedule while detailing some implementation details of the Schedule class. The relevant commands which are callable by the user to be discussed are:</p>
+</div>
+<div class="paragraph">
+<p>EditCommmand - The base Edit commmand for person with two additions - Schedule and Schedule Update parameter</p>
+</div>
+<div class="paragraph">
+<p>MaxScheduleCommand - Compare two persons' schedules and return the common free time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design considerations</a></h4>
+<div class="paragraph">
+<p>For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatability with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week&#8217;s schedule is stored.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-storage-of-schedule-in-person"><a class="link" href="#aspect-storage-of-schedule-in-person">Aspect: Storage of schedule in person</a></h5>
+<div class="paragraph">
+<p>To store the schedule, a unique approach of using bit counters is used. Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits. 1-bit signifies an occupied slot while a 0-bit signifies an empty slot. This 336 bit string is then stored as a string in the xml. However, in the application, it will stored as a two-dimensional array [7][48]. This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.</p>
+</div>
+<div class="paragraph">
+<p>Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-schedule-update"><a class="link" href="#aspect-schedule-update">Aspect: Schedule Update</a></h5>
+<div class="paragraph">
+<p>As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputed. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-maxschedule-command"><a class="link" href="#aspect-maxschedule-command">Aspect: MaxSchedule Command</a></h5>
+<div class="paragraph">
+<p>Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="timetable-feature"><a class="link" href="#timetable-feature">3.4. TimeTable feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current implementation</a></h4>
+<div class="paragraph">
+<p>This section explains the implementation of the features associated with the TimeTableUtil and Timetable class of each TimeTable while detailing some implementation details of the TimeTable and TimeTableUtil class. The relevant commands which are callable by the user to be discussed are:</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design considerations</a></h4>
+<div class="paragraph">
+<p>EditCommmand - The base Edit commmand for person with one addition - Timetable parameter</p>
+</div>
+<div class="paragraph">
+<p>TimeTable is data downloaded from nusmods.com, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand. This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.</p>
+</div>
+<div class="paragraph">
+<p>As nusmods.com is an external web server, internet access needs to be checked first. Following up, the nusmods.com gives the user a modsn.com shortlink which can translated back to a nusmods.com/&#8230;&#8203; full link, if he wants to share his timetable with himself or others. Finally, a valid nusmods.com timetable would include json data in its GET parameters. All of these must be fulfiled or else a Invalid Nusmods link will be returend to the application.</p>
+</div>
+<div class="paragraph">
+<p>A full valid example of the nusmods link is as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:11&amp;CS2103=LEC:1,TUT:01&amp;CS2105=LEC:1,TUT:16&amp;CS2106=LAB:09,LEC:1,TUT:09&amp;MA1521=LEC:1,TUT:4&amp;UCV2209=SEM:01</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>How to obtain the full timetable.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. We can easily obtain the person&#8217;s timetable by splitting the GET parameters by ';' delimiter. The resulting array would contain Module Code /=/ Lesson Type /:/ Number Slot.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. Then, to obtain the full details of the module (including all lessons and all slots), we can use the NUSMODS API detailed here <a href="https://github.com/nusmodifications/nusmods-api" class="bare">https://github.com/nusmodifications/nusmods-api</a>.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. We will then filter out the lessons obtained in step 1 from the full detail in step 2.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The filtered lessons is then converted into an arraylist of Slot before returning to the aplication.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1002,7 +1083,7 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2368,4 +2449,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-21 05:27:22 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-21 09:34:08 UTC</div></div></div></body></html>
