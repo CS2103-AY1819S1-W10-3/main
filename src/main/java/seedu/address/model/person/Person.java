@@ -79,14 +79,14 @@ public class Person {
      * Make a duplicate of a person
      */
     public Person(Person other) {
-        this.name = other.getName();
-        this.phone = other.getPhone();
-        this.email = other.getEmail();
-        this.address = other.getAddress();
-        this.interests = other.getInterests();
-        this.tags = other.getTags();
-        this.schedule = other.getSchedule();
-        this.friends = other.getFriends();
+        this.name = other.name;
+        this.phone = other.phone;
+        this.email = other.email;
+        this.address = other.address;
+        this.interests = other.interests;
+        this.schedule = other.schedule;
+        this.tags = other.tags;
+        this.friends = new HashSet<>(other.friends);
     }
 
     public Name getName() {

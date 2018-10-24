@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -27,7 +28,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the event organiser data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -109,6 +110,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void deletePerson(Person target) {
         if (target.equals(currentUser)) {
             currentUser = null;
+        }
+        ArrayList<Event> deletedEvents = new ArrayList<>();
+        for (Event event : versionedAddressBook.getEventList()) {
+            if (event.getOrganiser().equals(target)) {
+                deletedEvents.add(event);
+            }
+            event.deletePerson(target);
+        }
+        for (Event event : deletedEvents) {
+            versionedAddressBook.removeEvent(event);
         }
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();

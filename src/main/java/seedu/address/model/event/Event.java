@@ -283,6 +283,18 @@ public class Event {
     }
 
     /**
+     * Deletes a person from the event participant list and polls.
+     */
+    public void deletePerson(Person target) {
+        if (personList.contains(target)) {
+            personList.remove(target);
+        }
+        for (AbstractPoll poll : polls) {
+            poll.deletePerson(target);
+        }
+    }
+
+    /**
      * Returns true if the target person is the event organiser is or is an event participant.
      */
     public boolean containsPerson(Name personName) {

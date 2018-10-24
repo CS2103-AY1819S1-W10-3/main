@@ -339,19 +339,20 @@ image::UndoRedoActivityDiagram.png[width="650"]
 This section explains the implementation of the features associated with the Poll class of each Event while detailing some implementation details of the Event class.
 The relevant commands which are callable by the user to be discussed are:
 
-* `AddPollCommand` - adds a new poll to the event given the name of the poll to be created.
+* `AddPollCommand` - adds a new Poll to the event given the name of the poll to be created.
 * `AddPollOptionCommand` - adds a new poll option to the poll given the poll index and the name of the option to be added.
 * `VoteCommand` - adds the current user as a voter to the given option.
-* `AddDayTimePollCommand` - creates a new poll automatically populated with options based on the schedules of the event participants.
+* `AddTimePollCommand` - creates a new TimePoll automatically populated with options based on the schedules of the event participants.
 
 For all the above commands, the event must first be selected using the `selectEvent` command, which will set the `currentEvent` through the `Model#setSelectedEvent()` method.
 This is done to ensure that users do not have to continually specify the event for which the Poll commands are called for every command.
 This is on top of the `currentUser` in the Model which was already selected through the `LoginCommand`.
 
-Each Poll object contains a `HashMap<String, UniquePersonList>` attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.
+There are two types of Polls which extends from the abstract class AbstractPoll: Poll and TimePoll. Each AbstractPoll object contains a `HashMap<String, UniquePersonList>` attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.
 When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
 each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
-Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects, which serve as pointers to the actual Person objects stored in the event organiser.
+Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects,
+which serve as pointers to the actual Person objects stored in the event organiser.
 
 As an example, the following sequence diagram illustrates the workings of the `VoteCommand`.
 
@@ -362,6 +363,7 @@ the Model can call the correct Event e and Person object in the `addVoteToPoll` 
 a `NoUserLoggedInException` is thrown, and if there is no selected event, a `NoEventSelectedException` is thrown.
 
 In addition, four other possible exceptions might be thrown by the VoteCommand:
+
 * A user must have already joined the event as a participant, or be on the invite list in order to vote, failing which, a UserNotJoinedEventException is thrown.
 * A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someeone tries to vote twice.
 * A poll must exist at the given poll index for the selected event, else, an IndexOutOfBoundsException is thrown.
@@ -377,21 +379,24 @@ so that the contents of the poll can be retrieved as a String through the `Poll#
 The displayed details of the poll contains the most popular options, computed using the `Poll#getPopularOptions()` method.
 A new `DisplayPollEvent` is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.
 
-//to be implemented in v1.3 or v1.4
-The `DayTimePoll` class extends from the abstract `Poll` class which is constructed by calling the `AddDayTimePollCommand`.
-This command automatically generates a list of times based on the schedules of the persons on the event invite list.
+The `TimePoll` class extends from the abstract `AbstractPoll` class which is constructed by calling the `AddTimePollCommand`.
+This command automatically generates a list of times based on the schedules of the persons on the event invite list,
+and a specified date range in the user input. The two dates must not be more than a month apart.
+The TimePoll shares most of its functionality with Poll, except that users may not add new options.
+At this point, the TimePoll does not automatically update when event participants leave or join the event.
+Hence, the event organiser must wait for all participants to be confirmed before adding a TimePoll.
 
 ==== Design considerations
 
-===== Aspect: The relationship between `GenericPoll` and `DayTimePoll`
+===== Aspect: The relationship between `Poll` and `TimePoll`
 
-* **Alternative 1:**: Design them as separate classes which both inherit from an abstract `Poll` class.
+* **Alternative 1:**: Design them as separate classes which both inherit from an abstract `AbstractPoll` class.
 ** Pros: Allows for future extendability from the abstract Poll class eg additional types of Polls (location, date) which constrain the option types
  and include additional features to recommend the best option eg most convenient location by distance for participants.
 
-* **Alternative 2:**: Allow `DayTimePoll` to extend from the `GenericPoll` class.
-** Pros: The two classes differ only in that `DayTimePoll` has the augmented feature of generating options from the schedule of event participants.
-** Cons: Unable to constrain the input and prevent users from adding the wrong format for options into `DayTimePoll`, since this would violate the Liskov Substitution Principle.
+* **Alternative 2:**: Allow `TimePoll` to extend from the `Poll` class.
+** Pros: The two classes differ only in that `TimePoll` has the augmented feature of generating options from the schedule of event participants.
+** Cons: Unable to constrain the input and prevent users from adding the wrong format for options into `TimePoll`, since this would violate the Liskov Substitution Principle.
 
 ===== Aspect: Storage of voters in Poll
 

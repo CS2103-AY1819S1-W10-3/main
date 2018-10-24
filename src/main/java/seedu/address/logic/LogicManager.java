@@ -37,8 +37,10 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            raise(new PersonPanelSelectionChangedEvent(null));
-            raise(new DisplayPollEvent(null));
+            if (!commandText.split(" ")[0].toLowerCase().contains("select")) {
+                raise(new PersonPanelSelectionChangedEvent(null));
+                raise(new DisplayPollEvent(null));
+            }
             return command.execute(model, history);
         } finally {
             history.add(commandText);

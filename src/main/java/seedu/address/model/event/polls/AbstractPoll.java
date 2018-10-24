@@ -127,6 +127,17 @@ public class AbstractPoll {
     }
 
     /**
+     * Deletes a person from the voter lists in the poll data.
+     */
+    public void deletePerson(Person target) {
+        for (Map.Entry<String, UniquePersonList> entry : pollData.entrySet()) {
+            if (entry.getValue().contains(target)) {
+                entry.getValue().remove(target);
+            }
+        }
+    }
+
+    /**
      * Returns true if both polls have the same identity and data fields.
      */
     @Override

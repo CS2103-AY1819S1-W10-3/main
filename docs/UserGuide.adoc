@@ -38,8 +38,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
-
-
 [[Features]]
 == Features
 
@@ -110,7 +108,6 @@ Examples:
 Finds users available from 8am to 10am on 23 August.
 
 ==== Locating users who live close to a MRT station: `findUserCloseTo`
-//
 Finds users who live close to a MRT station. +
 Format: `findUserCloseTo MRTNAME r/SEARCH_RADIUS`
 
@@ -259,7 +256,6 @@ Examples:
 * `addToSchedule t1/08:00 t2/12:00 w/Tuesday` +
 Adds activity from 8am to 12pm every Tuesday.
 
-
 === Create and confirm event commands
 
 ==== Create a new event : `addEvent`
@@ -288,12 +284,21 @@ Examples:
 `deleteEvent 2` +
 Deletes the 2nd event in the event organiser.
 
+=== Select an event : ` selectEvent`
+Selects an event to be edited. +
+Format: `selectEvent index`
+
+****
+* An event must be selected before setDate, setTime, addPoll, addPollOption, and vote commands can be used.
+****
+
 ==== Set the event date : `setDate`
 Sets the event date. +
 Format: `setDate d/DAY-MONTH-YEAR`
 
 ****
 * Day, month and year are specified as numbers.
+* An event must first be selected.
 ****
 
 Examples:
@@ -306,7 +311,9 @@ Sets the event time. +
 Format: `setTime t1/HOUR:MINUTE t2/HOUR:MINUTE`
 
 ****
-* Time is specified in 24 hour format
+* Time is specified in 24 hour format, separated by a colon.
+* The time with prefix `t1` represents the start time and prefix `t2` represents the end time.
+* An event must first be selected.
 ****
 
 Examples:
@@ -314,44 +321,51 @@ Examples:
 * `setTime t1/23:00 t2/23:30`
 * `setTime t1/13:30 t2/14:00`
 
-==== Set the event location : `setPlace`
-Sets the location of the event. +
-Format: `setPlace PLACENAME`
+==== Create a new poll for an event : `addPoll n/NAME`
+Sets up a new poll for the event with the specified name. +
+Format: `addPoll n/Poll name`
+
+==== Create a new time-based poll for an event : `addTimePoll`
+Sets up a new time-based poll for the event with the specified name after all users have joined. +
+Format: `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR``
+
+****
+* This is a special type of poll which generates poll options based on the given date range and the schedules of the participants who have joined the event.s
+* The date with prefix `d1` represents the start of the given date range and `d2` represents the end of the date range.
+* The start date must not be after the end date, and the given dates must not be more than 30 days apart.
+* The time poll does not automatically update if a new user joins the event, and should be created only after all users have joined.
+****
 
 Examples:
 
-* `setPlace Central Library`
-* `setPlace Clementi Mall`
-
-==== Create a new poll for an event : `addPoll n/NAME`
-Sets up a new poll for the event with the specified name. +
-Format: `addPoll n/Location`
+* `addTimePoll d1/08-09-2018 d2/10-09-2018`
 
 ==== Setup poll for location : `addOption`
 Add new poll option in the specified poll. +
 Format: `addOption i/POLL_ID o/OPTION`
 
+****
+* The poll index specifies the index of the poll in the selected event.
+* An event must first be selected.
+* Not possible for Time Polls.
+****
+
 Examples:
 * `addOption i/1 o/SoC canteen`
-
-==== Set poll deadline : `setPollDeadline`
-Sets a deadline for the poll. +
-Format: `setPollDeadline DAY/MONTH/YEAR HOUR:MINUTE`
-
-Examples:
-
-* `setPollDeadline 08/09/2018 23:59`
-* `setPollDeadline 10/11/2019 13:00`
 
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
 Format: `displayPoll i/POLL_INDEX`
 
+****
+* The index is the index of the poll in the pre-selected event.
+* This command displays the most popular options as well as the names of the users who voted for each option.
+****
+
 Examples:
 
 * `displayPoll i/1`
 
-==== Confirm all event details : `confirmEvent`
 ==== Get recommendation for time : `recDayTime`
 Retrieves recommendations for the best time on a specific day of a week to hold the event. +
 Format: `recDayTime`
@@ -374,7 +388,6 @@ Format: `recPlace`
 ==== Find event by the name of the event : `findEvent`
 Finds events based on the attributes of the event: event name, event location, date, start time, event organiser, and event participants.+
 Format: `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
-
 
 Examples:
 
@@ -407,16 +420,6 @@ Examples:
 * `findEvent d/12-12-2018 t1/12:00 t2/18:00` +
 Finds all events held between 12pm and 6pm on 12 December 2018.
 
-==== Find event by a time interval: `findEventByMRTStation`
-Finds events based MRT Station. +
-Format: `findEvent p/PLACE`
-
-Examples:
-
-* `findEvent Clementi` +
-Finds all events held near Clementi.
-// Find event by interest?
-
 ==== Join event : `joinEvent`
 Joins event identified by unique event ID. +
 Format: `joinEvent ID`
@@ -428,6 +431,12 @@ Examples:
 ==== Vote for date : `voteOption`
 Vote for a option specified in a specified poll, if there is one.
 Format: `voteDate i/POLL_ID o/OPTION_ID`
+
+****
+* The index is the index of the poll in the pre-selected event.
+* The option specified must be in the poll.
+* User must have joined the event in order to vote.
+****
 
 Examples:
 
