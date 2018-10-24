@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonToEventPopulateEvent;
 import seedu.address.model.person.Person;
+
+import javax.swing.plaf.nimbus.State;
 
 /**
  * The Browser Panel of the App.
@@ -124,10 +127,18 @@ public class BrowserPanel extends UiPart<Region> {
             event.getEndTime() == null ? "No End time" : event.getEndTime().toString(),
             event.getDate() == null ? "No date time" : event.getDate().toString()
         };
-        String html = MessageFormat.format(sb.toString(), params);
+        //String html = MessageFormat.format(sb.toString(), params);
 
         Platform.runLater(() -> {
-                browser.getEngine().loadContent(html);
+                browser.getEngine().loadContent(sb.toString());
+                browser.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue.toString()=="SUCCEEDED"){
+                        browser.getEngine().executeScript("document.displayAttendees(\""+
+                                event.getPersonList().getNameList()+"\")");
+                        browser.getEngine().executeScript("document.goToLocation(\""+
+                                event.getOrganiser().getAddress() +"\")");
+                    }
+                });
             }
         );
 

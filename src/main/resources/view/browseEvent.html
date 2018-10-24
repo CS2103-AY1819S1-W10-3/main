@@ -15,8 +15,47 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=false&key=AIzaSyCPNYEzaQUpNmDVVKraWo2sxvxMrvC6Gbk&callback=initializeMap">
+    </script>
+    <script type="text/javascript">
+        document.displayAttendees = function displayAttendees(eventAttendees) {
+            var attendees = document.getElementById("event_attendees");
+            attendees.innerHTML = eventAttendees
+        }
+        function initializeMap() {
+            var latlng = new google.maps.LatLng(1.300388, 103.770727);
+            var myOptions = {
+                zoom: 14,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                navigationControl: false,
+                streetViewControl: false,
+                backgroundColor: "#666970"
+            };
+
+            document.geocoder = new google.maps.Geocoder();
+            document.map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+
+
+            document.goToLocation = function goToLocation(searchString) {
+                document.geocoder.geocode( {'address': searchString}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        document.map.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                            map: document.map,
+                            position: results[0].geometry.location,
+                            label: 'Organizer'
+                        });
+                    } else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                });
+            }
+        }
+    </script>
 </head>
-<body style="background-color:#383838;color:white;">
+<body style="background-color:#383838;color:white;" onload="initializeMap()">
 <div class="container">
     <div class="col-sm">
         <h3>Event Profile</h3>
@@ -26,6 +65,8 @@
         <p>{3}</p>
         <p>{4}</p>
     </div>
+    <div id="map_canvas" style="height: 400px;"></div>
+    <div id="event_attendees" style="height: 400px;"></div>
 </div>
 </body>
 </html>
