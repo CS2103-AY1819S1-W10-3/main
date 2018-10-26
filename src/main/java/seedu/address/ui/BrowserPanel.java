@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -22,8 +21,6 @@ import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonToEventPopulateEvent;
 import seedu.address.model.person.Person;
 
-import javax.swing.plaf.nimbus.State;
-
 /**
  * The Browser Panel of the App.
  */
@@ -33,7 +30,7 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String PERSON_PAGE = "browsePerson.html";
     public static final String EVENT_PAGE = "browseEvent.html";
     public static final String SEARCH_PAGE_URL =
-        "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -74,18 +71,18 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         // replace the template with person stuff
-        Object[] params = new Object[] {
-            person.getName(),
-            person.getPhone(),
-            person.getEmail(),
-            person.getTags().stream().map(u -> u.tagName).collect(Collectors.joining(", ")),
-            person.getAddress(),
-            person.getInterests().stream().map(u -> u.interestName).collect(Collectors.joining(", ")),
-            person.getFriends().stream()
-                .map(u -> u.toString()).collect(Collectors.joining(" ", "<p>", "</p>")),
-            events.filtered((i) -> i.getPersonList().contains(person))
-                .stream().map(u -> u.getName().fullName).collect(Collectors.joining(", ")),
-            person.getSchedule().prettyPrint(),
+        Object[] params = new Object[]{
+                person.getName(),
+                person.getPhone(),
+                person.getEmail(),
+                person.getTags().stream().map(u -> u.tagName).collect(Collectors.joining(", ")),
+                person.getAddress(),
+                person.getInterests().stream().map(u -> u.interestName).collect(Collectors.joining(", ")),
+                person.getFriends().stream()
+                        .map(u -> u.toString()).collect(Collectors.joining(" ", "<p>", "</p>")),
+                events.filtered((i) -> i.getPersonList().contains(person))
+                        .stream().map(u -> u.getName().fullName).collect(Collectors.joining(", ")),
+                person.getSchedule().prettyPrint(),
         };
         String html = MessageFormat.format(sb.toString(), params);
 
@@ -120,25 +117,26 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         // replace the template with person stuff
-        Object[] params = new Object[] {
-            event.getName(),
-            event.getOrganiser().getName(),
-            event.getStartTime() == null ? "No Start time" : event.getStartTime().toString(),
-            event.getEndTime() == null ? "No End time" : event.getEndTime().toString(),
-            event.getDate() == null ? "No date time" : event.getDate().toString()
+        Object[] params = new Object[]{
+                event.getName(),
+                event.getOrganiser().getName(),
+                event.getStartTime() == null ? "No Start time" : event.getStartTime().toString(),
+                event.getEndTime() == null ? "No End time" : event.getEndTime().toString(),
+                event.getDate() == null ? "No date time" : event.getDate().toString()
         };
         //String html = MessageFormat.format(sb.toString(), params);
 
         Platform.runLater(() -> {
                 browser.getEngine().loadContent(sb.toString());
-                browser.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
-                    if(newValue.toString()=="SUCCEEDED"){
-                        browser.getEngine().executeScript("document.displayAttendees(\""+
-                                event.getPersonList().getNameList()+"\")");
-                        browser.getEngine().executeScript("document.goToLocation(\""+
-                                event.getOrganiser().getAddress() +"\")");
-                    }
-                });
+                browser.getEngine().getLoadWorker().stateProperty()
+                    .addListener((observable, oldValue, newValue) -> {
+                        if (newValue.toString() == "SUCCEEDED") {
+                            browser.getEngine().executeScript("document.displayAttendees(\""
+                                    + event.getPersonList().getNameList() + "\")");
+                            browser.getEngine().executeScript("document.goToLocation(\""
+                                    + event.getOrganiser().getAddress() + "\")");
+                        }
+                    });
             }
         );
 
