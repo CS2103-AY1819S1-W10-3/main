@@ -34,8 +34,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`listUsers`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`deleteUser`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 [[Features]]
@@ -98,6 +98,8 @@ Returns `john` and `John Doe`
 * `findUser Betsy Tim John` +
 Returns any user having names `Betsy`, `Tim`, or `John`
 
+
+////
 ==== Locating users by available time range: `findUserAvailAt`
 Finds users who are available between a start and end time on a specific day.
 Format: `findUserAvailAt t1/HOUR:MINUTE t2/HOUR:MINUTE d/DAY/MONTH/YEAR`
@@ -127,6 +129,8 @@ Format: `findFriendsOf USERNAME`
 Examples:
 
 * `findFriendsOf John Doe`
+////
+
 
 ==== Deleting a user : `deleteUser`
 
@@ -142,17 +146,17 @@ Format: `deleteUser INDEX`
 
 Examples:
 
-* `list` +
+* `listUser` +
 `deleteUser 2` +
 Deletes the 2nd user in the event organiser.
-* `find Betsy` +
+* `findUser Betsy` +
 `deleteUser 1` +
 Deletes the 1st user in the results of the `find` command.
 
-==== Selecting a user : `select`
+==== Selecting a user : `selectUser`
 
 Selects the user identified by the index number used in the displayed user list. +
-Format: `select INDEX`
+Format: `selectUser INDEX`
 
 ****
 * Selects the user and loads the Google search page the user at the specified `INDEX`.
@@ -162,11 +166,11 @@ Format: `select INDEX`
 
 Examples:
 
-* `list` +
-`select 2` +
+* `listUsers` +
+`selectUser 2` +
 Selects the 2nd user in the event organiser.
-* `find Betsy` +
-`select 1` +
+* `findUser Betsy` +
+`selectUser 1` +
 Selects the 1st user in the results of the `find` command.
 
 ==== Clearing all user entries : `clear`
@@ -192,7 +196,7 @@ Examples:
 ==== Editing a user : `edit`
 
 Edits an existing user in the event organiser. +
-Format: `edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST...`
+Format: `edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE...`
 
 ****
 * Edits the user at the specified `INDEX`. The index refers to the index number shown in the displayed user list. The index *must be a positive integer* 1, 2, 3, ...
@@ -200,13 +204,14 @@ Format: `edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST...`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.
 * You can remove all the user's tags by typing `t/` without specifying any tags after it.
+* Note schedule related parameters are applied in this order: TIMETABLE, SCHEDULE, SCHEDULE_UPDATE
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
+* `editUser 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st user to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `editUser 2 n/Betsy Crower t/` +
 Edits the name of the 2nd user to be `Betsy Crower` and clears all existing tags.
 
 ==== Add an interest : `addInterest`
@@ -239,22 +244,16 @@ Example:
 * `addFriend John Doe` +
 Adds the user 'John Doe' as a friend of pre-selected user.
 
-==== Setup useral weekly schedule : `addSchedule`
-Sets up a user's weekly schedule using NUSMods timetable.
-Format: `addSchedule NUSMODS_LINK`
+
+==== Get free time between users : `maxSchedule`
+
+Compares the schedule of multiple users and return a string of common free time. +
+Format: `maxSchedule INDEX INDEX...`
 
 Example:
 
-* `addSchedule http://modsn.us/ij207`
-
-==== Add activity to schedule : `addToSchedule`
-Adds a range of unavailable times to the weekly schedule.
-Format: `addToSchedule t1/HOUR:MINUTE t2/HOUR:MINUTE [w/DAY_OF_WEEK]`
-
-Examples:
-
-* `addToSchedule t1/08:00 t2/12:00 w/Tuesday` +
-Adds activity from 8am to 12pm every Tuesday.
+* `maxSchedule 1 2` +
+Compares the schedule of users of index 1 and 2 and return a string of common free time.
 
 === Create and confirm event commands
 
@@ -457,53 +456,53 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the event organiser to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the event organiser's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
+//=== Undoing previous command : `undo`
+//
+//Restores the event organiser to the state before the previous _undoable_ command was executed. +
+//Format: `undo`
+//
+//[NOTE]
+//====
+//Undoable commands: those commands that modify the event organiser's content (`add`, `delete`, `edit` and `clear`).
+//====
+//
+//Examples:
+//
+//* `delete 1` +
+//`list` +
+//`undo` (reverses the `delete 1` command) +
+//
+//* `select 1` +
+//`list` +
+//`undo` +
+//The `undo` command fails as there are no undoable commands executed previously.
+//
+//* `delete 1` +
+//`clear` +
+//`undo` (reverses the `clear` command) +
+//`undo` (reverses the `delete 1` command) +
+//
+//=== Redoing the previously undone command : `redo`
+//
+//Reverses the most recent `undo` command. +
+//Format: `redo`
+//
+//Examples:
+//
+//* `delete 1` +
+//`undo` (reverses the `delete 1` command) +
+//`redo` (reapplies the `delete 1` command) +
+//
+//* `delete 1` +
+//`redo` +
+//The `redo` command fails as there are no `undo` commands executed previously.
+//
+//* `delete 1` +
+//`clear` +
+//`undo` (reverses the `clear` command) +
+//`undo` (reverses the `delete 1` command) +
+//`redo` (reapplies the `delete 1` command) +
+//`redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
 === Exiting the program : `exit`
@@ -516,12 +515,6 @@ Format: `exit`
 Event organiser data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -531,20 +524,20 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Login*  `login n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 e.g. `login n/John Doe p/98765432 e/johnd@example.com a/123, Clementi Rd, 1234665`
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/ SCHEDULE] [su/ SCHEDULE_UPDATE] [tt/ TIMETABLE] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com` +
-e.g. `edit 1 tt/ http://modsn.us/H4v8s` +
-e.g. `edit 1 su/ monday 0000`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Delete User* : `deleteUser INDEX` +
+e.g. `deleteUser 3`
+* *Edit User* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/ SCHEDULE] [su/ SCHEDULE_UPDATE] [tt/ TIMETABLE] [t/TAG]...` +
+e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
+e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
+e.g. `editUser 1 su/ monday 0000`
+* *Find User* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
+* *List User* : `listUsers`
 * *Help* : `help`
-* *Select* : `select INDEX` +
+* *Select User* : `selectUser INDEX` +
 e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`

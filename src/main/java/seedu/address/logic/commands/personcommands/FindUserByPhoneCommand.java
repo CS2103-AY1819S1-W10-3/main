@@ -12,7 +12,7 @@ import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 /**
  * Finds and lists all persons in address book whose phone number matches the given number.
  */
-public class FindByPhoneCommand extends Command {
+public class FindUserByPhoneCommand extends Command {
 
     public static final String COMMAND_WORD = "findbyphone";
     public static final String COMMAND_WORD_ALIAS = "fbp";
@@ -24,7 +24,7 @@ public class FindByPhoneCommand extends Command {
 
     private final PhoneContainsKeywordsPredicate predicate;
 
-    public FindByPhoneCommand(PhoneContainsKeywordsPredicate predicate) {
+    public FindUserByPhoneCommand(PhoneContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -39,7 +39,7 @@ public class FindByPhoneCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindByPhoneCommand // instanceof handles nulls
-                && predicate.equals(((FindByPhoneCommand) other).predicate)); // state check
+                || (other instanceof FindUserByPhoneCommand // instanceof handles nulls
+                && predicate.equals(((FindUserByPhoneCommand) other).predicate)); // state check
     }
 }

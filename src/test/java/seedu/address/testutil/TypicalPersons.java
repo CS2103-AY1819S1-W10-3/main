@@ -117,8 +117,23 @@ public class TypicalPersons {
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-    public static final String BENSON_AND_KENSON_PHONE = "98765432"; // BENSON and KENSON's phone number
-    public static final String CARL_PHONE = "95352563"; // CARL's phone number
+    public static final String DESC_MATCHING_MEIER = " n/Meier";
+    public static final String DESC_ALICE_NAME = " n/Alice";
+    public static final String DESC_BENSON_NAME = " n/Benson";
+    public static final String DESC_BENSON_PHONE = " p/98765432";
+    public static final String DESC_ALICE_AND_BENSON_ADDRESS = " a/Jurong Clementi";
+    public static final String DESC_GEORGE_AND_FIONA_EMAIL = " e/anna@example.com lydia@example.com";
+    public static final String DESC_GEORGE_AND_FIONA_EMAIL_REVERSED = " e/lydia@example.com anna@example.com";
+    public static final String DESC_GEORGE_AND_FIONA_EMAIL_REPEATED =
+            " e/lydia@example.com lydia@example.com anna@example.com";
+    public static final String DESC_GEORGE_AND_FIONA_EMAIL_NONMATCHING = " e/lydia@example.com anna@example.com x";
+    public static final String DESC_GEORGE_AND_FIONA_EMAIL_DIFFERENT_CASES = " e/LYdia@ExampLE.com anNA@example.COM";
+    public static final String DESC_GEORGE_AND_FIONA_EMAIL_SUBSTRING = " e/lydi anna";
+    public static final String DESC_GEORGE_AND_FIONA_EMAIL_SUPERSTRING = " e/lydia@example.com.sg anna@example.com.sg";
+    public static final String DESC_ALICE_AND_BENSON_AND_KENSON_INTEREST = " i/study";
+    public static final String DESC_BENSON_TAG = " t/owesMoney";
+    public static final String BENSON_AND_KENSON_PHONE = "98765432";
+    public static final String CARL_PHONE = "95352563";
 
     private TypicalPersons() {} // prevents instantiation
 

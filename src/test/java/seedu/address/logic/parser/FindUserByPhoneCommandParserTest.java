@@ -8,31 +8,31 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.personcommands.FindByPhoneCommand;
+import seedu.address.logic.commands.personcommands.FindUserByPhoneCommand;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindByPhoneCommand object
+ * Parses input arguments and creates a new FindUserByPhoneCommand object
  */
-public class FindByPhoneCommandParserTest {
+public class FindUserByPhoneCommandParserTest {
 
-    private FindByPhoneCommandParser parser = new FindByPhoneCommandParser();
+    private FindUserByPhoneCommandParser parser = new FindUserByPhoneCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        FindByPhoneCommand.MESSAGE_USAGE));
+                        FindUserByPhoneCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindByPhoneCommand() {
         // no leading and trailing whitespaces
-        FindByPhoneCommand expectedFindByPhoneCommand =
-                new FindByPhoneCommand(new PhoneContainsKeywordsPredicate(Arrays.asList("98765432", "98761111")));
-        assertParseSuccess(parser, "98765432 98761111", expectedFindByPhoneCommand);
+        FindUserByPhoneCommand expectedFindUserByPhoneCommand =
+                new FindUserByPhoneCommand(new PhoneContainsKeywordsPredicate(Arrays.asList("98765432", "98761111")));
+        assertParseSuccess(parser, "98765432 98761111", expectedFindUserByPhoneCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n 98765432  \t 98761111 \n \t", expectedFindByPhoneCommand);
+        assertParseSuccess(parser, " \n 98765432  \t 98761111 \n \t", expectedFindUserByPhoneCommand);
     }
 }

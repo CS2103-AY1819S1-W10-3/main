@@ -37,7 +37,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.eventcommands.FindEventCommand;
 import seedu.address.logic.commands.personcommands.ClearUserCommand;
-import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.FindUserByNameCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.model.AddressBook;
@@ -156,7 +156,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
-        executeCommand(FindUserCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindUserByNameCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 

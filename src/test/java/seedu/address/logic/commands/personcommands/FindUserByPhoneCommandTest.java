@@ -20,9 +20,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindByPhoneCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindUserByPhoneCommand}.
  */
-public class FindByPhoneCommandTest {
+public class FindUserByPhoneCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -31,7 +31,7 @@ public class FindByPhoneCommandTest {
     public void execute_noPhoneGiven_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         PhoneContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindByPhoneCommand command = new FindByPhoneCommand(predicate);
+        FindUserByPhoneCommand command = new FindUserByPhoneCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
@@ -41,7 +41,7 @@ public class FindByPhoneCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         PhoneContainsKeywordsPredicate predicate = preparePredicate("94351253");
-        FindByPhoneCommand command = new FindByPhoneCommand(predicate);
+        FindUserByPhoneCommand command = new FindUserByPhoneCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
@@ -54,14 +54,14 @@ public class FindByPhoneCommandTest {
         PhoneContainsKeywordsPredicate secondPredicate =
                 new PhoneContainsKeywordsPredicate(Collections.singletonList("98761111"));
 
-        FindByPhoneCommand findFirstCommand = new FindByPhoneCommand(firstPredicate);
-        FindByPhoneCommand findSecondCommand = new FindByPhoneCommand(secondPredicate);
+        FindUserByPhoneCommand findFirstCommand = new FindUserByPhoneCommand(firstPredicate);
+        FindUserByPhoneCommand findSecondCommand = new FindUserByPhoneCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindByPhoneCommand findFirstCommandCopy = new FindByPhoneCommand(firstPredicate);
+        FindUserByPhoneCommand findFirstCommandCopy = new FindUserByPhoneCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
