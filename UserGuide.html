@@ -26,7 +26,13 @@
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
-<li><a href="#command-summary">5. Command Summary</a></li>
+<li><a href="#command-summary">5. Command Summary</a>
+<ul class="sectlevel2">
+<li><a href="#user-commands-2">5.1. User commands</a></li>
+<li><a href="#event-organiser-commands">5.2. Event organiser commands</a></li>
+<li><a href="#event-participant-commands">5.3. Event participant commands</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -922,6 +928,8 @@ There is no need to save manually.</p>
 <div class="sect1">
 <h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="user-commands-2"><a class="link" href="#user-commands-2">5.1. User commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -963,17 +971,61 @@ e.g.<code>select 2</code></p>
 <p><strong>History</strong> : <code>history</code></p>
 </li>
 <li>
-<p><strong>Undo</strong> : <code>undo</code></p>
-</li>
-<li>
-<p><strong>Redo</strong> : <code>redo</code></p>
-</li>
-<li>
 <p><strong>Free time between persons</strong>: <code>maxSchedule INDEX INDEX &#8230;&#8203;</code><br>
-e.g. <code>maxSchedule 0 1 2 3</code>
-​</p>
+e.g. <code>maxSchedule 0 1 2 3</code></p>
 </li>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 10:01:53 UTC</div></div></div></body></html>
+<div class="sect2">
+<h3 id="event-organiser-commands"><a class="link" href="#event-organiser-commands">5.2. Event organiser commands</a></h3>
+<div class="paragraph">
+<p>​* <strong>Add Event</strong> : <code>addEvent n/EVENT_NAME a/LOCATION [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent</code>
+​* <strong>Delete Event</strong> : <code>deleteEvent INDEX</code><br>
+e.g. <code>deleteEvent 1</code>
+* <strong>Add Poll</strong> : <code>addPoll n/POLL_NAME</code><br>
+e.g. <code>addPoll n/Activity</code>
+* <strong>Add Option</strong> : <code>addOption i/POLL_INDEX o/POLL_OPTION</code><br>
+e.g. <code>addOption i/1 o/Play games</code>
+* <strong>Add Time Poll</strong> : <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR</code><br>
+e.g. <code>addTimePoll d1/01-12-2018 d2/02-12-2018</code>
+* <strong>Display Poll</strong> : <code>displayPoll INDEX</code><br>
+e.g. <code>displayPoll 1</code>
+* <strong>Set event date</strong> : <code>setDate d/DAY-MONTH-YEAR</code><br>
+e.g. <code>setDate d/12-12-2018</code>
+* <strong>Set event time</strong> : <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code><br>
+e.g. <code>setTime t1/12:30 t2/13:45</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="event-participant-commands"><a class="link" href="#event-participant-commands">5.3. Event participant commands</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Select Event</strong> : <code>selectEvent INDEX</code><br>
+e.g. <code>selectEvent 1</code></p>
+</li>
+<li>
+<p><strong>Join Event</strong> : <code>joinEvent INDEX</code><br>
+e.g. <code>joinEvent 1</code></p>
+</li>
+<li>
+<p><strong>Vote</strong> : <code>vote i/POLL_INDEX o/POLL_OPTION</code><br>
+e.g. <code>vote i/1 o/Play games</code></p>
+</li>
+<li>
+<p><strong>Find Event with attributes</strong> : <code>findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
+[on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]</code>
+e.g. <code>findEvent t1/12-12-2018 pn/John Doe</code>
+e.g. <code>findEvent a/SoC Canteen on/Alice Tan</code></p>
+</li>
+<li>
+<p><strong>Find Event by Time</strong> : <code>findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE</code>
+e.g. <code>findEventByTime d/12-12-2018 t1/12:30 t2/13:45</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 11:16:38 UTC</div></div></div></body></html>
