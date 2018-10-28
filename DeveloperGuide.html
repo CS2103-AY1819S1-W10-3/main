@@ -33,8 +33,9 @@
 <li><a href="#poll-feature">3.2. Poll feature</a></li>
 <li><a href="#schedule-feature">3.3. Schedule feature</a></li>
 <li><a href="#timetable-feature">3.4. TimeTable feature</a></li>
-<li><a href="#logging">3.5. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#add-friend-feature">3.5. Add Friend feature</a></li>
+<li><a href="#logging">3.6. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1067,14 +1068,79 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
+<h3 id="add-friend-feature"><a class="link" href="#add-friend-feature">3.5. Add Friend feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current implementation</a></h4>
+<div class="paragraph">
+<p>This section explains the implementation of the adding of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AddFriendCommand</code> - takes in a pair of indexes and makes a pair of persons associated with the indexes to be friends with each other</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram for AddFriendCommand is illustrated below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/TimeTableScheduleDiagram.png" alt="TimeTableScheduleDiagram" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-bilateral-friendships"><a class="link" href="#aspect-bilateral-friendships">Aspect: Bilateral friendships</a></h5>
+<div class="paragraph">
+<p>Friendships have to be bilateral, so if person A is a friend of person B, then person B is also a friend of person A.</p>
+</div>
+<div class="paragraph">
+<p>To specify the friendship relation between two users, both the indexes of the users have to be provided. The command format is addFriend [INDEX,INDEX], where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index, and distinct from the other INDEX.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-friend-class"><a class="link" href="#aspect-friend-class">Aspect: Friend class</a></h5>
+<div class="paragraph">
+<p>Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string that combines the 4 main attributes of Person (name, phone, email, address), since these attributes act as the primary key for a Person. In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time addFriend command is called, a Friend object will be created and added into the set.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-friendships-can-only-be-added-once"><a class="link" href="#aspect-friendships-can-only-be-added-once">Aspect: Friendships can only be added once</a></h5>
+<div class="paragraph">
+<p>Each person can only be added as a friend once by another person. Hence if two persons are already friends, calling the addFriend command for both these persons will trigger the warning that prevents each of their friend list from adding each other again.</p>
+</div>
+<div class="paragraph">
+<p>Also, once two persons are added as friends of each other, they remain as friends and the friendship cannot be deleted.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person"><a class="link" href="#aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person">Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person</a></h5>
+<div class="paragraph">
+<p>The following scenario describes what happens if person A is already on the friend list of person B (person A and B are friends with each other).</p>
+</div>
+<div class="paragraph">
+<p>Person A gets deleted from the Event Organizer:
+This triggers the function which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), it will further trigger the function which removes person A (Friend object) from the friend list.</p>
+</div>
+<div class="paragraph">
+<p>Person A&#8217;s attributes gets modified (eg change name/phone):
+This triggers the function which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), it will further trigger the function that creates a new Friend object with the new attributes and replace the original object in B&#8217;s friend list.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1105,7 +1171,7 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2471,4 +2537,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 11:59:15 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 04:41:55 UTC</div></div></div></body></html>
