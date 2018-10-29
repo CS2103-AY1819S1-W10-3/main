@@ -400,7 +400,7 @@ Selects the 1st user in the results of the <code>find</code> command.</p>
 <h4 id="editing-a-user-code-edit-code"><a class="link" href="#editing-a-user-code-edit-code">3.1.10. Editing a user : <code>edit</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing user in the event organiser.<br>
-Format: <code>edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE&#8230;&#8203;</code></p>
+Format: <code>editUser INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -463,7 +463,71 @@ Adds the interest "Tennis" to the pre-selected user.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="add-a-group-code-addgroup-code"><a class="link" href="#add-a-group-code-addgroup-code">3.1.12. Add a group : <code>addGroup</code></a></h4>
+<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">3.1.12. Add a friend : <code>addFriend</code></a></h4>
+<div class="paragraph">
+<p>For two persons, adds friend with each other.<br>
+Format: <code>addFriend INDEX,INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>For two users at the 2 specified <code>INDEX</code>, adds each other as friend. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203; and must be different from each other</p>
+</li>
+<li>
+<p>The two users cannot be already friends.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addFriend 1,2</code><br>
+1st and 2nd user becomes friends with each other and appear on each other&#8217;s friend list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-a-friend-code-deletefriend-code"><a class="link" href="#delete-a-friend-code-deletefriend-code">3.1.13. Delete a friend : <code>deleteFriend</code></a></h4>
+<div class="paragraph">
+<p>For two persons, deletes each other as friend.<br>
+Format: <code>deleteFriend INDEX,INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>For two users at the 2 specified <code>INDEX</code>, deletes each other as friend. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203; and must be different from each other</p>
+</li>
+<li>
+<p>The two users must be already friends.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deleteFriend 1,2</code><br>
+1st and 2nd user are no longer friends with each other and their names are removed from each other&#8217;s friend list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-group-code-addgroup-code"><a class="link" href="#add-a-group-code-addgroup-code">3.1.14. Add a group : <code>addGroup</code></a></h4>
 <div class="paragraph">
 <p>Adds a group to the pre-selected user.<br>
 Format: <code>addGroup GROUP</code></p>
@@ -481,7 +545,7 @@ Adds the group "SOC" to the pre-selected user.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">3.1.13. Add a friend : <code>addFriend</code></a></h4>
+<h4 id="add-a-friend-code-addfriend-code-2"><a class="link" href="#add-a-friend-code-addfriend-code-2">3.1.15. Add a friend : <code>addFriend</code></a></h4>
 <div class="paragraph">
 <p>Adds another user as a friend of the pre-selected user.<br>
 Format: <code>addFriend USERNAME</code></p>
@@ -499,7 +563,7 @@ Adds the user 'John Doe' as a friend of pre-selected user.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">3.1.14. Get free time between users : <code>maxSchedule</code></a></h4>
+<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">3.1.16. Get free time between users : <code>maxSchedule</code></a></h4>
 <div class="paragraph">
 <p>Compares the schedule of multiple users and return a string of common free time.<br>
 Format: <code>maxSchedule INDEX INDEX&#8230;&#8203;</code></p>
@@ -1099,4 +1163,4 @@ e.g. <code>findEventByTime d/12-12-2018 t1/12:30 t2/13:45</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-29 11:22:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-29 15:59:37 UTC</div></div></div></body></html>
