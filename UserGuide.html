@@ -176,14 +176,32 @@ A user can have any number of tags and interests (including 0)
 </div>
 </div>
 <div class="sect3">
-<h4 id="list-all-users-code-listusers-code"><a class="link" href="#list-all-users-code-listusers-code">3.1.4. List all users : <code>listUsers</code></a></h4>
+<h4 id="log-out-a-user-code-logout-code"><a class="link" href="#log-out-a-user-code-logout-code">3.1.4. Log out a user : <code>logout</code></a></h4>
+<div class="paragraph">
+<p>Logs out the user from EventOrganiser.</p>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="paragraph">
+<p><code>logout</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p><code>logout</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-all-users-code-listusers-code"><a class="link" href="#list-all-users-code-listusers-code">3.1.5. List all users : <code>listUsers</code></a></h4>
 <div class="paragraph">
 <p>Shows a list of all users in the event organiser.<br>
 Format: <code>listUsers</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="find-users-by-name-code-finduserbyname-code"><a class="link" href="#find-users-by-name-code-finduserbyname-code">3.1.5. Find users by name : <code>findUserByName</code></a></h4>
+<h4 id="find-users-by-name-code-finduserbyname-code"><a class="link" href="#find-users-by-name-code-finduserbyname-code">3.1.6. Find users by name : <code>findUserByName</code></a></h4>
 <div class="paragraph">
 <p>Finds users whose names contain any of the given keywords.<br>
 Format: <code>findUserByPhone [KEYWORD] [KEYWORDS]&#8230;&#8203;</code></p>
@@ -228,7 +246,7 @@ Returns any user having names <code>Betsy</code>, <code>betsy</code>, <code>John
 </div>
 </div>
 <div class="sect3">
-<h4 id="find-users-by-phone-number-code-finduserbyphone-code"><a class="link" href="#find-users-by-phone-number-code-finduserbyphone-code">3.1.6. Find users by phone number : <code>findUserByPhone</code></a></h4>
+<h4 id="find-users-by-phone-number-code-finduserbyphone-code"><a class="link" href="#find-users-by-phone-number-code-finduserbyphone-code">3.1.7. Find users by phone number : <code>findUserByPhone</code></a></h4>
 <div class="paragraph">
 <p>Finds users whose phone number matches any of the given numbers.<br>
 Format: <code>findUserByPhone [PHONE NUMBER] [PHONE NUMBER]&#8230;&#8203;</code></p>
@@ -267,7 +285,7 @@ Returns any user with the phone number <code>87438807</code> or <code>99272758</
 </div>
 </div>
 <div class="sect3">
-<h4 id="find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code"><a class="link" href="#find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code">3.1.7. Find users by name, phone number, email, address, interest, tag : <code>findUser</code></a></h4>
+<h4 id="find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code"><a class="link" href="#find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code">3.1.8. Find users by name, phone number, email, address, interest, tag : <code>findUser</code></a></h4>
 <div class="paragraph">
 <p>Finds users with any matching name, phone number, email, address, interest, tag.<br>
 Format: <code>findUser n/[NAME] p/[PHONE NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]&#8230;&#8203;</code></p>
@@ -312,7 +330,7 @@ Returns any user with the name <code>87438807</code> or email <code>john@example
 </div>
 </div>
 <div class="sect3">
-<h4 id="delete-a-user-code-deleteuser-code"><a class="link" href="#delete-a-user-code-deleteuser-code">3.1.8. Delete a user : <code>deleteUser</code></a></h4>
+<h4 id="delete-a-user-code-deleteuser-code"><a class="link" href="#delete-a-user-code-deleteuser-code">3.1.9. Delete a user : <code>deleteUser</code></a></h4>
 <div class="paragraph">
 <p>Deletes the specified user from the event organiser.<br>
 Format: <code>deleteUser INDEX</code></p>
@@ -356,7 +374,7 @@ Deletes the 1st user in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="selecting-a-user-code-selectuser-code"><a class="link" href="#selecting-a-user-code-selectuser-code">3.1.9. Selecting a user : <code>selectUser</code></a></h4>
+<h4 id="selecting-a-user-code-selectuser-code"><a class="link" href="#selecting-a-user-code-selectuser-code">3.1.10. Selecting a user : <code>selectUser</code></a></h4>
 <div class="paragraph">
 <p>Selects the user identified by the index number used in the displayed user list.<br>
 Format: <code>selectUser INDEX</code></p>
@@ -397,7 +415,7 @@ Selects the 1st user in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="editing-a-user-code-edituser-code"><a class="link" href="#editing-a-user-code-edituser-code">3.1.10. Editing a user : <code>editUser</code></a></h4>
+<h4 id="editing-a-user-code-edituser-code"><a class="link" href="#editing-a-user-code-edituser-code">3.1.11. Editing a user : <code>editUser</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing user in the event organiser.<br>
 Format: <code>editUser INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE&#8230;&#8203;</code></p>
@@ -445,7 +463,7 @@ Edits the name of the 2nd user to be <code>Betsy Crower</code> and clears all ex
 </div>
 </div>
 <div class="sect3">
-<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">3.1.11. Add a friend : <code>addFriend</code></a></h4>
+<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">3.1.12. Add a friend : <code>addFriend</code></a></h4>
 <div class="paragraph">
 <p>For two persons, adds friend with each other.<br>
 Format: <code>addFriend INDEX,INDEX</code></p>
@@ -477,7 +495,7 @@ Format: <code>addFriend INDEX,INDEX</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="delete-a-friend-code-deletefriend-code"><a class="link" href="#delete-a-friend-code-deletefriend-code">3.1.12. Delete a friend : <code>deleteFriend</code></a></h4>
+<h4 id="delete-a-friend-code-deletefriend-code"><a class="link" href="#delete-a-friend-code-deletefriend-code">3.1.13. Delete a friend : <code>deleteFriend</code></a></h4>
 <div class="paragraph">
 <p>For two persons, deletes each other as friend.<br>
 Format: <code>deleteFriend INDEX,INDEX</code></p>
@@ -509,7 +527,7 @@ Format: <code>deleteFriend INDEX,INDEX</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">3.1.13. Get free time between users : <code>maxSchedule</code></a></h4>
+<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">3.1.14. Get free time between users : <code>maxSchedule</code></a></h4>
 <div class="paragraph">
 <p>Compares the schedule of multiple users and return a string of common free time.<br>
 Format: <code>maxSchedule INDEX INDEX&#8230;&#8203;</code></p>
@@ -1019,6 +1037,9 @@ e.g. <code>addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi R
 e.g. <code>login n/John Doe pass/password</code></p>
 </li>
 <li>
+<p><strong>Logout</strong>  <code>logout</code></p>
+</li>
+<li>
 <p><strong>List User</strong> : <code>listUsers</code></p>
 </li>
 <li>
@@ -1109,4 +1130,4 @@ e.g. <code>findEventByTime d/12-12-2018 t1/12:30 t2/13:45</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 16:35:45 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 23:09:41 UTC</div></div></div></body></html>
