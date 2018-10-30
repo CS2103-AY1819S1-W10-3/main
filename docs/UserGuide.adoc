@@ -224,7 +224,7 @@ Clears all users from the event organiser. +
 Format: `clear`
 ////
 
-==== Editing a user : `edit`
+==== Editing a user : `editUser`
 
 Edits an existing user in the event organiser. +
 Format: `editUser INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE...`
@@ -244,16 +244,6 @@ Examples:
 Edits the phone number and email address of the 1st user to be `91234567` and `johndoe@example.com` respectively.
 * `editUser 2 n/Betsy Crower t/` +
 Edits the name of the 2nd user to be `Betsy Crower` and clears all existing tags.
-
-==== Add an interest : `addInterest`
-
-Adds an interest to the pre-selected user. +
-Format: `addInterest INTEREST`
-
-Example:
-
-* `addInterest Tennis` +
-Adds the interest "Tennis" to the pre-selected user.
 
 ==== Add a friend : `addFriend`
 
@@ -284,27 +274,6 @@ Examples:
 
 * `deleteFriend 1,2` +
 1st and 2nd user are no longer friends with each other and their names are removed from each other's friend list.
-
-==== Add a group : `addGroup`
-
-Adds a group to the pre-selected user. +
-Format: `addGroup GROUP`
-
-Example:
-
-* `addGroup SOC` +
-Adds the group "SOC" to the pre-selected user.
-
-==== Add a friend : `addFriend`
-
-Adds another user as a friend of the pre-selected user. +
-Format: `addFriend USERNAME`
-
-Example:
-
-* `addFriend John Doe` +
-Adds the user 'John Doe' as a friend of pre-selected user.
-
 
 ==== Get free time between users : `maxSchedule`
 

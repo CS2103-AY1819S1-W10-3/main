@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -193,6 +194,20 @@ public class CommandTestUtil {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
         model.commitAddressBook();
+    }
+
+    /**
+     * Checkes whether the target person can be found in the friend list of an user
+     */
+    public static void assertFriendInList(Person personToCheck, Person targetPerson) {
+        assertTrue(personToCheck.hasFriendInList(targetPerson));
+    }
+
+    /**
+     * Checkes whether the target person is not found in the friend list of an user
+     */
+    public static void assertFriendNotInList(Person personToCheck, Person targetPerson) {
+        assertFalse(personToCheck.hasFriendInList(targetPerson));
     }
 
     /**

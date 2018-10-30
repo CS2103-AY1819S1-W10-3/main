@@ -4,9 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertFriendInList;
+import static seedu.address.logic.commands.CommandTestUtil.assertFriendNotInList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FORTH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
+import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import seedu.address.logic.commands.RedoCommand;
@@ -23,6 +26,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains integration tests with the Model and unit tests for {@code AddFriendCommand}.
@@ -60,6 +64,33 @@ public class AddFriendCommandTest {
         AddFriendCommand addFriendCommand = new AddFriendCommand(outOfBoundIndexes);
 
         assertCommandFailure(addFriendCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void checkUpdatedFriendListsDueToEditedPerson() throws CommandException {
+        AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_SECOND.getZeroBased(),
+                INDEX_THIRD.getZeroBased()));
+        addFriendCommand.execute(model, commandHistory);
+
+        Person editedPerson = BOB;
+        EditUserCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditUserCommand editUserCommand = new EditUserCommand(Index.fromZeroBased(INDEX_SECOND.getZeroBased()),
+                descriptor);
+        editUserCommand.execute(model, commandHistory);
+        Person personToCheck = model.getFilteredPersonList().get(INDEX_THIRD.getZeroBased());
+        assertFriendInList(personToCheck, BOB);
+    }
+
+    @Test
+    public void checkUpdatedFriendListsDueToDeletedPerson() throws CommandException {
+        AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_SECOND.getZeroBased(),
+                INDEX_THIRD.getZeroBased()));
+        addFriendCommand.execute(model, commandHistory);
+
+        DeleteUserCommand deleteUserCommand = new DeleteUserCommand(Index.fromZeroBased(INDEX_SECOND.getZeroBased()));
+        deleteUserCommand.execute(model, commandHistory);
+        Person personToCheck = model.getFilteredPersonList().get(INDEX_THIRD.getZeroBased());
+        assertFriendNotInList(personToCheck, BOB);
     }
 
     @Test
