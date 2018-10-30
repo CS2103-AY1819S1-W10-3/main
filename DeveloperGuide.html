@@ -997,8 +997,44 @@ The voter list must also be manually updated every time the person details are u
 </div>
 <div class="sect4">
 <h5 id="aspect-storage-of-schedule-in-person"><a class="link" href="#aspect-storage-of-schedule-in-person">Aspect: Storage of schedule in person</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong>: Store all schedule as a slot just like how a calendar does, which includes day, time, etc.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: All information about the schedule are stored.</p>
+</li>
+<li>
+<p>Cons: Expensive storage as a lot of data needs to be stored. Management of schedule may become an issue here if the schedule needs to store for more than a year worth.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong>: Store weekly schedule</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Cheap storage as only a subnet of schedule needs to be stored. Possible O(1) access times.</p>
+</li>
+<li>
+<p>Cons: Explict details of the schedule may be lost such as an event that appears only once a year.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>To store the schedule, a unique approach of using bit counters is used. Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits. 1-bit signifies an occupied slot while a 0-bit signifies an empty slot. This 336 bit string is then stored as a string in the xml. However, in the application, it will stored as a two-dimensional array [7][48]. This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.</p>
+<p>We have chosen the second option for the ease of storage management and low access times.
+To store the schedule, a unique approach of using bit counters is used.
+Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits.
+1-bit signifies an occupied slot while a 0-bit signifies an empty slot.
+This 336 bit string is then stored as a string in the xml.
+However, in the application, it will stored as a two-dimensional array [7][48].
+This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.</p>
 </div>
 <div class="paragraph">
 <p>Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application</p>
@@ -1652,7 +1688,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <p><i class="fa fa-check-square-o"></i> V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> V1.2: Organisers able to "invite" participants to get recommendations for and set location;
+<p><i class="fa fa-check-square-o"></i> V1.2: Organisers able to "invite" participants to get recommendations for and set location;
 Users able to search for events by attributes (date, time, location, interest) and retrieve joined events.</p>
 </li>
 <li>
@@ -1669,7 +1705,7 @@ Users able to search for events by attributes (date, time, location, interest) a
 <p><i class="fa fa-check-square-o"></i> V1.1: Basic login command.</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> V1.2: Search for users based on phone number, interests, friendships, schedule, and address.</p>
+<p><i class="fa fa-check-square-o"></i> V1.2: Search for users based on phone number, interests, friendships, schedule, and address.</p>
 </li>
 <li>
 <p><i class="fa fa-square-o"></i> V1.3: Improved login command with password.</p>
@@ -1685,7 +1721,7 @@ Users able to search for events by attributes (date, time, location, interest) a
 <p><i class="fa fa-check-square-o"></i> V1.1: Users able to specify their interests.</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> V1.2: Users able to specify friendships with other people.</p>
+<p><i class="fa fa-check-square-o"></i> V1.2: Users able to specify friendships with other people.</p>
 </li>
 <li>
 <p><i class="fa fa-square-o"></i> V1.3: Users able to form groups and find mutual friends.</p>
@@ -1717,10 +1753,10 @@ Users able to search for events by attributes (date, time, location, interest) a
 <p><i class="fa fa-check-square-o"></i> V1.1: Pull schedule from NUS Mods and convert to a timetable. Allow Unions of timetable.</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> V1.2: Create, Update, Delete individual slots in timetable. Find best possible time for events using timetables.</p>
+<p><i class="fa fa-check-square-o"></i> V1.2: Create, Update, Delete individual slots in timetable. Find best possible time for events using timetables.</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> V1.3: Visualize timetables of multiple friends.</p>
+<p><i class="fa fa-check-square-o"></i> V1.3: Visualize timetables of multiple friends.</p>
 </li>
 </ul>
 </div>
@@ -2550,4 +2586,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 12:42:59 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 14:26:12 UTC</div></div></div></body></html>
