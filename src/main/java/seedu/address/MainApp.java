@@ -52,6 +52,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
+    protected Stage primaryStage;
 
 
     @Override
@@ -100,7 +101,9 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        Model model = new ModelManager(initialData, userPrefs);
+        model.setClearEnabled();
+        return model;
     }
 
     private void initLogging(Config config) {
@@ -182,6 +185,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting EventOrganiser " + MainApp.VERSION);
+        this.primaryStage = primaryStage;
         ui.start(primaryStage);
     }
 

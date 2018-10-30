@@ -31,6 +31,9 @@ public class RedoCommandTest {
         deleteFirstPerson(expectedModel);
         expectedModel.undoAddressBook();
         expectedModel.undoAddressBook();
+
+        model.setClearEnabled();
+        expectedModel.setClearEnabled();
     }
 
     @Test

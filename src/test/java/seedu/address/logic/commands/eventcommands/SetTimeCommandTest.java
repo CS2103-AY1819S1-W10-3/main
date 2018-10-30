@@ -68,6 +68,7 @@ public class SetTimeCommandTest {
     @Test
     public void execute_noEventSetTime() {
         SetTimeCommand command = new SetTimeCommand(startTime, endTime);
+        model.setCurrentUser(ALICE);
         String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }

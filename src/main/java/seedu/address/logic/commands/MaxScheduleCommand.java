@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Schedule;
 
 /**
- * Max Schedule Command
+ * Max Schedule Command where two or more persons' schedule are ORed together to get the maximum subset.
  *
  * @author adjscent
  */

@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
 /**
+ *
+ * Represents a timeslot in NUSmod, consisting of a day and time.
  * @author adjscent
  */
 public class Slot {

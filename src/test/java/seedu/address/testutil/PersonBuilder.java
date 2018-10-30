@@ -9,6 +9,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Friend;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Schedule;
@@ -23,6 +24,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_PASSWORD = "password";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_INTERESTS = "study";
     public static final String DEFAULT_SCHEDULE = "0000000000000000000000"
@@ -45,6 +47,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Email email;
+    private Password password;
     private Address address;
     private Schedule schedule;
     private Set<Interest> interests;
@@ -55,6 +58,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
+        password = new Password(DEFAULT_PASSWORD);
         address = new Address(DEFAULT_ADDRESS);
         interests = new HashSet<>();
         interests.add(new Interest(DEFAULT_INTERESTS));
@@ -70,6 +74,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
+        password = personToCopy.getPassword();
         address = personToCopy.getAddress();
         interests = new HashSet<>(personToCopy.getInterests());
         tags = new HashSet<>(personToCopy.getTags());
@@ -126,6 +131,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Password} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPassword(String password) {
+        this.password = new Password(password);
+        return this;
+    }
+
+    /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
@@ -146,7 +159,7 @@ public class PersonBuilder {
      * Builds a person.
      */
     public Person build() {
-        return new Person(name, phone, email, address, interests, tags, schedule, friends);
+        return new Person(name, phone, email, password, address, interests, tags, schedule, friends);
     }
 
 

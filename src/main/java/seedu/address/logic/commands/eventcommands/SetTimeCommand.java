@@ -17,7 +17,7 @@ import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
+import seedu.address.model.event.exceptions.NotEventOrganiserException;
 
 /**
  * Sets the time of an event.
@@ -34,7 +34,6 @@ public class SetTimeCommand extends Command {
 
     private final LocalTime startTime;
     private final LocalTime endTime;
-    private Event event;
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
@@ -46,35 +45,24 @@ public class SetTimeCommand extends Command {
         this.endTime = endTime;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            event = model.getSelectedEvent();
-            Person person = model.getCurrentUser();
-            if (!person.equals(event.getOrganiser())) {
-                throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
-            }
+            model.setTime(startTime, endTime);
+            Event event = model.getSelectedEvent();
+            model.commitAddressBook();
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+            return new CommandResult(String.format(MESSAGE_SUCCESS, startTime.format(timeFormat),
+                    endTime.format(timeFormat), event));
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         } catch (NoEventSelectedException e) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
-        }
-
-        try {
-            event.setTime(startTime, endTime);
+        } catch (NotEventOrganiserException e) {
+            throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
         } catch (IllegalArgumentException e) {
             throw new CommandException(Messages.MESSAGE_END_BEFORE_START_TIME);
         }
-
-        model.updateEvent(event, event);
-        model.commitAddressBook();
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-        return new CommandResult(String.format(MESSAGE_SUCCESS, startTime.format(timeFormat),
-                endTime.format(timeFormat), event));
     }
 
     @Override

@@ -35,8 +35,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
@@ -51,7 +49,7 @@ import seedu.address.logic.commands.eventcommands.SetTimeCommand;
 import seedu.address.logic.commands.eventcommands.VoteCommand;
 import seedu.address.logic.commands.personcommands.AddFriendCommand;
 import seedu.address.logic.commands.personcommands.AddUserCommand;
-import seedu.address.logic.commands.personcommands.ClearUserCommand;
+import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
@@ -69,6 +67,7 @@ import seedu.address.model.person.UserContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.StubUserBuilder;
 
 public class AddressBookParserTest {
     @Rule
@@ -78,7 +77,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_login() throws Exception {
-        Person person = new PersonBuilder().build();
+        Person person = new StubUserBuilder().build();
         LoginCommand command = (LoginCommand) parser.parseCommand(PersonUtil.getLoginCommand(person));
         assertEquals(new LoginCommand(person), command);
     }
@@ -185,10 +184,19 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommandDeleteFriend() throws Exception {
+        DeleteFriendCommand command = (DeleteFriendCommand) parser.parseCommand(
+                DeleteFriendCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased()
+                        + StringUtil.COMMA + INDEX_SECOND.getOneBased());
+        assertEquals(new DeleteFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
+                INDEX_SECOND.getOneBased())), command);
+    }
+
+    /*@Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearUserCommand.COMMAND_WORD) instanceof ClearUserCommand);
         assertTrue(parser.parseCommand(ClearUserCommand.COMMAND_WORD + " 3") instanceof ClearUserCommand);
-    }
+    }*/
 
     @Test
     public void parseCommand_delete() throws Exception {
@@ -282,7 +290,7 @@ public class AddressBookParserTest {
         assertEquals(new SelectUserCommand(INDEX_FIRST), command);
     }
 
-    @Test
+    /*@Test
     public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
@@ -292,7 +300,7 @@ public class AddressBookParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
-    }
+    }*/
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

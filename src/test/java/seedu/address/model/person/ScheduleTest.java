@@ -105,4 +105,18 @@ class ScheduleTest {
         //ArrayList<Slot> slots = s1.getFreeSlotsByDay(1);
         //assertTrue(slots.size() == 24 * 2 - 2);
     }
+
+    @Test
+    void getFreeSlots() {
+    }
+
+    @Test
+    void getFreeSlotsByDay() {
+    }
+
+    @Test
+    void prettyPrint() {
+    }
+
+
 }

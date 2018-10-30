@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
+ * Represents a timetable downloaded from NUSmod website.
+ * Contains a list of lessons
  * @author adjscent
  */
 public class TimeTable {
@@ -41,6 +43,7 @@ public class TimeTable {
     }
 
     /**
+     * Converts the timetable for NUS mods to a schedule
      * @return
      */
     public Schedule convertToSchedule() throws ParseException {
@@ -71,10 +74,18 @@ public class TimeTable {
     }
 
 
+    /**
+     * Get lesson list
+     * @return
+     */
     public ArrayList<Lesson> getLessonList() {
         return lessonList;
     }
 
+    /**
+     * Set lesson list
+     * @param lessonList
+     */
     public void setLessonList(ArrayList<Lesson> lessonList) {
         this.lessonList = lessonList;
     }

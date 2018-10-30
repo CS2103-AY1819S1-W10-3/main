@@ -27,6 +27,9 @@ public class UndoCommandTest {
 
         deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
+
+        model.setClearEnabled();
+        expectedModel.setClearEnabled();
     }
 
     @Test

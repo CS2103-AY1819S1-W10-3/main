@@ -13,7 +13,7 @@ import seedu.address.model.event.exceptions.EventNotFoundException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
- * An event is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
+ * An event is considered unique by comparing using {@code Event#isSameEvent(Event)}. As such, adding and updating of
  * events uses Event#isSameEvent for equality so as to ensure that the event being added or updated is
  * unique in terms of identity in the UniqueEventList. However, the removal of a event uses Event#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
@@ -128,7 +128,7 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code events} contains only unique events.
      */
     private boolean eventsAreUnique(List<Event> events) {
         for (int i = 0; i < events.size() - 1; i++) {

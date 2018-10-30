@@ -415,9 +415,9 @@ The voter list must also be manually updated every time the person details are u
 ==== Current implementation
 This section explains the implementation of the features associated with the Schedule class of each Schedule while detailing some implementation details of the Schedule class. The relevant commands which are callable by the user to be discussed are:
 
-EditCommmand - The base Edit commmand for person with two additions - Schedule and Schedule Update parameter
+`EditUserCommand` - The base Edit command for person with two additions - Schedule and Schedule Update parameter
 
-MaxScheduleCommand - Compare two persons' schedules and return the common free time.
+`MaxScheduleCommand` - Compare two persons' schedules and return the common free time.
 
 ==== Design considerations
 
@@ -448,7 +448,7 @@ This section explains the implementation of the features associated with the Tim
 
 ==== Design considerations
 
-EditCommmand - The base Edit commmand for person with one addition - Timetable parameter
+`EditUserCommand` - The base Edit command for person with one addition - Timetable parameter
 
 TimeTable is data downloaded from nusmods.com, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand. This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.
 
@@ -472,6 +472,56 @@ Step 3. We will then filter out the lessons obtained in step 1 from the full det
 Step 4. The filtered lessons is then converted into an arraylist of Slot before returning to the aplication.
 
 // end:::timetable[]
+
+//tag::addFriend[]
+=== Add Friend feature
+
+==== Current implementation
+This section explains the implementation of the addition/deletion of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:
+
+* `AddFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes to be friends with each other
+* `DeleteFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes no longer friends with each other
+
+The following sequence diagram for AddFriendCommand is illustrated below:
+
+image::TimeTableScheduleDiagram.png[width="800"]
+
+==== Design considerations
+
+===== Aspect: Bilateral friendships
+
+Friendships have to be bilateral, so if person A is a friend of person B, then person B is also a friend of person A.
+
+To specify the friendship relation between two users, both the indexes of the users have to be provided. The command format is addFriend [INDEX,INDEX], where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index, and distinct from the other INDEX.
+
+===== Aspect: Friend class
+
+Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string field that combines the 4 main attributes of Person (name, phone, email, address), since these attributes act as the primary identification for a Person. Example:
+For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object will have a string field that is 'Alex Yeoh-87438807-alexyeoh@example.com-Blk 30 Geylang Street 29, #06-40'.
+
+In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is called, a Friend object will be created and added into the set.
+
+In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '-' (due to the toString() method in Friend class), which is the actual name of the friend.
+
+===== Aspect: Friendships can only be added once and deleted if they are current friends
+
+Each person can only be added as a friend once by another person. If two persons are already friends and `AddFriendCommand` is called again on these two persons, each of their friend lists will be checked to confirm that each other is already on it, hence the same person will not be added twice.
+
+Similarly, if two persons are not yet friends, or were friends but the friendship was deleted, if `DeleteFriendCommand` is called on these two persons, each of their friend lists will be checked to confirm that each other is not on it, hence the delete action will not be taken.
+
+===== Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person
+
+The friend lists of each user have to be constantly updated when a person is deleted from the Event Organizer or his attributes are modified (such as name change).
+
+The following scenario describes what happens if person A is already on the friend list of person B (person A and B are friends with each other).
+
+Person A gets deleted from the Event Organizer:
+This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), person A will be removed from his/her friend list.
+
+Person A's attributes gets modified (eg change name/phone):
+This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), the original Friend object will be replaced by the new Friend object created using the new attributes of person A.
+
+// end:::addFriend[]
 
 === Logging
 

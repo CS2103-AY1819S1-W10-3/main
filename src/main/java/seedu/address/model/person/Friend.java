@@ -3,9 +3,8 @@ package seedu.address.model.person;
 import java.util.StringTokenizer;
 
 /**
- * Represents a friend in the address book.
  * Represents a Person that is a friend of the current person using a String
- * that consists of his/her name, phone, email, address as the primary key
+ * that consists of his/her name, phone, email, address as the primary key.
  *
  * @author agendazhang
  *

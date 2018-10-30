@@ -59,7 +59,7 @@ public class JoinEventCommand extends Command {
 
         model.commitAddressBook();
         Event event = model.getEvent(targetIndex);
-        EventsCenter.getInstance().post(new DisplayPollEvent(event.getInfo())); //need tests
+        EventsCenter.getInstance().post(new DisplayPollEvent(event.getInfo()));
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
         String result = String.format(MESSAGE_SUCCESS, event);
         result += "\n" + "People attending: " + event.getNameList();

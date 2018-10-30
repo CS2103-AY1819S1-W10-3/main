@@ -13,8 +13,6 @@ import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.model.Model;
 
@@ -35,12 +33,12 @@ public class SelectUserCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, personCount);
 
         /* Case: undo previous selection -> rejected */
-        command = UndoCommand.COMMAND_WORD;
+        /*command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: redo selecting last card in the list -> rejected */
-        command = RedoCommand.COMMAND_WORD;
+        /*command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 

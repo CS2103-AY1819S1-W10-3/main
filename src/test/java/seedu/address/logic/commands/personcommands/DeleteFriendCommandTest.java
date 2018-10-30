@@ -25,62 +25,82 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
 /**
- * Contains integration tests with the Model and unit tests for {@code AddFriendCommand}.
+ * Contains integration tests with the Model and unit tests for {@code DeleteFriendCommand}.
  *
  * @author agendazhang
  */
-public class AddFriendCommandTest {
+public class DeleteFriendCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void executeValidIndexUnfilteredListAddNotYetFriendsSuccess() throws CommandException {
+    public void executeValidIndexUnfilteredListDeleteNotYetFriendsFailure() {
+        DeleteFriendCommand deleteFriendCommand = new DeleteFriendCommand(Index.fromZeroBased(
+                INDEX_SECOND.getZeroBased(), INDEX_THIRD.getZeroBased()));
+        assertCommandFailure(deleteFriendCommand, model, commandHistory, Messages.MESSAGE_NOT_FRIENDS);
+    }
+
+    @Test
+    public void executeValidIndexUnfilteredListDeleteAreFriendsSuccess() throws CommandException {
         Person person1 = model.getFilteredPersonList().get(INDEX_SECOND.getZeroBased());
         Person person2 = model.getFilteredPersonList().get(INDEX_THIRD.getZeroBased());
+
         AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_SECOND.getZeroBased(),
                 INDEX_THIRD.getZeroBased()));
-        String expectedMessage = String.format(AddFriendCommand.MESSAGE_ADD_FRIEND_SUCCESS,
+        addFriendCommand.execute(model, commandHistory);
+        DeleteFriendCommand deleteFriendCommand = new DeleteFriendCommand(Index.fromZeroBased(
+                INDEX_SECOND.getZeroBased(), INDEX_THIRD.getZeroBased()));
+        String expectedMessage = String.format(DeleteFriendCommand.MESSAGE_DELETE_FRIEND_SUCCESS,
                 person1.getName(), person2.getName());
+
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         Person person1Copy = new Person(person1);
         Person person2Copy = new Person(person2);
         AddFriendCommand.addFriendEachOther(person1Copy, person2Copy);
-
         expectedModel.updatePerson(person1, person1Copy);
         expectedModel.updatePerson(person2, person2Copy);
         expectedModel.commitAddressBook();
-        assertCommandSuccess(addFriendCommand, model, commandHistory, expectedMessage, expectedModel);
+
+        Person person1CopyCopy = new Person(person1Copy);
+        Person person2CopyCopy = new Person(person2Copy);
+        DeleteFriendCommand.deleteFriendEachOther(person1Copy, person2Copy);
+        expectedModel.updatePerson(person1Copy, person1CopyCopy);
+        expectedModel.updatePerson(person2Copy, person2CopyCopy);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(deleteFriendCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void executeInvalidIndexUnfilteredListThrowsCommandException() {
         Index outOfBoundIndexes = Index.fromOneBased(model.getFilteredPersonList().size() + 1,
                 model.getFilteredPersonList().size() + 2);
-        AddFriendCommand addFriendCommand = new AddFriendCommand(outOfBoundIndexes);
+        DeleteFriendCommand deleteFriendCommand = new DeleteFriendCommand(outOfBoundIndexes);
 
-        assertCommandFailure(addFriendCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteFriendCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        AddFriendCommand addFriendFirstCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_SECOND.getZeroBased(),
-                INDEX_THIRD.getZeroBased()));
-        AddFriendCommand addFriendSecondCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_THIRD.getZeroBased(),
-                INDEX_FORTH.getZeroBased()));
+        DeleteFriendCommand deleteFriendFirstCommand = new DeleteFriendCommand(Index.fromZeroBased(
+                INDEX_SECOND.getZeroBased(), INDEX_THIRD.getZeroBased()));
+        DeleteFriendCommand deleteFriendSecondCommand = new DeleteFriendCommand(Index.fromZeroBased(
+                INDEX_THIRD.getZeroBased(), INDEX_FORTH.getZeroBased()));
 
         // same object -> returns true
-        assertTrue(addFriendFirstCommand.equals(addFriendFirstCommand));
+        assertTrue(deleteFriendFirstCommand.equals(deleteFriendFirstCommand));
 
         // same values -> returns true
-        AddFriendCommand addFriendFirstCommandCopy = new AddFriendCommand(Index.fromZeroBased(
+        DeleteFriendCommand deleteFriendFirstCommandCopy = new DeleteFriendCommand(Index.fromZeroBased(
                 INDEX_SECOND.getZeroBased(), INDEX_THIRD.getZeroBased()));
-        assertTrue(addFriendFirstCommand.equals(addFriendFirstCommandCopy));
+        assertTrue(deleteFriendFirstCommand.equals(deleteFriendFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(addFriendFirstCommand.equals(1));
+        assertFalse(deleteFriendFirstCommand.equals(1));
 
         // different person -> returns false
-        assertFalse(addFriendFirstCommand.equals(addFriendSecondCommand));
+        assertFalse(deleteFriendFirstCommand.equals(deleteFriendSecondCommand));
     }
 }

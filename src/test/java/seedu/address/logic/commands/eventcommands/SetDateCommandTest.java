@@ -56,6 +56,7 @@ public class SetDateCommandTest {
     @Test
     public void execute_noEventSetDate() {
         SetDateCommand command = new SetDateCommand(date);
+        model.setCurrentUser(ALICE);
         String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }

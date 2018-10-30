@@ -50,54 +50,120 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
-
 Shows all the commands in the app and how to use them.
-
-=== Login : `login`
-
-Allows the user to login to the system. A user must first log in to enable certain commands to be executed.
-Users can also use a the command alias `l` to replace the `login' command.
-
-Format:
-
-`login n/USERNAME p/PHONE e/EMAIL`
-
-`l n/USERNAME p/PHONE e/EMAIL`
-
-Examples:
-
-`login n/John Doe p/98765432 e/johnd@example.com`
-
-`l n/John Doe p/98765432 e/johnd@example.com`
 
 === User Commands
 
-==== Listing all users : `listUsers`
+==== View help : `help`
+
+==== Add a user : `addUser`
+
+Adds a new user to EventOrganiser. +
+Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [t/TAG]...`
+
+[TIP]
+A user can have any number of tags and interests (including 0)
+
+Examples:
+
+* `addUser n/John Doe p/98765432 e/johnd@example.com pass/password123 a/John street, block 123, #01-01`
+* `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/friend`
+
+==== Log in a user : `login`
+
+Logs in the user to EventOrganiser. A user must first log in to enable certain commands to be executed.
+
+Format:
+
+`login n/USERNAME pass/PASSWORD`
+
+Examples:
+
+`login n/John Doe pass/password123`
+
+==== List all users : `listUsers`
 
 Shows a list of all users in the event organiser. +
 Format: `listUsers`
 
-==== Locating users: `findUser`
+==== Find users by name : `findUserByName`
 
 Finds users whose names contain any of the given keywords. +
-Format: `findUser [KEYWORD] [KEYWORDS]...`
+Format: `findUserByPhone [KEYWORD] [KEYWORDS]...`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* users matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Han` will not match `Hans`.
+* users matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 ****
 
 Examples:
 
-* `findUser John` +
-Returns `john` and `John Doe`
-* `findUser Betsy Tim John` +
-Returns any user having names `Betsy`, `Tim`, or `John`
+* `findUserByName John` +
+Returns any user having the names `john` and `John`
+* `findUserByName Betsy John` +
+Returns any user having names `Betsy`, `betsy`, `John`, or `john`
 
+==== Find users by phone number : `findUserByPhone`
+
+Finds users whose phone number matches any of the given numbers. +
+Format: `findUserByPhone [PHONE NUMBER] [PHONE NUMBER]...`
+
+****
+* The order of the keywords does not matter. e.g. `87438807 99272758` will give the same result as `99272758 87438807`.
+* Only the phone number is searched.
+* Substrings or superstrings of a phone number will not be matched e.g. `87438807` will not match `874388070`, and likewise, `8743880` will not match `87438807`.
+****
+
+Examples:
+
+* `findUserByPhone 87438807` +
+Returns any user with the phone number `87438807`
+* `findUserByPhone 87438807 99272758` +
+Returns any user with the phone number `87438807` or `99272758`
+
+==== Find users by name, phone number, email, address, interest, tag : `findUser`
+
+Finds users with any matching name, phone number, email, address, interest, tag. +
+Format: `findUser n/[NAME] p/[PHONE NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]...`
+
+****
+* Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
+* Any combination of the above prefixes is valid. Eg. `findUser e/[EMAIL] a/[ADDRESS]` only search for email and address.
+* The order of the keywords does not matter.
+* Only the name, phone number, email, address, interest, tag is searched.
+* Substrings or superstrings of a phone number will not be matched e.g. `87438807` will not match `874388070`, and likewise, `8743880` will not match `87438807`
+****
+
+Examples:
+
+* `findUser p/87438807 i/dance` +
+Returns any user with the phone number `87438807` or interest `dance`
+* `findUser n/john e/john@example.com t/teacher` +
+Returns any user with the name `87438807` or email `john@example.com` or tag `teacher`
+
+==== Delete a user : `deleteUser`
+
+Deletes the specified user from the event organiser. +
+Format: `deleteUser INDEX`
+
+****
+* Deletes the user at the specified `INDEX`.
+* The index refers to the index number shown in the displayed user list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* A user can only deleted by the owner of the user profile
+****
+
+Examples:
+
+* `listUser` +
+`deleteUser 2` +
+Deletes the 2nd user in the event organiser.
+* `findUser Betsy` +
+`deleteUser 1` +
+Deletes the 1st user in the results of the `find` command.
 
 ////
 ==== Locating users by available time range: `findUserAvailAt`
@@ -131,28 +197,6 @@ Examples:
 * `findFriendsOf John Doe`
 ////
 
-
-==== Deleting a user : `deleteUser`
-
-Deletes the specified user from the event organiser. +
-Format: `deleteUser INDEX`
-
-****
-* Deletes the user at the specified `INDEX`.
-* The index refers to the index number shown in the displayed user list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* A user can only deleted by the owner of the user profile
-****
-
-Examples:
-
-* `listUser` +
-`deleteUser 2` +
-Deletes the 2nd user in the event organiser.
-* `findUser Betsy` +
-`deleteUser 1` +
-Deletes the 1st user in the results of the `find` command.
-
 ==== Selecting a user : `selectUser`
 
 Selects the user identified by the index number used in the displayed user list. +
@@ -173,30 +217,17 @@ Selects the 2nd user in the event organiser.
 `selectUser 1` +
 Selects the 1st user in the results of the `find` command.
 
+////
 ==== Clearing all user entries : `clear`
 
 Clears all users from the event organiser. +
 Format: `clear`
-
-=== Setup user commands
-
-==== Setup a user : `setupUser`
-
-Set up a new user to the event organiser. This is one of the only two commands that are available before an user logs in (the other being `setupUser`) +
-Format: `setupUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [i/INTEREST]...`
-
-[TIP]
-A user can have any number of tags (including 0)
-
-Examples:
-
-* `setupUser n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `setupUser n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+////
 
 ==== Editing a user : `edit`
 
 Edits an existing user in the event organiser. +
-Format: `edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE...`
+Format: `editUser INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE...`
 
 ****
 * Edits the user at the specified `INDEX`. The index refers to the index number shown in the displayed user list. The index *must be a positive integer* 1, 2, 3, ...
@@ -223,6 +254,36 @@ Example:
 
 * `addInterest Tennis` +
 Adds the interest "Tennis" to the pre-selected user.
+
+==== Add a friend : `addFriend`
+
+For two persons, adds friend with each other. +
+Format: `addFriend INDEX,INDEX`
+
+****
+* For two users at the 2 specified `INDEX`, adds each other as friend. The index *must be a positive integer* 1, 2, 3, ... and must be different from each other
+* The two users cannot be already friends.
+****
+
+Examples:
+
+* `addFriend 1,2` +
+1st and 2nd user becomes friends with each other and appear on each other's friend list.
+
+==== Delete a friend : `deleteFriend`
+
+For two persons, deletes each other as friend. +
+Format: `deleteFriend INDEX,INDEX`
+
+****
+* For two users at the 2 specified `INDEX`, deletes each other as friend. The index *must be a positive integer* 1, 2, 3, ... and must be different from each other
+* The two users must be already friends.
+****
+
+Examples:
+
+* `deleteFriend 1,2` +
+1st and 2nd user are no longer friends with each other and their names are removed from each other's friend list.
 
 ==== Add a group : `addGroup`
 
@@ -445,6 +506,8 @@ Examples:
 Lists all the events joined by the current user.
 Format: `listJoinedEvents`
 
+
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -522,26 +585,72 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Login*  `login n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
-e.g. `login n/John Doe p/98765432 e/johnd@example.com a/123, Clementi Rd, 1234665`
-* *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+
+=== User commands
+* *Help* : `help`
+
+* *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/PASSWORD a/ADDRESS [t/TAG] [i/INTEREST]...` +
 e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
+
+* *Login*  `login n/NAME pass/PASSWORD`
+e.g. `login n/John Doe pass/password`
+
+* *List User* : `listUsers`
+
+* *Find User By Name* : `findUserByName KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James`
+
+* *Find User By Phone Number* : `findUserByPhone KEYWORD [MORE_KEYWORDS]` +
+e.g. `find 99272758`
+
+* *Find User (by name, phone number, email, address, interest, or tag)* :
+`findUser n/NAME p/PHONE e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
+e.g. `find n/James i/basketball`
+
 * *Delete User* : `deleteUser INDEX` +
 e.g. `deleteUser 3`
+
 * *Edit User* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/ SCHEDULE] [su/ SCHEDULE_UPDATE] [tt/ TIMETABLE] [t/TAG]...` +
 e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
 e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
 e.g. `editUser 1 su/ monday 0000`
-* *Find User* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List User* : `listUsers`
-* *Help* : `help`
+
 * *Select User* : `selectUser INDEX` +
 e.g.`select 2`
+
 * *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+
 * *Free time between persons*: `maxSchedule INDEX INDEX ...` +
 e.g. `maxSchedule 0 1 2 3`
-​
+
+=== Event organiser commands
+​* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
+e.g. `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent`
+​* *Delete Event* : `deleteEvent INDEX` +
+e.g. `deleteEvent 1`
+* *Add Poll* : `addPoll n/POLL_NAME` +
+e.g. `addPoll n/Activity`
+* *Add Option* : `addOption i/POLL_INDEX o/POLL_OPTION` +
+e.g. `addOption i/1 o/Play games`
+* *Add Time Poll* : `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR` +
+e.g. `addTimePoll d1/01-12-2018 d2/02-12-2018`
+* *Display Poll* : `displayPoll INDEX` +
+e.g. `displayPoll 1`
+* *Set Event Date* : `setDate d/DAY-MONTH-YEAR` +
+e.g. `setDate d/12-12-2018`
+* *Set Event Time* : `setTime t1/HOUR:MINUTE t2/HOUR:MINUTE` +
+e.g. `setTime t1/12:30 t2/13:45`
+
+=== Event participant commands
+* *Select Event* : `selectEvent INDEX` +
+e.g. `selectEvent 1`
+* *Join Event* : `joinEvent INDEX` +
+e.g. `joinEvent 1`
+* *Vote* : `vote i/POLL_INDEX o/POLL_OPTION` +
+e.g. `vote i/1 o/Play games`
+* *Find Event With Attributes* : `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
+[on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
+e.g. `findEvent t1/12-12-2018 pn/John Doe`
+e.g. `findEvent a/SoC Canteen on/Alice Tan`
+* *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
+e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`

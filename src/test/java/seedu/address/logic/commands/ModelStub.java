@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -56,11 +57,6 @@ public class ModelStub implements Model {
 
     @Override
     public void updatePerson(Person target, Person editedPerson) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updatePerson(Person target1, Person editedPerson1, Person target2, Person editedPerson2) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -176,6 +172,22 @@ public class ModelStub implements Model {
 
     @Override
     public void joinEvent(Index index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    public void setClearEnabled() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    public boolean getClearEnabled() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    public void setDate(LocalDate date) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    public void setTime(LocalTime startTime, LocalTime endTime) {
         throw new AssertionError("This method should not be called.");
     }
 }

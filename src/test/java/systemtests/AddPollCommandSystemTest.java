@@ -12,12 +12,12 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
-import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
@@ -26,6 +26,7 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalIndexes;
 
 public class AddPollCommandSystemTest extends AddressBookSystemTest {
+
     private static final String POLLNAME = "Activity poll";
     private static final String POLL_OPTION = "Chitchat";
 
@@ -33,61 +34,61 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
     public void addPoll() throws NoUserLoggedInException, NoEventSelectedException, NotEventOrganiserException {
         Model model = getModel();
 
-        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
+        // ------------------------ Perform add operations on the shown unfiltered list -----------------------------
 
         String pollName = POLLNAME;
         String command = "   " + AddPollCommand.COMMAND_WORD + "  " + PREFIX_NAME + POLLNAME;
 
-        /* Case: no user logged in -> NoUserLoggedInException */
+        // Case: no user logged in -> NoUserLoggedInException
         assertCommandFailure(command, Messages.MESSAGE_NO_USER_LOGGED_IN);
 
-        /* Case: no event selected -> NoEventSelectedException */
-        executeCommand(SelectUserCommand.COMMAND_WORD + " 1");
-
+        // Case: no event selected -> NoEventSelectedException
+        executeCommand(LoginCommand.COMMAND_WORD + " n/Benson Meier pass/password");
         assertCommandFailure(command, Messages.MESSAGE_NO_EVENT_SELECTED);
 
-        /* Case: user is not event organiser -> NotEventOrganiserException */
+        // Case: user is not event organiser -> NotEventOrganiserException
         executeCommand(SelectEventCommand.COMMAND_WORD + " 2");
-        executeCommand(SelectUserCommand.COMMAND_WORD + " 2");
+        executeCommand(LoginCommand.COMMAND_WORD + " n/Benson Meier pass/password");
         assertCommandFailure(command, Messages.MESSAGE_NOT_EVENT_ORGANISER);
 
-        /* Case: add a poll with generic poll name
-         * -> poll added
-         */
-        executeCommand(SelectUserCommand.COMMAND_WORD + " 1");
+        // Case: add a poll with generic poll name
+        //  -> poll added
+        executeCommand(LoginCommand.COMMAND_WORD + " n/Alice Pauline pass/password");
         assertAddPollCommandSuccess(command, POLLNAME);
 
-        /* ----------------------------------- Perform add poll option operations ----------------------------------- */
+        // ----------------------------------- Perform add poll option operations -----------------------------------
 
-        /* Case: invalid command format missing index -> rejected */
+        // Case: invalid command format missing index -> rejected
         String addOptionCommand = "  " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_POLL_OPTION + POLL_OPTION;
         assertCommandFailure(addOptionCommand, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPollOptionCommand.MESSAGE_USAGE));
 
-        /* Case: no poll at the given index -> rejected */
+        // Case: no poll at the given index -> rejected
         addOptionCommand = "  " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_INDEX + "3 "
                 + PREFIX_POLL_OPTION + POLL_OPTION;
         assertCommandFailure(addOptionCommand, Messages.MESSAGE_NO_POLL_AT_INDEX);
 
-        /* Case: add poll option into poll -> NotEventOrganiserException */
+        // Case: add poll option into poll -> NotEventOrganiserException
         addOptionCommand = "  " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_INDEX + "1 "
                 + PREFIX_POLL_OPTION + POLL_OPTION;
         assertAddOptionCommandSuccess(addOptionCommand, TypicalIndexes.INDEX_FIRST, POLL_OPTION);
 
-        /* ----------------------------------- Perform invalid add poll operations ---------------------------------- */
+        // ----------------------------------- Perform invalid add poll operations ----------------------------------
 
-        /* Case: missing name -> rejected */
+        // Case: missing name -> rejected
         command = AddPollCommand.COMMAND_WORD;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPollCommand.MESSAGE_USAGE));
 
-        /* Case: invalid keyword -> rejected */
+        // Case: invalid keyword -> rejected
         command = "addPolls " + pollName;
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: invalid name -> rejected */
+        // Case: invalid name -> rejected
         command = AddPollCommand.COMMAND_WORD + INVALID_NAME_DESC;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+
     }
+
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
@@ -96,6 +97,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertAddPollCommandSuccess(String command, String pollName) throws NoEventSelectedException,
             NoUserLoggedInException, NotEventOrganiserException {
+
         Model expectedModel = getModel();
         expectedModel.setCurrentUser(ALICE);
         Event event = expectedModel.getEvent(TypicalIndexes.INDEX_SECOND);
@@ -111,9 +113,11 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
      * @see AddUserCommandSystemTest#assertCommandSuccess(Person)
      */
     private void assertAddOptionCommandSuccess(String command, Index index, String option) {
+
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(AddPollOptionCommand.MESSAGE_SUCCESS, option, index.getOneBased());
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
     }
 
     /**

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.StubUserBuilder;
 
 public class LoginCommandTest {
     @Rule
@@ -46,7 +46,7 @@ public class LoginCommandTest {
 
     @Test
     public void execute_invalidPersonLogin_loginUnsuccessful() {
-        Person invalidPerson = new PersonBuilder(BOB).build();
+        Person invalidPerson = new StubUserBuilder().build();
         ModelStubAcceptingPersonLogin modelStub = new ModelStubAcceptingPersonLogin(null);
         Assert.assertThrows(CommandException.class, () -> new LoginCommand(invalidPerson)
             .execute(modelStub, commandHistory));

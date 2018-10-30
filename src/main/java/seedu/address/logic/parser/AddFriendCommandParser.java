@@ -14,8 +14,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AddFriendCommandParser implements Parser<AddFriendCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteUserCommand
-     * and returns an DeleteUserCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddFriendCommand
+     * and returns an AddFriendCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFriendCommand parse(String args) throws ParseException {

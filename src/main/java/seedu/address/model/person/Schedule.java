@@ -8,6 +8,7 @@ import java.util.Arrays;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
+ * Represents a schedule of a person, reflected as a 24h x 2-30min x 7 days - weekly schedule.
  * @author adjscent
  */
 public class Schedule {
@@ -61,6 +62,7 @@ public class Schedule {
     }
 
     /**
+     * Accesses the internal schedule and check if specified day and time is free
      * @param day
      * @param time
      * @return
@@ -90,6 +92,7 @@ public class Schedule {
     }
 
     /**
+     * Check the internal schedule and set the vacancy of a specific day and time
      * @param day
      * @param time
      * @param occupied
@@ -233,6 +236,7 @@ public class Schedule {
     }
 
     /**
+     * For poll methods. Return an arraylist of slots of free time
      * @return
      * @throws ParseException
      */
@@ -262,6 +266,7 @@ public class Schedule {
     }
 
     /**
+     * For poll methods. Return an arraylist of slots of free time by day
      * @return
      * @throws ParseException
      */

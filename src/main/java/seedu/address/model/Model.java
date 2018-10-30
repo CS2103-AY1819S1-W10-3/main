@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -20,15 +21,21 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyAddressBook newData);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -37,6 +44,7 @@ public interface Model {
     boolean hasPerson(Person person);
 
     boolean hasEvent(Event event);
+
     /**
      * Deletes the given person.
      * The person must exist in the address book.
@@ -56,31 +64,27 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
-    /**
-     * Replaces 2 given persons {@code target1}, {@code target2} with {@code editedPerson1}, {@code editedPerson2}.
-     * {@code target1} and {@code target2} must exist in the address book.
-     * The persons identity of {@code editedPerson1} and {@code editedPerson2} must not be the same as
-     * another existing person in the address book.
-     */
-    void updatePerson(Person target1, Person editedPerson1, Person target2, Person editedPerson2);
-
     void updateEvent(Event target, Event editedEvent);
 
     void updateEvent(int index, Event event);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     ObservableList<Event> getFilteredEventList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
@@ -112,24 +116,28 @@ public interface Model {
 
     /**
      * adds an event to the address book.
+     *
      * @param toAdd the event to be added.
      */
     void addEvent(Event toAdd) throws NoUserLoggedInException;
 
     /**
      * deletes an event from the address book.
+     *
      * @param target the event to be deleted
      */
     void deleteEvent(Event target);
 
     /**
      * Gets the event in the address book.
+     *
      * @param targetIndex Index of the event.
      */
     Event getEvent(Index targetIndex);
 
     /**
      * Adds a poll to the pre-selected event with the given name.
+     *
      * @param pollName the poll name.
      * @throws NoEventSelectedException
      * @throws NoUserLoggedInException
@@ -139,6 +147,7 @@ public interface Model {
 
     /**
      * Creates a time poll to the pre-selected event with the given name.
+     *
      * @throws NoEventSelectedException
      * @throws NoUserLoggedInException
      * @throws NotEventOrganiserException
@@ -148,7 +157,8 @@ public interface Model {
 
     /**
      * Adds a poll option to the poll at the given index of the pre-selected event.
-     * @param index the index of the poll in the list of polls.
+     *
+     * @param index      the index of the poll in the list of polls.
      * @param optionName the name of the option.
      * @throws NoEventSelectedException
      */
@@ -156,7 +166,8 @@ public interface Model {
 
     /**
      * Adds the current user as a voter for a given option.
-     * @param pollIndex the index of the poll in the list of polls.
+     *
+     * @param pollIndex  the index of the poll in the list of polls.
      * @param optionName the name of the option.
      * @throws NoUserLoggedInException
      * @throws NoEventSelectedException
@@ -167,6 +178,7 @@ public interface Model {
 
     /**
      * Adds a person to the event at the given index.
+     *
      * @param index the index of the event to join.
      * @throws NoUserLoggedInException
      */
@@ -174,6 +186,7 @@ public interface Model {
 
     /**
      * Sets the current user of the address book.
+     *
      * @param currentUser
      */
     void setCurrentUser(Person currentUser);
@@ -185,6 +198,7 @@ public interface Model {
 
     /**
      * Gets the person in the address book
+     *
      * @param targetIndex Index of the person.
      */
     Person getPerson(Index targetIndex);
@@ -198,4 +212,27 @@ public interface Model {
      * Gets the selected event.
      */
     Event getSelectedEvent() throws NoEventSelectedException;
+
+    /**
+     * Enable clear command, only for testing purposes.
+     */
+    void setClearEnabled();
+
+    /**
+     * Get whether clear is enabled.
+     */
+    boolean getClearEnabled();
+
+    /**
+     * Sets the date of the pre-selected event.
+     */
+    void setDate(LocalDate date) throws NotEventOrganiserException,
+            NoEventSelectedException, NoUserLoggedInException;
+
+    /**
+     * Sets the start and end time of the pre-selected event.
+     */
+    void setTime(LocalTime startTime, LocalTime endTime) throws NotEventOrganiserException,
+            NoEventSelectedException, NoUserLoggedInException;
 }
+

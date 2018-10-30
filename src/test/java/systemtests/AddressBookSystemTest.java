@@ -130,8 +130,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code command} in the application's {@code CommandBox}.
-     * Method returns after UI components have been updated.
+     * Executes {@code command} in the application updated.
      */
     protected void executeCommand(String command) {
         rememberStates();
@@ -140,6 +139,7 @@ public abstract class AddressBookSystemTest {
         clockRule.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
+
 
         waitUntilBrowserLoaded(getBrowserPanel());
     }

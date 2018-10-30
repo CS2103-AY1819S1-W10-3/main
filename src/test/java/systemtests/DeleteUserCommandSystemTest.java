@@ -14,8 +14,6 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -31,7 +29,7 @@ public class DeleteUserCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteUserCommand.COMMAND_WORD + "      " + INDEX_FIRST.getOneBased() + "       ";
+        String command = "   " + DeleteUserCommand.COMMAND_WORD + "      " + INDEX_FIRST.getOneBased() + "       ";
         Person deletedPerson = removePerson(expectedModel, INDEX_FIRST);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -42,16 +40,17 @@ public class DeleteUserCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(lastPersonIndex);
 
         /* Case: undo deleting the last person in the list -> last person restored */
-        command = UndoCommand.COMMAND_WORD;
+        /*command = UndoCommand.COMMAND_WORD;
         expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(
-                command, modelBeforeDeletingLast, expectedResultMessage);
+                command, modelBeforeDeletingLast, expectedResultMessage);*/
 
         /* Case: redo deleting the last person in the list -> last person deleted again */
-        command = RedoCommand.COMMAND_WORD;
+        /*command = RedoCommand.COMMAND_WORD;
         removePerson(modelBeforeDeletingLast, lastPersonIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
+        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);*/
+
 
         /* Case: delete the middle person in the list -> deleted */
         Index middlePersonIndex = getMidIndex(getModel());

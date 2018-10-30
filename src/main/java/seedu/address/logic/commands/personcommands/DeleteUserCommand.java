@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.personcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -43,9 +44,31 @@ public class DeleteUserCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        updateFriendListsDueToDeletedPerson(model, lastShownList, personToDelete);
+
         model.deletePerson(personToDelete);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    }
+
+    /**
+     * After the current user is deleted, this function will search through
+     * the user list, and updates the {@code Friend} attribute of the persons with this
+     * current user in their friend list
+     */
+    private void updateFriendListsDueToDeletedPerson(Model model, List<Person> personList,
+                                                     Person personToDelete) throws CommandException {
+        for (Person currentPerson : personList) {
+            if (currentPerson.hasFriendInList(personToDelete)) {
+                Person currentPersonCopy = new Person(currentPerson);
+                currentPersonCopy.deleteFriendInList(personToDelete);
+
+                model.updatePerson(currentPerson, currentPersonCopy);
+                model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+                model.commitAddressBook();
+            }
+        }
     }
 
     @Override

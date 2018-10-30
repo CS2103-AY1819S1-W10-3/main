@@ -15,6 +15,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Friend;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Schedule;
@@ -33,6 +34,8 @@ public class XmlAdaptedPerson {
     private String phone;
     @XmlElement(required = true)
     private String email;
+    @XmlElement(required = true)
+    private String password;
     @XmlElement(required = true)
     private String address;
     @XmlElement(required = true)
@@ -55,11 +58,12 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address,
+    public XmlAdaptedPerson(String name, String phone, String email, String password, String address,
                             List<XmlAdaptedInterest> interests, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.password = password;
         this.address = address;
         if (interests != null) {
             this.interests = new ArrayList<>(interests);
@@ -75,12 +79,13 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address,
+    public XmlAdaptedPerson(String name, String phone, String email, String password, String address,
                             List<XmlAdaptedInterest> interests, List<XmlAdaptedTag> tagged,
                             List<XmlAdaptedFriend> friends) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.password = password;
         this.address = address;
         if (interests != null) {
             this.interests = new ArrayList<>(interests);
@@ -105,6 +110,7 @@ public class XmlAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        password = source.getPassword().value;
         address = source.getAddress().value;
         schedule = source.getSchedule().valueToString();
         interests = source.getInterests().stream()
@@ -161,8 +167,18 @@ public class XmlAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        if (password == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Password.class.getSimpleName()));
+        }
+        if (!Password.isValidPassword(password)) {
+            throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        final Password modelPassword = new Password(password);
+
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
@@ -188,8 +204,8 @@ public class XmlAdaptedPerson {
 
         final Set<Friend> modelFriends = new HashSet<>(personFriends);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelInterests, modelTags, modelSchedule,
-                modelFriends);
+        return new Person(modelName, modelPhone, modelEmail, modelPassword, modelAddress, modelInterests, modelTags,
+                modelSchedule, modelFriends);
     }
 
     public String getName() {
@@ -202,6 +218,10 @@ public class XmlAdaptedPerson {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getAddress() {
@@ -238,6 +258,7 @@ public class XmlAdaptedPerson {
         return Objects.equals(name, otherPerson.name)
             && Objects.equals(phone, otherPerson.phone)
             && Objects.equals(email, otherPerson.email)
+            && Objects.equals(password, otherPerson.password)
             && Objects.equals(address, otherPerson.address)
             && interests.equals(otherPerson.interests)
             && tagged.equals(otherPerson.tagged)

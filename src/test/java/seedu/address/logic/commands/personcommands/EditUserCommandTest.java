@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.personcommands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
@@ -23,8 +22,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
@@ -204,7 +201,7 @@ public class EditUserCommandTest {
         assertCommandFailure(editUserCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    @Test
+    /*@Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Person editedPerson = new PersonBuilder().build();
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
@@ -247,7 +244,7 @@ public class EditUserCommandTest {
      * unfiltered list is different from the index at the filtered list.
      * 4. Redo the edit. This ensures {@code RedoCommand} edits the person object regardless of indexing.
      */
-    @Test
+    /*@Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
@@ -270,7 +267,7 @@ public class EditUserCommandTest {
         // redo -> edits same second person in unfiltered person list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
+    }*/
 
     @Test
     public void equals() {
@@ -295,6 +292,8 @@ public class EditUserCommandTest {
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditUserCommand(INDEX_FIRST, DESC_BOB)));
+
+        assertTrue(commandWithSameValues.toString().equals(commandWithSameValues.toString()));
     }
 
 }

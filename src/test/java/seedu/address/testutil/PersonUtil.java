@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -25,7 +26,7 @@ public class PersonUtil {
      * Returns an login command string for logging in the {@code person}.
      */
     public static String getLoginCommand(Person person) {
-        return LoginCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return LoginCommand.COMMAND_WORD + " " + getPersonLoginDetails(person);
     }
 
     /**
@@ -43,6 +44,7 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        sb.append(PREFIX_PASSWORD + person.getPassword().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getInterests().stream().forEach(
             s -> sb.append(PREFIX_INTEREST + s.interestName + " ")
@@ -53,6 +55,16 @@ public class PersonUtil {
         return sb.toString();
     }
 
+
+    /**
+     * Returns the part of command string for the given {@code person}'s details.
+     */
+    public static String getPersonLoginDetails(Person person) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NAME + person.getName().fullName + " ");
+        sb.append(PREFIX_PASSWORD + person.getPassword().value + " ");
+        return sb.toString();
+    }
     /**
      * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
      */

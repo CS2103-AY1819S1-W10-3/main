@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+//import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,18 +110,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
-    }
-
-    /**
-     * Replaces 2 given persons {@code target1}, {@code target2} with {@code editedPerson1}, {@code editedPerson2}.
-     * {@code target1} and {@code target2} must exist in the address book.
-     * The persons identity of {@code editedPerson1} and {@code editedPerson2} must not be the same as
-     * another existing person in the address book.
-     */
-    public void updatePerson(Person target1, Person editedPerson1, Person target2, Person editedPerson2) {
-        requireAllNonNull(editedPerson1, editedPerson2);
-
-        persons.setPerson(target1, editedPerson1, target2, editedPerson2);
     }
 
     /**

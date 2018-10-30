@@ -12,6 +12,7 @@ import seedu.address.model.person.Person;
  */
 public class PersonCard extends UiPart<Region> {
 
+    private static final String[] NAME_COLOR_STYLES = { "cell_big_label", "cell_big_label_green" };
     private static final String FXML = "PersonListCard.fxml";
 
     /**
@@ -43,7 +44,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        initName(person);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
@@ -66,5 +67,33 @@ public class PersonCard extends UiPart<Region> {
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
+    }
+
+    /**
+     * Returns the color style for {@code name}'s label.
+     */
+    private String getNameColorStyle(Person person) {
+        if (person.getLoginStatus()) {
+            return NAME_COLOR_STYLES[1];
+        }
+        return NAME_COLOR_STYLES[0];
+    }
+
+    /**
+     * Returns the text for {@code name}'s label.
+     */
+    private String getNameText(Person person) {
+        if (person.getLoginStatus()) {
+            return person.getName().fullName;
+        }
+        return person.getName().fullName;
+    }
+
+    /**
+     * Creates the name labels for {@code person}.
+     */
+    private void initName(Person person) {
+        name.setText(getNameText(person));
+        name.getStyleClass().add(getNameColorStyle(person));
     }
 }
