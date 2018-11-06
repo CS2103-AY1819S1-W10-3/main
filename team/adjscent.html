@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Soh Jason - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">EventOrganiser</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-W10-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Soh Jason - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-eventorganiser"><a class="link" href="#project-eventorganiser">PROJECT: EventOrganiser</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>EventOrganiser is a desktop event organiser book application used to store personal particulars and organise events and for other users to join the event as event participants.The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of"><a class="link" href="#summary-of">Summary of</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: added <strong>the ability to manage schedule</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: allows the user to manage their schedule inside the event organiser</p>
+</li>
+<li>
+<p>Justification: This feature improves the product significantly because a user is able to find out the vacant time slots of every person, so that he can plan the event time with more considerations.</p>
+</li>
+<li>
+<p>Highlights: It required an in-depth analysis of design alternatives. There is a need to choose a tradeoff between ease of management vs schedule detail or else the performance of the event organiser will suffer.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Major enhancement</strong>: added <strong>the ability to download timetable from NUSmods, which is then converted to a schedule</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: allows the user to quickly download his timetable from NUSmods to be used in the event organiser</p>
+</li>
+<li>
+<p>Justification: This feature improves the product significantly because this provides a convenient way for users to add their schedules automatically and quickly</p>
+</li>
+<li>
+<p>Highlights: The implementation  was challenging as it required reading of documentation and analysing how nusmods handles external api requests (valid and invalid)</p>
+</li>
+<li>
+<p>Credits: JSON Reference from [<a href="https://github.com/nusmodifications/nusmods-api">NusMods API</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>: added a schedule comparsion command that allows the user to compare multiple schedule to get the possible free slots.</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management</p>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the GUI browser design scheme (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/126">#126</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/79">#79</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/87">#87</a>)</p>
+</li>
+<li>
+<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/">#115</a>)</p>
+</li>
+<li>
+<p>Fixed sample data to reflect the new application (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/107">#107</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/89">#89</a>,https://github.com/CS2103-AY1819S1-W10-3/main/pull/140[#140]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/97">#97</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/23">#23</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/76">#76</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/128">#128</a></p>
+</li>
+<li>
+<p>Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated a third party website (Nusmods) to the project (<a href="https://github.com">#42</a>)</p>
+</li>
+<li>
+<p>Integrated a new Github plugin (Appyevor) to the team repo</p>
+</li>
+<li>
+<p>Integrated a new Github plugin (Reposense) to the team repo</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Edit User</strong> : <code>editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] &#8230;&#8203;</code><br>
+e.g. <code>editUser 2 n/James Lee e/jameslee@example.com</code><br>
+e.g. <code>editUser 1 tt/ <a href="http://modsn.us/H4v8s" class="bare">http://modsn.us/H4v8s</a></code><br>
+e.g. <code>editUser 1 su/ monday 0000</code></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">Get free time between users : <code>maxSchedule</code></a></h4>
+<div class="paragraph">
+<p>Compares the schedule of multiple users and return a string of common free time.<br>
+Format: <code>maxSchedule INDEX INDEX&#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>maxSchedule 1 2</code><br>
+Compares the schedule of users of index 1 and 2 and return a string of common free time.</p>
+</li>
+<li>
+<p><strong>Free time between persons</strong>: <code>maxSchedule INDEX INDEX &#8230;&#8203;</code><br>
+e.g. <code>maxSchedule 1 2 3</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="schedule-feature"><a class="link" href="#schedule-feature">Schedule feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current implementation</a></h4>
+<div class="paragraph">
+<p>This section explains the implementation of the features associated with the Schedule class of each Schedule while detailing some implementation details of the Schedule class. The relevant commands which are callable by the user to be discussed are:</p>
+</div>
+<div class="paragraph">
+<p><code>EditUserCommand</code> - The base Edit command for person with two additions - Schedule and Schedule Update parameter</p>
+</div>
+<div class="paragraph">
+<p><code>MaxScheduleCommand</code> - Compare two persons' schedules and return the common free time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="paragraph">
+<p>For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatability with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week&#8217;s schedule is stored.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-storage-of-schedule-in-person"><a class="link" href="#aspect-storage-of-schedule-in-person">Aspect: Storage of schedule in person</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong>: Store all schedule as a slot just like how a calendar does, which includes day, time, etc.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: All information about the schedule are stored.</p>
+</li>
+<li>
+<p>Cons: Expensive storage as a lot of data needs to be stored. Management of schedule may become an issue here if the schedule needs to store for more than a year worth.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong>: Store weekly schedule</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Cheap storage as only a subnet of schedule needs to be stored. Possible O(1) access times.</p>
+</li>
+<li>
+<p>Cons: Explict details of the schedule may be lost such as an event that appears only once a year.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We have chosen the second option for the ease of storage management and low access times.
+To store the schedule, a unique approach of using bit counters is used.
+Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits.
+1-bit signifies an occupied slot while a 0-bit signifies an empty slot.
+This 336 bit string is then stored as a string in the xml.
+However, in the application, it will stored as a two-dimensional array [7][48].
+This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.</p>
+</div>
+<div class="paragraph">
+<p>Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-schedule-update"><a class="link" href="#aspect-schedule-update">Aspect: Schedule Update</a></h5>
+<div class="paragraph">
+<p>As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputed. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-maxschedule-command"><a class="link" href="#aspect-maxschedule-command">Aspect: MaxSchedule Command</a></h5>
+<div class="paragraph">
+<p>Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="timetable-feature"><a class="link" href="#timetable-feature">TimeTable feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current implementation</a></h4>
+<div class="paragraph">
+<p>This section explains the implementation of the features associated with the TimeTableUtil and Timetable class of each TimeTable while detailing some implementation details of the TimeTable and TimeTableUtil class. The relevant commands which are callable by the user to be discussed are:</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design considerations</a></h4>
+<div class="paragraph">
+<p><code>EditUserCommand</code> - The base Edit command for person with one addition - Timetable parameter</p>
+</div>
+<div class="paragraph">
+<p>TimeTable is data downloaded from nusmods.com, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand. This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.</p>
+</div>
+<div class="paragraph">
+<p>As nusmods.com is an external web server, internet access needs to be checked first. Following up, the nusmods.com gives the user a modsn.com shortlink which can translated back to a nusmods.com/&#8230;&#8203; full link, if he wants to share his timetable with himself or others. Finally, a valid nusmods.com timetable would include json data in its GET parameters. All of these must be fulfilled or else a Invalid Nusmods link will be returned to the application.</p>
+</div>
+<div class="paragraph">
+<p>A full valid example of the nusmods link is as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:11&amp;CS2103=LEC:1,TUT:01&amp;CS2105=LEC:1,TUT:16&amp;CS2106=LAB:09,LEC:1,TUT:09&amp;MA1521=LEC:1,TUT:4&amp;UCV2209=SEM:01</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/TimeTableScheduleDiagram.png" alt="TimeTableScheduleDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>How to obtain the full timetable.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. We can easily obtain the person&#8217;s timetable by splitting the GET parameters by ';' delimiter. The resulting array would contain Module Code /=/ Lesson Type /:/ Number Slot.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. Then, to obtain the full details of the module (including all lessons and all slots), we can use the NUSMODS API detailed here <a href="https://github.com/nusmodifications/nusmods-api" class="bare">https://github.com/nusmodifications/nusmods-api</a>.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. We will then filter out the lessons obtained in step 1 from the full detail in step 2.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The filtered lessons is then converted into an arraylist of Slot before returning to the aplication.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 15:17:19 UTC</div></div></div></body></html>
