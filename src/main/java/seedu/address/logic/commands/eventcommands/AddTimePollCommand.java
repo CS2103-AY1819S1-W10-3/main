@@ -1,4 +1,4 @@
-//@@theJrLinguist
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.time.temporal.ChronoUnit.DAYS;

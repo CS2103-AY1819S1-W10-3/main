@@ -32,7 +32,7 @@ public class VoteCommandParser implements Parser<VoteCommand> {
         }
 
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-        String name = argMultimap.getValue(PREFIX_POLL_OPTION).get();
-        return new VoteCommand(index, name);
+        String optionName = ParserUtil.parseGenericString(argMultimap.getValue(PREFIX_POLL_OPTION).get());
+        return new VoteCommand(index, optionName);
     }
 }

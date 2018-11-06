@@ -28,7 +28,7 @@ public class MaxScheduleCommandParserTest {
         MaxScheduleCommand expectedMaxScheduleCommand =
             new MaxScheduleCommand(index);
 
-        assertParseSuccess(parser, "0 1",
+        assertParseSuccess(parser, "1 2",
             expectedMaxScheduleCommand);
     }
 }

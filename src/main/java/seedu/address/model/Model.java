@@ -234,5 +234,21 @@ public interface Model {
      */
     void setTime(LocalTime startTime, LocalTime endTime) throws NotEventOrganiserException,
             NoEventSelectedException, NoUserLoggedInException;
+
+    /**
+     * Checks if a person exists within the model.
+     * @param person the Person to be authenticated.
+     */
+    Person authenticateUser(Person person);
+
+    /**
+     * Logs out user.
+     */
+    void removeCurrentUser();
+
+    /**
+     * Checks if currentUser has been set.
+     */
+    boolean hasSetCurrentUser();
 }
 

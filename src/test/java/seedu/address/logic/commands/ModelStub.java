@@ -26,6 +26,21 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void removeCurrentUser() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasSetCurrentUser() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Person authenticateUser(Person person) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Person getPerson(Index index) {
         throw new AssertionError("This method should not be called.");
     }

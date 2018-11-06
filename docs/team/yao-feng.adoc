@@ -1,0 +1,59 @@
+= Wang Yao Feng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EventOrganiser
+
+---
+
+== Overview
+
+EventOrganiser is an application for managing and organising events built for NUS students. It is optimized for those
+who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+== Summary of
+
+* *Major enhancement*: Added the ability to login/logout a user
+** What it does: Allows the user to login and logout of EventOrganiser
+** Justification: This feature enforces some level of authorisation for our application so that some commands are only accessible by specific users
+
+* *Minor enhancement*: Added an all encompassing command that allows users to find other users based on their name, phone number, address, email, interests, and tags
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yao-feng[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up organisation's Github page
+** Documentation:
+*** Finalise User Stories: https://github.com/CS2103-AY1819S1-W10-3/main/pull/18[#18]
+*** Use Cases: https://github.com/CS2103-AY1819S1-W10-3/main/pull/17/files[#17]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/19[#19], https://github.com/CS2103-AY1819S1-W10-3/main/pull/45[#45], https://github.com/CS2103-AY1819S1-W10-3/main/pull/73[#73]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T13-2/main/issues/95[#95], https://github.com/CS2103-AY1819S1-T13-2/main/issues/97[#97])
+** Tools:
+*** Integrated a continuous integration tool (Travis CI) to the project (https://github.com/CS2103-AY1819S1-W10-3/main/pull/60/files[#60])
+*** Integrated a web service that tracks code coverage (Coveralls) to the project (https://github.com/CS2103-AY1819S1-W10-3/main/pull/60/files[#60])
+*** Integrated a web service that automates code reviews and code analytics (Codacy) to the project (https://github.com/CS2103-AY1819S1-W10-3/main/pull/60/files[#60])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=yaofeng(login/logout)]
+
+include::../UserGuide.adoc[tag=yaofeng(finduser)]
+
+include::../UserGuide.adoc[tag=yaofeng(commandsummary)]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=login/logout]
+
+include::../DeveloperGuide.adoc[tag=UC]

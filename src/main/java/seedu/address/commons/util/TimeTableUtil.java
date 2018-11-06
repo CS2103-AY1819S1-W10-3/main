@@ -72,15 +72,15 @@ public class TimeTableUtil {
             URL url = new URL(urlString);
             HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
 
-            // 1 sec timeout in case no internet or nusmods is down
-            httpUrlConnection.setReadTimeout(1000);
+            // 3 sec timeout in case no internet or nusmods is down
+            httpUrlConnection.setReadTimeout(3000);
 
             // Get the redirected link
             String longUrlString = httpUrlConnection.getHeaderField("Location");
             httpUrlConnection.disconnect();
 
             // Redirect failure handler
-            if (longUrlString.equals("") || longUrlString == null) {
+            if (longUrlString == null || longUrlString.equals("")) {
                 throw new ParseException(INVALID_URL);
             }
 
@@ -89,12 +89,16 @@ public class TimeTableUtil {
                 throw new ParseException(INVALID_URL);
             }
 
+            if (httpUrlConnection.getResponseCode() == 403) {
+                throw new ParseException(INVALID_URL);
+            }
+
             return longUrlString;
 
         } catch (IOException e) {
-            throw new ParseException(INVALID_URL);
-        } catch (Exception e) {
-            throw new ParseException(INVALID_URL);
+            throw new ParseException(API_CALL_FAILURE);
+        } catch (NullPointerException e) {
+            throw new ParseException(API_CALL_FAILURE);
         }
 
     }

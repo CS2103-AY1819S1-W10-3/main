@@ -46,8 +46,7 @@ public class UniqueEventListTest {
     @Test
     public void contains_eventWithSameIdentityFieldsInList_returnsTrue() {
         uniqueEventList.add(TUTORIAL);
-        Event editedTutorial = new EventBuilder(TUTORIAL).withAddress(VALID_ADDRESS_BOB)
-                .build();
+        Event editedTutorial = new EventBuilder(TUTORIAL).build();
         assertTrue(uniqueEventList.contains(editedTutorial));
     }
 

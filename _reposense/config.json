@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "adeeldb",
+      "displayName": "ADEEL...HYRIA",
+      "authorNames": ["adeeldb"]
+    },
+    {
+      "githubId": "theJrLinguist",
+      "displayName": "CHOW ...NG JI",
+      "authorNames": ["theJrLinguist", "KJ-LT\kengj"]
+    },
+    {
+      "githubId": "adjscent",
+      "displayName": "SOH...SON",
+      "authorNames": ["adjscent", "Jason"]
+    },
+    {
+      "githubId": "yao-feng",
+      "displayName": "WANG ...OFENG",
+      "authorNames": ["yao-feng"]
+    },
+    {
+      "githubId": "agendazhang",
+      "displayName": "ZHANG...CHENG",
+      "authorNames": ["agendazhang"]
+    }
+  ]
+}

@@ -52,7 +52,7 @@ public class FindEventCommandTest {
 
         EventAttributesPredicate predicate = new EventAttributesPredicate();
         if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
-            predicate.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
+            predicate.setName(ParserUtil.parseGenericString(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             predicate.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));

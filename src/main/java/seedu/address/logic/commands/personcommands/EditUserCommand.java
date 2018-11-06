@@ -50,15 +50,15 @@ public class EditUserCommand extends Command {
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
-        + "[" + PREFIX_PASSWORD + "PASSWORD] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_PASSWORD + "PASSWORD] "
         + "[" + PREFIX_TIMETABLE + "TIMETABLE] "
         + "[" + PREFIX_INTEREST + "INTEREST] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
-        + PREFIX_PASSWORD + "password"
         + PREFIX_EMAIL + "johndoe@example.com "
+        + PREFIX_PASSWORD + "password"
         + PREFIX_TIMETABLE + "http://modsn.us/H4v8s";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";

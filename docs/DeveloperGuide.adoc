@@ -252,6 +252,58 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::login/logout[]
+=== Login/logout feature
+
+==== Current Implementation
+
+This section explains the implementation of the components associated with the login feature.
+
+image::LoginFeature_SequenceDiagram_includes_Logic_Model.png[width="800"]
+
+After the execute() method of the login command is called,  the login command authenticates the user.
+A commandException will be thrown in the following 2 scenarios:
+
+* When the user does not exist.
+
+* When there is already a user that has been logged in.
+
+On the other hand, after the execute() method of the log out command is called,
+a commandException will be thrown when there isn't any user that is logged in.
+
+image::LoginFeature_SequenceDiagram_includes_Logic_EventsCenter_UI.png[width="800"]
+
+After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent to update the UI.
+
+For example, if the user, Alex Yeoh, wants to login to his account, the following image is what he will see before he logs in.
+
+image::LoginFeatureBeforeLogin.png[width="300"]
+
+After Alex Yeoh logs in, the UI will automatically be updated upon successful login as indicated by the change in colour
+of the user's name from white to green as shown in the image below. The user's name will remain in green as long as he is logged in. After he logs out,
+the colour of his name will revert back to white as shown in the image above.
+
+image::LoginFeatureAfterLogin.png[width="300"]
+
+==== Design Considerations
+
+===== Aspect: security
+
+* Alternative 1(Current choice) : store the password for each user as an attribute of Person class
+** Pros: Enforce some level of authentication with minimal code
+** Cons: Level of security is minimal
+
+
+* Alternative 2 : Use Java API to hash the password
+** Pros: Higher level of security for users
+** Cons: May not be pertinent for the EventOrganiser app as of v1.3
+
+* Alternative 3 : implement "login" via select command
+** Pros: Easy to implement
+** Cons: No security at all
+// end::login/logout[]
+
+////
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -331,6 +383,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+////
 
 // tag::poll[]
 === Poll feature
@@ -425,7 +478,21 @@ For EditCommand, despite the fact that schedule piggybacks off the original edit
 
 ===== Aspect: Storage of schedule in person
 
-To store the schedule, a unique approach of using bit counters is used. Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits. 1-bit signifies an occupied slot while a 0-bit signifies an empty slot. This 336 bit string is then stored as a string in the xml. However, in the application, it will stored as a two-dimensional array [7][48]. This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.
+* **Alternative 1:**: Store all schedule as a slot just like how a calendar does, which includes day, time, etc.
+** Pros: All information about the schedule are stored.
+** Cons: Expensive storage as a lot of data needs to be stored. Management of schedule may become an issue here if the schedule needs to store for more than a year worth.
+
+* **Alternative 2:**: Store weekly schedule
+** Pros: Cheap storage as only a subnet of schedule needs to be stored. Possible O(1) access times.
+** Cons: Explict details of the schedule may be lost such as an event that appears only once a year.
+
+We have chosen the second option for the ease of storage management and low access times.
+To store the schedule, a unique approach of using bit counters is used.
+Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits.
+1-bit signifies an occupied slot while a 0-bit signifies an empty slot.
+This 336 bit string is then stored as a string in the xml.
+However, in the application, it will stored as a two-dimensional array [7][48].
+This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.
 
 Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application
 
@@ -473,8 +540,8 @@ Step 4. The filtered lessons is then converted into an arraylist of Slot before 
 
 // end:::timetable[]
 
-//tag::addFriend[]
-=== Add Friend feature
+//tag::addDeleteFriend[]
+=== Add/Delete Friend feature
 
 ==== Current implementation
 This section explains the implementation of the addition/deletion of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:
@@ -484,7 +551,7 @@ This section explains the implementation of the addition/deletion of friends fea
 
 The following sequence diagram for AddFriendCommand is illustrated below:
 
-image::TimeTableScheduleDiagram.png[width="800"]
+image::AddFriendCommand.png[width="800"]
 
 ==== Design considerations
 
@@ -496,12 +563,12 @@ To specify the friendship relation between two users, both the indexes of the us
 
 ===== Aspect: Friend class
 
-Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string field that combines the 4 main attributes of Person (name, phone, email, address), since these attributes act as the primary identification for a Person. Example:
-For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object will have a string field that is 'Alex Yeoh-87438807-alexyeoh@example.com-Blk 30 Geylang Street 29, #06-40'.
+Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string field that combines the 4 main attributes of Person (name, phone, email, address) using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
+For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object will have a string field that is 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
 
 In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is called, a Friend object will be created and added into the set.
 
-In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '-' (due to the toString() method in Friend class), which is the actual name of the friend.
+In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.
 
 ===== Aspect: Friendships can only be added once and deleted if they are current friends
 
@@ -521,7 +588,7 @@ This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteU
 Person A's attributes gets modified (eg change name/phone):
 This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), the original Friend object will be replaced by the new Friend object created using the new attributes of person A.
 
-// end:::addFriend[]
+// end:::addDeleteFriend[]
 
 === Logging
 
@@ -1041,18 +1108,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 #### Keng Ji : Add event feature with polls and time, location features
 
 - [x] V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.
-- [ ] V1.2: Organisers able to "invite" participants to get recommendations for and set location;
-Users able to search for events by attributes (date, time, location, interest) and retrieve joined events.
-- [ ] V1.3: Application able to generate poll options based on application recommendation for time and location.
+- [x] V1.2: Users able to search for events by attributes (date, time, location, interest) and time range.
+- [x] V1.3: Application able to generate poll options based on participants' schedules.
 
 #### Yao Feng : Add login function and improve on search functions
 - [x] V1.1: Basic login command.
-- [ ] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
-- [ ] V1.3: Improved login command with password.
+- [X] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
+- [X] V1.3: Improved login command with password.
 
 #### Zhang Cheng : Add additional attributes for networking among users
 - [x] V1.1: Users able to specify their interests.
-- [ ] V1.2: Users able to specify friendships with other people.
+- [x] V1.2: Users able to specify friendships with other people.
 - [ ] V1.3: Users able to form groups and find mutual friends.
 
 #### Adeel : Add location-related features
@@ -1062,8 +1128,8 @@ Users able to search for events by attributes (date, time, location, interest) a
 
 #### Jason : Event Management/Recommendation
 - [x] V1.1: Pull schedule from NUS Mods and convert to a timetable. Allow Unions of timetable.
-- [ ] V1.2: Create, Update, Delete individual slots in timetable. Find best possible time for events using timetables.
-- [ ] V1.3: Visualize timetables of multiple friends.
+- [x] V1.2: Create, Update, Delete individual slots in timetable. Find best possible time for events using timetables.
+- [x] V1.3: Visualize timetables of multiple friends.
 
 [appendix]
 == User Stories
@@ -1111,6 +1177,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 [appendix]
+
+// tag::UC[]
 == Use Cases
 //(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 (For all use cases below, the *System* is the `EventOrganiser`, unless specified otherwise)
@@ -1294,7 +1362,7 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-Use
+
 *Extensions:*
 
 * 1a. Event organiser may specify extra details to filter search results.
@@ -1377,6 +1445,7 @@ highest votes.
 ** 10a1. System will show all the options that have the highest votes only.
 +
 Use case resumes from step 12.
+// end::UC[]
 
 [appendix]
 == Non Functional Requirements

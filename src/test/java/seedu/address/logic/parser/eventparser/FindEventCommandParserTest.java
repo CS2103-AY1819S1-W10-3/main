@@ -28,18 +28,17 @@ import seedu.address.logic.parser.eventparsers.FindEventCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventAttributesPredicate;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Name;
 
 public class FindEventCommandParserTest {
     private FindEventCommandParser parser = new FindEventCommandParser();
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, INVALID_EVENT_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, INVALID_EVENT_NAME_DESC, ParserUtil.MESSAGE_EMPTY_STRING); // invalid name
         assertParseFailure(parser, INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, INVALID_EVENT_NAME_DESC + VALID_ADDRESS_AMY, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_EVENT_NAME_DESC + INVALID_ADDRESS_DESC, ParserUtil.MESSAGE_EMPTY_STRING);
     }
 
     @Test
@@ -51,7 +50,7 @@ public class FindEventCommandParserTest {
 
         EventAttributesPredicate predicate = new EventAttributesPredicate();
         if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
-            predicate.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
+            predicate.setName(ParserUtil.parseGenericString(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             predicate.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
@@ -75,7 +74,7 @@ public class FindEventCommandParserTest {
         // name
         String userInput = NAME_DESC_MEETING;
         EventAttributesPredicate predicate = new EventAttributesPredicate();
-        predicate.setName(ParserUtil.parseName(VALID_NAME_MEETING));
+        predicate.setName(ParserUtil.parseGenericString(VALID_NAME_MEETING));
         FindEventCommand expectedCommand = new FindEventCommand(predicate);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -92,7 +91,7 @@ public class FindEventCommandParserTest {
         // name
         String userInput = INVALID_EVENT_NAME_DESC + NAME_DESC_MEETING;
         EventAttributesPredicate predicate = new EventAttributesPredicate();
-        predicate.setName(ParserUtil.parseName(VALID_NAME_MEETING));
+        predicate.setName(ParserUtil.parseGenericString(VALID_NAME_MEETING));
         FindEventCommand expectedCommand = new FindEventCommand(predicate);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

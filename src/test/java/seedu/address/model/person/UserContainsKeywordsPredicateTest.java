@@ -3,6 +3,31 @@ package seedu.address.model.person;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.PART_OF_VALID_ADDRESS_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.PART_OF_VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALICE_IN_MIXED_CASES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_PLAY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_STUDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_STUDY_IN_MIXED_CASES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_SWIM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_SWIM_IN_MIXED_CASES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE_FIRST_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB_FIRST_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALICE_IN_MIXED_CASES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND_IN_MIXED_CASES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.Arrays;
@@ -37,31 +62,22 @@ public class UserContainsKeywordsPredicateTest {
         List<String> secondPredicateTagsKeywordList = Arrays.asList("first_tag", "second_tag");
 
         UserContainsKeywordsPredicate firstPredicate =
-                new UserContainsKeywordsPredicate(firstPredicateNameKeywordList,
-                        firstPredicatePhoneKeywordList,
-                        firstPredicateAddressKeywordList,
-                        firstPredicateEmailKeywordList,
-                        firstPredicateInterestsKeywordList,
-                        firstPredicateTagsKeywordList);
+                new UserContainsKeywordsPredicate(firstPredicateNameKeywordList, firstPredicatePhoneKeywordList,
+                        firstPredicateAddressKeywordList, firstPredicateEmailKeywordList,
+                        firstPredicateInterestsKeywordList, firstPredicateTagsKeywordList);
         UserContainsKeywordsPredicate secondPredicate =
-                new UserContainsKeywordsPredicate(secondPredicateNameKeywordList,
-                        secondPredicatePhoneKeywordList,
-                        secondPredicateAddressKeywordList,
-                        secondPredicateEmailKeywordList,
-                        secondPredicateInterestsKeywordList,
-                        secondPredicateTagsKeywordList);
+                new UserContainsKeywordsPredicate(secondPredicateNameKeywordList, secondPredicatePhoneKeywordList,
+                        secondPredicateAddressKeywordList, secondPredicateEmailKeywordList,
+                        secondPredicateInterestsKeywordList, secondPredicateTagsKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         UserContainsKeywordsPredicate firstPredicateCopy =
-                new UserContainsKeywordsPredicate(firstPredicateNameKeywordList,
-                        firstPredicatePhoneKeywordList,
-                        firstPredicateAddressKeywordList,
-                        firstPredicateEmailKeywordList,
-                        firstPredicateInterestsKeywordList,
-                        firstPredicateTagsKeywordList);
+                new UserContainsKeywordsPredicate(firstPredicateNameKeywordList, firstPredicatePhoneKeywordList,
+                        firstPredicateAddressKeywordList, firstPredicateEmailKeywordList,
+                        firstPredicateInterestsKeywordList, firstPredicateTagsKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -79,70 +95,39 @@ public class UserContainsKeywordsPredicateTest {
         // One nameKeyword only
         UserContainsKeywordsPredicate predicate =
                 new UserContainsKeywordsPredicate(
-                        Collections.singletonList("Alice"),
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
+                        Collections.singletonList(VALID_NAME_ALICE_FIRST_NAME), null, null,
+                        null, null, null);
         assertTrue(predicate.test(ALICE));
 
         // Multiple nameKeywords
         predicate =
                 new UserContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Bob"),
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+                        Arrays.asList(VALID_NAME_ALICE.split(" ")), null,
+                        null, null, null, null);
+        assertTrue(predicate.test(ALICE));
 
         // Only one matching nameKeyword
         predicate =
                 new UserContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Bob"),
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
+                        Arrays.asList(VALID_NAME_ALICE_FIRST_NAME, VALID_NAME_BOB_FIRST_NAME), null,
+                        null, null, null, null);
         assertTrue(predicate.test(ALICE));
-
-        // Mixed-case nameKeywords
-        predicate =
-                new UserContainsKeywordsPredicate(
-                        Arrays.asList("ALiCe", "bOb"),
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
     }
 
     @Test
     public void test_containsKeywordsForPhoneOnly_returnsTrue() {
         // One phoneKeyword only
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        Collections.singletonList("94351253"),
-                        null,
-                        null,
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, Collections.singletonList(VALID_PHONE_ALICE),
+                        null, null, null, null);
         assertTrue(predicate.test(ALICE));
 
         // Only one matching phoneKeywords
         predicate =
                 new UserContainsKeywordsPredicate(
                         null,
-                        Arrays.asList("94351253", "94351111"),
-                        null,
-                        null,
-                        null,
-                        null);
+                        Arrays.asList(VALID_PHONE_ALICE, VALID_PHONE_BOB), null, null,
+                        null, null);
         assertTrue(predicate.test(ALICE));
 
     }
@@ -151,46 +136,23 @@ public class UserContainsKeywordsPredicateTest {
     public void test_containsKeywordsForAddressOnly_returnsTrue() {
         // One addressKeyword only
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        Collections.singletonList("Jurong"),
-                        null,
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, null,
+                        Collections.singletonList(PART_OF_VALID_ADDRESS_ALICE), null, null, null);
         assertTrue(predicate.test(ALICE));
 
         // Multiple addressKeywords
         predicate =
                 new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        Arrays.asList("Jurong", "West"),
-                        null,
-                        null,
-                        null);
+                        null, null, Arrays.asList(VALID_ADDRESS_ALICE.split(" ")),
+                        null, null, null);
         assertTrue(predicate.test(ALICE));
 
         // Only one matching keyword
         predicate =
                 new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        Arrays.asList("Jurong", "Bedok"),
-                        null,
-                        null,
-                        null);
-        assertTrue(predicate.test(ALICE));
-
-        // Mixed-case keywords
-        predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        Arrays.asList("JuROnG", "wESt"),
-                        null,
-                        null,
-                        null);
+                        null, null,
+                        Arrays.asList(PART_OF_VALID_ADDRESS_ALICE, PART_OF_VALID_ADDRESS_BOB), null,
+                        null, null);
         assertTrue(predicate.test(ALICE));
     }
 
@@ -198,34 +160,20 @@ public class UserContainsKeywordsPredicateTest {
     public void test_containsKeywordsForEmailOnly_returnsTrue() {
         // One emailKeyword only
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList("alice@example.com"),
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        Collections.singletonList(VALID_EMAIL_ALICE), null, null);
         assertTrue(predicate.test(ALICE));
 
         // only one matching emailKeywords
         predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        Arrays.asList("alice@example.com", "bob@example.com"),
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        Arrays.asList(VALID_EMAIL_ALICE, VALID_EMAIL_BOB), null, null);
         assertTrue(predicate.test(ALICE));
 
         // Mixed-case keywords
         predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList("aLiCe@ExamPLE.coM"),
-                        null,
+                new UserContainsKeywordsPredicate(null, null, null,
+                        Collections.singletonList(VALID_EMAIL_ALICE_IN_MIXED_CASES), null,
                         null);
         assertTrue(predicate.test(ALICE));
 
@@ -235,119 +183,74 @@ public class UserContainsKeywordsPredicateTest {
     public void testContainsKeywordsForInterestOnly_returnsTrue() {
         // One interestKeyword only
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList("study"),
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, Collections.singletonList(VALID_INTEREST_STUDY), null);
         assertTrue(predicate.test(ALICE));
 
         // Multiple interestKeywords
         predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        Arrays.asList("study", "swim"),
-                        null);
-        assertTrue(predicate.test(new PersonBuilder().withInterests("study", "swim").build()));
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, Arrays.asList(VALID_INTEREST_STUDY, VALID_INTEREST_SWIM), null);
+        assertTrue(predicate.test(new PersonBuilder().withInterests(VALID_INTEREST_STUDY,
+                VALID_INTEREST_SWIM).build()));
 
         // Only one matching keyword
         predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        Arrays.asList("study", "swim"),
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, Arrays.asList(VALID_INTEREST_STUDY, VALID_INTEREST_SWIM), null);
         assertTrue(predicate.test(ALICE));
 
         // Mixed-case keywords
         predicate =
-                new UserContainsKeywordsPredicate(
+                new UserContainsKeywordsPredicate(null, null, null,
                         null,
-                        null,
-                        null,
-                        null,
-                        Arrays.asList("sTudY", "sWIm"),
+                        Arrays.asList(VALID_INTEREST_STUDY_IN_MIXED_CASES, VALID_INTEREST_SWIM_IN_MIXED_CASES),
                         null);
-        assertTrue(predicate.test(new PersonBuilder().withInterests("study", "swim").build()));
+        assertTrue(predicate.test(new PersonBuilder().withInterests(VALID_INTEREST_STUDY,
+                VALID_INTEREST_SWIM).build()));
     }
 
     @Test
     public void test_containsKeywordsForTagOnly_returnsTrue() {
         // One tagKeyword only
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList("friends"));
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, null, Collections.singletonList(VALID_TAG_ALICE));
         assertTrue(predicate.test(ALICE));
 
         // Multiple tagKeywords
         predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        Arrays.asList("friends", "husband"));
-        assertTrue(predicate.test(new PersonBuilder().withTags("friends", "husband").build()));
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, null, Arrays.asList(VALID_TAG_ALICE, VALID_TAG_HUSBAND));
+        assertTrue(predicate.test(new PersonBuilder().withTags(VALID_TAG_ALICE, VALID_TAG_HUSBAND).build()));
 
         // Only one matching keyword
         predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        Arrays.asList("friends", "husband"));
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, null, Arrays.asList(VALID_TAG_ALICE, VALID_TAG_HUSBAND));
         assertTrue(predicate.test(ALICE));
 
         // Mixed-case keywords
         predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        Arrays.asList("fRieNDS", "hUsBAnd"));
-        assertTrue(predicate.test(new PersonBuilder().withTags("friends", "husband").build()));
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, null,
+                        Arrays.asList(VALID_TAG_ALICE_IN_MIXED_CASES, VALID_TAG_HUSBAND_IN_MIXED_CASES));
+        assertTrue(predicate.test(new PersonBuilder().withTags(VALID_TAG_ALICE, VALID_TAG_HUSBAND).build()));
     }
 
     @Test
     public void test_noKeywordsGiven_returnsFalse() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, null, null);
         assertFalse(predicate.test(ALICE));
     }
 
     @Test
     public void testNameKeywordIsEmpty_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Collections.singletonList(""),
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(Collections.singletonList(""), null, null,
+                        null, null, null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
@@ -355,12 +258,8 @@ public class UserContainsKeywordsPredicateTest {
     public void testNameKeywordIsSpacesOnly_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
                 new UserContainsKeywordsPredicate(
-                        Collections.singletonList("      "),
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
+                        Collections.singletonList(PREAMBLE_WHITESPACE), null, null, null,
+                        null, null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
 
     }
@@ -368,13 +267,8 @@ public class UserContainsKeywordsPredicateTest {
     @Test
     public void testPhoneKeywordIsEmpty_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        Collections.singletonList(""),
-                        null,
-                        null,
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, Collections.singletonList(""), null,
+                        null, null, null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
@@ -382,37 +276,24 @@ public class UserContainsKeywordsPredicateTest {
     public void testPhoneKeywordIsSpacesOnly_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
                 new UserContainsKeywordsPredicate(
-                        null,
-                        Collections.singletonList("      "),
-                        null,
-                        null,
-                        null,
-                        null);
+                        null, Collections.singletonList(PREAMBLE_WHITESPACE), null,
+                        null, null, null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
     @Test
     public void testAddressKeywordIsEmpty_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        Collections.singletonList(""),
-                        null,
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, null,
+                        Collections.singletonList(""), null, null, null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
     @Test
     public void testAddressKeywordIsSpacesOnly_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        Collections.singletonList("      "),
-                        null,
-                        null,
+                new UserContainsKeywordsPredicate(null, null,
+                        Collections.singletonList(PREAMBLE_WHITESPACE), null, null,
                         null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
@@ -420,120 +301,57 @@ public class UserContainsKeywordsPredicateTest {
     @Test
     public void testEmailKeywordIsEmpty_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList(""),
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        Collections.singletonList(""), null, null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
     @Test
     public void testEmailKeywordIsSpacesOnly_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList("      "),
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        Collections.singletonList(PREAMBLE_WHITESPACE), null, null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
     @Test
     public void testInterestKeywordIsEmpty_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList(""),
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, Collections.singletonList(""), null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
     @Test
     public void testInterestKeywordIsSpacesOnly_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList("       "),
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, Collections.singletonList(PREAMBLE_WHITESPACE), null);
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
-
 
     @Test
     public void testTagKeywordIsEmpty_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList(""));
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, null, Collections.singletonList(""));
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
     @Test
     public void testTagKeywordIsSpacesOnly_throwsIllegalArgumentException() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        Collections.singletonList(""));
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, null, Collections.singletonList(""));
         Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
     }
 
     @Test
     public void testAllKeywordsAreNull_returnsFalse() {
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
+                new UserContainsKeywordsPredicate(null, null, null,
+                        null, null, null);
         assertFalse(predicate.test(ALICE));
-    }
-
-    @Test
-    public void testAllKeywordsAreEmpty_throwsIllegalArgumentException() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Collections.singletonList(""),
-                        Collections.singletonList(""),
-                        Collections.singletonList(""),
-                        Collections.singletonList(""),
-                        Collections.singletonList(""),
-                        Collections.singletonList(""));
-        Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
-    }
-
-    @Test
-    public void testAllKeywordsAreSpacesOnly_throwsIllegalArgumentException() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Collections.singletonList("      "),
-                        Collections.singletonList("      "),
-                        Collections.singletonList("      "),
-                        Collections.singletonList("      "),
-                        Collections.singletonList("      "),
-                        Collections.singletonList("      "));
-        Assert.assertThrows(IllegalArgumentException.class, () -> predicate.test(ALICE));
-
     }
 
     @Test
@@ -541,114 +359,22 @@ public class UserContainsKeywordsPredicateTest {
         // single keyword
         UserContainsKeywordsPredicate predicate =
                 new UserContainsKeywordsPredicate(
-                        Collections.singletonList("Benson"),
-                        Collections.singletonList("98765432"),
-                        Collections.singletonList("Bedok"),
-                        Collections.singletonList("johnd@example.com"),
-                        Collections.singletonList("kayak"),
-                        Collections.singletonList("fat"));
+                        Collections.singletonList(VALID_NAME_BOB_FIRST_NAME),
+                        Collections.singletonList(VALID_PHONE_BOB),
+                        Collections.singletonList(PART_OF_VALID_ADDRESS_BOB),
+                        Collections.singletonList(VALID_EMAIL_BOB),
+                        Collections.singletonList(VALID_INTEREST_SWIM),
+                        Collections.singletonList(VALID_TAG_HUSBAND));
         assertFalse(predicate.test(ALICE));
 
         // multiple keyword
         predicate = new UserContainsKeywordsPredicate(
-                        Arrays.asList("Benson", "Meir"),
-                        Arrays.asList("98765432", "555555555"),
-                        Arrays.asList("Bedok", "Serangoon"),
-                        Arrays.asList("johnd@example.com", "peter@yahoo.com"),
-                        Arrays.asList("kayak", "bowl"),
-                        Arrays.asList("fat", "fast"));
+                        Arrays.asList(VALID_NAME_BOB.split(" ")),
+                        Arrays.asList(VALID_PHONE_BOB, VALID_PHONE_AMY),
+                        Arrays.asList(PART_OF_VALID_ADDRESS_BOB),
+                        Arrays.asList(VALID_EMAIL_BOB, VALID_EMAIL_AMY),
+                        Arrays.asList(VALID_INTEREST_SWIM, VALID_INTEREST_PLAY),
+                        Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_STUDENT));
         assertFalse(predicate.test(ALICE));
-    }
-
-    @Test
-    public void testMultipleKeywordsMatchNameOnly_returnsTrue() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Meir"),
-                        Arrays.asList("98765432", "555555555"),
-                        Arrays.asList("Bedok", "Serangoon"),
-                        Arrays.asList("johnd@example.com", "peter@yahoo.com"),
-                        Arrays.asList("kayak", "bowl"),
-                        Arrays.asList("fat", "fast"));
-        assertTrue(predicate.test(ALICE));
-    }
-
-    @Test
-    public void testMultipleKeywordsMatchPhoneOnly_returnsTrue() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Arrays.asList("Benson", "Meir"),
-                        Arrays.asList("98765432", "94351253"),
-                        Arrays.asList("Bedok", "Serangoon"),
-                        Arrays.asList("johnd@example.com", "peter@yahoo.com"),
-                        Arrays.asList("kayak", "bowl"),
-                        Arrays.asList("fat", "fast"));
-        assertTrue(predicate.test(ALICE));
-    }
-
-    @Test
-    public void testMultipleKeywordsMatchAddressOnly_returnsTrue() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Arrays.asList("Benson", "Meir"),
-                        Arrays.asList("98765432", "5555555"),
-                        Arrays.asList("Jurong", "Serangoon"),
-                        Arrays.asList("johnd@example.com", "peter@yahoo.com"),
-                        Arrays.asList("kayak", "bowl"),
-                        Arrays.asList("fat", "fast"));
-        assertTrue(predicate.test(ALICE));
-    }
-
-    @Test
-    public void testMultipleKeywordsMatchEmailOnly_returnsTrue() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Arrays.asList("Benson", "Meir"),
-                        Arrays.asList("98765432", "5555555"),
-                        Arrays.asList("Bedok", "Serangoon"),
-                        Arrays.asList("johnd@example.com", "alice@example.com"),
-                        Arrays.asList("kayak", "bowl"),
-                        Arrays.asList("fat", "fast"));
-        assertTrue(predicate.test(ALICE));
-    }
-
-    @Test
-    public void testMultipleKeywordsMatchInterestOnly_returnsTrue() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Arrays.asList("Benson", "Meir"),
-                        Arrays.asList("98765432", "5555555"),
-                        Arrays.asList("Bedok", "Serangoon"),
-                        Arrays.asList("johnd@example.com", "peter@example.com"),
-                        Arrays.asList("study", "bowl"),
-                        Arrays.asList("fat", "fast"));
-        assertTrue(predicate.test(ALICE));
-    }
-
-    @Test
-    public void testMultipleKeywordsMatchTagOnly_returnsTrue() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Arrays.asList("Benson", "Meir"),
-                        Arrays.asList("98765432", "5555555"),
-                        Arrays.asList("Bedok", "Serangoon"),
-                        Arrays.asList("johnd@example.com", "peter@example.com"),
-                        Arrays.asList("kayak", "bowl"),
-                        Arrays.asList("friends", "fast"));
-        assertTrue(predicate.test(ALICE));
-    }
-
-
-    @Test
-    public void testMultipleKeywordsMatchAll_returnsTrue() {
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(
-                        Arrays.asList("Alice"),
-                        Arrays.asList("94351253"),
-                        Arrays.asList("Jurong"),
-                        Arrays.asList("alice@example.com"),
-                        Arrays.asList("study"),
-                        Arrays.asList("friends"));
-        assertTrue(predicate.test(ALICE));
     }
 }

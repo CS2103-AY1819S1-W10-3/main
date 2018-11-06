@@ -94,7 +94,7 @@ public class XmlAdaptedEvent {
      * @param source future changes to this will not affect the created XmlAdaptedEvent
      */
     public XmlAdaptedEvent(Event source) {
-        name = source.getName().fullName;
+        name = source.getName();
         address = source.getLocation().value;
         organiser = String.valueOf(personList.indexOf(source.getOrganiser()));
         //organiser = new XmlAdaptedPerson(source.getOrganiser());
@@ -146,10 +146,7 @@ public class XmlAdaptedEvent {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-        final Name modelName = new Name(name);
+        final String modelName = name;
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));

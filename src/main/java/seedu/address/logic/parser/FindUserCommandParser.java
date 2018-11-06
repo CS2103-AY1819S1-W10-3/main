@@ -41,44 +41,24 @@ public class FindUserCommandParser implements Parser<FindUserCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindUserCommand.MESSAGE_USAGE));
         }
 
-        nameKeywords = (argMultimap.getValue(PREFIX_NAME).isPresent())
-                ? parseKeywords(argMultimap, PREFIX_NAME) : null;
+        nameKeywords = getKeywordsForPrefix(PREFIX_NAME, argMultimap);
+        phoneKeywords = getKeywordsForPrefix(PREFIX_PHONE, argMultimap);
+        emailKeywords = getKeywordsForPrefix(PREFIX_EMAIL, argMultimap);
+        addressKeywords = getKeywordsForPrefix(PREFIX_ADDRESS, argMultimap);
+        interestKeywords = getKeywordsForPrefix(PREFIX_INTEREST, argMultimap);
+        tagKeywords = getKeywordsForPrefix(PREFIX_TAG, argMultimap);
 
-        phoneKeywords = (argMultimap.getValue(PREFIX_PHONE).isPresent())
-                ? parseKeywords(argMultimap, PREFIX_PHONE) : null;
-
-        emailKeywords = (argMultimap.getValue(PREFIX_EMAIL).isPresent())
-                ? parseKeywords(argMultimap, PREFIX_EMAIL) : null;
-
-        addressKeywords = (argMultimap.getValue(PREFIX_ADDRESS).isPresent())
-                ? parseKeywords(argMultimap, PREFIX_ADDRESS) : null;
-
-        interestKeywords = (argMultimap.getValue(PREFIX_INTEREST).isPresent())
-                ? parseKeywords(argMultimap, PREFIX_INTEREST) : null;
-
-        tagKeywords = (argMultimap.getValue(PREFIX_TAG).isPresent())
-                ? parseKeywords(argMultimap, PREFIX_TAG) : null;
-
-        if (nameKeywords == null
-                && phoneKeywords == null
-                && emailKeywords == null
-                && addressKeywords == null
-                && interestKeywords == null
-                && tagKeywords == null) {
+        if (nameKeywords == null && phoneKeywords == null && emailKeywords == null && addressKeywords == null
+                && interestKeywords == null && tagKeywords == null) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindUserCommand.MESSAGE_USAGE));
         }
 
-        return new FindUserCommand(
-                new UserContainsKeywordsPredicate(nameKeywords,
-                        phoneKeywords,
-                        addressKeywords,
-                        emailKeywords,
-                        interestKeywords,
-                        tagKeywords));
+        return new FindUserCommand(new UserContainsKeywordsPredicate(nameKeywords, phoneKeywords, addressKeywords,
+                        emailKeywords, interestKeywords, tagKeywords));
     }
 
     /**
-     * Parses the given keywords and returns the keywords that is stored in a list of Strings
+     * Parses the given keywords and returns the keywords that is stored in a list of Strings.
      */
     private List<String> parseKeywords(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
         String keywords = argMultimap.getValue(prefix).get().trim();
@@ -89,4 +69,13 @@ public class FindUserCommandParser implements Parser<FindUserCommand> {
         return Arrays.asList(keywords.split("\\s+"));
     }
 
+    /**
+     * Gets the given keywords for the specified prefix.
+     */
+    private List<String> getKeywordsForPrefix(Prefix prefix, ArgumentMultimap argMultimap) throws ParseException {
+        if (!(argMultimap.getValue(prefix).isPresent())) {
+            return null;
+        }
+        return parseKeywords(argMultimap, prefix);
+    }
 }

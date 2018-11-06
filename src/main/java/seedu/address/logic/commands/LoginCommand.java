@@ -16,16 +16,18 @@ import seedu.address.model.person.Person;
 public class LoginCommand extends Command {
     public static final String COMMAND_WORD = "login";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Logs in a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Logs in a person to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PASSWORD + "PASSWORD"
+            + PREFIX_PASSWORD + "PASSWORD \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PASSWORD + "password ";
 
     public static final String MESSAGE_SUCCESS = "Welcome back %1$s!";
-    public static final String MESSAGE_PERSON_DOES_NOT_EXIST = "This person does not exist in the address book";
+    public static final String MESSAGE_INCORRECT_LOG_IN_DETAILS = "The login details are incorrect.";
+    public static final String MESSAGE_USER_IS_CURRENTLY_LOGGED_IN = "A user is currently logged in."
+            + " Please logout if you wish to login to another user.";
 
     private Person toLogin;
 
@@ -41,17 +43,16 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        for (Person p: model.getFilteredPersonList()) {
-            if (toLogin.isSameUser(p)) {
-                toLogin = p;
-                break;
-            }
+        if (model.hasSetCurrentUser()) {
+            throw new CommandException(MESSAGE_USER_IS_CURRENTLY_LOGGED_IN);
         }
 
-        if (toLogin.isStubUser()) {
-            throw new CommandException(MESSAGE_PERSON_DOES_NOT_EXIST);
+        toLogin = model.authenticateUser(toLogin);
+
+        if (toLogin.isUserWithOnlyNameAndPassword()) {
+            throw new CommandException(MESSAGE_INCORRECT_LOG_IN_DETAILS);
         }
-        toLogin.login();
+
         model.setCurrentUser(toLogin);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin.getName()));
     }
@@ -60,6 +61,7 @@ public class LoginCommand extends Command {
     public String toString() {
         return COMMAND_WORD + " " + toLogin.toString();
     }
+
 
     @Override
     public boolean equals(Object other) {

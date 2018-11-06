@@ -57,14 +57,6 @@ public class XmlAdaptedEventTest {
     }
 
     @Test
-    public void toModelType_invalidName_throwsIllegalValueException() {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(INVALID_NAME, VALID_ADDRESS, VALID_ORGANISER, VALID_DATE,
-                VALID_START_TIME, VALID_END_TIME, VALID_TAGS, VALID_POLL_LIST, VALID_PERSON_LIST);
-        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
-    }
-
-    @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         XmlAdaptedEvent event = new XmlAdaptedEvent(null, VALID_ADDRESS, VALID_ORGANISER, VALID_DATE,
                 VALID_START_TIME, VALID_END_TIME, VALID_TAGS, VALID_POLL_LIST, VALID_PERSON_LIST);

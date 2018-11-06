@@ -13,7 +13,6 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.event.polls.Poll;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -28,7 +27,7 @@ public class EventBuilder {
     public static final String DEFAULT_TAG = "friends";
     public static final String DEFAULT_POLL = "Date";
 
-    private Name name;
+    private String name;
     private Address address;
     private Person organiser;
     private Set<Tag> tags;
@@ -39,7 +38,7 @@ public class EventBuilder {
     private LocalTime endTime;
 
     public EventBuilder() {
-        name = new Name(DEFAULT_NAME);
+        name = DEFAULT_NAME;
         address = new Address(DEFAULT_ADDRESS);
         organiser = ALICE;
         tags = new HashSet<>();
@@ -70,7 +69,7 @@ public class EventBuilder {
      * Sets the {@code Name} of the {@code Event} that we are building.
      */
     public EventBuilder withName(String name) {
-        this.name = new Name(name);
+        this.name = name;
         return this;
     }
 

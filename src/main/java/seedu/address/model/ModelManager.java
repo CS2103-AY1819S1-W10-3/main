@@ -16,7 +16,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.ui.UserLoggedInEvent;
+import seedu.address.commons.events.ui.UserLoginStatusChangedEvent;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
@@ -64,14 +64,30 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void setCurrentUser(Person currentUser) {
         this.currentUser = currentUser;
+        indicateUserLoginStatusChanged();
+    }
+
+    /**
+     * Checks if a person exists within the model.
+     * @param person the Person to be authenticated.
+     */
+    public Person authenticateUser(Person person) {
         for (Person p: filteredPersons) {
-            if (p.isSamePerson(currentUser)) {
+            if (person.isSameUser(p)) {
                 p.login();
-            } else {
-                p.logout();
+                return p;
             }
         }
-        indicateUserLoggedIn();
+        return person;
+    }
+
+    /**
+     * Logs out user.
+     */
+    public void removeCurrentUser() {
+        currentUser.logout();
+        currentUser = null;
+        indicateUserLoginStatusChanged();
     }
 
     public boolean hasSetCurrentUser() {
@@ -124,8 +140,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate that a user has logged in */
-    private void indicateUserLoggedIn() {
-        raise(new UserLoggedInEvent(null));
+    private void indicateUserLoginStatusChanged() {
+        raise(new UserLoginStatusChangedEvent(null));
     }
 
     @Override

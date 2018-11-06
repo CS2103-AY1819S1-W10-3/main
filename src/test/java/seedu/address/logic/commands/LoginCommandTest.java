@@ -91,6 +91,24 @@ public class LoginCommandTest {
         }
 
         @Override
+        public boolean hasSetCurrentUser() {
+            return false;
+        }
+
+        /**
+         * Logs out user.
+         */
+        public Person authenticateUser(Person person) {
+            for (Person p: filteredPersons) {
+                if (person.isSameUser(p)) {
+                    p.login();
+                    return p;
+                }
+            }
+            return person;
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return filteredPersons.stream().anyMatch(person::isSamePerson);

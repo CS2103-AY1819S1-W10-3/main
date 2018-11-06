@@ -1,4 +1,4 @@
-//@@theJrLinguist
+//@@author theJrLinguist
 package seedu.address.model.event;
 
 import java.time.LocalDate;
@@ -12,14 +12,14 @@ import seedu.address.model.person.Name;
  * Predicate to check if event has any of the given attributes.
  */
 public class EventAttributesPredicate implements Predicate<Event> {
-    private Name name;
+    private String name;
     private Address address;
     private LocalDate date;
     private LocalTime startTime;
     private Name participant;
     private Name organiser;
 
-    public void setName(Name name) {
+    public void setName(String name) {
         this.name = name;
     }
 

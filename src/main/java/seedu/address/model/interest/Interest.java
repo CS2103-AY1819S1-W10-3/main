@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Interest in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidInterestName(String)}
+ * Guarantees: immutable; interest is valid as declared in {@link #isValidInterestName(String)}
  *
  * @author agendazhang
  *

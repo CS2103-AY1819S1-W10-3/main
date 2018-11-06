@@ -22,7 +22,7 @@ public class MaxScheduleCommandParser implements Parser<MaxScheduleCommand> {
             String[] argsArray = args.trim().split(" ");
             index = new Index[argsArray.length];
             for (int i = 0; i < index.length; i++) {
-                index[i] = Index.fromZeroBased(Integer.parseInt(argsArray[i]));
+                index[i] = Index.fromOneBased(Integer.parseInt(argsArray[i]));
             }
 
         } catch (Exception pe) {

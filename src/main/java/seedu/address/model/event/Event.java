@@ -33,7 +33,7 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
-    private final Name name;
+    private final String name;
 
     // Data fields
     private final Address location;
@@ -45,22 +45,32 @@ public class Event {
     private Person organiser;
 
     private final Set<Tag> tags = new HashSet<>();
-    private final ArrayList<AbstractPoll> polls;
-    private final UniquePersonList personList;
+    private final ArrayList<AbstractPoll> polls = new ArrayList<>();
+    private final UniquePersonList personList = new UniquePersonList();
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Address address, Set<Tag> tags) {
+    public Event(String name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
-        polls = new ArrayList<>();
-        personList = new UniquePersonList();
     }
 
-    public Name getName() {
+    public Event(String name, Address location, Set<Tag> tags, LocalDate date, LocalTime startTime, LocalTime endTime,
+                 Person organiser) {
+        requireAllNonNull(name, location, tags, date, startTime, endTime, organiser);
+        this.name = name;
+        this.location = location;
+        this.tags.addAll(tags);
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.organiser = organiser;
+    }
+
+    public String getName() {
         return name;
     }
 
@@ -139,9 +149,10 @@ public class Event {
 
     /**
      * Sets the start and end time.
+     * Throws an IllegalArgumentException if the start time is not after the end time.
      */
     public void setTime(LocalTime startTime, LocalTime endTime) throws IllegalArgumentException {
-        if (endTime.isBefore(startTime)) {
+        if (!startTime.isBefore(endTime)) {
             throw new IllegalArgumentException();
         }
         this.startTime = startTime;
@@ -257,13 +268,6 @@ public class Event {
     }
 
     /**
-     * Displays the poll at the given index.
-     */
-    public String displayPoll(Index pollIndex) {
-        return polls.get(pollIndex.getZeroBased()).displayPoll();
-    }
-
-    /**
      * Updates the person in the event participant list, organiser, and polls.
      */
     public boolean updatePerson(Person target, Person editedPerson) {
@@ -328,7 +332,12 @@ public class Event {
         }
 
         return otherEvent != null
-                && otherEvent.getName().equals(getName());
+                && otherEvent.getName().equals(getName())
+                && otherEvent.getLocation().equals(getLocation())
+                && otherEvent.getOrganiser().equals(getOrganiser())
+                && otherEvent.getDate().equals(getDate())
+                && otherEvent.getStartTime().equals(getStartTime())
+                && otherEvent.getEndTime().equals(getEndTime());
     }
 
     /**

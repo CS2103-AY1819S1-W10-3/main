@@ -11,7 +11,11 @@ public class JumpToListRequestEvent extends BaseEvent {
     public final int targetIndex;
 
     public JumpToListRequestEvent(Index targetIndex) {
-        this.targetIndex = targetIndex.getZeroBased();
+        if (targetIndex == null) {
+            this.targetIndex = -1;
+        } else {
+            this.targetIndex = targetIndex.getZeroBased();
+        }
     }
 
     @Override

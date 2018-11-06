@@ -5,11 +5,11 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Indicates that a new result is available.
  */
-public class UserLoggedInEvent extends BaseEvent {
+public class UserLoginStatusChangedEvent extends BaseEvent {
 
     public final String message;
 
-    public UserLoggedInEvent(String message) {
+    public UserLoginStatusChangedEvent(String message) {
         this.message = message;
     }
 

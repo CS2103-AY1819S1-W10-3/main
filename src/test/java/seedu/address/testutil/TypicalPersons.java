@@ -140,8 +140,6 @@ public class TypicalPersons {
     public static final String DESC_GEORGE_AND_FIONA_EMAIL_SUPERSTRING = " e/lydia@example.com.sg anna@example.com.sg";
     public static final String DESC_ALICE_AND_BENSON_AND_KENSON_INTEREST = " i/study";
     public static final String DESC_BENSON_TAG = " t/owesMoney";
-    public static final String BENSON_AND_KENSON_PHONE = "98765432";
-    public static final String CARL_PHONE = "95352563";
 
     private TypicalPersons() {} // prevents instantiation
 

@@ -25,6 +25,21 @@ public class TimeTableUtilTest {
             + "001111111111000000000000000000000000000000000000000"
             + "000000000000000000000000000000000000000000000000000000000000000000000";
 
+    private String shortlink2 = "http://modsn.us/lFDH3";
+
+    private String actuallonglink2 = "https://nusmods.com/timetable/sem-1/share?CS2105=LEC:1,TUT:09";
+
+    private String scheduleString2 = "000000000000000000000000000011110000000000000000"
+        +
+        "0000000000000000000000000000000000000000000000000000000000000000000"
+        +
+        "00000000000000000000000000000000000000000000000000000000000000000000"
+        +
+        "0000000000000000000000000000000000000110000000000000000000000000000"
+        +
+        "0000000000000000000000000000000000000000000000000000000000000000000"
+        +
+        "0000000000000000000";
 
     @Test
     public void parseShortUrl() throws ParseException {
@@ -45,6 +60,8 @@ public class TimeTableUtilTest {
     public void convertToSchedule() throws ParseException {
         assert TimeTableUtil.parseUrl(shortlink).convertToSchedule()
                .valueToString().equals(scheduleString);
+        assert TimeTableUtil.parseUrl(shortlink2).convertToSchedule()
+            .valueToString().equals(scheduleString2);
     }
 
     @Test
@@ -52,12 +69,16 @@ public class TimeTableUtilTest {
         // This is just a wrapper method call
         assert TimeTableUtil.parseUrl(shortlink).convertToSchedule()
             .valueToString().equals(scheduleString);
+        assert TimeTableUtil.parseUrl(shortlink2).convertToSchedule()
+            .valueToString().equals(scheduleString2);
     }
 
     @Test
     public void parseLongUrl() throws ParseException {
         assert TimeTableUtil.parseLongUrl(actuallonglink).convertToSchedule()
             .valueToString().equals(scheduleString);
+        assert TimeTableUtil.parseLongUrl(actuallonglink2).convertToSchedule()
+            .valueToString().equals(scheduleString2);
     }
 
     @Test

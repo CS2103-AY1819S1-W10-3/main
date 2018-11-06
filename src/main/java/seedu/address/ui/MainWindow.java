@@ -227,13 +227,6 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
-    //    @Subscribe
-    //    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
-    //        if (event.getNewSelection() == null) {
-    //            personListPanel.resetSelection();
-    //            eventListPanel.resetSelection();
-    //        }
-    //    }
     //
     //    @Subscribe
     //    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {

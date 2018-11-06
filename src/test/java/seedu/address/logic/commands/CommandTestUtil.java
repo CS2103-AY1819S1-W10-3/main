@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMETABLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
 
 import java.util.ArrayList;
@@ -37,24 +38,40 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_NAME_ALICE = "Alice Pauline";
+    public static final String VALID_NAME_ALICE_FIRST_NAME = "Alice";
+    public static final String VALID_NAME_ALICE_LAST_NAME = "Pauline";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_NAME_ZOEY = "Zoey Tan";
     public static final String VALID_NAME_MEETING = "Meeting";
     public static final String VALID_PHONE_AMY = "11111111";
+    public static final String VALID_PHONE_ALICE = "94351253";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_PHONE_ZOEY = "99999999";
+    public static final String VALID_EMAIL_ALICE = "alice@example.com";
+    public static final String VALID_EMAIL_ALICE_IN_MIXED_CASES = "aLiCe@ExamPLE.coM";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_EMAIL_ZOEY = "zoey@example.com";
     public static final String VALID_PASSWORD_AMY = "password";
     public static final String VALID_PASSWORD_BOB = "password";
+    public static final String VALID_ADDRESS_ALICE = "123, Jurong West Ave 6, #08-111";
+    public static final String PART_OF_VALID_ADDRESS_ALICE = "Jurong";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String PART_OF_VALID_ADDRESS_BOB = "Bobby";
     public static final String VALID_INTEREST_STUDY = "study";
+    public static final String VALID_INTEREST_STUDY_IN_MIXED_CASES = "sTudY";
+    public static final String VALID_INTEREST_SWIM = "swim";
+    public static final String VALID_INTEREST_SWIM_IN_MIXED_CASES = "sWIm";
     public static final String VALID_INTEREST_PLAY = "play";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_ALICE = "friends";
+    public static final String VALID_TAG_STUDENT = "student";
+    public static final String VALID_TAG_ALICE_IN_MIXED_CASES = "fRieNDS";
+    public static final String VALID_TAG_HUSBAND_IN_MIXED_CASES = "hUsBAnd";
     public static final String VALID_TIMETABLE = "http://modsn.us/H4v8s";
     public static final String VALID_SCHEDULE_UPDATE_DAY = "monday";
     public static final String VALID_SCHEDULE_UPDATE_TIME = "0100";
@@ -79,6 +96,10 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String PASSWORD_DESC_AMY = " " + PREFIX_PASSWORD + VALID_PASSWORD_AMY;
     public static final String PASSWORD_DESC_BOB = " " + PREFIX_PASSWORD + VALID_PASSWORD_BOB;
+    public static final String INTEREST_DESC_STUDY_AND_PLAY = " " + PREFIX_INTEREST + VALID_INTEREST_STUDY
+            + " " + VALID_INTEREST_PLAY;
+    public static final String TAG_DESC_HUSBAND_AND_FRIEND = " " + PREFIX_TAG + VALID_TAG_HUSBAND
+            + " " + VALID_TAG_FRIEND;
     public static final String TIMETABLE_AMY = "http://modsn.us/H4v8s";
     public static final String SCHEDULE_AMY = "100000000000000011110000000011110000000000"
         +
@@ -107,7 +128,8 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_INTEREST_DESC = " " + PREFIX_INTEREST + "study*"; // '*' not allowed in tags
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "Meeting&";
+    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "";
+    public static final String INVALID_TIMETABLE = " " + PREFIX_TIMETABLE + "http://modsn.us/H";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -115,6 +137,9 @@ public class CommandTestUtil {
     public static final EditUserCommand.EditPersonDescriptor DESC_AMY;
     public static final EditUserCommand.EditPersonDescriptor DESC_BOB;
     public static final EditUserCommand.EditPersonDescriptor DESC_ZOEY;
+
+    public static final String VALID_NAME_BOB_FIRST_NAME = "Bob";
+    public static final String VALID_NAME_BOB_LAST_NAME = "Choo";
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -218,7 +243,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEventList().size());
 
         Event event = model.getFilteredEventList().get(targetIndex.getZeroBased());
-        final String[] splitName = event.getName().fullName.split("\\s+");
+        final String[] splitName = event.getName().split("\\s+");
         model.updateFilteredEventList(new EventNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredEventList().size());

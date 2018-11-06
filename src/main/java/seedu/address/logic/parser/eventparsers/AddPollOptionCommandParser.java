@@ -33,7 +33,7 @@ public class AddPollOptionCommandParser implements Parser<AddPollOptionCommand> 
         }
 
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-        String name = argMultimap.getValue(PREFIX_POLL_OPTION).get();
+        String name = ParserUtil.parseGenericString(argMultimap.getValue(PREFIX_POLL_OPTION).get());
         return new AddPollOptionCommand(index, name);
     }
 }

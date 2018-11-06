@@ -18,7 +18,11 @@ By: `Team W10-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-EventOrganiser is an application for managing and organising events built for NUS students. More importantly, EventOrganiser is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+EventOrganiser is an application for managing and organising events built for NUS students.
+More importantly, EventOrganiser is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, EventOrganiser can help you to arrange events faster than traditional GUI apps.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
 
 == Quick Start
 
@@ -33,10 +37,14 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listUsers`* : lists all contacts
-* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`deleteUser`**`3` : deletes the 3rd contact shown in the current list
+* *`listUser`* : lists all users in the event organiser
+* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : creates a new user named `John Doe` to the Event Organiser.
+* `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
 * *`exit`* : exits the app
+
+To use the application, you must first create an account using the `addUser` command, and then login.
+You may then decide to organise an event using the `addEvent` command, to which you can specify the date, time and create polls.
+Alternatively, you may decide to search for an event to join, and then vote in the event polls.
 
 [[Features]]
 == Features
@@ -52,9 +60,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Shows all the commands in the app and how to use them.
 
+=== View help : `help`
+
 === User Commands
 
-==== View help : `help`
 
 ==== Add a user : `addUser`
 
@@ -69,7 +78,8 @@ Examples:
 * `addUser n/John Doe p/98765432 e/johnd@example.com pass/password123 a/John street, block 123, #01-01`
 * `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/friend`
 
-==== Log in a user : `login`
+// tag::yaofeng(login/logout)[]
+==== Login a user : `login`
 
 Logs in the user to EventOrganiser. A user must first log in to enable certain commands to be executed.
 
@@ -81,53 +91,30 @@ Examples:
 
 `login n/John Doe pass/password123`
 
-==== List all users : `listUsers`
+==== Logout a user : `logout`
+
+Logs out the user from EventOrganiser.
+
+Format:
+
+`logout`
+
+Examples:
+
+`logout`
+// end::yaofeng(login/logout)[]
+
+
+==== List all users : `listUser`
 
 Shows a list of all users in the event organiser. +
-Format: `listUsers`
+Format: `listUser`
 
-==== Find users by name : `findUserByName`
-
-Finds users whose names contain any of the given keywords. +
-Format: `findUserByPhone [KEYWORD] [KEYWORDS]...`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`.
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`.
-* users matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
-****
-
-Examples:
-
-* `findUserByName John` +
-Returns any user having the names `john` and `John`
-* `findUserByName Betsy John` +
-Returns any user having names `Betsy`, `betsy`, `John`, or `john`
-
-==== Find users by phone number : `findUserByPhone`
-
-Finds users whose phone number matches any of the given numbers. +
-Format: `findUserByPhone [PHONE NUMBER] [PHONE NUMBER]...`
-
-****
-* The order of the keywords does not matter. e.g. `87438807 99272758` will give the same result as `99272758 87438807`.
-* Only the phone number is searched.
-* Substrings or superstrings of a phone number will not be matched e.g. `87438807` will not match `874388070`, and likewise, `8743880` will not match `87438807`.
-****
-
-Examples:
-
-* `findUserByPhone 87438807` +
-Returns any user with the phone number `87438807`
-* `findUserByPhone 87438807 99272758` +
-Returns any user with the phone number `87438807` or `99272758`
-
+// tag::yaofeng(finduser)[]
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with any matching name, phone number, email, address, interest, tag. +
-Format: `findUser n/[NAME] p/[PHONE NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]...`
+Format: `findUser n/[NAME] p/[PHONE_NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]...`
 
 ****
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
@@ -143,6 +130,8 @@ Examples:
 Returns any user with the phone number `87438807` or interest `dance`
 * `findUser n/john e/john@example.com t/teacher` +
 Returns any user with the name `87438807` or email `john@example.com` or tag `teacher`
+// end::yaofeng(finduser)[]
+
 
 ==== Delete a user : `deleteUser`
 
@@ -153,7 +142,6 @@ Format: `deleteUser INDEX`
 * Deletes the user at the specified `INDEX`.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* A user can only deleted by the owner of the user profile
 ****
 
 Examples:
@@ -165,73 +153,38 @@ Deletes the 2nd user in the event organiser.
 `deleteUser 1` +
 Deletes the 1st user in the results of the `find` command.
 
-////
-==== Locating users by available time range: `findUserAvailAt`
-Finds users who are available between a start and end time on a specific day.
-Format: `findUserAvailAt t1/HOUR:MINUTE t2/HOUR:MINUTE d/DAY/MONTH/YEAR`
-
-Examples:
-
-* `findUserAvailAt t1/08:00 t2/10:00 d/23-08-2018` +
-Finds users available from 8am to 10am on 23 August.
-
-==== Locating users who live close to a MRT station: `findUserCloseTo`
-Finds users who live close to a MRT station. +
-Format: `findUserCloseTo MRTNAME r/SEARCH_RADIUS`
-
-****
-* SEARCH_RADIUS is defined by the number of MRT stations from MRTNAME
-****
-
-Examples:
-
-* `findUserCloseTo Clementi r/2`
-Finds all users who live within 2 stops from Clementi MRT Station.
-
-==== Locating users who know a user: `findFriendsOf`
-Finds users who are friends of a user. +
-Format: `findFriendsOf USERNAME`
-
-Examples:
-
-* `findFriendsOf John Doe`
-////
-
-==== Selecting a user : `selectUser`
+==== Select a user : `selectUser`
 
 Selects the user identified by the index number used in the displayed user list. +
 Format: `selectUser INDEX`
 
 ****
-* Selects the user and loads the Google search page the user at the specified `INDEX`.
+* Selects the user and loads the details of the user at the specified `INDEX` in the browser panel.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
 
-* `listUsers` +
+* `listUser` +
 `selectUser 2` +
 Selects the 2nd user in the event organiser.
 * `findUser Betsy` +
 `selectUser 1` +
 Selects the 1st user in the results of the `find` command.
 
-////
-==== Clearing all user entries : `clear`
-
-Clears all users from the event organiser. +
-Format: `clear`
-////
-
-==== Editing a user : `editUser`
+==== Edit a user : `editUser`
 
 Edits an existing user in the event organiser. +
-Format: `editUser INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE...`
+Format: `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...`
+
+[NOTE]
+====
+At least one of the optional fields must be provided.
+====
 
 ****
 * Edits the user at the specified `INDEX`. The index refers to the index number shown in the displayed user list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.
 * You can remove all the user's tags by typing `t/` without specifying any tags after it.
@@ -293,7 +246,7 @@ Format: `addEvent n/NAME a/LOCATION t/TAGS`
 
 Examples:
 
-* `addEvent n/NUS Tennis Welcome Session, a/SOC Canteen t/NIL`
+* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL`
 * `addEvent n/CS1101S Meet-up a/UTown t/By invite`
 
 ==== Delete an event : `deleteEvent`
@@ -313,12 +266,12 @@ Examples:
 `deleteEvent 2` +
 Deletes the 2nd event in the event organiser.
 
-=== Select an event : ` selectEvent`
+==== Select an event : `selectEvent`
 Selects an event to be edited. +
 Format: `selectEvent index`
 
 ****
-* An event must be selected before setDate, setTime, addPoll, addPollOption, and vote commands can be used.
+* An event must be selected before setDate, setTime, addPoll, addTimePoll, addOption, and vote commands can be used.
 ****
 
 ==== Set the event date : `setDate`
@@ -327,6 +280,8 @@ Format: `setDate d/DAY-MONTH-YEAR`
 
 ****
 * Day, month and year are specified as numbers.
+* Day and month must be written as two digits, e.g. January must be specified as `01` and not `1`.
+* Year must be written out in full.
 * An event must first be selected.
 ****
 
@@ -371,16 +326,19 @@ Examples:
 
 ==== Setup poll for location : `addOption`
 Add new poll option in the specified poll. +
-Format: `addOption i/POLL_ID o/OPTION`
+Format: `addOption i/POLL_ID o/OPTION_NAME`
 
 ****
 * The poll index specifies the index of the poll in the selected event.
 * An event must first be selected.
-* Not possible for Time Polls.
+* An option can be any string.
+* Time polls do not support adding of options.
 ****
 
 Examples:
-* `addOption i/1 o/SoC canteen`
+* `addOption i/1 o/Play chess` +
+Adds an option to the first poll of the selected event, where the option is `Play chess`.
+This option would be relevant in the context of a poll for an appropriate activity.
 
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
@@ -393,29 +351,13 @@ Format: `displayPoll i/POLL_INDEX`
 
 Examples:
 
-* `displayPoll i/1`
-
-==== Get recommendation for time : `recDayTime`
-Retrieves recommendations for the best time on a specific day of a week to hold the event. +
-Format: `recDayTime`
-
-****
-* The event organiser will calculate and display the time slots where the most participants can attend, based on their NUSMods schedule and stated unavailable timeslots.
-****
-
-
-==== Get recommendation for location : `recPlace`
-Retrieves recommendations for the best location to hold the event. +
-Format: `recPlace`
-
-****
-* The event organiser will compute the best event location (most central MRT station) based on the proximity of the participants' addresses.
-****
+* `displayPoll i/1` +
+Displays the poll with index 1 associated with the selected event.
 
 === Join event commands
 
 ==== Find event by the name of the event : `findEvent`
-Finds events based on the attributes of the event: event name, event location, date, start time, event organiser, and event participants.+
+Finds events based on the attributes of the event: event name, event location, date, start time, event organiser, and event participants. +
 Format: `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
 
 Examples:
@@ -433,7 +375,7 @@ Format: `findEvent d1/FROMDATE d2/TODATE`
 
 Examples:
 
-* `findEvent d1/23/08/2018 d2/25/08/2018` +
+* `findEvent d1/23-08-2018 d2/25-08-2018` +
 Finds all events held between 23 August and 25 August in 2018.
 
 ==== Find event by a time interval: `findEventByTime`
@@ -450,12 +392,12 @@ Examples:
 Finds all events held between 12pm and 6pm on 12 December 2018.
 
 ==== Join event : `joinEvent`
-Joins event identified by unique event ID. +
-Format: `joinEvent ID`
+Joins event identified by event index in the event list. +
+Format: `joinEvent INDEX`
 
 Examples:
 
-* `joinEvent 213`
+* `joinEvent 2`
 
 ==== Vote for date : `voteOption`
 Vote for a option specified in a specified poll, if there is one.
@@ -471,12 +413,6 @@ Examples:
 
 * `voteDate i/3 o/12 August`
 
-==== List joined events : `listJoinedEvents`
-Lists all the events joined by the current user.
-Format: `listJoinedEvents`
-
-
-
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -486,56 +422,6 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
-
-// tag::undoredo[]
-//=== Undoing previous command : `undo`
-//
-//Restores the event organiser to the state before the previous _undoable_ command was executed. +
-//Format: `undo`
-//
-//[NOTE]
-//====
-//Undoable commands: those commands that modify the event organiser's content (`add`, `delete`, `edit` and `clear`).
-//====
-//
-//Examples:
-//
-//* `delete 1` +
-//`list` +
-//`undo` (reverses the `delete 1` command) +
-//
-//* `select 1` +
-//`list` +
-//`undo` +
-//The `undo` command fails as there are no undoable commands executed previously.
-//
-//* `delete 1` +
-//`clear` +
-//`undo` (reverses the `clear` command) +
-//`undo` (reverses the `delete 1` command) +
-//
-//=== Redoing the previously undone command : `redo`
-//
-//Reverses the most recent `undo` command. +
-//Format: `redo`
-//
-//Examples:
-//
-//* `delete 1` +
-//`undo` (reverses the `delete 1` command) +
-//`redo` (reapplies the `delete 1` command) +
-//
-//* `delete 1` +
-//`redo` +
-//The `redo` command fails as there are no `undo` commands executed previously.
-//
-//* `delete 1` +
-//`clear` +
-//`undo` (reverses the `clear` command) +
-//`undo` (reverses the `delete 1` command) +
-//`redo` (reapplies the `delete 1` command) +
-//`redo` (reapplies the `clear` command) +
-// end::undoredo[]
 
 === Exiting the program : `exit`
 
@@ -550,7 +436,7 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Event Organiser folder.
 
 == Command Summary
 
@@ -561,52 +447,58 @@ There is no need to save manually.
 * *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/PASSWORD a/ADDRESS [t/TAG] [i/INTEREST]...` +
 e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
+// tag::yaofeng(commandsummary)[]
 * *Login*  `login n/NAME pass/PASSWORD`
 e.g. `login n/John Doe pass/password`
 
-* *List User* : `listUsers`
+* *Logout*  `logout`
 
-* *Find User By Name* : `findUserByName KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James`
-
-* *Find User By Phone Number* : `findUserByPhone KEYWORD [MORE_KEYWORDS]` +
-e.g. `find 99272758`
+* *List User* : `listUser`
 
 * *Find User (by name, phone number, email, address, interest, or tag)* :
-`findUser n/NAME p/PHONE e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
-e.g. `find n/James i/basketball`
+`findUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
+e.g. `findUser n/James i/basketball`
+// end::yaofeng(commandsummary)[]
 
 * *Delete User* : `deleteUser INDEX` +
 e.g. `deleteUser 3`
 
-* *Edit User* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/ SCHEDULE] [su/ SCHEDULE_UPDATE] [tt/ TIMETABLE] [t/TAG]...` +
+* *Edit User* : `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
 e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
 e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
 e.g. `editUser 1 su/ monday 0000`
 
 * *Select User* : `selectUser INDEX` +
-e.g.`select 2`
+e.g.`selectUser 2`
 
 * *History* : `history`
 
 * *Free time between persons*: `maxSchedule INDEX INDEX ...` +
-e.g. `maxSchedule 0 1 2 3`
+e.g. `maxSchedule 1 2 3`
 
 === Event organiser commands
-​* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
+
+* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
 e.g. `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent`
-​* *Delete Event* : `deleteEvent INDEX` +
+
+* *Delete Event* : `deleteEvent INDEX` +
 e.g. `deleteEvent 1`
+
 * *Add Poll* : `addPoll n/POLL_NAME` +
 e.g. `addPoll n/Activity`
+
 * *Add Option* : `addOption i/POLL_INDEX o/POLL_OPTION` +
 e.g. `addOption i/1 o/Play games`
+
 * *Add Time Poll* : `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR` +
 e.g. `addTimePoll d1/01-12-2018 d2/02-12-2018`
+
 * *Display Poll* : `displayPoll INDEX` +
 e.g. `displayPoll 1`
+
 * *Set Event Date* : `setDate d/DAY-MONTH-YEAR` +
 e.g. `setDate d/12-12-2018`
+
 * *Set Event Time* : `setTime t1/HOUR:MINUTE t2/HOUR:MINUTE` +
 e.g. `setTime t1/12:30 t2/13:45`
 
@@ -619,7 +511,7 @@ e.g. `joinEvent 1`
 e.g. `vote i/1 o/Play games`
 * *Find Event With Attributes* : `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
 [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
-e.g. `findEvent t1/12-12-2018 pn/John Doe`
+e.g. `findEvent d/12-12-2018 pn/John Doe`
 e.g. `findEvent a/SoC Canteen on/Alice Tan`
 * *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
 e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`

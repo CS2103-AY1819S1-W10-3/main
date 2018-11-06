@@ -30,7 +30,7 @@ public class AddPollCommandParser implements Parser<AddPollCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPollCommand.MESSAGE_USAGE));
         }
 
-        String pollName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();
+        String pollName = ParserUtil.parseGenericString(argMultimap.getValue(PREFIX_NAME).get());
 
         return new AddPollCommand(pollName);
     }

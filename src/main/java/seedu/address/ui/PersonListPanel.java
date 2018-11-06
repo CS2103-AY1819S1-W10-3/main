@@ -59,8 +59,12 @@ public class PersonListPanel extends UiPart<Region> {
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        scrollTo(event.targetIndex);
+        if (event.targetIndex == -1) {
+            personListView.getSelectionModel().clearSelection();
+        } else {
+            logger.info(LogsCenter.getEventHandlingLogMessage(event));
+            scrollTo(event.targetIndex);
+        }
     }
 
     /**

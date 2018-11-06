@@ -14,7 +14,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.commons.events.ui.UserLoggedInEvent;
+import seedu.address.commons.events.ui.UserLoginStatusChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -120,7 +120,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleUserLoggedInEvent(UserLoggedInEvent event) {
+    private void handleUserLoginStatusEvent(UserLoginStatusChangedEvent event) {
         logger.info("=============================[ New User logged in ]===========================");
         mainWindow.fillPersonListPanel();
     }

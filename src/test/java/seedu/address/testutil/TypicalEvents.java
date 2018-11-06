@@ -28,21 +28,18 @@ public class TypicalEvents {
     public static final EventBuilder MEETING_BUILDER = new EventBuilder().withName("Meeting")
             .withAddress("SOC Canteen")
             .withTags("friends");
-    public static final Event TUTORIAL_WITH_PERSON = new EventBuilder().withName("Tutorial")
+    public static final EventBuilder TUTORIAL_WITH_PERSON = new EventBuilder().withName("Tutorial")
             .withAddress("NUS UTown")
             .withTags("friends")
-            .withParticipant()
-            .build();
-    public static final Event MEETING_WITH_PERSON = new EventBuilder().withName("Meeting")
+            .withParticipant();
+    public static final EventBuilder MEETING_WITH_PERSON = new EventBuilder().withName("Meeting")
             .withAddress("SOC Canteen")
             .withTags("friends")
-            .withParticipant()
-            .build();
-    public static final Event DINNER_WITH_PERSON = new EventBuilder().withName("Dinner")
+            .withParticipant();
+    public static final EventBuilder DINNER_WITH_PERSON = new EventBuilder().withName("Dinner")
             .withAddress("Arts Canteen")
             .withTags("friends")
-            .withParticipant()
-            .build();
+            .withParticipant();
 
     /**
      * Returns an {@code AddressBook} with all the typical events.
@@ -77,8 +74,10 @@ public class TypicalEvents {
         return new ArrayList<>(Arrays.asList(TUTORIAL, MEETING, DINNER));
     }
 
+
     public static List<Event> getEventsWithParticipants() {
-        return new ArrayList<>(Arrays.asList(TUTORIAL_WITH_PERSON, MEETING_WITH_PERSON, DINNER_WITH_PERSON));
+        return new ArrayList<>(Arrays.asList(TUTORIAL_WITH_PERSON.build(),
+                MEETING_WITH_PERSON.build(), DINNER_WITH_PERSON.build()));
     }
 
     /**

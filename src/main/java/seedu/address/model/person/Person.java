@@ -199,7 +199,7 @@ public class Person {
                 && (otherPerson.getPassword().equals(getPassword()));
     }
 
-    public boolean isStubUser() {
+    public boolean isUserWithOnlyNameAndPassword() {
         return phone == null;
     }
 

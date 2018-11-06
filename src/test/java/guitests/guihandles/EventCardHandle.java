@@ -83,7 +83,7 @@ public class EventCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code person}.
      */
     public boolean equals(Event event) {
-        return getName().equals(event.getName().fullName)
+        return getName().equals(event.getName())
                 && getAddress().equals(event.getLocation().value)
                 && getOrganiser().equals(event.getOrganiser().getName().fullName)
                 && getDate().equals(event.getDateString())

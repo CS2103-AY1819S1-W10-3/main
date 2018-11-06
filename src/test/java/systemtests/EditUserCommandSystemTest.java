@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIMETABLE;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -35,6 +36,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.TimeTableUtil;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -218,6 +220,12 @@ public class EditUserCommandSystemTest extends AddressBookSystemTest {
                 + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditUserCommand.MESSAGE_DUPLICATE_PERSON);
+
+        /* Case: edit a person with invalid timetable link */
+        command = EditUserCommand.COMMAND_WORD + " " + index.getOneBased()
+            + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+            + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + INVALID_TIMETABLE;
+        assertCommandFailure(command, TimeTableUtil.INVALID_URL);
     }
 
     /**

@@ -58,12 +58,8 @@ public class AddUserCommandParser implements Parser<AddUserCommand> {
         Set<Friend> friendList = new HashSet<>();
         if (argMultimap.getValue(PREFIX_TIMETABLE).isPresent()) {
             String link = argMultimap.getValue(PREFIX_TIMETABLE).get();
-            try {
-                TimeTable tt = TimeTableUtil.parseUrl(link);
-                schedule = ParserUtil.parseSchedule(tt.convertToSchedule().valueToString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            TimeTable tt = TimeTableUtil.parseUrl(link);
+            schedule = ParserUtil.parseSchedule(tt.convertToSchedule().valueToString());
         } else {
             schedule = new Schedule();
         }
