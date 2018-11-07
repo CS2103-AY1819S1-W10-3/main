@@ -1,0 +1,751 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Chow Keng Ji - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">EventOrganiser</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-W10-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Chow Keng Ji - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-eventorganiser"><a class="link" href="#project-eventorganiser">PROJECT: EventOrganiser</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>EventOrganiser is a desktop application for organisation and management of events.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of"><a class="link" href="#summary-of">Summary of</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: added <strong>Event and Poll commands and functionality</strong>.<br>
+Event related commands: DeleteEvent, SelectEvent, JoinEvent, SetDate, SetTime, FindEvent, FindEventByTime<br>
+Poll related commands: AddPoll, AddPollOption, AddTimePoll, DisplayPoll, VoteCommand</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Allows users to create, organise and sign-up for events, and create polls and vote for options in the poll.</p>
+</li>
+<li>
+<p>Justification: The event related commands are essential to the event organiser. Polls are useful for users to decide on a suitable activity, date and time for the event.</p>
+</li>
+<li>
+<p>Highlights:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated all components: logic, model, storage, UI to support event and polls</p>
+</li>
+<li>
+<p>Integrated Persons into Events: Persons are stored in events by index in storage, and events contain persons in runtime (eg in participant lists and voter lists).
+Person details within events update when persons are deleted or edited.</p>
+</li>
+<li>
+<p>Implement dependencies between commands: e.g. user must be logged in, event must be selected, user must be the event organiser,
+user must have joined the event are pre-conditions for using several commands</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&amp;search=thejrlinguist">Functional code</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pushed tags and closed milestones for v1.1 and v1.2 to GitHub</p>
+</li>
+<li>
+<p>Created PR from team-repo to AB4</p>
+</li>
+<li>
+<p>Updated AboutUs.doc: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/3">#3</a></p>
+</li>
+<li>
+<p>Updated ReadMe: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/10">#10</a></p>
+</li>
+<li>
+<p>Assigned issues after PE dry run.</p>
+</li>
+<li>
+<p>Updated sample data: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/165">#165</a></p>
+</li>
+<li>
+<p>Contributed to brainstorming features.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Contributed to portions of User Guide and Developer Guide relevant to my own features. Links can be found below.</p>
+</li>
+<li>
+<p>Wrote significant portions of initial draft of User Guide: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/3">#3</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="create-and-confirm-event-commands"><a class="link" href="#create-and-confirm-event-commands">Create and confirm event commands</a></h3>
+<div class="sect3">
+<h4 id="create-a-new-event-code-addevent-code"><a class="link" href="#create-a-new-event-code-addevent-code">Create a new event : <code>addEvent</code></a></h4>
+<div class="paragraph">
+<p>Adds a new event to the Event Organiser.<br>
+Format: <code>addEvent n/NAME a/LOCATION t/TAGS</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL</code></p>
+</li>
+<li>
+<p><code>addEvent n/CS1101S Meet-up a/UTown t/By invite</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-an-event-code-deleteevent-code"><a class="link" href="#delete-an-event-code-deleteevent-code">Delete an event : <code>deleteEvent</code></a></h4>
+<div class="paragraph">
+<p>Deletes the specified event from the Event Organiser.<br>
+Format: <code>deleteEvent INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the event at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed user list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>Event can only be deleted by the Event Organiser</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>deleteEvent 2</code><br>
+Deletes the 2nd event in the Event Organiser.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="select-an-event-code-selectevent-code"><a class="link" href="#select-an-event-code-selectevent-code">Select an event : <code>selectEvent</code></a></h4>
+<div class="paragraph">
+<p>Selects an event to be edited.<br>
+Format: <code>selectEvent index</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>An event must be selected before setDate, setTime, addPoll, addTimePoll, addOption, and vote commands can be used.</p>
+</li>
+<li>
+<p>Selecting an event displays the event participants as well as the polls associated with the event.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-the-event-date-code-setdate-code"><a class="link" href="#set-the-event-date-code-setdate-code">Set the event date : <code>setDate</code></a></h4>
+<div class="paragraph">
+<p>Sets the event date.<br>
+Format: <code>setDate d/DAY-MONTH-YEAR</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Day, month and year are specified as numbers.</p>
+</li>
+<li>
+<p>Day and month must be written as two digits, e.g. January must be specified as <code>01</code> and not <code>1</code>.</p>
+</li>
+<li>
+<p>Year must be written out in full.</p>
+</li>
+<li>
+<p>An event must first be selected.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setDate d/08-09-2018</code></p>
+</li>
+<li>
+<p><code>setDate d/11-12-2019</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-the-event-time-code-settime-code"><a class="link" href="#set-the-event-time-code-settime-code">Set the event time : <code>setTime</code></a></h4>
+<div class="paragraph">
+<p>Sets the event time.<br>
+Format: <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Time is specified in 24 hour format, separated by a colon.</p>
+</li>
+<li>
+<p>The time with prefix <code>t1</code> represents the start time and prefix <code>t2</code> represents the end time.</p>
+</li>
+<li>
+<p>An event must first be selected.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setTime t1/23:00 t2/23:30</code></p>
+</li>
+<li>
+<p><code>setTime t1/13:30 t2/14:00</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="create-a-new-poll-for-an-event-code-addpoll-n-name-code"><a class="link" href="#create-a-new-poll-for-an-event-code-addpoll-n-name-code">Create a new poll for an event : <code>addPoll n/NAME</code></a></h4>
+<div class="paragraph">
+<p>Sets up a new poll for the event with the specified name.<br>
+Format: <code>addPoll n/Poll name</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="create-a-new-time-based-poll-for-an-event-code-addtimepoll-code"><a class="link" href="#create-a-new-time-based-poll-for-an-event-code-addtimepoll-code">Create a new time-based poll for an event : <code>addTimePoll</code></a></h4>
+<div class="paragraph">
+<p>Sets up a new time-based poll for the event with the specified name after all users have joined.<br>
+Format: <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR`</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>This is a special type of poll which generates poll options based on the given date range and the schedules of the participants who have joined the event.s</p>
+</li>
+<li>
+<p>The date with prefix <code>d1</code> represents the start of the given date range and <code>d2</code> represents the end of the date range.</p>
+</li>
+<li>
+<p>The start date must not be after the end date, and the given dates must not be more than 30 days apart.</p>
+</li>
+<li>
+<p>The time poll does not automatically update if a new user joins the event, and should be created only after all users have joined.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addTimePoll d1/08-09-2018 d2/10-09-2018</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setup-poll-for-location-code-addoption-code"><a class="link" href="#setup-poll-for-location-code-addoption-code">Setup poll for location : <code>addOption</code></a></h4>
+<div class="paragraph">
+<p>Add new poll option in the specified poll.<br>
+Format: <code>addOption i/POLL_ID o/OPTION_NAME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The poll index specifies the index of the poll in the selected event.</p>
+</li>
+<li>
+<p>An event must first be selected.</p>
+</li>
+<li>
+<p>An option can be any string.</p>
+</li>
+<li>
+<p>Time polls do not support adding of options.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:
+* <code>addOption i/1 o/Play chess</code><br>
+Adds an option to the first poll of the selected event, where the option is <code>Play chess</code>.
+This option would be relevant in the context of a poll for an appropriate activity.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="get-poll-result-code-displaypoll-code"><a class="link" href="#get-poll-result-code-displaypoll-code">Get poll result : <code>displayPoll</code></a></h4>
+<div class="paragraph">
+<p>Gets the result of a specified poll.<br>
+Format: <code>displayPoll i/POLL_INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The index is the index of the poll in the pre-selected event.</p>
+</li>
+<li>
+<p>This index can be viewed by selecting the event using the <code>selectEvent</code> command.</p>
+</li>
+<li>
+<p>This command displays the most popular options as well as the names of the users who voted for each option.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>displayPoll i/1</code><br>
+Displays the poll with index 1 associated with the selected event.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="join-event-commands"><a class="link" href="#join-event-commands">Join event commands</a></h3>
+<div class="sect3">
+<h4 id="find-event-by-the-name-of-the-event-code-findevent-code"><a class="link" href="#find-event-by-the-name-of-the-event-code-findevent-code">Find event by the name of the event : <code>findEvent</code></a></h4>
+<div class="paragraph">
+<p>Finds events based on the attributes of the event: event name, event location, date, start time, Event Organiser, and event participants.<br>
+Format: <code>findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findEvent e/FaceBook Recruitment Talk on/John Doe</code><br>
+Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="find-event-by-a-time-interval-code-findeventbytime-code"><a class="link" href="#find-event-by-a-time-interval-code-findeventbytime-code">Find event by a time interval: <code>findEventByTime</code></a></h4>
+<div class="paragraph">
+<p>Finds events based start and end time.<br>
+Format: <code>findEvent d/DATE t1/FROMTIME t2/TOTIME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Times are specfied in 24 hour, HOUR:MINUTE format.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findEvent d/12-12-2018 t1/12:00 t2/18:00</code><br>
+Finds all events held between 12pm and 6pm on 12 December 2018.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="join-event-code-joinevent-code"><a class="link" href="#join-event-code-joinevent-code">Join event : <code>joinEvent</code></a></h4>
+<div class="paragraph">
+<p>Joins event identified by event index in the event list.<br>
+Format: <code>joinEvent INDEX</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>joinEvent 2</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vote-for-date-code-voteoption-code"><a class="link" href="#vote-for-date-code-voteoption-code">Vote for date : <code>voteOption</code></a></h4>
+<div class="paragraph">
+<p>Vote for a option specified in a specified poll, if there is one.
+Format: <code>voteDate i/POLL_ID o/OPTION_ID</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The index is the index of the poll in the pre-selected event.</p>
+</li>
+<li>
+<p>The option specified must be in the poll.</p>
+</li>
+<li>
+<p>User must have joined the event in order to vote.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>voteDate i/3 o/12 August</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="event-organiser-commands"><a class="link" href="#event-organiser-commands">Event organiser commands</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add Event</strong> : <code>addEvent n/EVENT_NAME a/LOCATION [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent</code></p>
+</li>
+<li>
+<p><strong>Delete Event</strong> : <code>deleteEvent INDEX</code><br>
+e.g. <code>deleteEvent 1</code></p>
+</li>
+<li>
+<p><strong>Add Poll</strong> : <code>addPoll n/POLL_NAME</code><br>
+e.g. <code>addPoll n/Activity</code></p>
+</li>
+<li>
+<p><strong>Add Option</strong> : <code>addOption i/POLL_INDEX o/POLL_OPTION</code><br>
+e.g. <code>addOption i/1 o/Play games</code></p>
+</li>
+<li>
+<p><strong>Add Time Poll</strong> : <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR</code><br>
+e.g. <code>addTimePoll d1/01-12-2018 d2/02-12-2018</code></p>
+</li>
+<li>
+<p><strong>Display Poll</strong> : <code>displayPoll INDEX</code><br>
+e.g. <code>displayPoll 1</code></p>
+</li>
+<li>
+<p><strong>Set Event Date</strong> : <code>setDate d/DAY-MONTH-YEAR</code><br>
+e.g. <code>setDate d/12-12-2018</code></p>
+</li>
+<li>
+<p><strong>Set Event Time</strong> : <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code><br>
+e.g. <code>setTime t1/12:30 t2/13:45</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="event-participant-commands"><a class="link" href="#event-participant-commands">Event participant commands</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Select Event</strong> : <code>selectEvent INDEX</code><br>
+e.g. <code>selectEvent 1</code></p>
+</li>
+<li>
+<p><strong>Join Event</strong> : <code>joinEvent INDEX</code><br>
+e.g. <code>joinEvent 1</code></p>
+</li>
+<li>
+<p><strong>Vote</strong> : <code>vote i/POLL_INDEX o/POLL_OPTION</code><br>
+e.g. <code>vote i/1 o/Play games</code></p>
+</li>
+<li>
+<p><strong>Find Event With Attributes</strong> : <code>findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
+[on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]</code>
+e.g. <code>findEvent d/12-12-2018 pn/John Doe</code>
+e.g. <code>findEvent a/SoC Canteen on/Alice Tan</code></p>
+</li>
+<li>
+<p><strong>Find Event by Time</strong> : <code>findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE</code>
+e.g. <code>findEventByTime d/12-12-2018 t1/12:30 t2/13:45</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="poll-feature"><a class="link" href="#poll-feature">Poll feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current implementation</a></h4>
+<div class="paragraph">
+<p>This section explains the implementation of the features associated with the Poll class of each Event while detailing some implementation details of the Event class.
+The relevant commands which are callable by the user to be discussed are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AddPollCommand</code> - adds a new Poll to the event given the name of the poll to be created.</p>
+</li>
+<li>
+<p><code>AddPollOptionCommand</code> - adds a new poll option to the poll given the poll index and the name of the option to be added.</p>
+</li>
+<li>
+<p><code>VoteCommand</code> - adds the current user as a voter to the given option.</p>
+</li>
+<li>
+<p><code>AddTimePollCommand</code> - creates a new TimePoll automatically populated with options based on the schedules of the event participants.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For all the above commands, the event must first be selected using the <code>selectEvent</code> command, which will set the <code>currentEvent</code> through the <code>Model#setSelectedEvent()</code> method.
+This is done to ensure that users do not have to continually specify the event for which the Poll commands are called for every command.
+This is on top of the <code>currentUser</code> in the Model which was already selected through the <code>LoginCommand</code>.</p>
+</div>
+<div class="paragraph">
+<p>There are two types of Polls which extends from the abstract class AbstractPoll: Poll and TimePoll.
+Each AbstractPoll object contains a <code>HashMap&lt;String, UniquePersonList&gt;</code> attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/PollClassDiagram.png" alt="PollClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
+each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
+Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects,
+which serve as pointers to the actual Person objects stored in the event organiser.</p>
+</div>
+<div class="paragraph">
+<p>As an example, the following sequence diagram illustrates the workings of the <code>VoteCommand</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/VoteSequenceDiagram.png" alt="VoteSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>As stated above, since Model already stores the current user and the selected event from prior user commands,
+the Model can call the correct Event e and Person object in the <code>addVoteToPoll</code> method. If there is no logged-in user,
+a <code>NoUserLoggedInException</code> is thrown, and if there is no selected event, a <code>NoEventSelectedException</code> is thrown.</p>
+</div>
+<div class="paragraph">
+<p>In addition, four other possible exceptions might be thrown by the VoteCommand:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A user must have already joined the event as a participant, or be on the invite list in order to vote, failing which, a UserNotJoinedEventException is thrown.</p>
+</li>
+<li>
+<p>A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someeone tries to vote twice.</p>
+</li>
+<li>
+<p>A poll must exist at the given poll index for the selected event, else, an IndexOutOfBoundsException is thrown.</p>
+</li>
+<li>
+<p>The given option must exist in the selected poll, else, an IllegalArgumentException is thrown.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The other commands <code>AddPollCommand</code> and <code>AddPollOptionCommand</code> follow a very similar structure.
+The sequence diagram within the model for the <code>AddPollCommand</code> is illustrated here:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AddPollSequenceDiagram.png" alt="AddPollSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>In all cases, the Poll object is returned to the calling Command object,
+so that the contents of the poll can be retrieved as a String through the <code>Poll#displayPoll()</code> method.
+The displayed details of the poll contains the most popular options, computed using the <code>Poll#getPopularOptions()</code> method.
+A new <code>DisplayPollEvent</code> is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.</p>
+</div>
+<div class="paragraph">
+<p>The <code>TimePoll</code> class extends from the abstract <code>AbstractPoll</code> class which is constructed by calling the <code>AddTimePollCommand</code>.
+This command automatically generates a list of times based on the schedules of the persons on the event invite list,
+and a specified date range in the user input. The two dates must not be more than a month apart.
+The TimePoll shares most of its functionality with Poll, except that users may not add new options.
+At this point, the TimePoll does not automatically update when event participants leave or join the event.
+Hence, the event organiser must wait for all participants to be confirmed before adding a TimePoll.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-the-relationship-between-code-poll-code-and-code-timepoll-code"><a class="link" href="#aspect-the-relationship-between-code-poll-code-and-code-timepoll-code">Aspect: The relationship between <code>Poll</code> and <code>TimePoll</code></a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong> (current implementation): Design them as separate classes which both inherit from an abstract <code>AbstractPoll</code> class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Allows for future extendability from the abstract Poll class eg additional types of Polls (location, date) which constrain the option types
+and include additional features to recommend the best option eg most convenient location by distance for participants.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Allow <code>TimePoll</code> to extend from the <code>Poll</code> class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: The two classes differ only in that <code>TimePoll</code> has the augmented feature of generating options from the schedule of event participants.</p>
+</li>
+<li>
+<p>Cons: Unable to constrain the input and prevent users from adding the wrong format for options into <code>TimePoll</code>, since this would violate the Liskov Substitution Principle.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-storage-of-voters-in-poll"><a class="link" href="#aspect-storage-of-voters-in-poll">Aspect: Storage of voters in Poll</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong> (current implementation): Store the voters as Persons.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: All information about the voters are stored.</p>
+</li>
+<li>
+<p>Cons: Need for complete reference to the actual person via the XmlPersonIndex class in storage, rather than duplicating the person details.
+The voter list must also be manually updated every time the person details are updated.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Store only the names of voters.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need for complete reference to the actual person via the XmlPersonIndex class in storage.</p>
+</li>
+<li>
+<p>Cons: Some persons might share the same name. It is also not extendable for future versions where the data/attributes of the voters might be relevant to computing the best option.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 00:25:23 UTC</div></div></div></body></html>

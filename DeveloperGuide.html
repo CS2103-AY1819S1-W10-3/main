@@ -750,8 +750,16 @@ This is done to ensure that users do not have to continually specify the event f
 This is on top of the <code>currentUser</code> in the Model which was already selected through the <code>LoginCommand</code>.</p>
 </div>
 <div class="paragraph">
-<p>There are two types of Polls which extends from the abstract class AbstractPoll: Poll and TimePoll. Each AbstractPoll object contains a <code>HashMap&lt;String, UniquePersonList&gt;</code> attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.
-When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
+<p>There are two types of Polls which extends from the abstract class AbstractPoll: Poll and TimePoll.
+Each AbstractPoll object contains a <code>HashMap&lt;String, UniquePersonList&gt;</code> attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/PollClassDiagram.png" alt="PollClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
 each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
 Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects,
 which serve as pointers to the actual Person objects stored in the event organiser.</p>
@@ -819,7 +827,7 @@ Hence, the event organiser must wait for all participants to be confirmed before
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1:</strong>: Design them as separate classes which both inherit from an abstract <code>AbstractPoll</code> class.</p>
+<p><strong>Alternative 1</strong> (current implementation): Design them as separate classes which both inherit from an abstract <code>AbstractPoll</code> class.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -830,7 +838,7 @@ and include additional features to recommend the best option eg most convenient 
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong>: Allow <code>TimePoll</code> to extend from the <code>Poll</code> class.</p>
+<p><strong>Alternative 2</strong>: Allow <code>TimePoll</code> to extend from the <code>Poll</code> class.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -850,7 +858,7 @@ and include additional features to recommend the best option eg most convenient 
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1:</strong>: Store the voters as Persons.</p>
+<p><strong>Alternative 1</strong> (current implementation): Store the voters as Persons.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -864,7 +872,7 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong>: Store only the names of voters.</p>
+<p><strong>Alternative 2</strong>: Store only the names of voters.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -2489,4 +2497,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 15:54:48 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 00:25:23 UTC</div></div></div></body></html>
