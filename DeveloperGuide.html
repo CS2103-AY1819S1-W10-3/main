@@ -917,7 +917,7 @@ The voter list must also be manually updated every time the person details are u
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1:</strong>: Store all schedule as a slot just like how a calendar does, which includes day, time, etc.</p>
+<p><strong>Alternative 1</strong> Store all schedule as a slot just like how a calendar does, which includes day, time, etc.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -930,7 +930,7 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong>: Store weekly schedule</p>
+<p><strong>Alternative 2:</strong> (current implementation) Store weekly schedule</p>
 <div class="ulist">
 <ul>
 <li>
@@ -956,17 +956,29 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <div class="paragraph">
 <p>Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ScheduleDiagram.png" alt="ScheduleDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>As manipulating bit strings may be complicated, getter, setter and merger methods are provided for any external access to the schedule. This allows easy use of the specific slots in the schedule without heavy calculation and memorisation of bits.</p>
+</div>
 </div>
 <div class="sect4">
 <h5 id="aspect-schedule-update"><a class="link" href="#aspect-schedule-update">Aspect: Schedule Update</a></h5>
 <div class="paragraph">
-<p>As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputed. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.</p>
+<p>As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="aspect-maxschedule-command"><a class="link" href="#aspect-maxschedule-command">Aspect: MaxSchedule Command</a></h5>
 <div class="paragraph">
 <p>Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.</p>
+</div>
+<div class="paragraph">
+<p>Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
+It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.</p>
 </div>
 </div>
 </div>
@@ -985,8 +997,51 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <p><code>EditUserCommand</code> - The base Edit command for person with one addition - Timetable parameter</p>
 </div>
 <div class="paragraph">
-<p>TimeTable is data downloaded from nusmods.com, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand. This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.</p>
+<p><code>AddUserCommand</code> - The base Add command for person with one addition - Timetable parameter</p>
 </div>
+<div class="paragraph">
+<p>TimeTable is data downloaded from an external source, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand.
+This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-timetable-source"><a class="link" href="#aspect-timetable-source">Aspect: Timetable Source</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong> Google Calendar</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Academic and non-academic calendar events can be downloaded.</p>
+</li>
+<li>
+<p>Cons: Not tailored for NUS students - students must acquire their academic events from their own CORS (NUS module slot bidding) result to populate their own google calendar. Google authorization token (per user) will have to stored securely.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> (current implementation) NusMod</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Academic events can be downloaded. Many students are already using this platform to store their academic events.</p>
+</li>
+<li>
+<p>Cons: Non-academic events cannot be downloaded from this source.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>NusMods will be used to provide academic events for the student. As for their non-academic events, he can use schedule update to manaully update those slots.
+This way, we will be able to provide the most convenient way for the student to populate the schedule.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-timetable-download"><a class="link" href="#aspect-timetable-download">Aspect: Timetable Download</a></h5>
 <div class="paragraph">
 <p>As nusmods.com is an external web server, internet access needs to be checked first. Following up, the nusmods.com gives the user a modsn.com shortlink which can translated back to a nusmods.com/&#8230;&#8203; full link, if he wants to share his timetable with himself or others. Finally, a valid nusmods.com timetable would include json data in its GET parameters. All of these must be fulfilled or else a Invalid Nusmods link will be returned to the application.</p>
 </div>
@@ -1017,6 +1072,7 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 </div>
 <div class="paragraph">
 <p>Step 4. The filtered lessons is then converted into an arraylist of Slot before returning to the aplication.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1640,7 +1696,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <p><i class="fa fa-check-square-o"></i> V1.2: Users able to specify friendships with other people.</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> V1.3: Users able to form groups and find mutual friends.</p>
+<p><i class="fa fa-check-square-o"></i> V1.3: Users able to form groups and find mutual friends.</p>
 </li>
 </ul>
 </div>
@@ -2554,16 +2610,16 @@ Expected: user "Alex Yeoh" successfully deleted.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
+<p>Corrupted XML file: the application would not run to prevent unexpected responses.</p>
+</li>
+<li>
+<p>Missing XML file: the application will re-generate the sample xml, and save it as data/addressbook.xml when a change in the sample data.</p>
 </li>
 </ol>
 </div>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 15:36:02 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 15:50:40 UTC</div></div></div></body></html>

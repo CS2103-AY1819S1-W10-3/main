@@ -78,10 +78,16 @@
 <p>Updated the GUI browser design scheme (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/126">#126</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/79">#79</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/87">#87</a>)</p>
 </li>
 <li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/">#115</a>)</p>
+<p>Removed the pre-existing GUI bug (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/93">#93</a>)</p>
 </li>
 <li>
-<p>Fixed sample data to reflect the new application (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/107">#107</a>)</p>
+<p>Wrote additional tests for features to increase coverage (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/">#115</a>)</p>
+</li>
+<li>
+<p>Reviewed and populated sample data to reflect the new application (Pull requests <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/107">#107</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/">#175</a>)</p>
+</li>
+<li>
+<p>Evaluated and designed a new data scheme to hold both Person and Event data (<a href="https://github.com/CS2103-AY1819S1-W10-3/main/commit/f60817c8011f85cd9a0502c821eaa6f88d2c1b75">f60817c</a>)</p>
 </li>
 </ul>
 </div>
@@ -91,7 +97,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: [<a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/89">#89</a>],[<a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/140">#140</a>]</p>
+<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/89">#89</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/140">#140</a></p>
 </li>
 </ul>
 </div>
@@ -105,6 +111,9 @@
 </li>
 <li>
 <p>Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)</p>
+</li>
+<li>
+<p>Reviewed photo upload guidelines to disseminate to other groups <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/35">#35</a></p>
 </li>
 </ul>
 </div>
@@ -158,8 +167,8 @@ e.g. <code>editUser 1 su/ monday 0000</code></p>
 <div class="sect3">
 <h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">Get free time between users : <code>maxSchedule</code></a></h4>
 <div class="paragraph">
-<p>Compares the schedule of multiple users and return a string of common free time.<br>
-Format: <code>maxSchedule INDEX INDEX&#8230;&#8203;</code></p>
+<p>Compares the schedule of multiple users and return a string of common free time. LIMIT is a XXXX-XXX specified timing to limit the time range displayed.<br>
+Format: <code>maxSchedule INDEX INDEX [sl/ LIMIT]&#8230;&#8203;</code></p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -168,11 +177,16 @@ Format: <code>maxSchedule INDEX INDEX&#8230;&#8203;</code></p>
 <ul>
 <li>
 <p><code>maxSchedule 1 2</code><br>
-Compares the schedule of users of index 1 and 2 and return a string of common free time.</p>
+Compares the schedule of users of index 1 and 2 and return a string of all common free time.</p>
 </li>
 <li>
-<p><strong>Free time between persons</strong>: <code>maxSchedule INDEX INDEX &#8230;&#8203;</code><br>
-e.g. <code>maxSchedule 1 2 3</code></p>
+<p><code>maxSchedule 1 2 sl/ 0800-0900</code><br>
+Compares the schedule of users of index 1 and 2 and return a string of common free time limited to 0800 to 0900 hours inclusive.</p>
+</li>
+<li>
+<p><strong>Free time between persons</strong>: <code>maxSchedule INDEX INDEX &#8230;&#8203; [sl/ LIMIT]</code><br>
+e.g. <code>maxSchedule 1 2 3</code>
+e.g. <code>maxSchedule 1 2 3 sl/ 0800-0900</code></p>
 </li>
 </ul>
 </div>
@@ -216,7 +230,7 @@ e.g. <code>maxSchedule 1 2 3</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1:</strong>: Store all schedule as a slot just like how a calendar does, which includes day, time, etc.</p>
+<p><strong>Alternative 1</strong> Store all schedule as a slot just like how a calendar does, which includes day, time, etc.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -229,7 +243,7 @@ e.g. <code>maxSchedule 1 2 3</code></p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong>: Store weekly schedule</p>
+<p><strong>Alternative 2:</strong> (current implementation) Store weekly schedule</p>
 <div class="ulist">
 <ul>
 <li>
@@ -255,17 +269,29 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <div class="paragraph">
 <p>Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ScheduleDiagram.png" alt="ScheduleDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>As manipulating bit strings may be complicated, getter, setter and merger methods are provided for any external access to the schedule. This allows easy use of the specific slots in the schedule without heavy calculation and memorisation of bits.</p>
+</div>
 </div>
 <div class="sect4">
 <h5 id="aspect-schedule-update"><a class="link" href="#aspect-schedule-update">Aspect: Schedule Update</a></h5>
 <div class="paragraph">
-<p>As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputed. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.</p>
+<p>As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="aspect-maxschedule-command"><a class="link" href="#aspect-maxschedule-command">Aspect: MaxSchedule Command</a></h5>
 <div class="paragraph">
 <p>Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.</p>
+</div>
+<div class="paragraph">
+<p>Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
+It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.</p>
 </div>
 </div>
 </div>
@@ -284,8 +310,51 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <p><code>EditUserCommand</code> - The base Edit command for person with one addition - Timetable parameter</p>
 </div>
 <div class="paragraph">
-<p>TimeTable is data downloaded from nusmods.com, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand. This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.</p>
+<p><code>AddUserCommand</code> - The base Add command for person with one addition - Timetable parameter</p>
 </div>
+<div class="paragraph">
+<p>TimeTable is data downloaded from an external source, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand.
+This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-timetable-source"><a class="link" href="#aspect-timetable-source">Aspect: Timetable Source</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong> Google Calendar</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Academic and non-academic calendar events can be downloaded.</p>
+</li>
+<li>
+<p>Cons: Not tailored for NUS students - students must acquire their academic events from their own CORS (NUS module slot bidding) result to populate their own google calendar. Google authorization token (per user) will have to stored securely.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> (current implementation) NusMod</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Academic events can be downloaded. Many students are already using this platform to store their academic events.</p>
+</li>
+<li>
+<p>Cons: Non-academic events cannot be downloaded from this source.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>NusMods will be used to provide academic events for the student. As for their non-academic events, he can use schedule update to manaully update those slots.
+This way, we will be able to provide the most convenient way for the student to populate the schedule.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-timetable-download"><a class="link" href="#aspect-timetable-download">Aspect: Timetable Download</a></h5>
 <div class="paragraph">
 <p>As nusmods.com is an external web server, internet access needs to be checked first. Following up, the nusmods.com gives the user a modsn.com shortlink which can translated back to a nusmods.com/&#8230;&#8203; full link, if he wants to share his timetable with himself or others. Finally, a valid nusmods.com timetable would include json data in its GET parameters. All of these must be fulfilled or else a Invalid Nusmods link will be returned to the application.</p>
 </div>
@@ -320,4 +389,5 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 15:36:02 UTC</div></div></div></body></html>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 15:50:40 UTC</div></div></div></body></html>
