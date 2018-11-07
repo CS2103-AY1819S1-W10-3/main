@@ -79,8 +79,12 @@
 <li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-person">H.2. Deleting a person</a></li>
-<li><a href="#saving-data">H.3. Saving data</a></li>
+<li><a href="#login-a-user">H.2. Login a user</a></li>
+<li><a href="#logout-a-user">H.3. Logout a user</a></li>
+<li><a href="#find-users">H.4. Find users</a></li>
+<li><a href="#edit-a-user">H.5. Edit a user</a></li>
+<li><a href="#delete-a-user">H.6. Delete a user</a></li>
+<li><a href="#saving-data">H.7. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -677,7 +681,7 @@ the colour of his name will revert back to white as shown in the image above.</p
 <div class="ulist">
 <ul>
 <li>
-<p>Alternative 1(Current choice) : store the password for each user as an attribute of Person class</p>
+<p><strong>Alternative 1</strong>(Current implementation) : store the password for each user as an attribute of Person class</p>
 <div class="ulist">
 <ul>
 <li>
@@ -690,7 +694,7 @@ the colour of his name will revert back to white as shown in the image above.</p
 </div>
 </li>
 <li>
-<p>Alternative 2 : Use Java API to hash the password</p>
+<p><strong>Alternative 2</strong> : Use Java API to hash the password</p>
 <div class="ulist">
 <ul>
 <li>
@@ -703,7 +707,7 @@ the colour of his name will revert back to white as shown in the image above.</p
 </div>
 </li>
 <li>
-<p>Alternative 3 : implement "login" via select command</p>
+<p><strong>Alternative 3</strong> : implement "login" via select command</p>
 <div class="ulist">
 <ul>
 <li>
@@ -827,7 +831,7 @@ Hence, the event organiser must wait for all participants to be confirmed before
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1</strong> (current implementation): Design them as separate classes which both inherit from an abstract <code>AbstractPoll</code> class.</p>
+<p><strong>Alternative 1</strong> (Current implementation): Design them as separate classes which both inherit from an abstract <code>AbstractPoll</code> class.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -858,7 +862,7 @@ and include additional features to recommend the best option eg most convenient 
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1</strong> (current implementation): Store the voters as Persons.</p>
+<p><strong>Alternative 1</strong> (Current implementation): Store the voters as Persons.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -2440,44 +2444,109 @@ Expected: The most recent window size and location is retained.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">H.2. Deleting a person</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Deleting a person while all persons are listed</p>
+<h3 id="login-a-user"><a class="link" href="#login-a-user">H.2. Login a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all persons using the <code>list</code> command. Multiple persons in the list.</p>
+<p>Note: The states of each test case is continued in the next test case.</p>
 </li>
 <li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+<p>Prerequisites: Event Organiser already has a user with name as "Alex Yeoh" and password as "password". Futhermore, no user is currently logged in. The Event Organiser does not have a user with name as "Michael Lim" and password as "password".</p>
 </li>
 <li>
-<p>Test case: <code>delete 0</code><br>
-Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
+<p>Test case: <code>login</code>
+Expected: Login unsuccessful.</p>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
-Expected: Similar to previous.</p>
+<p>Test case: <code>login n/Michael Lim pass/password</code>
+Expected: Login unsuccessful.</p>
+</li>
+<li>
+<p>Test case <code>login n/Alex Yeoh pass/password</code>
+Expected: Login successful.</p>
+</li>
+<li>
+<p>Test case: <code>login n/Michael Lim pass/password</code>
+Expected: Login unsuccessful.</p>
 </li>
 </ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.3. Saving data</a></h3>
+<h3 id="logout-a-user"><a class="link" href="#logout-a-user">H.3. Logout a user</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Note: The states of each test case is continued in the next test case.</p>
+</li>
+<li>
+<p>Prerequisites: There is no user currently logged in and the user with name as "Alex Yeoh" and password as "password" is currently logged in.</p>
+</li>
+<li>
+<p>Test case <code>logout</code>
+Expected: Logout successful.</p>
+</li>
+<li>
+<p>Test case: <code>logout</code>
+Expected: Logout unsuccessful.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-users"><a class="link" href="#find-users">H.4. Find users</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event Organiser currently has two user accounts. The first user has name as "Alex Yeoh" and interests as "study". The second user has name as "Bernice Yu" and interest as "play".</p>
+</li>
+<li>
+<p>Test case <code>findUser n/Alex Yeoh</code>
+Expected: Only user "Alex Yeoh" is listed.</p>
+</li>
+<li>
+<p>Test case: <code>findUser i/interest</code>
+Expected: Only user "Bernice Yu" is listed.</p>
+</li>
+<li>
+<p>Test case: <code>findUser n/Alex Yeoh i/interest</code>
+Expected: Only users "Bernice Yu" and "Alex Yeoh" are listed.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edit-a-user"><a class="link" href="#edit-a-user">H.5. Edit a user</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
+</li>
+<li>
+<p>Test case <code>editUser n/Alex Tan</code>
+Expected: Name of user successfully changed to "Alex Tan".</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="delete-a-user"><a class="link" href="#delete-a-user">H.6. Delete a user</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
+</li>
+<li>
+<p>Test case <code>deleteUSer</code>
+Expected: user "Alex Yeoh" successfully deleted.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">H.7. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2497,4 +2566,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 14:04:05 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 15:13:03 UTC</div></div></div></body></html>
