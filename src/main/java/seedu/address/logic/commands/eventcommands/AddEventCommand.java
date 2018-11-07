@@ -21,7 +21,7 @@ public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "addEvent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the event organiser. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the event organiser.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_ADDRESS + "ADDRESS "

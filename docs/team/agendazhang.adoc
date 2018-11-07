@@ -1,0 +1,53 @@
+= Zhang Cheng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EventOrganiser
+
+---
+
+== Overview
+
+EventOrganiser is an application for managing and organising events built for NUS students. It is optimized for those
+who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+== Summary of
+
+* *Major enhancement*: Added the ability to specify friendships among users
+** What it does: Allows the users to add or delete friends with each other and have their friend lists displayed
+** Justification: This feature allows users to keep a friendship list which they can refer to it themselves when creating new events. For example, if they would like to organize a friends meetup, they will know who to add to the event. Also, it allows users to search for friends with common interests and expand their friendship lists.
+
+* *Minor enhancement*: Added a new attribute Interest for a user
+** Justification: This attribute allows users to specify any number of interests, which can be identified for friendships and events.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=agendazhang[Functional code]]
+
+* *Other contributions*:
+
+** Project management
+** Enhancements to existing features:
+*** Updated the GUI browser display (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/123[#123])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/163[#163])
+** Documentation:
+*** Finalise User Stories: https://github.com/CS2103-AY1819S1-W10-3/main/pull/18[#18]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/164[#164], https://github.com/CS2103-AY1819S1-W10-3/main/pull/165[#165]
+*** Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=addDeleteFriend]
+
+include::../UserGuide.adoc[tag=suggestFriends]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=addDeleteFriend]

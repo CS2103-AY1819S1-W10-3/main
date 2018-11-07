@@ -62,8 +62,8 @@ public class StringUtilTest {
         // EP: 2 numbers(1 invalid) with comma in between, should return false
         assertFalse(StringUtil.isNonZeroUnsignedInteger("0,2"));
 
-        // EP: 2 numbers with comma in between and white space, should return false
-        assertFalse(StringUtil.isNonZeroUnsignedInteger(" 0,2 "));
+        // EP: 3 numbers with comma in between, should return false
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("1,2,3"));
     }
 
 

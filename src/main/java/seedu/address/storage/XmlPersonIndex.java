@@ -1,4 +1,4 @@
-//@@theJrLinguist
+//@@author theJrLinguist
 package seedu.address.storage;
 
 import java.util.logging.Logger;

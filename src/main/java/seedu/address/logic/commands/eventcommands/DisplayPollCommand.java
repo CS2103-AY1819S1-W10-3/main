@@ -23,7 +23,7 @@ public class DisplayPollCommand extends Command {
 
     public static final String COMMAND_WORD = "displayPoll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the poll with the provided index"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the poll with the provided index.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_SUCCESS = "Poll %1$s of %2$s displayed.";

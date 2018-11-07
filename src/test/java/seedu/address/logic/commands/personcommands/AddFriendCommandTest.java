@@ -67,6 +67,14 @@ public class AddFriendCommandTest {
     }
 
     @Test
+    public void executeSameIndexUnfilteredListThrowsCommandException() {
+        Index sameIndexes = Index.fromOneBased(INDEX_SECOND.getZeroBased(), INDEX_SECOND.getZeroBased());
+        AddFriendCommand addFriendCommand = new AddFriendCommand(sameIndexes);
+
+        assertCommandFailure(addFriendCommand, model, commandHistory, Messages.MESSAGE_CANNOT_ADD_FRIEND_OWNSELF);
+    }
+
+    @Test
     public void checkUpdatedFriendListsDueToEditedPerson() throws CommandException {
         AddFriendCommand addFriendCommand = new AddFriendCommand(Index.fromZeroBased(INDEX_SECOND.getZeroBased(),
                 INDEX_THIRD.getZeroBased()));

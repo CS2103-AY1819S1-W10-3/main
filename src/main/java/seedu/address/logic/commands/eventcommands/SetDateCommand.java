@@ -25,7 +25,7 @@ public class SetDateCommand extends Command {
 
     public static final String COMMAND_WORD = "setDate";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the date for the pre-selected event."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the date for the pre-selected event.\n"
             + "Parameters: "
             + PREFIX_DATE + "dd-MM-yyyy ";
     public static final String MESSAGE_SUCCESS = "Date %1$s set for %2$s";

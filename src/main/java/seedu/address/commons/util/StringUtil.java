@@ -55,7 +55,7 @@ public class StringUtil {
 
     /**
      * Returns true if {@code s} represents a non-zero unsigned integer
-     * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>
+     * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} seperated/not seperated by comma.<br>
      * Will return false for any other non-null string input
      * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
      * @throws NullPointerException if {@code s} is null.
@@ -64,7 +64,7 @@ public class StringUtil {
         requireNonNull(s);
         try {
             ArrayList<Integer> values = new ArrayList<>();
-            if (s.contains(COMMA)) {
+            if (s.contains(COMMA) && countCommas(s) <= 1) { // check if more than two indexes are passed
                 values = splitIntegersWithComma(s);
             } else {
                 values.add(Integer.parseInt(s));
@@ -86,10 +86,24 @@ public class StringUtil {
      */
     public static ArrayList<Integer> splitIntegersWithComma(String s) throws NumberFormatException {
         ArrayList<Integer> values = new ArrayList<>();
-        StringTokenizer st = new StringTokenizer(s, ",");
+        StringTokenizer st = new StringTokenizer(s, COMMA);
         while (st.hasMoreTokens()) {
             values.add(Integer.parseInt(st.nextToken()));
         }
         return values;
+    }
+
+    /**
+     * Given a string that separates two integers with a comma (eg "1,2,3"), this function returns
+     * the number of commas in the string.
+     */
+    public static int countCommas(String s) {
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ',') {
+                count++;
+            }
+        }
+        return count;
     }
 }

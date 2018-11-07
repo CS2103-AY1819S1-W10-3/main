@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.model.event.exceptions;
 
 /**

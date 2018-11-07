@@ -21,6 +21,7 @@ public class Messages {
     public static final String MESSAGE_END_BEFORE_START_TIME = "The end time must come after the start time.";
     public static final String MESSAGE_HAVE_NOT_JOINED = "You have yet to join this event.";
     public static final String MESSAGE_HAVE_ALREADY_VOTED = "You have already voted for this option.";
+    public static final String MESSAGE_CANNOT_ADD_FRIEND_OWNSELF = "User cannot add/delete friends with ownself.";
     public static final String MESSAGE_ALREADY_FRIENDS = "Both persons are already friends.";
     public static final String MESSAGE_NOT_FRIENDS = "Both persons are not yet friends.";
     public static final String MESSAGE_INVALID_DATE_RANGE = "This date range is invalid.";

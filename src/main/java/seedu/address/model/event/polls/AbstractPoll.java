@@ -66,7 +66,7 @@ public class AbstractPoll {
     /**
      * Retrieves most popular options by number of votes.
      */
-    public LinkedList<String> getPopularOptions() {
+    private LinkedList<String> getPopularOptions() {
         TreeMap<Integer, LinkedList<String>> frequency = new TreeMap<>();
         pollData.forEach((k, v) -> {
             if (!frequency.containsKey(v.size())) {
@@ -96,7 +96,7 @@ public class AbstractPoll {
     /**
      * Returns the poll data as a string identifying people by their names.
      */
-    public String displayPollData() {
+    private String displayPollData() {
         HashMap<String, List<String>> displayData = new HashMap<>();
         pollData.forEach((k, v) -> {
             List<String> nameList = v.asUnmodifiableObservableList()
@@ -115,7 +115,7 @@ public class AbstractPoll {
     /**
      * Returns a copy of the poll data.
      */
-    public HashMap<String, UniquePersonList> copyData() {
+    protected HashMap<String, UniquePersonList> copyData() {
         HashMap<String, UniquePersonList> dataCopy = new HashMap<>();
         for (Map.Entry<String, UniquePersonList> entry : pollData.entrySet()) {
             UniquePersonList newPersonList = new UniquePersonList();

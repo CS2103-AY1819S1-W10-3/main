@@ -22,9 +22,6 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
-import seedu.address.model.event.polls.AbstractPoll;
-import seedu.address.model.event.polls.Poll;
-import seedu.address.model.event.polls.TimePoll;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -234,7 +231,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public Poll addPoll(String pollName) throws NoUserLoggedInException, NoEventSelectedException,
+    public String addPoll(String pollName) throws NoUserLoggedInException, NoEventSelectedException,
             NotEventOrganiserException {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
@@ -246,13 +243,13 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NotEventOrganiserException();
         }
         int index = versionedAddressBook.getEventList().indexOf(currentEvent);
-        Poll poll = currentEvent.addPoll(pollName);
+        String pollDetails = currentEvent.addPoll(pollName);
         updateEvent(index, currentEvent);
-        return poll;
+        return pollDetails;
     }
 
     @Override
-    public TimePoll addTimePoll(LocalDate startDate, LocalDate endDate) throws NoUserLoggedInException,
+    public String addTimePoll(LocalDate startDate, LocalDate endDate) throws NoUserLoggedInException,
             NoEventSelectedException, NotEventOrganiserException {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
@@ -263,23 +260,23 @@ public class ModelManager extends ComponentManager implements Model {
         if (!currentUser.equals(currentEvent.getOrganiser())) {
             throw new NotEventOrganiserException();
         }
-        TimePoll poll = currentEvent.addTimePoll(startDate, endDate);
+        String pollDetails = currentEvent.addTimePoll(startDate, endDate);
         updateEvent(currentEvent, currentEvent);
-        return poll;
+        return pollDetails;
     }
 
     @Override
-    public AbstractPoll addPollOption(Index index, String option) throws NoEventSelectedException {
+    public String addPollOption(Index index, String option) throws NoEventSelectedException {
         if (currentEvent == null) {
             throw new NoEventSelectedException();
         }
-        AbstractPoll poll = currentEvent.addOptionToPoll(index, option);
+        String pollDetails = currentEvent.addOptionToPoll(index, option);
         updateEvent(currentEvent, currentEvent);
-        return poll;
+        return pollDetails;
     }
 
     @Override
-    public AbstractPoll voteOption(Index index, String optionName) throws NoEventSelectedException,
+    public String voteOption(Index index, String optionName) throws NoEventSelectedException,
             NoUserLoggedInException, UserNotJoinedEventException {
         if (currentUser == null) {
             throw new NoUserLoggedInException();
@@ -287,9 +284,9 @@ public class ModelManager extends ComponentManager implements Model {
         if (currentEvent == null) {
             throw new NoEventSelectedException();
         }
-        AbstractPoll poll = currentEvent.addVoteToPoll(index, currentUser, optionName);
+        String pollDetails = currentEvent.addVoteToPoll(index, currentUser, optionName);
         updateEvent(currentEvent, currentEvent);
-        return poll;
+        return pollDetails;
     }
 
     @Override

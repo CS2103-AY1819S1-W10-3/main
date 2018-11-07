@@ -196,23 +196,23 @@ public class Event {
     }
 
     /**
-     * Adds a new poll to the event and returns the poll.
+     * Adds a new poll to the event and returns the poll display details as a string.
      */
-    public Poll addPoll(String pollName) {
+    public String addPoll(String pollName) {
         int id = polls.size() + 1;
         Poll poll = new Poll(id, pollName);
         polls.add(poll);
-        return poll;
+        return poll.displayPoll();
     }
 
     /**
      * Adds a new TimePoll object to based on the given start and end dates.
      */
-    public TimePoll addTimePoll(LocalDate startDate, LocalDate endDate) {
+    public String addTimePoll(LocalDate startDate, LocalDate endDate) {
         int id = polls.size() + 1;
         TimePoll poll = new TimePoll(id, personList, startDate, endDate);
         polls.add(poll);
-        return poll;
+        return poll.displayPoll();
     }
 
     /**
@@ -240,23 +240,24 @@ public class Event {
     }
 
     /**
-     * Adds an option to the poll at the given index.
+     * Adds an option to the poll at the given index and returns the poll display as a string.
      */
-    public Poll addOptionToPoll(Index index, String option) throws TimePollAddOptionException {
+    public String addOptionToPoll(Index index, String option) throws TimePollAddOptionException {
         AbstractPoll poll = polls.get(index.getZeroBased());
         if (poll instanceof TimePoll) {
             throw new TimePollAddOptionException();
         } else {
             Poll normalPoll = (Poll) poll;
             normalPoll.addOption(option);
-            return normalPoll;
+            return normalPoll.displayPoll();
         }
     }
 
     /**
      * Adds a person to an option of the poll at the specified index, only if person has joined the event.
+     * Returns the poll display as a string.
      */
-    public AbstractPoll addVoteToPoll(Index pollIndex, Person person, String option)
+    public String addVoteToPoll(Index pollIndex, Person person, String option)
             throws UserNotJoinedEventException, DuplicatePersonException {
         if (!personList.contains(person)) {
             throw new UserNotJoinedEventException();
@@ -264,7 +265,7 @@ public class Event {
         int index = pollIndex.getZeroBased();
         AbstractPoll poll = polls.get(index);
         poll.addVote(option, person);
-        return poll;
+        return poll.displayPoll();
     }
 
     /**

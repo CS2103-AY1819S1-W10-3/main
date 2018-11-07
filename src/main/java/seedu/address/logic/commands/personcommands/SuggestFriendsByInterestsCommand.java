@@ -31,7 +31,8 @@ public class SuggestFriendsByInterestsCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_LIST_SUGGESTED_FRIENDS_SUCCESS = "Listed all suggested friends for user: %1$s";
+    public static final String MESSAGE_LIST_SUGGESTED_FRIENDS_BY_INTERESTS_SUCCESS = "Listed all suggested friends"
+            + " by interests for user: %1$s";
 
     private final Index targetIndex;
 
@@ -53,7 +54,8 @@ public class SuggestFriendsByInterestsCommand extends Command {
         InterestSimilarPredicate predicate = new InterestSimilarPredicate(targetPerson);
 
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(String.format(MESSAGE_LIST_SUGGESTED_FRIENDS_SUCCESS, targetPerson.getName()));
+        return new CommandResult(String.format(MESSAGE_LIST_SUGGESTED_FRIENDS_BY_INTERESTS_SUCCESS,
+                targetPerson.getName()));
     }
 
     @Override

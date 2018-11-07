@@ -53,9 +53,11 @@ public class DeleteFriendCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (indexes.getZeroBased() >= lastShownList.size()
-                || indexes.getZeroBased2() >= lastShownList.size()
-                || indexes.getZeroBased() == indexes.getZeroBased2()) {
+                || indexes.getZeroBased2() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        if (indexes.getZeroBased() == indexes.getZeroBased2()) {
+            throw new CommandException(Messages.MESSAGE_CANNOT_ADD_FRIEND_OWNSELF);
         }
 
         Person person1 = lastShownList.get(indexes.getZeroBased());

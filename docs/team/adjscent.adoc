@@ -1,0 +1,70 @@
+= Soh Jason - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EventOrganiser
+
+---
+
+== Overview
+
+[https://github.com/CS2103-AY1819S1-W10-3/main[EventOrganiser]] is a desktop event organiser book application used to store personal particulars and organise events and for other users to join the event as event participants.The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+This project portfolio summarizes the contributions that I have done to the EventOrganiser.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to manage schedule*
+** What it does: allows the user to manage their schedule inside the event organiser
+** Justification: This feature improves the product significantly because a user is able to find out the vacant time slots of every person, so that he can plan the event time with more considerations.
+** Highlights: It required an in-depth analysis of design alternatives. There is a need to choose a tradeoff between ease of management vs schedule detail or else the performance of the event organiser will suffer.
+
+* *Major enhancement*: added *the ability to download timetable from NUSmods, which is then converted to a schedule*
+** What it does: allows the user to quickly download his timetable from NUSmods to be used in the event organiser
+** Justification: This feature improves the product significantly because this provides a convenient way for users to add their schedules automatically and quickly
+** Highlights: The implementation  was challenging as it required reading of documentation and analysing how nusmods handles external api requests (valid and invalid)
+** Credits: JSON Reference from [https://github.com/nusmodifications/nusmods-api[NusMods API]]
+
+* *Minor enhancement*: added a schedule comparsion command that allows the user to compare multiple schedule to get the possible free slots.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=adjscent&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Functional code]]
+
+* *Other contributions*:
+
+** Project management
+** Enhancements to existing features:
+*** Updated the GUI browser design scheme (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/126[#126], https://github.com/CS2103-AY1819S1-W10-3/main/pull/79[#79], https://github.com/CS2103-AY1819S1-W10-3/main/pull/87[#87])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/[#115])
+*** Fixed sample data to reflect the new application (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/107[#107])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: [https://github.com/CS2103-AY1819S1-W10-3/main/pull/89[#89]],[https://github.com/CS2103-AY1819S1-W10-3/main/pull/140[#140]]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-3/main/pull/23[#23], https://github.com/CS2103-AY1819S1-W10-3/main/pull/76[#76], https://github.com/CS2103-AY1819S1-W10-3/main/pull/128[#128]
+*** Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)
+** Tools:
+*** Integrated a third party website (Nusmods) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (Appyevor) to the team repo
+*** Integrated a new Github plugin (Reposense) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=scheduletimetable]
+
+include::../UserGuide.adoc[tag=maxschedule]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=schedule]
+
+include::../DeveloperGuide.adoc[tag=timetable]
+

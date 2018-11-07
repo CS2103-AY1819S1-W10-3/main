@@ -1,0 +1,64 @@
+= Chow Keng Ji - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EventOrganiser
+
+---
+
+== Overview
+
+EventOrganiser is a desktop application for organisation and management of events.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of
+
+* *Major enhancement*: added *Event and Poll commands and functionality*. +
+Event related commands: DeleteEvent, SelectEvent, JoinEvent, SetDate, SetTime, FindEvent, FindEventByTime +
+Poll related commands: AddPoll, AddPollOption, AddTimePoll, DisplayPoll, VoteCommand
+
+** What it does: Allows users to create, organise and sign-up for events, and create polls and vote for options in the poll.
+** Justification: The event related commands are essential to the event organiser. Polls are useful for users to decide on a suitable activity, date and time for the event.
+** Highlights:
+*** Updated all components: logic, model, storage, UI to support event and polls
+*** Integrated Persons into Events: Persons are stored in events by index in storage, and events contain persons in runtime (eg in participant lists and voter lists).
+Person details within events update when persons are deleted or edited.
+*** Implement dependencies between commands: e.g. user must be logged in, event must be selected, user must be the event organiser,
+user must have joined the event are pre-conditions for using several commands
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=thejrlinguist[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Pushed tags and closed milestones for v1.1 and v1.2 to GitHub
+*** Created PR from team-repo to AB4
+*** Updated AboutUs.doc: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
+*** Updated ReadMe: https://github.com/CS2103-AY1819S1-W10-3/main/pull/10[#10]
+*** Assigned issues after PE dry run.
+*** Updated sample data: https://github.com/CS2103-AY1819S1-W10-3/main/pull/165[#165]
+*** Contributed to brainstorming features.
+
+** Documentation:
+*** Contributed to portions of User Guide and Developer Guide relevant to my own features. Links can be found below.
+*** Wrote significant portions of initial draft of User Guide: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=KengJi]
+
+include::../UserGuide.adoc[tag=KengJi(Summary)]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=poll]

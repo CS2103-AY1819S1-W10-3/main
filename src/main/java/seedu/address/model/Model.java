@@ -11,9 +11,6 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
-import seedu.address.model.event.polls.AbstractPoll;
-import seedu.address.model.event.polls.Poll;
-import seedu.address.model.event.polls.TimePoll;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
@@ -143,7 +140,8 @@ public interface Model {
      * @throws NoUserLoggedInException
      * @throws NotEventOrganiserException
      */
-    Poll addPoll(String pollName) throws NoEventSelectedException, NoUserLoggedInException, NotEventOrganiserException;
+    String addPoll(String pollName) throws NoEventSelectedException, NoUserLoggedInException,
+            NotEventOrganiserException;
 
     /**
      * Creates a time poll to the pre-selected event with the given name.
@@ -152,7 +150,7 @@ public interface Model {
      * @throws NoUserLoggedInException
      * @throws NotEventOrganiserException
      */
-    TimePoll addTimePoll(LocalDate startDate, LocalDate endDate) throws NoEventSelectedException,
+    String addTimePoll(LocalDate startDate, LocalDate endDate) throws NoEventSelectedException,
             NoUserLoggedInException, NotEventOrganiserException;
 
     /**
@@ -162,7 +160,7 @@ public interface Model {
      * @param optionName the name of the option.
      * @throws NoEventSelectedException
      */
-    AbstractPoll addPollOption(Index index, String optionName) throws NoEventSelectedException;
+    String addPollOption(Index index, String optionName) throws NoEventSelectedException;
 
     /**
      * Adds the current user as a voter for a given option.
@@ -173,7 +171,7 @@ public interface Model {
      * @throws NoEventSelectedException
      * @throws UserNotJoinedEventException
      */
-    AbstractPoll voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException,
+    String voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException,
             NoEventSelectedException, UserNotJoinedEventException;
 
     /**

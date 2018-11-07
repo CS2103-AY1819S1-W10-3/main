@@ -34,7 +34,8 @@ public class SuggestFriendsByInterestsCommandTest {
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
         SuggestFriendsByInterestsCommand suggestFriendsByInterestsCommand = new
                 SuggestFriendsByInterestsCommand(INDEX_FIRST);
-        String expectedMessage = String.format(SuggestFriendsByInterestsCommand.MESSAGE_LIST_SUGGESTED_FRIENDS_SUCCESS,
+        String expectedMessage = String.format(
+                SuggestFriendsByInterestsCommand.MESSAGE_LIST_SUGGESTED_FRIENDS_BY_INTERESTS_SUCCESS,
                 targetPerson.getName());
 
         InterestSimilarPredicate predicate = new InterestSimilarPredicate(targetPerson);

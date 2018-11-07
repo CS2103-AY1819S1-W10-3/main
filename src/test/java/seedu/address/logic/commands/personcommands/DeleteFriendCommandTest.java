@@ -83,6 +83,14 @@ public class DeleteFriendCommandTest {
     }
 
     @Test
+    public void executeSameIndexUnfilteredListThrowsCommandException() {
+        Index sameIndexes = Index.fromOneBased(INDEX_SECOND.getZeroBased(), INDEX_SECOND.getZeroBased());
+        DeleteFriendCommand deleteFriendCommand = new DeleteFriendCommand(sameIndexes);
+
+        assertCommandFailure(deleteFriendCommand, model, commandHistory, Messages.MESSAGE_CANNOT_ADD_FRIEND_OWNSELF);
+    }
+
+    @Test
     public void equals() {
         DeleteFriendCommand deleteFriendFirstCommand = new DeleteFriendCommand(Index.fromZeroBased(
                 INDEX_SECOND.getZeroBased(), INDEX_THIRD.getZeroBased()));

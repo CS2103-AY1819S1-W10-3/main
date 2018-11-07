@@ -26,7 +26,7 @@ public class SetTimeCommand extends Command {
 
     public static final String COMMAND_WORD = "setTime";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the time for the pre-selected event."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the time for the pre-selected event.\n"
             + "Parameters (use 24-hr format): "
             + PREFIX_TIME_START + "HH:mm "
             + PREFIX_TIME_END + "HH:mm";

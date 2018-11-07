@@ -31,7 +31,7 @@ public class TimePoll extends AbstractPoll {
     /**
      * Create a TimePoll without options.
      */
-    protected TimePoll(int id) {
+    private TimePoll(int id) {
         super.id = id;
         super.pollName = "Time Poll";
         super.pollData = new HashMap<>();
