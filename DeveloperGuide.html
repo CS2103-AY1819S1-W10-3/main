@@ -810,9 +810,9 @@ The sequence diagram within the model for the <code>AddPollCommand</code> is ill
 </div>
 </div>
 <div class="paragraph">
-<p>In all cases, the Poll object is returned to the calling Command object,
-so that the contents of the poll can be retrieved as a String through the <code>Poll#displayPoll()</code> method.
+<p>In all cases, the contents of the poll is returned to the calling Command object as String through the <code>Poll#displayPoll()</code> method.
 The displayed details of the poll contains the most popular options, computed using the <code>Poll#getPopularOptions()</code> method.
+This method returns an empty list if there no user has voted for any option yet.
 A new <code>DisplayPollEvent</code> is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.</p>
 </div>
 <div class="paragraph">
@@ -2622,4 +2622,4 @@ Expected: user "Alex Yeoh" successfully deleted.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 15:50:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 16:15:14 UTC</div></div></div></body></html>

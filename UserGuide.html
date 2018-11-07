@@ -548,13 +548,76 @@ Format: <code>selectEvent index</code></p>
 <li>
 <p>Selecting an event displays the event participants as well as the polls associated with the event.</p>
 </li>
+<li>
+<p>Each poll in the event is given a unique index.</p>
+</li>
 </ul>
 </div>
 </div>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/EventSelectedDisplay.png" alt="EventSelectedDisplay" width="800">
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="set-the-event-date-code-setdate-code"><a class="link" href="#set-the-event-date-code-setdate-code">3.3.4. Set the event date : <code>setDate</code></a></h4>
+<h4 id="edit-an-event-code-editevent-code"><a class="link" href="#edit-an-event-code-editevent-code">3.3.4. Edit an event : <code>editEvent</code></a></h4>
+<div class="paragraph">
+<p>Edits an existing event in the Event Organiser. Only the event name, location and tags may be edited using this command.<br>
+Format: <code>editEvent [n/NAME] [a/ADDRESS] [t/TAG] &#8230;&#8203;</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>At least one of the optional fields must be provided.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the previously selected event i.e. a event must already be selected.</p>
+</li>
+<li>
+<p>To edit an event, the currently logged in user must be the event organiser.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When editing tags, the existing tags of the event will be removed i.e adding of tags is not cumulative.</p>
+</li>
+<li>
+<p>You can remove all the event&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>editEvent n/CS2102 Discussion t/URGENT</code><br>
+Edits name of the currently selected event to <code>CS2102 Discussion</code> and its tag to <code>URGENT</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-the-event-date-code-setdate-code"><a class="link" href="#set-the-event-date-code-setdate-code">3.3.5. Set the event date : <code>setDate</code></a></h4>
 <div class="paragraph">
 <p>Sets the event date.<br>
 Format: <code>setDate d/DAY-MONTH-YEAR</code></p>
@@ -594,7 +657,7 @@ Format: <code>setDate d/DAY-MONTH-YEAR</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="set-the-event-time-code-settime-code"><a class="link" href="#set-the-event-time-code-settime-code">3.3.5. Set the event time : <code>setTime</code></a></h4>
+<h4 id="set-the-event-time-code-settime-code"><a class="link" href="#set-the-event-time-code-settime-code">3.3.6. Set the event time : <code>setTime</code></a></h4>
 <div class="paragraph">
 <p>Sets the event time.<br>
 Format: <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
@@ -631,14 +694,29 @@ Format: <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="create-a-new-poll-for-an-event-code-addpoll-n-name-code"><a class="link" href="#create-a-new-poll-for-an-event-code-addpoll-n-name-code">3.3.6. Create a new poll for an event : <code>addPoll n/NAME</code></a></h4>
+<h4 id="create-a-new-poll-for-an-event-code-addpoll-n-name-code"><a class="link" href="#create-a-new-poll-for-an-event-code-addpoll-n-name-code">3.3.7. Create a new poll for an event : <code>addPoll n/NAME</code></a></h4>
 <div class="paragraph">
 <p>Sets up a new poll for the event with the specified name.<br>
 Format: <code>addPoll n/Poll name</code></p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addPoll n/Date</code><br>
+The screenshot shows the outcome of this command.
+Upon adding a new poll, only the index and name of the poll is displayed, as shown.
+The event organiser can then proceed to add options to the poll.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddPollDisplay.png" alt="AddPollDisplay" width="800">
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="create-a-new-time-based-poll-for-an-event-code-addtimepoll-code"><a class="link" href="#create-a-new-time-based-poll-for-an-event-code-addtimepoll-code">3.3.7. Create a new time-based poll for an event : <code>addTimePoll</code></a></h4>
+<h4 id="create-a-new-time-based-poll-for-an-event-code-addtimepoll-code"><a class="link" href="#create-a-new-time-based-poll-for-an-event-code-addtimepoll-code">3.3.8. Create a new time-based poll for an event : <code>addTimePoll</code></a></h4>
 <div class="paragraph">
 <p>Sets up a new time-based poll for the event with the specified name after all users have joined.<br>
 Format: <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR`</code></p>
@@ -675,7 +753,7 @@ Format: <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR`</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="setup-poll-for-location-code-addoption-code"><a class="link" href="#setup-poll-for-location-code-addoption-code">3.3.8. Setup poll for location : <code>addOption</code></a></h4>
+<h4 id="setup-poll-for-location-code-addoption-code"><a class="link" href="#setup-poll-for-location-code-addoption-code">3.3.9. Setup poll for location : <code>addOption</code></a></h4>
 <div class="paragraph">
 <p>Add new poll option in the specified poll.<br>
 Format: <code>addOption i/POLL_ID o/OPTION_NAME</code></p>
@@ -696,19 +774,39 @@ Format: <code>addOption i/POLL_ID o/OPTION_NAME</code></p>
 <li>
 <p>Time polls do not support adding of options.</p>
 </li>
+<li>
+<p>When options are added and no users have voted, the list of most popular options is empty.</p>
+</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Examples:
-* <code>addOption i/1 o/Play chess</code><br>
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addOption i/1 o/Play chess</code><br>
 Adds an option to the first poll of the selected event, where the option is <code>Play chess</code>.
 This option would be relevant in the context of a poll for an appropriate activity.</p>
+</li>
+<li>
+<p><code>addOption i/3 o/12 November</code><br>
+<code>addOption i/3 o/13 November</code><br>
+In the following example, the options <code>12 November</code> and <code>13 November</code> have been added to the poll.
+Since there are no voters yet, the most popular options list is empty.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddOptionDisplay.png" alt="AddOptionDisplay" width="800">
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="get-poll-result-code-displaypoll-code"><a class="link" href="#get-poll-result-code-displaypoll-code">3.3.9. Get poll result : <code>displayPoll</code></a></h4>
+<h4 id="get-poll-result-code-displaypoll-code"><a class="link" href="#get-poll-result-code-displaypoll-code">3.3.10. Get poll result : <code>displayPoll</code></a></h4>
 <div class="paragraph">
 <p>Gets the result of a specified poll.<br>
 Format: <code>displayPoll i/POLL_INDEX</code></p>
@@ -740,6 +838,13 @@ Format: <code>displayPoll i/POLL_INDEX</code></p>
 Displays the poll with index 1 associated with the selected event.</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-all-events-code-listevent-code"><a class="link" href="#list-all-events-code-listevent-code">3.3.11. List all events : <code>listEvent</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of all events in the Event Organiser.<br>
+Format: <code>listEvent</code></p>
 </div>
 </div>
 </div>
@@ -828,6 +933,9 @@ Format: <code>voteDate i/POLL_ID o/OPTION_ID</code></p>
 <li>
 <p>User must have joined the event in order to vote.</p>
 </li>
+<li>
+<p>Adding a vote may or may not change the most popular options list.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -840,7 +948,17 @@ Format: <code>voteDate i/POLL_ID o/OPTION_ID</code></p>
 <li>
 <p><code>voteDate i/3 o/12 August</code></p>
 </li>
+<li>
+<p><code>voteDate i/3 o/13 November</code><br>
+In the following example, <code>Alex Yeoh</code> has voted for <code>13 November</code>.
+Since it is the most popular option, <code>13 November</code> appears in the most popular options list.</p>
+</li>
 </ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/VoteOptionDisplay.png" alt="VoteOptionDisplay" width="800">
+</div>
 </div>
 </div>
 </div>
@@ -969,6 +1087,12 @@ e.g. <code>addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent</code></p>
 e.g. <code>deleteEvent 1</code></p>
 </li>
 <li>
+<p><strong>Edit Event</strong> : <code>editEvent [n/NAME] [a/ADDRESS] [t/TAG] &#8230;&#8203;</code><br>
+e.g. <code>editUser 2 n/James Lee e/jameslee@example.com</code><br>
+e.g. <code>editUser 1 tt/ <a href="http://modsn.us/H4v8s" class="bare">http://modsn.us/H4v8s</a></code><br>
+e.g. <code>editUser 1 su/ monday 0000</code></p>
+</li>
+<li>
 <p><strong>Add Poll</strong> : <code>addPoll n/POLL_NAME</code><br>
 e.g. <code>addPoll n/Activity</code></p>
 </li>
@@ -1021,8 +1145,12 @@ e.g. <code>findEvent a/SoC Canteen on/Alice Tan</code></p>
 <p><strong>Find Event by Time</strong> : <code>findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE</code>
 e.g. <code>findEventByTime d/12-12-2018 t1/12:30 t2/13:45</code></p>
 </li>
+<li>
+<p><strong>List Events</strong> : <code>listEvent</code><br>
+e.g. <code>listEvent</code></p>
+</li>
 </ul>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 15:50:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 16:15:14 UTC</div></div></div></body></html>
