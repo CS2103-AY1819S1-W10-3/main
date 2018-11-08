@@ -84,7 +84,9 @@
 <li><a href="#find-users">H.4. Find users</a></li>
 <li><a href="#edit-a-user">H.5. Edit a user</a></li>
 <li><a href="#delete-a-user">H.6. Delete a user</a></li>
-<li><a href="#saving-data">H.7. Saving data</a></li>
+<li><a href="#add-a-friend">H.7. Add a friend</a></li>
+<li><a href="#delete-a-friend">H.8. Delete a friend</a></li>
+<li><a href="#saving-data">H.9. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -1116,20 +1118,20 @@ This way, we will be able to provide the most convenient way for the student to 
 <div class="sect4">
 <h5 id="aspect-friend-class"><a class="link" href="#aspect-friend-class">Aspect: Friend class</a></h5>
 <div class="paragraph">
-<p>Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string field that combines the 4 main attributes of Person (name, phone, email, address) using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
-For a person with name Alex Yeoh, phone 87438807, email <a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>, address Blk 30 Geylang Street 29, #06-40, the Friend object will have a string field that is 'Alex Yeoh|87438807|<a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>|Blk 30 Geylang Street 29, #06-40'.</p>
+<p>Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a constructor which takes in a Person object, and initializes the string field <code>friendAttributes</code> that combines the 4 main attributes of Person (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
+For a person with name Alex Yeoh, phone 87438807, email <a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>, address Blk 30 Geylang Street 29, #06-40, the Friend object&#8217;s <code>friendAttributes</code> string field will be 'Alex Yeoh|87438807|<a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>|Blk 30 Geylang Street 29, #06-40'.</p>
 </div>
 <div class="paragraph">
-<p>In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time <code>AddFriendCommand</code> is called, a Friend object will be created and added into the set.</p>
+<p>In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time <code>AddFriendCommand</code> is executed, once the checking is done (as described in the next aspect), a copy each of the 2 persons (2 new Person objects) represented by the index will be created. Then the addFriendInList() method from Person class will be called by each of them on each other, which creases a Friend object as described by the paragraph above and adds it to each of their friend lists. Finally, both these new Person objects will replace the old Person objects in the Model using the updatePerson() method from the Model class.</p>
 </div>
 <div class="paragraph">
 <p>In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-friendships-can-only-be-added-once-and-deleted-if-they-are-current-friends"><a class="link" href="#aspect-friendships-can-only-be-added-once-and-deleted-if-they-are-current-friends">Aspect: Friendships can only be added once and deleted if they are current friends</a></h5>
+<h5 id="aspect-friendships-can-only-be-added-once-deleted-if-they-are-currently-friends"><a class="link" href="#aspect-friendships-can-only-be-added-once-deleted-if-they-are-currently-friends">Aspect: Friendships can only be added once, deleted if they are currently friends</a></h5>
 <div class="paragraph">
-<p>Each person can only be added as a friend once by another person. If two persons are already friends and <code>AddFriendCommand</code> is called again on these two persons, each of their friend lists will be checked to confirm that each other is already on it, hence the same person will not be added twice.</p>
+<p>Each person can only be added as a friend once by another person. If two persons are already friends and <code>AddFriendCommand</code> is called again on these two persons, each of their friend lists will be checked using the hasFriendInList() method in Person class to confirm that each other is already on it, hence the same person will not be added twice.</p>
 </div>
 <div class="paragraph">
 <p>Similarly, if two persons are not yet friends, or were friends but the friendship was deleted, if <code>DeleteFriendCommand</code> is called on these two persons, each of their friend lists will be checked to confirm that each other is not on it, hence the delete action will not be taken.</p>
@@ -1696,7 +1698,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <p><i class="fa fa-check-square-o"></i> V1.2: Users able to specify friendships with other people.</p>
 </li>
 <li>
-<p><i class="fa fa-check-square-o"></i> V1.3: Users able to form groups and find mutual friends.</p>
+<p><i class="fa fa-check-square-o"></i> V1.3: Users able to search for friends and become more connected.</p>
 </li>
 </ul>
 </div>
@@ -2602,7 +2604,35 @@ Expected: user "Alex Yeoh" successfully deleted.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.7. Saving data</a></h3>
+<h3 id="add-a-friend"><a class="link" href="#add-a-friend">H.7. Add a friend</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.</p>
+</li>
+<li>
+<p>Test case <code>addFriend 1,2</code>
+Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="delete-a-friend"><a class="link" href="#delete-a-friend">H.8. Delete a friend</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.</p>
+</li>
+<li>
+<p>Test case <code>deleteFriend 1,2</code>
+Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">H.9. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2622,4 +2652,4 @@ Expected: user "Alex Yeoh" successfully deleted.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 16:15:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 03:24:17 UTC</div></div></div></body></html>
