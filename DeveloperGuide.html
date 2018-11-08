@@ -915,7 +915,7 @@ The voter list must also be manually updated every time the person details are u
 <div class="sect3">
 <h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design considerations</a></h4>
 <div class="paragraph">
-<p>For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatability with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week&#8217;s schedule is stored.</p>
+<p>For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week&#8217;s schedule is stored.</p>
 </div>
 <div class="sect4">
 <h5 id="aspect-storage-of-schedule-in-person"><a class="link" href="#aspect-storage-of-schedule-in-person">Aspect: Storage of schedule in person</a></h5>
@@ -939,10 +939,10 @@ The voter list must also be manually updated every time the person details are u
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Cheap storage as only a subnet of schedule needs to be stored. Possible O(1) access times.</p>
+<p>Pros: Cheap storage as only a subset of schedule needs to be stored. Possible O(1) access times.</p>
 </li>
 <li>
-<p>Cons: Explict details of the schedule may be lost such as an event that appears only once a year.</p>
+<p>Cons: Explicit details of the schedule may be lost such as an event that appears only once a year.</p>
 </li>
 </ul>
 </div>
@@ -954,9 +954,9 @@ The voter list must also be manually updated every time the person details are u
 To store the schedule, a unique approach of using bit counters is used.
 Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits.
 1-bit signifies an occupied slot while a 0-bit signifies an empty slot.
-This 336 bit string is then stored as a string in the xml.
+This 336 bit-string is then stored as a string in the xml.
 However, in the application, it will stored as a two-dimensional array [7][48].
-This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.</p>
+This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bit-string into an array.</p>
 </div>
 <div class="paragraph">
 <p>Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application</p>
@@ -973,7 +973,7 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <div class="sect4">
 <h5 id="aspect-schedule-update"><a class="link" href="#aspect-schedule-update">Aspect: Schedule Update</a></h5>
 <div class="paragraph">
-<p>As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.</p>
+<p>As the schedule is stored as a bit-string, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementing a "bit flipper", and stored back to the person.</p>
 </div>
 </div>
 <div class="sect4">
@@ -984,6 +984,14 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <div class="paragraph">
 <p>Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
 It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram of MaxSchedule command is illustrated below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MaxScheduleDiagram.png" alt="MaxScheduleDiagram" width="300">
+</div>
 </div>
 </div>
 </div>
@@ -1041,7 +1049,7 @@ This timetable is also not stored as it is inside the xml but immediately transl
 </ul>
 </div>
 <div class="paragraph">
-<p>NusMods will be used to provide academic events for the student. As for their non-academic events, he can use schedule update to manaully update those slots.
+<p>NusMods will be used to provide academic events for the student. As for their non-academic events, he can use schedule update to manually update those slots.
 This way, we will be able to provide the most convenient way for the student to populate the schedule.</p>
 </div>
 </div>
@@ -1051,12 +1059,7 @@ This way, we will be able to provide the most convenient way for the student to 
 <p>As nusmods.com is an external web server, internet access needs to be checked first. Following up, the nusmods.com gives the user a modsn.com shortlink which can translated back to a nusmods.com/&#8230;&#8203; full link, if he wants to share his timetable with himself or others. Finally, a valid nusmods.com timetable would include json data in its GET parameters. All of these must be fulfilled or else a Invalid Nusmods link will be returned to the application.</p>
 </div>
 <div class="paragraph">
-<p>A full valid example of the nusmods link is as follows:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code>https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:11&amp;CS2103=LEC:1,TUT:01&amp;CS2105=LEC:1,TUT:16&amp;CS2106=LAB:09,LEC:1,TUT:09&amp;MA1521=LEC:1,TUT:4&amp;UCV2209=SEM:01</code></pre>
-</div>
+<p>The sequence diagram for the timetable download is illustrated below.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1064,7 +1067,23 @@ This way, we will be able to provide the most convenient way for the student to 
 </div>
 </div>
 <div class="paragraph">
-<p>How to obtain the full timetable.</p>
+<p>This is the valid short link of the nusmod timetable.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>http://modsn.us/H4v8s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above short link will be parsed into the full nusmods link as followed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:11&amp;CS2103=LEC:1,TUT:01&amp;CS2105=LEC:1,TUT:16&amp;CS2106=LAB:09,LEC:1,TUT:09&amp;MA1521=LEC:1,TUT:4&amp;UCV2209=SEM:01</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Breakdown on how to obtain the full timetable and convert it into a schedule.</p>
 </div>
 <div class="paragraph">
 <p>Step 1. We can easily obtain the person&#8217;s timetable by splitting the GET parameters by ';' delimiter. The resulting array would contain Module Code /=/ Lesson Type /:/ Number Slot.</p>
@@ -1076,7 +1095,13 @@ This way, we will be able to provide the most convenient way for the student to 
 <p>Step 3. We will then filter out the lessons obtained in step 1 from the full detail in step 2.</p>
 </div>
 <div class="paragraph">
-<p>Step 4. The filtered lessons is then converted into an arraylist of Slot before returning to the aplication.</p>
+<p>Step 4. The filtered lessons is then converted into an arraylist of Slot.</p>
+</div>
+<div class="paragraph">
+<p>Step 5. The arraylist of Slot will be passed in a Schedule constructor to generate a new schedule.</p>
+</div>
+<div class="paragraph">
+<p>Step 6. The new schedule object is returned to the application.</p>
 </div>
 </div>
 </div>
@@ -2713,4 +2738,4 @@ Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each oth
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 08:12:22 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 11:21:21 UTC</div></div></div></body></html>
