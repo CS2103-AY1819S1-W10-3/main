@@ -84,9 +84,12 @@
 <li><a href="#find-users">H.4. Find users</a></li>
 <li><a href="#edit-a-user">H.5. Edit a user</a></li>
 <li><a href="#delete-a-user">H.6. Delete a user</a></li>
-<li><a href="#add-a-friend">H.7. Add a friend</a></li>
-<li><a href="#delete-a-friend">H.8. Delete a friend</a></li>
-<li><a href="#saving-data">H.9. Saving data</a></li>
+<li><a href="#populate-a-user-schedule-via-timetable">H.7. Populate a user schedule via Timetable</a></li>
+<li><a href="#edit-a-user-schedule">H.8. Edit a user schedule</a></li>
+<li><a href="#find-free-time-between-two-users">H.9. Find free time between two users</a></li>
+<li><a href="#add-a-friend">H.10. Add a friend</a></li>
+<li><a href="#delete-a-friend">H.11. Delete a friend</a></li>
+<li><a href="#saving-data">H.12. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -2597,14 +2600,72 @@ Expected: Name of user successfully changed to "Alex Tan".</p>
 <p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
-<p>Test case <code>deleteUSer</code>
+<p>Test case <code>deleteUser</code>
 Expected: user "Alex Yeoh" successfully deleted.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-friend"><a class="link" href="#add-a-friend">H.7. Add a friend</a></h3>
+<h3 id="populate-a-user-schedule-via-timetable"><a class="link" href="#populate-a-user-schedule-via-timetable">H.7. Populate a user schedule via Timetable</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
+</li>
+<li>
+<p>Test case <code>editUser tt/http://modsn.us/H4v8s</code>
+   Expected: Schedule of user successfully overwritten to 100000000000000011110000000011110000000000
+000000000000000000000000000000111111110000000000000000000000000000000000001100000011110000000000
+000000000000000000000000000000111100001111000000000000000000000000000000111100001111111111000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000.</p>
+</li>
+<li>
+<p>Test case <code>editUser tt/http://modsn.us/H</code>
+Expected: Invalid NUSmods Link</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edit-a-user-schedule"><a class="link" href="#edit-a-user-schedule">H.8. Edit a user schedule</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.</p>
+</li>
+<li>
+<p>Test case <code>editUser su/monday 0000</code>
+Expected: Schedule of user "Alex Yeoh" successfully changed. First bit of the schedule is now 1.</p>
+</li>
+<li>
+<p>Test case <code>editUser su/monday 0030</code>
+Expected: Schedule of user "Alex Yeoh" successfully changed. Second bit of the schedule is now 1.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-free-time-between-two-users"><a class="link" href="#find-free-time-between-two-users">H.9. Find free time between two users</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event Organiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.</p>
+</li>
+<li>
+<p>Test case <code>maxSchedule sl/0000-0000</code>
+Expected: Free time of 0000 from Monday to Sunday is displayed.</p>
+</li>
+<li>
+<p>Test case <code>maxSchedule sl/0800-0900</code>
+Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-a-friend"><a class="link" href="#add-a-friend">H.10. Add a friend</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2618,7 +2679,7 @@ Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="delete-a-friend"><a class="link" href="#delete-a-friend">H.8. Delete a friend</a></h3>
+<h3 id="delete-a-friend"><a class="link" href="#delete-a-friend">H.11. Delete a friend</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2632,7 +2693,7 @@ Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each oth
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.9. Saving data</a></h3>
+<h3 id="saving-data"><a class="link" href="#saving-data">H.12. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2652,4 +2713,4 @@ Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each oth
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 03:24:17 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 04:23:19 UTC</div></div></div></body></html>
