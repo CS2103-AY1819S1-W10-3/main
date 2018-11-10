@@ -25,10 +25,10 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: Allows the users to add or delete friends with each other and have their friend lists displayed</p>
+<p>What it does: Allows the users to add or delete users from their friend lists and have their friend lists displayed</p>
 </li>
 <li>
-<p>Justification: This feature allows users to keep a friendship list which they can refer to it themselves when creating new events. For example, if they would like to organize a friends meetup, they will know who to add to the event. Also, it allows users to search for friends with common interests and expand their friendship lists.</p>
+<p>Justification: This feature allows users to keep a list of friends where they can be updated of their details and the events that they join, similar to following someone on Instagram. For example, a user can look through the displayed profile of the users in their friend list to see what are the current events that they are in. Also, this feature allows users to search for friends with common interests and add them into their friend lists.</p>
 </li>
 </ul>
 </div>
@@ -38,7 +38,7 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 <div class="ulist">
 <ul>
 <li>
-<p>Justification: This attribute allows users to specify any number of interests, which can be identified for friendships and events.</p>
+<p>Justification: The original tag attribute allows users to specify the groups that they are associated with (eg faculty and tutorial class names). This new Interest attribute allows users to specify the things that they are interested in (eg hobbies). This improves the connectivity among users in the Event Organiser as they can now find friends through common interests.</p>
 </li>
 </ul>
 </div>
@@ -58,10 +58,10 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the GUI browser display (Pull request <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/123">#123</a>)</p>
+<p>Updated the GUI browser display (Pull request <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/123" class="bare">https://github.com/CS2103-AY1819S1-W10-3/main/pull/123</a> [#123])</p>
 </li>
 <li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull request <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/163">#163</a>)</p>
+<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull request <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/163" class="bare">https://github.com/CS2103-AY1819S1-W10-3/main/pull/163</a> [#163], <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/189" class="bare">https://github.com/CS2103-AY1819S1-W10-3/main/pull/189</a> [#189])</p>
 </li>
 </ul>
 </div>
@@ -71,7 +71,7 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 <div class="ulist">
 <ul>
 <li>
-<p>Finalise User Stories: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/18">#18</a></p>
+<p>Updated the original user commands (from Address Book Level 4) in the developer guide (Pull request <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/189" class="bare">https://github.com/CS2103-AY1819S1-W10-3/main/pull/189</a> [#189])</p>
 </li>
 </ul>
 </div>
@@ -81,7 +81,7 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/164">#164</a>, <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/165">#165</a></p>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/164" class="bare">https://github.com/CS2103-AY1819S1-W10-3/main/pull/164</a> [#164], <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/165" class="bare">https://github.com/CS2103-AY1819S1-W10-3/main/pull/165</a> [#165]</p>
 </li>
 <li>
 <p>Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)</p>
@@ -112,24 +112,30 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 <div class="sect3">
 <h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">Add a friend : <code>addFriend</code></a></h4>
 <div class="paragraph">
-<p>For two persons, adds friend with each other.<br>
-Format: <code>addFriend INDEX,INDEX</code></p>
+<p>Adds a person to the logged-in user&#8217;s friend list.<br>
+Format: <code>addFriend INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>For two users at the 2 specified <code>INDEX</code>, adds each other as friend.</p>
+<p>Login is required.</p>
 </li>
 <li>
-<p>Only two indexes can be stated, seperated by a comma(,) with no spaces in between.</p>
+<p>The index refers to the index number shown in the displayed user list.</p>
 </li>
 <li>
-<p>Each index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;, and must be different from each other.</p>
+<p>Adds the person at the specified <code>INDEX</code> into the logged-in user&#8217;s friend list.</p>
 </li>
 <li>
-<p>The two users cannot be already friends.</p>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The person specified at the <code>INDEX</code> cannot be the logged-in user himself/herself.</p>
+</li>
+<li>
+<p>The person specified at the <code>INDEX</code> cannot be already in the logged-in user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
@@ -141,8 +147,8 @@ Format: <code>addFriend INDEX,INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>addFriend 1,2</code><br>
-1st and 2nd user becomes friends with each other and appear on each other&#8217;s friend list.</p>
+<p><code>addFriend 2</code><br>
+User specified at <code>INDEX</code> 2 is added to the logged-in user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
@@ -150,28 +156,45 @@ Format: <code>addFriend INDEX,INDEX</code></p>
 <div class="sect3">
 <h4 id="delete-a-friend-code-deletefriend-code"><a class="link" href="#delete-a-friend-code-deletefriend-code">Delete a friend : <code>deleteFriend</code></a></h4>
 <div class="paragraph">
-<p>For two persons, deletes each other as friend.<br>
-Format: <code>deleteFriend INDEX,INDEX</code></p>
+<p>Deletes a person from the logged-in user&#8217;s friend list.<br>
+Format: <code>deleteFriend INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>For two users at the 2 specified <code>INDEX</code>, deletes each other as friend.</p>
+<p>Login is required.</p>
 </li>
 <li>
-<p>Only two indexes can be stated, seperated by a comma(,) with no spaces in between.</p>
+<p>The index refers to the index number shown in the displayed user list.</p>
 </li>
 <li>
-<p>Each index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;, and must be different from each other.</p>
+<p>Deletes the person at the specified <code>INDEX</code> from the logged-in user&#8217;s friend list.</p>
 </li>
 <li>
-<p>The two users must already be friends.</p>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The person specified at the <code>INDEX</code> cannot be the logged-in user himself/herself.</p>
+</li>
+<li>
+<p>The person specified at the <code>INDEX</code> must be already in the logged-in user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deleteFriend 2</code><br>
+User specified at <code>INDEX</code> 2 is deleted from the logged-in user&#8217;s friend list.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -197,10 +220,7 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <p>Users who have at least one similar interest with the selected user will be displayed.</p>
 </li>
 <li>
-<p>Users who are already friends with the selected user will not be displayed.</p>
-</li>
-<li>
-<p>The selected user will also be displayed, so that he/she can activate the <code>AddFriendCommand</code> immediately after that with the other displayed users.</p>
+<p>Users who are already in the friend list of the selected user will not be displayed.</p>
 </li>
 </ul>
 </div>
@@ -213,7 +233,58 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <ul>
 <li>
 <p><code>suggestFriendsByInterests 1</code><br>
-Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user.</p>
+Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user, and are not yet in the selected user&#8217;s friend list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-all-friends-of-a-user-code-listfriends-code"><a class="link" href="#list-all-friends-of-a-user-code-listfriends-code">List all friends of a user : <code>listFriends</code></a></h4>
+<div class="paragraph">
+<p>List all the users that are in the friend list of the selected user.<br>
+Format: <code>listFriends INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>List all the users that are in the friend list of the selected user at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed user list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listFriends 1</code><br>
+List all the users who are in the friend list of the 1st user in the Event Organiser.</p>
+</li>
+<li>
+<p><strong>Add a friend</strong>  <code>addFriend INDEX</code>
+e.g. <code>addFriend 2</code></p>
+</li>
+<li>
+<p><strong>Delete a friend</strong>  <code>deleteFriend INDEX</code>
+e.g. <code>addFriend 2</code></p>
+</li>
+<li>
+<p><strong>Suggest friends based on similar interests</strong> : <code>suggestFriendsByInterests INDEX</code>
+e.g. <code>suggestFriendsByInterests 1</code></p>
+</li>
+<li>
+<p><strong>List all friends</strong> : <code>listFriends INDEX</code>
+e.g. <code>listFriends 1</code></p>
 </li>
 </ul>
 </div>
@@ -806,9 +877,8 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 <div class="sect2">
 <h3 id="feature"><a class="link" href="#feature">Feature</a></h3>
-<div class="sect3">
-<h4 id="division-of-work"><a class="link" href="#division-of-work">Division of work</a></h4>
-
+<div class="paragraph">
+<p>Division of work</p>
 </div>
 <div class="sect3">
 <h4 id="keng-ji-add-event-feature-with-polls-and-time-location-features"><a class="link" href="#keng-ji-add-event-feature-with-polls-and-time-location-features">Keng Ji : Add event feature with polls and time, location features</a></h4>
@@ -1842,4 +1912,4 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 06:40:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 09:58:41 UTC</div></div></div></body></html>

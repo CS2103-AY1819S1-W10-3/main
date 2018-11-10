@@ -14,7 +14,14 @@
 <li><a href="#prerequisites">1.1. Prerequisites</a></li>
 <li><a href="#setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></li>
 <li><a href="#verifying-the-setup">1.3. Verifying the setup</a></li>
-<li><a href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></li>
+<li><a href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a>
+<ul class="sectlevel3">
+<li><a href="#configuring-the-coding-style">1.4.1. Configuring the coding style</a></li>
+<li><a href="#updating-documentation-to-match-your-fork">1.4.2. Updating documentation to match your fork</a></li>
+<li><a href="#setting-up-ci">1.4.3. Setting up CI</a></li>
+<li><a href="#getting-started-with-coding">1.4.4. Getting started with coding</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#design">2. Design</a>
@@ -29,11 +36,63 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#login-logout-feature">3.1. Login/logout feature</a></li>
-<li><a href="#poll-feature">3.2. Poll feature</a></li>
-<li><a href="#schedule-feature">3.3. Schedule feature</a></li>
-<li><a href="#timetable-feature">3.4. TimeTable feature</a></li>
-<li><a href="#add-delete-friend-feature">3.5. Add/Delete Friend feature</a></li>
+<li><a href="#login-logout-feature">3.1. Login/logout feature</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation">3.1.1. Current Implementation</a></li>
+<li><a href="#design-considerations">3.1.2. Design Considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-security">Aspect: security</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#poll-feature">3.2. Poll feature</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-2">3.2.1. Current implementation</a></li>
+<li><a href="#design-considerations-2">3.2.2. Design considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-the-relationship-between-code-poll-code-and-code-timepoll-code">Aspect: The relationship between <code>Poll</code> and <code>TimePoll</code></a></li>
+<li><a href="#aspect-storage-of-voters-in-poll">Aspect: Storage of voters in Poll</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#schedule-feature">3.3. Schedule feature</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-3">3.3.1. Current implementation</a></li>
+<li><a href="#design-considerations-3">3.3.2. Design considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-storage-of-schedule-in-person">Aspect: Storage of schedule in person</a></li>
+<li><a href="#aspect-schedule-update">Aspect: Schedule Update</a></li>
+<li><a href="#aspect-maxschedule-command">Aspect: MaxSchedule Command</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#timetable-feature">3.4. TimeTable feature</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-4">3.4.1. Current implementation</a></li>
+<li><a href="#design-considerations-4">3.4.2. Design considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-timetable-source">Aspect: Timetable Source</a></li>
+<li><a href="#aspect-timetable-download">Aspect: Timetable Download</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#add-delete-friend-feature">3.5. Add/Delete Friend feature</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-5">3.5.1. Current implementation</a></li>
+<li><a href="#design-considerations-5">3.5.2. Design considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-bilateral-friendships">Aspect: Bilateral friendships</a></li>
+<li><a href="#aspect-friend-class">Aspect: Friend class</a></li>
+<li><a href="#aspect-friendships-can-only-be-added-once-deleted-if-they-are-currently-friends">Aspect: Friendships can only be added once, deleted if they are currently friends</a></li>
+<li><a href="#aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person">Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#logging">3.6. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
 </ul>
@@ -68,7 +127,15 @@
 <li><a href="#GetStartedProgramming">Appendix A: Suggested Programming Tasks to Get Started</a></li>
 <li><a href="#product-scope">Appendix B: Product Scope</a>
 <ul class="sectlevel2">
-<li><a href="#feature">Feature</a></li>
+<li><a href="#feature">Feature</a>
+<ul class="sectlevel3">
+<li><a href="#keng-ji-add-event-feature-with-polls-and-time-location-features">Keng Ji : Add event feature with polls and time, location features</a></li>
+<li><a href="#yao-feng-add-login-function-and-improve-on-search-functions">Yao Feng : Add login function and improve on search functions</a></li>
+<li><a href="#zhang-cheng-add-additional-attributes-for-networking-among-users">Zhang Cheng : Add additional attributes for networking among users</a></li>
+<li><a href="#adeel-add-location-related-features">Adeel : Add location-related features</a></li>
+<li><a href="#jason-event-management-recommendation">Jason : Event Management/Recommendation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#user-stories">Appendix C: User Stories</a></li>
@@ -801,7 +868,7 @@ a <code>NoUserLoggedInException</code> is thrown, and if there is no selected ev
 <p>A user must have already joined the event as a participant, or be on the invite list in order to vote, failing which, a UserNotJoinedEventException is thrown.</p>
 </li>
 <li>
-<p>A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someeone tries to vote twice.</p>
+<p>A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someone tries to vote twice.</p>
 </li>
 <li>
 <p>A poll must exist at the given poll index for the selected event, else, an IndexOutOfBoundsException is thrown.</p>
@@ -921,7 +988,8 @@ The voter list must also be manually updated every time the person details are u
 <div class="sect3">
 <h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design considerations</a></h4>
 <div class="paragraph">
-<p>For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week&#8217;s schedule is stored.</p>
+<p>For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not include a schedule object, and so adjustments have to be made.
+Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the weekly schedule is stored.</p>
 </div>
 <div class="sect4">
 <h5 id="aspect-storage-of-schedule-in-person"><a class="link" href="#aspect-storage-of-schedule-in-person">Aspect: Storage of schedule in person</a></h5>
@@ -979,13 +1047,13 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <div class="sect4">
 <h5 id="aspect-schedule-update"><a class="link" href="#aspect-schedule-update">Aspect: Schedule Update</a></h5>
 <div class="paragraph">
-<p>As the schedule is stored as a bit-string, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputted. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementing a "bit flipper", and stored back to the person.</p>
+<p>As the schedule is stored as a bit-string, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be entered. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementing a "bit flipper", and stored back to the person.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="aspect-maxschedule-command"><a class="link" href="#aspect-maxschedule-command">Aspect: MaxSchedule Command</a></h5>
 <div class="paragraph">
-<p>Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.</p>
+<p>Similarly, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.</p>
 </div>
 <div class="paragraph">
 <p>Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
@@ -1019,8 +1087,8 @@ It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 h
 <p><code>AddUserCommand</code> - The base Add command for person with one addition - Timetable parameter</p>
 </div>
 <div class="paragraph">
-<p>TimeTable is data downloaded from an external source, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand.
-This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.</p>
+<p>TimeTable is a collection of data downloaded from an external source, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule update parameters in the EditCommand.
+This timetable is also not stored inside the xml, but rather immediately translated into a schedule object to be passed back to the application, which would store the object inside the model.</p>
 </div>
 <div class="sect4">
 <h5 id="aspect-timetable-source"><a class="link" href="#aspect-timetable-source">Aspect: Timetable Source</a></h5>
@@ -1101,10 +1169,10 @@ This way, we will be able to provide the most convenient way for the student to 
 <p>Step 3. We will then filter out the lessons obtained in step 1 from the full detail in step 2.</p>
 </div>
 <div class="paragraph">
-<p>Step 4. The filtered lessons is then converted into an arraylist of Slot.</p>
+<p>Step 4. The filtered lessons is then converted into a list of Slot.</p>
 </div>
 <div class="paragraph">
-<p>Step 5. The arraylist of Slot will be passed in a Schedule constructor to generate a new schedule.</p>
+<p>Step 5. The list of Slot will be passed in a Schedule constructor to generate a new schedule.</p>
 </div>
 <div class="paragraph">
 <p>Step 6. The new schedule object is returned to the application.</p>
@@ -1685,9 +1753,8 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 <div class="sect2">
 <h3 id="feature"><a class="link" href="#feature">Feature</a></h3>
-<div class="sect3">
-<h4 id="division-of-work"><a class="link" href="#division-of-work">Division of work</a></h4>
-
+<div class="paragraph">
+<p>Division of work</p>
 </div>
 <div class="sect3">
 <h4 id="keng-ji-add-event-feature-with-polls-and-time-location-features"><a class="link" href="#keng-ji-add-event-feature-with-polls-and-time-location-features">Keng Ji : Add event feature with polls and time, location features</a></h4>
@@ -2721,4 +2788,4 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 06:40:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 09:58:41 UTC</div></div></div></body></html>

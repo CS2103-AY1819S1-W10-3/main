@@ -21,9 +21,47 @@
 <li><a href="#Features">4. Features</a>
 <ul class="sectlevel2">
 <li><a href="#view-help-code-help-code">4.1. View help : <code>help</code></a></li>
-<li><a href="#user-commands">4.2. User Commands</a></li>
-<li><a href="#create-and-confirm-event-commands">4.3. Create and confirm event commands</a></li>
-<li><a href="#join-event-commands">4.4. Join event commands</a></li>
+<li><a href="#user-commands">4.2. User Commands</a>
+<ul class="sectlevel3">
+<li><a href="#add-a-user-code-adduser-code">4.2.1. Add a user : <code>addUser</code></a></li>
+<li><a href="#login-a-user-code-login-code">4.2.2. Login a user : <code>login</code></a></li>
+<li><a href="#logout-a-user-code-logout-code">4.2.3. Logout a user : <code>logout</code></a></li>
+<li><a href="#list-all-users-code-listuser-code">4.2.4. List all users : <code>listUser</code></a></li>
+<li><a href="#find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code">4.2.5. Find users by name, phone number, email, address, interest, tag : <code>findUser</code></a></li>
+<li><a href="#delete-a-user-code-deleteuser-code">4.2.6. Delete a user : <code>deleteUser</code></a></li>
+<li><a href="#select-a-user-code-selectuser-code">4.2.7. Select a user : <code>selectUser</code></a></li>
+<li><a href="#edit-a-user-code-edituser-code">4.2.8. Edit a user : <code>editUser</code></a></li>
+<li><a href="#timetable">4.2.9. Timetable</a></li>
+<li><a href="#add-a-friend-code-addfriend-code">4.2.10. Add a friend : <code>addFriend</code></a></li>
+<li><a href="#delete-a-friend-code-deletefriend-code">4.2.11. Delete a friend : <code>deleteFriend</code></a></li>
+<li><a href="#suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code">4.2.12. Suggest friends based on similar interests : <code>suggestFriendsByInterests</code></a></li>
+<li><a href="#list-all-friends-of-a-user-code-listfriends-code">4.2.13. List all friends of a user : <code>listFriends</code></a></li>
+<li><a href="#get-free-time-between-users-code-maxschedule-code">4.2.14. Get free time between users : <code>maxSchedule</code></a></li>
+</ul>
+</li>
+<li><a href="#create-and-confirm-event-commands">4.3. Create and confirm event commands</a>
+<ul class="sectlevel3">
+<li><a href="#create-a-new-event-code-addevent-code">4.3.1. Create a new event : <code>addEvent</code></a></li>
+<li><a href="#delete-an-event-code-deleteevent-code">4.3.2. Delete an event : <code>deleteEvent</code></a></li>
+<li><a href="#select-an-event-code-selectevent-code">4.3.3. Select an event : <code>selectEvent</code></a></li>
+<li><a href="#edit-an-event-code-editevent-code">4.3.4. Edit an event : <code>editEvent</code></a></li>
+<li><a href="#set-the-event-date-code-setdate-code">4.3.5. Set the event date : <code>setDate</code></a></li>
+<li><a href="#set-the-event-time-code-settime-code">4.3.6. Set the event time : <code>setTime</code></a></li>
+<li><a href="#create-a-new-poll-for-an-event-code-addpoll-n-name-code">4.3.7. Create a new poll for an event : <code>addPoll n/NAME</code></a></li>
+<li><a href="#create-a-new-time-based-poll-for-an-event-code-addtimepoll-code">4.3.8. Create a new time-based poll for an event : <code>addTimePoll</code></a></li>
+<li><a href="#setup-poll-for-location-code-addoption-code">4.3.9. Setup poll for location : <code>addOption</code></a></li>
+<li><a href="#get-poll-result-code-displaypoll-code">4.3.10. Get poll result : <code>displayPoll</code></a></li>
+</ul>
+</li>
+<li><a href="#join-event-commands">4.4. Join event commands</a>
+<ul class="sectlevel3">
+<li><a href="#find-event-by-the-name-of-the-event-code-findevent-code">4.4.1. Find event by the name of the event : <code>findEvent</code></a></li>
+<li><a href="#find-event-by-a-time-interval-code-findeventbytime-code">4.4.2. Find event by a time interval: <code>findEventByTime</code></a></li>
+<li><a href="#list-all-events-code-listevent-code">4.4.3. List all events : <code>listEvent</code></a></li>
+<li><a href="#join-event-code-joinevent-code">4.4.4. Join event : <code>joinEvent</code></a></li>
+<li><a href="#vote-for-date-code-voteoption-code">4.4.5. Vote for date : <code>voteOption</code></a></li>
+</ul>
+</li>
 <li><a href="#listing-entered-commands-code-history-code">4.5. Listing entered commands : <code>history</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code">4.6. Exiting the program : <code>exit</code></a></li>
 <li><a href="#saving-the-data">4.7. Saving the data</a></li>
@@ -85,7 +123,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p><strong><code>listUser</code></strong> : lists all users in the Event Organiser</p>
 </li>
 <li>
-<p><strong><code>addUser</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : creates new user named <code>John Doe</code> to the Event Organiser.</p>
+<p><strong><code>addUser</code></strong><code>n/John Doe p/98765432 e/johnd@example.com pass/password a/John street, block 123, #01-01</code> : creates new user named <code>John Doe</code> to the Event Organiser.</p>
 </li>
 <li>
 <p><strong><code>addEvent</code></strong><code>n/CS2103 Project Meeting a/SoC Canteen t/Urgent</code> : adds an event named CS2103 Project Meeting to be held at SoC Canteen.</p>
@@ -112,7 +150,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p>If you are not yet logged in, you can still view event details using <code>selectEvent</code>, and find events using <code>findEvent</code> and <code>findEventByTime</code>, and list events using <code>listEvent</code>.</p>
 </li>
 <li>
-<p>Without logging in, you can also use the <code>selectUser</code>, <code>findUser</code> and <code>listUser</code> commands.</p>
+<p>Without logging in, you can also use the <code>selectUser</code>, <code>findUser</code>, <code>listUser</code>, <code>listFriends</code>, <code>suggestFriendsByInterests</code> commands.</p>
 </li>
 <li>
 <p>When you are done, simply <code>logout</code> or <code>exit</code> the application.</p>
@@ -229,7 +267,8 @@ Format: <code>addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/I
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-A user can have any number of tags and interests (including 0)
+A user can have any number of tags and interests (including 0)<br>
+<a href="#timetable">Section 4.2.9, &#8220;Timetable&#8221;</a> download requires a valid nusmods link
 </td>
 </tr>
 </table>
@@ -295,7 +334,7 @@ Format: <code>listUser</code></p>
 <h4 id="find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code"><a class="link" href="#find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code">4.2.5. Find users by name, phone number, email, address, interest, tag : <code>findUser</code></a></h4>
 <div class="paragraph">
 <p>Finds users with any matching name, phone number, email, address, interest, tag.<br>
-Format: <code>findUser n/[NAME] p/[PHONE_NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]&#8230;&#8203;</code></p>
+Format: <code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -401,7 +440,7 @@ Selects the 1st user in the results of the <code>find</code> command.</p>
 <div class="sect3">
 <h4 id="edit-a-user-code-edituser-code"><a class="link" href="#edit-a-user-code-edituser-code">4.2.8. Edit a user : <code>editUser</code></a></h4>
 <div class="paragraph">
-<p>Edits an existing user in the Event Organiser.<br>
+<p>Edits the currently logged-in user in the Event Organiser.<br>
 Format: <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
@@ -426,6 +465,9 @@ Format: <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTERE
 <li>
 <p>Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE</p>
 </li>
+<li>
+<p><a href="#timetable">Section 4.2.9, &#8220;Timetable&#8221;</a> download requires a valid nusmods link</p>
+</li>
 </ul>
 </div>
 </div>
@@ -449,26 +491,76 @@ Edits the name of the user <code>Alex Yeoh`to be `Betsy Crower</code> and clears
 </div>
 </div>
 <div class="sect3">
-<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">4.2.9. Add a friend : <code>addFriend</code></a></h4>
+<h4 id="timetable"><a class="link" href="#timetable">4.2.9. Timetable</a></h4>
 <div class="paragraph">
-<p>For two persons, adds friend with each other.<br>
-Format: <code>addFriend INDEX,INDEX</code></p>
+<p>Timetable download guide</p>
+</div>
+<div class="paragraph">
+<p>To be referenced by any commands that use <code>tt/</code> prefix.
+Format <code>Command tt/ <a href="http://modsn.com/XXXX&#8230;&#8203" class="bare">http://modsn.com/XXXX&#8230;&#8203</a>;</code></p>
+</div>
+<div class="paragraph">
+<p>Example:
+* <a href="http://modsn.us/eDmp1" class="bare">http://modsn.us/eDmp1</a>
+* <a href="http://modsn.us/H4v8s" class="bare">http://modsn.us/H4v8s</a></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>For two users at the 2 specified <code>INDEX</code>, adds each other as friend.</p>
+<p>Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".</p>
 </li>
 <li>
-<p>Only two indexes can be stated, seperated by a comma(,) with no spaces in between.</p>
+<p>Note that the timetable download may take a while regardless if the link is valid or not.</p>
 </li>
 <li>
-<p>Each index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;, and must be different from each other.</p>
+<p>Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.</p>
 </li>
 <li>
-<p>The two users cannot be already friends.</p>
+<p>In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.</p>
+</li>
+<li>
+<p>If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.</p>
+</li>
+<li>
+<p>If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.</p>
+</li>
+<li>
+<p>If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">4.2.10. Add a friend : <code>addFriend</code></a></h4>
+<div class="paragraph">
+<p>Adds a person to the logged-in user&#8217;s friend list.<br>
+Format: <code>addFriend INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Login is required.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed user list.</p>
+</li>
+<li>
+<p>Adds the person at the specified <code>INDEX</code> into the logged-in user&#8217;s friend list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The person specified at the <code>INDEX</code> cannot be the logged-in user himself/herself.</p>
+</li>
+<li>
+<p>The person specified at the <code>INDEX</code> cannot be already in the logged-in user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
@@ -480,41 +572,58 @@ Format: <code>addFriend INDEX,INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>addFriend 1,2</code><br>
-1st and 2nd user becomes friends with each other and appear on each other&#8217;s friend list.</p>
+<p><code>addFriend 2</code><br>
+User specified at <code>INDEX</code> 2 is added to the logged-in user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="delete-a-friend-code-deletefriend-code"><a class="link" href="#delete-a-friend-code-deletefriend-code">4.2.10. Delete a friend : <code>deleteFriend</code></a></h4>
+<h4 id="delete-a-friend-code-deletefriend-code"><a class="link" href="#delete-a-friend-code-deletefriend-code">4.2.11. Delete a friend : <code>deleteFriend</code></a></h4>
 <div class="paragraph">
-<p>For two persons, deletes each other as friend.<br>
-Format: <code>deleteFriend INDEX,INDEX</code></p>
+<p>Deletes a person from the logged-in user&#8217;s friend list.<br>
+Format: <code>deleteFriend INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>For two users at the 2 specified <code>INDEX</code>, deletes each other as friend.</p>
+<p>Login is required.</p>
 </li>
 <li>
-<p>Only two indexes can be stated, seperated by a comma(,) with no spaces in between.</p>
+<p>The index refers to the index number shown in the displayed user list.</p>
 </li>
 <li>
-<p>Each index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;, and must be different from each other.</p>
+<p>Deletes the person at the specified <code>INDEX</code> from the logged-in user&#8217;s friend list.</p>
 </li>
 <li>
-<p>The two users must already be friends.</p>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The person specified at the <code>INDEX</code> cannot be the logged-in user himself/herself.</p>
+</li>
+<li>
+<p>The person specified at the <code>INDEX</code> must be already in the logged-in user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deleteFriend 2</code><br>
+User specified at <code>INDEX</code> 2 is deleted from the logged-in user&#8217;s friend list.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
-<h4 id="suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code"><a class="link" href="#suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code">4.2.11. Suggest friends based on similar interests : <code>suggestFriendsByInterests</code></a></h4>
+<h4 id="suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code"><a class="link" href="#suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code">4.2.12. Suggest friends based on similar interests : <code>suggestFriendsByInterests</code></a></h4>
 <div class="paragraph">
 <p>Suggest friends for an existing user in the Event Organiser that have at least one similar interest with the selected user.<br>
 Format: <code>suggestFriendsByInterests INDEX</code></p>
@@ -536,10 +645,7 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <p>Users who have at least one similar interest with the selected user will be displayed.</p>
 </li>
 <li>
-<p>Users who are already friends with the selected user will not be displayed.</p>
-</li>
-<li>
-<p>The selected user will also be displayed, so that he/she can activate the <code>AddFriendCommand</code> immediately after that with the other displayed users.</p>
+<p>Users who are already in the friend list of the selected user will not be displayed.</p>
 </li>
 </ul>
 </div>
@@ -552,13 +658,48 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <ul>
 <li>
 <p><code>suggestFriendsByInterests 1</code><br>
-Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user.</p>
+Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user, and are not yet in the selected user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">4.2.12. Get free time between users : <code>maxSchedule</code></a></h4>
+<h4 id="list-all-friends-of-a-user-code-listfriends-code"><a class="link" href="#list-all-friends-of-a-user-code-listfriends-code">4.2.13. List all friends of a user : <code>listFriends</code></a></h4>
+<div class="paragraph">
+<p>List all the users that are in the friend list of the selected user.<br>
+Format: <code>listFriends INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>List all the users that are in the friend list of the selected user at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed user list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listFriends 1</code><br>
+List all the users who are in the friend list of the 1st user in the Event Organiser.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">4.2.14. Get free time between users : <code>maxSchedule</code></a></h4>
 <div class="paragraph">
 <p>Compares the schedule of multiple users and return a string of common free time slots. LIMIT is a XXXX-XXX specified timing to limit the time range displayed.<br>
 Format: <code>maxSchedule INDEX INDEX [sl/ LIMIT]&#8230;&#8203;</code></p>
@@ -1230,18 +1371,38 @@ e.g. <code>login n/John Doe pass/password</code></p>
 e.g. `findUser n/James i/basketball</code></p>
 </li>
 <li>
-<p><strong>Delete User</strong> : <code>deleteUser INDEX</code><br>
-e.g. <code>deleteUser 3</code></p>
+<p><strong>Delete User</strong> : <code>deleteUser</code><br>
+e.g. <code>deleteUser</code></p>
 </li>
 </ul>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Edit User</strong> : <code>editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] &#8230;&#8203;</code><br>
-e.g. <code>editUser 2 n/James Lee e/jameslee@example.com</code><br>
-e.g. <code>editUser 1 tt/ <a href="http://modsn.us/H4v8s" class="bare">http://modsn.us/H4v8s</a></code><br>
-e.g. <code>editUser 1 su/ monday 0000</code></p>
+<p><strong>Add a friend</strong>  <code>addFriend INDEX</code>
+e.g. <code>addFriend 2</code></p>
+</li>
+<li>
+<p><strong>Delete a friend</strong>  <code>deleteFriend INDEX</code>
+e.g. <code>addFriend 2</code></p>
+</li>
+<li>
+<p><strong>Suggest friends based on similar interests</strong> : <code>suggestFriendsByInterests INDEX</code>
+e.g. <code>suggestFriendsByInterests 1</code></p>
+</li>
+<li>
+<p><strong>List all friends</strong> : <code>listFriends INDEX</code>
+e.g. <code>listFriends 1</code></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Edit User</strong> : <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] &#8230;&#8203;</code><br>
+e.g. <code>editUser n/James Lee e/jameslee@example.com</code><br>
+e.g. <code>editUser tt/ <a href="http://modsn.us/H4v8s" class="bare">http://modsn.us/H4v8s</a></code><br>
+e.g. <code>editUser su/ monday 0000</code></p>
 </li>
 <li>
 <p><strong>Select User</strong> : <code>selectUser INDEX</code><br>
@@ -1339,4 +1500,4 @@ e.g. <code>listEvent</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 06:40:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 09:58:41 UTC</div></div></div></body></html>

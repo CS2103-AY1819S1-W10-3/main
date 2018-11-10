@@ -136,7 +136,7 @@ user must have joined the event are pre-conditions for using several commands</p
 <p>If you are not yet logged in, you can still view event details using <code>selectEvent</code>, and find events using <code>findEvent</code> and <code>findEventByTime</code>, and list events using <code>listEvent</code>.</p>
 </li>
 <li>
-<p>Without logging in, you can also use the <code>selectUser</code>, <code>findUser</code> and <code>listUser</code> commands.</p>
+<p>Without logging in, you can also use the <code>selectUser</code>, <code>findUser</code>, <code>listUser</code>, <code>listFriends</code>, <code>suggestFriendsByInterests</code> commands.</p>
 </li>
 <li>
 <p>When you are done, simply <code>logout</code> or <code>exit</code> the application.</p>
@@ -927,7 +927,7 @@ a <code>NoUserLoggedInException</code> is thrown, and if there is no selected ev
 <p>A user must have already joined the event as a participant, or be on the invite list in order to vote, failing which, a UserNotJoinedEventException is thrown.</p>
 </li>
 <li>
-<p>A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someeone tries to vote twice.</p>
+<p>A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someone tries to vote twice.</p>
 </li>
 <li>
 <p>A poll must exist at the given poll index for the selected event, else, an IndexOutOfBoundsException is thrown.</p>
@@ -1031,4 +1031,4 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 06:40:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 09:58:41 UTC</div></div></div></body></html>
