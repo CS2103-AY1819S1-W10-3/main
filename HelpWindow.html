@@ -52,10 +52,10 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p><strong><code>listUser</code></strong> : lists all users in the Event Organiser</p>
 </li>
 <li>
-<p><strong><code>addUser</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : creates a new user named <code>John Doe</code> to the Event Organiser.</p>
+<p><strong><code>addUser</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : creates new user named <code>John Doe</code> to the Event Organiser.</p>
 </li>
 <li>
-<p><code>addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent</code> : adds an event named CS2103 Project Meeting to be held at SoC Canteen.</p>
+<p><strong><code>addEvent</code></strong><code>n/CS2103 Project Meeting a/SoC Canteen t/Urgent</code> : adds an event named CS2103 Project Meeting to be held at SoC Canteen.</p>
 </li>
 <li>
 <p><strong><code>exit</code></strong> : exits the app</p>
@@ -65,15 +65,88 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>To use the application, you must first create an account using the <code>addUser</code> command, and then login.
-You may then decide to organise an event using the <code>addEvent</code> command, to which you can specify the date, time and create polls.
-Alternatively, you may decide to search for an event to join, and then vote in the event polls.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-it-works-in-brief"><a class="link" href="#how-it-works-in-brief">3. How it works, in brief</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>To use the application, you must first create an account using the <code>addUser</code> command, and then <code>login</code>.</p>
+</li>
+<li>
+<p>If you are not yet logged in, you can still view event details using <code>selectEvent</code>, and find events using <code>findEvent</code> and <code>findEventByTime</code>, and list events using <code>listEvent</code>.</p>
+</li>
+<li>
+<p>Without logging in, you can also use the <code>selectUser</code>, <code>findUser</code> and <code>listUser</code> commands.</p>
+</li>
+<li>
+<p>When you are done, simply <code>logout</code> or <code>exit</code> the application.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="organise-an-event"><a class="link" href="#organise-an-event">3.1. Organise an event</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>If you are looking to organise an event, you may do so using the <code>addEvent</code> command.</p>
+</li>
+<li>
+<p>After creating the event, you may wish to specify the date, time, or specify only after participants have joined.</p>
+</li>
+<li>
+<p>You may create polls to get participants to vote on the details of the event using <code>addPoll</code> and <code>addPollOption</code>.</p>
+</li>
+<li>
+<p>You can create a special TimePoll using <code>addTimePoll</code> after all participants have joined to decide on a suitable time. This generates poll options based on the NUS timetables/schedules of the participants.</p>
+</li>
+<li>
+<p>You may decide to <code>deleteEvent</code> after the event is over, or leave it in the organiser as a form of record.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="join-an-event"><a class="link" href="#join-an-event">3.2. Join an event</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>If you are looking to join an event as a participant, you may search for an event to join using the <code>findEvent</code> and <code>findEventByTime</code> commands.</p>
+</li>
+<li>
+<p>You can also search for other users using the <code>findUser</code> and <code>listFriends</code> commands to see what events they have joined and join that event as well.</p>
+</li>
+<li>
+<p>After joining the event using <code>joinEvent</code>, you can vote in the polls by displaying the poll details using <code>displayPoll</code>.</p>
+</li>
+<li>
+<p>You can then add options using <code>addOption</code>, or simply vote for an option using <code>vote</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manage-your-account"><a class="link" href="#manage-your-account">3.3. Manage your account</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>After setting up your account, you can edit your own details using the <code>editUser</code> command, and delete your own account using <code>deleteUser</code>.</p>
+</li>
+<li>
+<p>You can also search for other users using <code>suggestFriendsByInterests</code> and add them as your friend using <code>addFriend</code>, or remove them as a friend using <code>deleteFriend</code>.</p>
+</li>
+<li>
+<p>You can populate your schedule using an NUSMODs link, and also manually add time slots into your schedule.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
+<h2 id="Features"><a class="link" href="#Features">4. Features</a></h2>
 <div class="sectionbody">
 <div class="exampleblock">
 <div class="content">
@@ -94,6 +167,9 @@ Alternatively, you may decide to search for an event to join, and then vote in t
 <li>
 <p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
 </li>
+<li>
+<p>Dates are all specified in <code>dd-MM-yyyy</code> format (e.g. <code>01-01-2019</code>, and Times are all specified in 24-hr <code>HH:mm</code> format (e.g. <code>13:30</code> is 1pm).</p>
+</li>
 </ul>
 </div>
 </div>
@@ -102,13 +178,13 @@ Alternatively, you may decide to search for an event to join, and then vote in t
 <p>Shows all the commands in the application and how to use them.</p>
 </div>
 <div class="sect2">
-<h3 id="view-help-code-help-code"><a class="link" href="#view-help-code-help-code">3.1. View help : <code>help</code></a></h3>
+<h3 id="view-help-code-help-code"><a class="link" href="#view-help-code-help-code">4.1. View help : <code>help</code></a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="user-commands"><a class="link" href="#user-commands">3.2. User Commands</a></h3>
+<h3 id="user-commands"><a class="link" href="#user-commands">4.2. User Commands</a></h3>
 <div class="sect3">
-<h4 id="add-a-user-code-adduser-code"><a class="link" href="#add-a-user-code-adduser-code">3.2.1. Add a user : <code>addUser</code></a></h4>
+<h4 id="add-a-user-code-adduser-code"><a class="link" href="#add-a-user-code-adduser-code">4.2.1. Add a user : <code>addUser</code></a></h4>
 <div class="paragraph">
 <p>Adds a new user to EventOrganiser.<br>
 Format: <code>addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]&#8230;&#8203;</code></p>
@@ -140,7 +216,7 @@ A user can have any number of tags and interests (including 0)
 </div>
 </div>
 <div class="sect3">
-<h4 id="login-a-user-code-login-code"><a class="link" href="#login-a-user-code-login-code">3.2.2. Login a user : <code>login</code></a></h4>
+<h4 id="login-a-user-code-login-code"><a class="link" href="#login-a-user-code-login-code">4.2.2. Login a user : <code>login</code></a></h4>
 <div class="paragraph">
 <p>Logs in the user to EventOrganiser. A user must first log in to enable certain commands to be executed.</p>
 </div>
@@ -158,7 +234,7 @@ A user can have any number of tags and interests (including 0)
 </div>
 </div>
 <div class="sect3">
-<h4 id="logout-a-user-code-logout-code"><a class="link" href="#logout-a-user-code-logout-code">3.2.3. Logout a user : <code>logout</code></a></h4>
+<h4 id="logout-a-user-code-logout-code"><a class="link" href="#logout-a-user-code-logout-code">4.2.3. Logout a user : <code>logout</code></a></h4>
 <div class="paragraph">
 <p>Logs out the user from EventOrganiser.</p>
 </div>
@@ -176,14 +252,14 @@ A user can have any number of tags and interests (including 0)
 </div>
 </div>
 <div class="sect3">
-<h4 id="list-all-users-code-listuser-code"><a class="link" href="#list-all-users-code-listuser-code">3.2.4. List all users : <code>listUser</code></a></h4>
+<h4 id="list-all-users-code-listuser-code"><a class="link" href="#list-all-users-code-listuser-code">4.2.4. List all users : <code>listUser</code></a></h4>
 <div class="paragraph">
 <p>Shows a list of all users in the Event Organiser.<br>
 Format: <code>listUser</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code"><a class="link" href="#find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code">3.2.5. Find users by name, phone number, email, address, interest, tag : <code>findUser</code></a></h4>
+<h4 id="find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code"><a class="link" href="#find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code">4.2.5. Find users by name, phone number, email, address, interest, tag : <code>findUser</code></a></h4>
 <div class="paragraph">
 <p>Finds users with any matching name, phone number, email, address, interest, tag.<br>
 Format: <code>findUser n/[NAME] p/[PHONE_NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]&#8230;&#8203;</code></p>
@@ -228,7 +304,7 @@ Returns any user with the name <code>87438807</code> or email <code>john@example
 </div>
 </div>
 <div class="sect3">
-<h4 id="delete-a-user-code-deleteuser-code"><a class="link" href="#delete-a-user-code-deleteuser-code">3.2.6. Delete a user : <code>deleteUser</code></a></h4>
+<h4 id="delete-a-user-code-deleteuser-code"><a class="link" href="#delete-a-user-code-deleteuser-code">4.2.6. Delete a user : <code>deleteUser</code></a></h4>
 <div class="paragraph">
 <p>Deletes the currently logged in user from Event Organiser.<br>
 Format: `deleteUser `</p>
@@ -249,7 +325,7 @@ Format: `deleteUser `</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="select-a-user-code-selectuser-code"><a class="link" href="#select-a-user-code-selectuser-code">3.2.7. Select a user : <code>selectUser</code></a></h4>
+<h4 id="select-a-user-code-selectuser-code"><a class="link" href="#select-a-user-code-selectuser-code">4.2.7. Select a user : <code>selectUser</code></a></h4>
 <div class="paragraph">
 <p>Selects the user identified by the index number used in the displayed user list.<br>
 Format: <code>selectUser INDEX</code></p>
@@ -290,7 +366,7 @@ Selects the 1st user in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="edit-a-user-code-edituser-code"><a class="link" href="#edit-a-user-code-edituser-code">3.2.8. Edit a user : <code>editUser</code></a></h4>
+<h4 id="edit-a-user-code-edituser-code"><a class="link" href="#edit-a-user-code-edituser-code">4.2.8. Edit a user : <code>editUser</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing user in the Event Organiser.<br>
 Format: <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]&#8230;&#8203;</code></p>
@@ -340,7 +416,7 @@ Edits the name of the user <code>Alex Yeoh`to be `Betsy Crower</code> and clears
 </div>
 </div>
 <div class="sect3">
-<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">3.2.9. Add a friend : <code>addFriend</code></a></h4>
+<h4 id="add-a-friend-code-addfriend-code"><a class="link" href="#add-a-friend-code-addfriend-code">4.2.9. Add a friend : <code>addFriend</code></a></h4>
 <div class="paragraph">
 <p>For two persons, adds friend with each other.<br>
 Format: <code>addFriend INDEX,INDEX</code></p>
@@ -378,7 +454,7 @@ Format: <code>addFriend INDEX,INDEX</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="delete-a-friend-code-deletefriend-code"><a class="link" href="#delete-a-friend-code-deletefriend-code">3.2.10. Delete a friend : <code>deleteFriend</code></a></h4>
+<h4 id="delete-a-friend-code-deletefriend-code"><a class="link" href="#delete-a-friend-code-deletefriend-code">4.2.10. Delete a friend : <code>deleteFriend</code></a></h4>
 <div class="paragraph">
 <p>For two persons, deletes each other as friend.<br>
 Format: <code>deleteFriend INDEX,INDEX</code></p>
@@ -405,7 +481,7 @@ Format: <code>deleteFriend INDEX,INDEX</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code"><a class="link" href="#suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code">3.2.11. Suggest friends based on similar interests : <code>suggestFriendsByInterests</code></a></h4>
+<h4 id="suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code"><a class="link" href="#suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code">4.2.11. Suggest friends based on similar interests : <code>suggestFriendsByInterests</code></a></h4>
 <div class="paragraph">
 <p>Suggest friends for an existing user in the Event Organiser that have at least one similar interest with the selected user.<br>
 Format: <code>suggestFriendsByInterests INDEX</code></p>
@@ -449,7 +525,7 @@ Suggests friends for the 1st user in the Event Organiser that have at least one 
 </div>
 </div>
 <div class="sect3">
-<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">3.2.12. Get free time between users : <code>maxSchedule</code></a></h4>
+<h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">4.2.12. Get free time between users : <code>maxSchedule</code></a></h4>
 <div class="paragraph">
 <p>Compares the schedule of multiple users and return a string of common free time slots. LIMIT is a XXXX-XXX specified timing to limit the time range displayed.<br>
 Format: <code>maxSchedule INDEX INDEX [sl/ LIMIT]&#8230;&#8203;</code></p>
@@ -472,9 +548,9 @@ Compares the schedule of users of index 1 and 2 and return a string of common fr
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-and-confirm-event-commands"><a class="link" href="#create-and-confirm-event-commands">3.3. Create and confirm event commands</a></h3>
+<h3 id="create-and-confirm-event-commands"><a class="link" href="#create-and-confirm-event-commands">4.3. Create and confirm event commands</a></h3>
 <div class="sect3">
-<h4 id="create-a-new-event-code-addevent-code"><a class="link" href="#create-a-new-event-code-addevent-code">3.3.1. Create a new event : <code>addEvent</code></a></h4>
+<h4 id="create-a-new-event-code-addevent-code"><a class="link" href="#create-a-new-event-code-addevent-code">4.3.1. Create a new event : <code>addEvent</code></a></h4>
 <div class="paragraph">
 <p>Adds a new event to the Event Organiser.<br>
 Format: <code>addEvent n/NAME a/LOCATION [t/TAG] &#8230;&#8203;</code></p>
@@ -484,6 +560,9 @@ Format: <code>addEvent n/NAME a/LOCATION [t/TAG] &#8230;&#8203;</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p>Login is required.</p>
+</li>
+<li>
 <p>Adds a new event with the given name, location and any number of tags.</p>
 </li>
 <li>
@@ -491,6 +570,9 @@ Format: <code>addEvent n/NAME a/LOCATION [t/TAG] &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The newly created event will display the logged in user as the event organiser.</p>
+</li>
+<li>
+<p>The event organiser is immediately added as one of the participants.</p>
 </li>
 <li>
 <p>The newly created event will automatically be selected for further editing.</p>
@@ -514,7 +596,7 @@ Format: <code>addEvent n/NAME a/LOCATION [t/TAG] &#8230;&#8203;</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="delete-an-event-code-deleteevent-code"><a class="link" href="#delete-an-event-code-deleteevent-code">3.3.2. Delete an event : <code>deleteEvent</code></a></h4>
+<h4 id="delete-an-event-code-deleteevent-code"><a class="link" href="#delete-an-event-code-deleteevent-code">4.3.2. Delete an event : <code>deleteEvent</code></a></h4>
 <div class="paragraph">
 <p>Deletes the specified event from the Event Organiser.<br>
 Format: <code>deleteEvent INDEX</code></p>
@@ -533,7 +615,7 @@ Format: <code>deleteEvent INDEX</code></p>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
-<p>Event can only be deleted by the event organiser.</p>
+<p>Login is required, and the event can only be deleted by the event organiser.</p>
 </li>
 <li>
 <p>While it is recommended that the event organiser closes the event after it is over, this is not required, in case the details of the event is needed to record-keeping purposes.</p>
@@ -556,7 +638,7 @@ Deletes the 2nd event in the Event Organiser.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="select-an-event-code-selectevent-code"><a class="link" href="#select-an-event-code-selectevent-code">3.3.3. Select an event : <code>selectEvent</code></a></h4>
+<h4 id="select-an-event-code-selectevent-code"><a class="link" href="#select-an-event-code-selectevent-code">4.3.3. Select an event : <code>selectEvent</code></a></h4>
 <div class="paragraph">
 <p>Selects an event to be edited.<br>
 Format: <code>selectEvent index</code></p>
@@ -569,10 +651,13 @@ Format: <code>selectEvent index</code></p>
 <p>An event must be selected before setDate, setTime, addPoll, addTimePoll, addOption, and vote commands can be used.</p>
 </li>
 <li>
+<p>The event is automatically selected after you have either created the event using <code>addEvent</code> or joined the event using <code>joinEvent</code>.</p>
+</li>
+<li>
 <p>Selecting an event displays the event participants as well as the polls associated with the event.</p>
 </li>
 <li>
-<p>Each poll in the event is given a unique index.</p>
+<p>Each poll in the event is given a unique poll index.</p>
 </li>
 </ul>
 </div>
@@ -585,7 +670,7 @@ Format: <code>selectEvent index</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="edit-an-event-code-editevent-code"><a class="link" href="#edit-an-event-code-editevent-code">3.3.4. Edit an event : <code>editEvent</code></a></h4>
+<h4 id="edit-an-event-code-editevent-code"><a class="link" href="#edit-an-event-code-editevent-code">4.3.4. Edit an event : <code>editEvent</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing event in the Event Organiser. Only the event name, location and tags may be edited using this command.<br>
 Format: <code>editEvent [n/NAME] [a/ADDRESS] [t/TAG] &#8230;&#8203;</code></p>
@@ -640,7 +725,7 @@ Edits name of the currently selected event to <code>CS2102 Discussion</code> and
 </div>
 </div>
 <div class="sect3">
-<h4 id="set-the-event-date-code-setdate-code"><a class="link" href="#set-the-event-date-code-setdate-code">3.3.5. Set the event date : <code>setDate</code></a></h4>
+<h4 id="set-the-event-date-code-setdate-code"><a class="link" href="#set-the-event-date-code-setdate-code">4.3.5. Set the event date : <code>setDate</code></a></h4>
 <div class="paragraph">
 <p>Sets the event date.<br>
 Format: <code>setDate d/DAY-MONTH-YEAR</code></p>
@@ -659,7 +744,7 @@ Format: <code>setDate d/DAY-MONTH-YEAR</code></p>
 <p>Year must be written out in full.</p>
 </li>
 <li>
-<p>An event must first be selected.</p>
+<p>An event must first be selected, and you must be the event organiser to set the date.</p>
 </li>
 <li>
 <p>You are allowed to set a date before the current day, should you wish to do so for record-keeping purposes.</p>
@@ -683,7 +768,7 @@ Format: <code>setDate d/DAY-MONTH-YEAR</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="set-the-event-time-code-settime-code"><a class="link" href="#set-the-event-time-code-settime-code">3.3.6. Set the event time : <code>setTime</code></a></h4>
+<h4 id="set-the-event-time-code-settime-code"><a class="link" href="#set-the-event-time-code-settime-code">4.3.6. Set the event time : <code>setTime</code></a></h4>
 <div class="paragraph">
 <p>Sets the event time.<br>
 Format: <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
@@ -699,7 +784,7 @@ Format: <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
 <p>The time with prefix <code>t1</code> represents the start time and prefix <code>t2</code> represents the end time.</p>
 </li>
 <li>
-<p>An event must first be selected.</p>
+<p>An event must first be selected, and you must be the event organiser to set the time.</p>
 </li>
 </ul>
 </div>
@@ -720,10 +805,24 @@ Format: <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="create-a-new-poll-for-an-event-code-addpoll-n-name-code"><a class="link" href="#create-a-new-poll-for-an-event-code-addpoll-n-name-code">3.3.7. Create a new poll for an event : <code>addPoll n/NAME</code></a></h4>
+<h4 id="create-a-new-poll-for-an-event-code-addpoll-n-name-code"><a class="link" href="#create-a-new-poll-for-an-event-code-addpoll-n-name-code">4.3.7. Create a new poll for an event : <code>addPoll n/NAME</code></a></h4>
 <div class="paragraph">
 <p>Sets up a new poll for the event with the specified name.<br>
 Format: <code>addPoll n/POLL_NAME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Only the event organiser may create a new poll.</p>
+</li>
+<li>
+<p>Multiple polls of the same name are allowed.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="ulist">
 <ul>
@@ -743,7 +842,7 @@ Selecting the event again using the <code>selectEvent</code> command displays th
 </div>
 </div>
 <div class="sect3">
-<h4 id="create-a-new-time-based-poll-for-an-event-code-addtimepoll-code"><a class="link" href="#create-a-new-time-based-poll-for-an-event-code-addtimepoll-code">3.3.8. Create a new time-based poll for an event : <code>addTimePoll</code></a></h4>
+<h4 id="create-a-new-time-based-poll-for-an-event-code-addtimepoll-code"><a class="link" href="#create-a-new-time-based-poll-for-an-event-code-addtimepoll-code">4.3.8. Create a new time-based poll for an event : <code>addTimePoll</code></a></h4>
 <div class="paragraph">
 <p>Sets up a new time-based poll for the event with the specified name after all users have joined.<br>
 Format: <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR`</code></p>
@@ -780,7 +879,7 @@ Format: <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR`</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="setup-poll-for-location-code-addoption-code"><a class="link" href="#setup-poll-for-location-code-addoption-code">3.3.9. Setup poll for location : <code>addOption</code></a></h4>
+<h4 id="setup-poll-for-location-code-addoption-code"><a class="link" href="#setup-poll-for-location-code-addoption-code">4.3.9. Setup poll for location : <code>addOption</code></a></h4>
 <div class="paragraph">
 <p>Add new poll option in the specified poll.<br>
 Format: <code>addOption i/POLL_INDEX o/POLL_OPTION</code></p>
@@ -790,10 +889,13 @@ Format: <code>addOption i/POLL_INDEX o/POLL_OPTION</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>The poll index specifies the index of the poll in the selected event, which can be viewed by selecting the event using <code>selectEvent</code>.</p>
+<p>The poll index is the index of the poll in the selected event, which can be viewed by selecting the event using <code>selectEvent</code>.</p>
 </li>
 <li>
 <p>An event must first be selected.</p>
+</li>
+<li>
+<p>As long as you have joined the event, you may add options to the poll.</p>
 </li>
 <li>
 <p>An option can be any string.</p>
@@ -833,7 +935,7 @@ Since there are no voters yet, the most popular options list is empty.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="get-poll-result-code-displaypoll-code"><a class="link" href="#get-poll-result-code-displaypoll-code">3.3.10. Get poll result : <code>displayPoll</code></a></h4>
+<h4 id="get-poll-result-code-displaypoll-code"><a class="link" href="#get-poll-result-code-displaypoll-code">4.3.10. Get poll result : <code>displayPoll</code></a></h4>
 <div class="paragraph">
 <p>Gets the result of a specified poll.<br>
 Format: <code>displayPoll i/POLL_INDEX</code></p>
@@ -870,18 +972,11 @@ Displays the poll with index 1 associated with the already selected event, if it
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="list-all-events-code-listevent-code"><a class="link" href="#list-all-events-code-listevent-code">3.3.11. List all events : <code>listEvent</code></a></h4>
-<div class="paragraph">
-<p>Shows a list of all events in the Event Organiser.<br>
-Format: <code>listEvent</code></p>
-</div>
-</div>
 </div>
 <div class="sect2">
-<h3 id="join-event-commands"><a class="link" href="#join-event-commands">3.4. Join event commands</a></h3>
+<h3 id="join-event-commands"><a class="link" href="#join-event-commands">4.4. Join event commands</a></h3>
 <div class="sect3">
-<h4 id="find-event-by-the-name-of-the-event-code-findevent-code"><a class="link" href="#find-event-by-the-name-of-the-event-code-findevent-code">3.4.1. Find event by the name of the event : <code>findEvent</code></a></h4>
+<h4 id="find-event-by-the-name-of-the-event-code-findevent-code"><a class="link" href="#find-event-by-the-name-of-the-event-code-findevent-code">4.4.1. Find event by the name of the event : <code>findEvent</code></a></h4>
 <div class="paragraph">
 <p>Finds events based on the attributes of the event: event name, event location, date, start time, Event Organiser, and event participants.<br>
 Format: <code>findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]</code></p>
@@ -899,15 +994,27 @@ Finds all events with the name "FaceBook Recruitment Talk" and with the organise
 </div>
 </div>
 <div class="sect3">
-<h4 id="find-event-by-a-time-interval-code-findeventbytime-code"><a class="link" href="#find-event-by-a-time-interval-code-findeventbytime-code">3.4.2. Find event by a time interval: <code>findEventByTime</code></a></h4>
+<h4 id="find-event-by-a-time-interval-code-findeventbytime-code"><a class="link" href="#find-event-by-a-time-interval-code-findeventbytime-code">4.4.2. Find event by a time interval: <code>findEventByTime</code></a></h4>
 <div class="paragraph">
-<p>Finds events based start and end time.<br>
-Format: <code>findEvent d/DATE t1/FROMTIME t2/TOTIME</code></p>
+<p>Finds events based on a date, start and end time.<br>
+Format: <code>findEvent d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
+<li>
+<p>The tag <code>t1</code> specifies the start time and <code>t2</code> is the end time.</p>
+</li>
+<li>
+<p>Day, month and year are specified as numbers.</p>
+</li>
+<li>
+<p>Day and month must be written as two digits, e.g. January must be specified as <code>01</code> and not <code>1</code>.</p>
+</li>
+<li>
+<p>Year must be written out in full as four digits.</p>
+</li>
 <li>
 <p>Times are specfied in 24 hour, HOUR:MINUTE format.</p>
 </li>
@@ -928,10 +1035,28 @@ Finds all events held between 12pm and 6pm on 12 December 2018.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="join-event-code-joinevent-code"><a class="link" href="#join-event-code-joinevent-code">3.4.3. Join event : <code>joinEvent</code></a></h4>
+<h4 id="list-all-events-code-listevent-code"><a class="link" href="#list-all-events-code-listevent-code">4.4.3. List all events : <code>listEvent</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of all events in the Event Organiser.<br>
+Format: <code>listEvent</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="join-event-code-joinevent-code"><a class="link" href="#join-event-code-joinevent-code">4.4.4. Join event : <code>joinEvent</code></a></h4>
 <div class="paragraph">
 <p>Joins event identified by event index in the event list.<br>
 Format: <code>joinEvent INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Login is required. The current user is added to the participant list of the event.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -945,7 +1070,7 @@ Format: <code>joinEvent INDEX</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="vote-for-date-code-voteoption-code"><a class="link" href="#vote-for-date-code-voteoption-code">3.4.4. Vote for date : <code>voteOption</code></a></h4>
+<h4 id="vote-for-date-code-voteoption-code"><a class="link" href="#vote-for-date-code-voteoption-code">4.4.5. Vote for date : <code>voteOption</code></a></h4>
 <div class="paragraph">
 <p>Vote for a option specified in a specified poll, if there is one.
 Format: <code>voteDate i/POLL_INDEX o/POLL_OPTION</code></p>
@@ -993,7 +1118,7 @@ Since it is the most popular option, <code>13 November</code> appears in the mos
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.5. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.5. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -1014,14 +1139,14 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.6. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.6. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.7. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.7. Saving the data</a></h3>
 <div class="paragraph">
 <p>Event Organiser data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -1030,7 +1155,7 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
@@ -1039,10 +1164,10 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">6. Command Summary</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="user-commands-2"><a class="link" href="#user-commands-2">5.1. User commands</a></h3>
+<h3 id="user-commands-2"><a class="link" href="#user-commands-2">6.1. User commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1105,7 +1230,7 @@ e.g. <code>maxSchedule 1 2 3 sl/ 0800-0900</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="event-organiser-commands"><a class="link" href="#event-organiser-commands">5.2. Event organiser commands</a></h3>
+<h3 id="event-organiser-commands"><a class="link" href="#event-organiser-commands">6.2. Event organiser commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1118,9 +1243,7 @@ e.g. <code>deleteEvent 1</code></p>
 </li>
 <li>
 <p><strong>Edit Event</strong> : <code>editEvent [n/NAME] [a/ADDRESS] [t/TAG] &#8230;&#8203;</code><br>
-e.g. <code>editUser 2 n/James Lee e/jameslee@example.com</code><br>
-e.g. <code>editUser 1 tt/ <a href="http://modsn.us/H4v8s" class="bare">http://modsn.us/H4v8s</a></code><br>
-e.g. <code>editUser 1 su/ monday 0000</code></p>
+e.g. <code>editEvent n/CS2102 Meeting t/URGENT t/ByInvite</code></p>
 </li>
 <li>
 <p><strong>Add Poll</strong> : <code>addPoll n/POLL_NAME</code><br>
@@ -1150,7 +1273,7 @@ e.g. <code>setTime t1/12:30 t2/13:45</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="event-participant-commands"><a class="link" href="#event-participant-commands">5.3. Event participant commands</a></h3>
+<h3 id="event-participant-commands"><a class="link" href="#event-participant-commands">6.3. Event participant commands</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1183,4 +1306,4 @@ e.g. <code>listEvent</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 18:00:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 05:32:30 UTC</div></div></div></body></html>

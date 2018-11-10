@@ -518,10 +518,10 @@ the colour of his name will revert back to white as shown in the image above.</p
 </div>
 <h3 id="use-case-u04-create-new-event" class="discrete">Use case: U04 – Create new event</h3>
 <div class="paragraph">
-<p><strong>Actor: User</strong></p>
+<p><strong>Actor: Event Organiser</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>Precondition: User has identified himself/herself</strong></p>
+<p><strong>Precondition: Event organiser has logged himself/herself in</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>MSS:</strong></p>
@@ -529,13 +529,13 @@ the colour of his name will revert back to white as shown in the image above.</p
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User creates a new event by specifying the details of the event.</p>
+<p>Event organiser creates a new event by specifying the name, location and tags of the event.</p>
 </li>
 <li>
 <p>System checks that the details are valid.</p>
 </li>
 <li>
-<p>System informs the user that the event has been successfully created.</p>
+<p>System informs the event organiser that the event has been successfully created.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -548,14 +548,14 @@ the colour of his name will revert back to white as shown in the image above.</p
 <div class="ulist">
 <ul>
 <li>
-<p>2a. User enters invalid details.</p>
+<p>2a. Event organiser enters invalid details.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>2a1. System will prompt user to re-enter the event details.</p>
+<p>2a1. System will prompt event organiser to re-enter the event details.</p>
 </li>
 <li>
-<p>2a2. User enters event details again.</p>
+<p>2a2. Event organiser enters event details again.</p>
 <div class="paragraph">
 <p>Steps 2a1 - 2a2 are repeated until the details entered are valid.</p>
 </div>
@@ -570,10 +570,10 @@ the colour of his name will revert back to white as shown in the image above.</p
 </div>
 <h3 id="use-case-u05-delete-an-event" class="discrete">Use case: U05 – Delete an event</h3>
 <div class="paragraph">
-<p><strong>Actor: User</strong></p>
+<p><strong>Actor: Event organiser</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>Precondition: User has identified himself/herself</strong></p>
+<p><strong>Precondition: Event organiser has identified himself/herself</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>MSS:</strong></p>
@@ -581,13 +581,13 @@ the colour of his name will revert back to white as shown in the image above.</p
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User chooses to delete an event.</p>
+<p>Event organiser chooses to delete an event.</p>
 </li>
 <li>
 <p>System checks that the event belongs to the user.</p>
 </li>
 <li>
-<p>System informs the user that the event has been successfully deleted.</p>
+<p>System informs the event organiser that the event has been successfully deleted.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -625,7 +625,7 @@ the colour of his name will revert back to white as shown in the image above.</p
 <p><strong>Actor: User</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>Precondition: User has identified himself</strong></p>
+<p><strong>Precondition: User has logged in</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>MSS:</strong></p>
@@ -662,79 +662,12 @@ the colour of his name will revert back to white as shown in the image above.</p
 </li>
 </ul>
 </div>
-<h3 id="use-case-u07-user-invites-other-to-join-him-her-event" class="discrete">Use case: U07 – User invites other to join him/her event</h3>
+<h3 id="use-case-u07-event-organiser-creates-a-poll" class="discrete">Use case: U07 – Event organiser creates a poll</h3>
 <div class="paragraph">
-<p><strong>Actor: Event organiser, another user that will be invited to join the event organiser’s event</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Precondition: All the relevant users have identified themselves</strong></p>
+<p><strong>Actor: Event organiser</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>MSS:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Event organiser searches for other users.</p>
-</li>
-<li>
-<p>System shows user all the other users.</p>
-</li>
-<li>
-<p>User chooses a user that he/she wants to invite.</p>
-</li>
-<li>
-<p>System informs the event organiser that an invitation has been sent to the user.</p>
-</li>
-<li>
-<p>System informs the user of an invitation to join an event.</p>
-</li>
-<li>
-<p>User being invited choose to accept the event invitation.</p>
-</li>
-<li>
-<p>System informs the user that he/she has successfully joined the event.</p>
-</li>
-<li>
-<p>System informs the event organiser that a new user has joined his/her event.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. Event organiser may specify extra details to filter search results.</p>
-<div class="paragraph">
-<p>Use case resumes at step 2.</p>
-</div>
-</li>
-<li>
-<p>6a. User being invited may choose to deny the event invitation.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>6a1. System informs the user that he/she has rejected the event invitation.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<h3 id="use-case-u08-user-who-is-keen-on-joining-an-event-chooses-their-preferred-date-time-and-location-for-the-event-given-that-the-event-organiser-has-created-a-polling-session-for-this-event" class="discrete">Use case: U08 – User who is keen on joining an event chooses their preferred date, time and location for the event, given that the event organiser has created a polling session for this event</h3>
-<div class="paragraph">
-<p><strong>Actor: Event organiser, user who is keen to join an event</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Precondition: All relevant User has identified himself</strong></p>
+<p><strong>Precondition: Event organiser has logged in and created an event</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>MSS:</strong></p>
@@ -742,16 +675,16 @@ the colour of his name will revert back to white as shown in the image above.</p
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User searches for the event that he wants to join.</p>
+<p>Event organiser selects an event.</p>
 </li>
 <li>
-<p>System shows all the possible date, time, and location options that the event organiser has allocated for this event.</p>
+<p>Event organiser creates a new poll.</p>
 </li>
 <li>
-<p>User chooses his/her preferred date, time, and locations.</p>
+<p>Event organiser creates options for the poll.</p>
 </li>
 <li>
-<p>System informs the user’s options has been successfully updated.</p>
+<p>System informs the event organiser’s options has been successfully updated.</p>
 </li>
 <li>
 <p>System updates polling information in its storage.</p>
@@ -761,12 +694,12 @@ the colour of his name will revert back to white as shown in the image above.</p
 </li>
 </ol>
 </div>
-<h3 id="use-case-u09-event-organiser-gets-the-recommended-date-time-and-location-for-his-event-from-the-system-s-algorithm-and-the-polling-session-thereafter-chooses-the-date-time-and-location-for-his-event" class="discrete">Use case: U09 – Event organiser gets the recommended date, time and location for his event from the system’s algorithm and the polling session. Thereafter, chooses the date, time and location for his event</h3>
+<h3 id="use-case-u08-user-votes-in-a-poll" class="discrete">Use case: U08 – User votes in a poll</h3>
 <div class="paragraph">
-<p><strong>Actor: Event organiser</strong></p>
+<p><strong>Actor: User who is keen to join an event</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>Precondition: Event organiser has identified himself and has created an event</strong></p>
+<p><strong>Precondition: User has logged in and has joined an event</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>MSS:</strong></p>
@@ -774,108 +707,59 @@ the colour of his name will revert back to white as shown in the image above.</p
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Event organiser asks the systems to recommend the date and time for the event based on the schedules of the current users that have indicated that they are going.</p>
+<p>User selects a poll from the poll list of the event.</p>
 </li>
 <li>
-<p>System shows a few recommendations for the date and time.</p>
+<p>System displays the poll selected by the user.</p>
 </li>
 <li>
-<p>Event organiser checks the polling result for the date and time.</p>
+<p>User looks at the options given in the poll and votes for his/her preferred options.</p>
 </li>
 <li>
-<p>System shows the top choices for the date and time from the polling session.</p>
+<p>System adds the user to the voter list of that option.</p>
 </li>
 <li>
-<p>Event organiser chooses the date time for his date and time for the event.</p>
+<p>System updates the list of most popular options in the poll.</p>
 </li>
 <li>
-<p>System informs user that the date and time has been successfully updated.</p>
-</li>
-<li>
-<p>System updates the date and time for the event.</p>
-</li>
-<li>
-<p>Event organiser Event organiser asks the systems to recommend the date and time for the event on the address of the current users that have indicated that they are going.</p>
-</li>
-<li>
-<p>System shows a few recommendations for the location.</p>
-</li>
-<li>
-<p>Event organiser checks the polling result for the date and time.</p>
-</li>
-<li>
-<p>System shows the top choices for location from the polling session.</p>
-</li>
-<li>
-<p>Event organiser chooses the location for the event.</p>
-</li>
-<li>
-<p>System informs the location has been successfully updated.</p>
+<p>System updates polling information in its storage.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
 </li>
 </ol>
 </div>
+<h3 id="use-case-u08-event-organiser-confirms-the-event-details" class="discrete">Use case: U08 – Event organiser confirms the event details</h3>
 <div class="paragraph">
-<p><strong>Extension:</strong></p>
+<p><strong>Actor: Event organiser</strong></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. Event organiser asks for recommendations when the event does not have any users that has indicated that they are going.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. The system will recommend time and date based on the schedule of the event organiser.</p>
 <div class="paragraph">
-<p>Use case resumes from step 3.</p>
+<p><strong>Precondition: Event organiser has logged in, event participants have all joined and voted in polls</strong></p>
 </div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>3a. Event organiser checks the polling result when more than 1 option has the highest votes.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>3a1. System will show all the options that have the highest votes only.</p>
 <div class="paragraph">
-<p>Use case resumes from step 5.</p>
+<p><strong>MSS:</strong></p>
 </div>
-</li>
-</ul>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Event organiser looks at the poll results.</p>
 </li>
 <li>
-<p>8a. Event organiser ask for recommendations when the event does not have any users that has indicated that they are going.</p>
-<div class="ulist">
-<ul>
+<p>System shows the top options for each of the polls.</p>
+</li>
 <li>
-<p>8a1. The system will recommend the location based on the address of the event organiser.</p>
+<p>Event organiser decides on the ideal time, date and location for the event and sets them accordingly.</p>
+</li>
+<li>
+<p>System informs the user’s options has been successfully updated.</p>
+</li>
+<li>
+<p>System updates event information in its storage.</p>
 <div class="paragraph">
-<p>Use case resumes from step 10.</p>
+<p>Use case ends.</p>
 </div>
 </li>
-</ul>
-</div>
-</li>
-<li>
-<p>10a. Event organiser checks the polling result when more than 1 option has the
-highest votes.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>10a1. System will show all the options that have the highest votes only.</p>
-<div class="paragraph">
-<p>Use case resumes from step 12.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+</ol>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 18:00:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 05:32:30 UTC</div></div></div></body></html>
