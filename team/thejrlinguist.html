@@ -22,16 +22,15 @@ It is written in Java, and has about 10 kLoC.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>Event and Poll commands and functionality</strong>.<br>
-Event related commands: DeleteEvent, SelectEvent, JoinEvent, SetDate, SetTime, FindEvent, FindEventByTime<br>
-Poll related commands: AddPoll, AddPollOption, AddTimePoll, DisplayPoll, VoteCommand</p>
+<p><strong>Major enhancement</strong>: added <strong>Event and Poll commands and functionality</strong>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: Allows users to create, organise and sign-up for events, and create polls and vote for options in the poll.</p>
+<p>What it does: Event-related commands allow event organisers to create, edit and manage events, and users to find and join events.
+Poll-related commands allow event organiser to create polls and for participants to vote in the poll.</p>
 </li>
 <li>
-<p>Justification: The event related commands are essential to the event organiser. Polls are useful for users to decide on a suitable activity, date and time for the event.</p>
+<p>Justification: Event-related commands are essential to the event organiser. Polls are useful for users to decide on a suitable activity, date and time for the event.</p>
 </li>
 <li>
 <p>Highlights:</p>
@@ -41,12 +40,10 @@ Poll related commands: AddPoll, AddPollOption, AddTimePoll, DisplayPoll, VoteCom
 <p>Updated all components: logic, model, storage, UI to support event and polls</p>
 </li>
 <li>
-<p>Integrated Persons into Events: Persons are stored in events by index in storage, and events contain persons in runtime (eg in participant lists and voter lists).
-Person details within events update when persons are deleted or edited.</p>
+<p>Integrated Persons into Events: Persons are stored in events by index in storage and in runtime, and events are updated when user are edited or deleted.</p>
 </li>
 <li>
-<p>Implement dependencies between commands: e.g. user must be logged in, event must be selected, user must be the event organiser,
-user must have joined the event are pre-conditions for using several commands</p>
+<p>Implemented dependencies between commands e.g. users should select events before editing</p>
 </li>
 </ul>
 </div>
@@ -78,13 +75,7 @@ user must have joined the event are pre-conditions for using several commands</p
 <p>Updated ReadMe: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/10">#10</a></p>
 </li>
 <li>
-<p>Assigned issues after PE dry run.</p>
-</li>
-<li>
 <p>Updated sample data: <a href="https://github.com/CS2103-AY1819S1-W10-3/main/pull/165">#165</a></p>
-</li>
-<li>
-<p>Contributed to brainstorming features.</p>
 </li>
 </ul>
 </div>
@@ -118,7 +109,7 @@ user must have joined the event are pre-conditions for using several commands</p
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given are excerpts from the sections which I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -316,146 +307,6 @@ Format: <code>selectEvent index</code></p>
 </div>
 </div>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/EventSelectedDisplay.png" alt="EventSelectedDisplay" width="800">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="edit-an-event-code-editevent-code"><a class="link" href="#edit-an-event-code-editevent-code">Edit an event : <code>editEvent</code></a></h4>
-<div class="paragraph">
-<p>Edits an existing event in the Event Organiser. Only the event name, location and tags may be edited using this command.<br>
-Format: <code>editEvent [n/NAME] [a/ADDRESS] [t/TAG] &#8230;&#8203;</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>At least one of the optional fields must be provided.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Edits the previously selected event i.e. a event must already be selected.</p>
-</li>
-<li>
-<p>To edit an event, the currently logged in user must be the event organiser.</p>
-</li>
-<li>
-<p>Existing values will be updated to the input values.</p>
-</li>
-<li>
-<p>When editing tags, the existing tags of the event will be removed i.e adding of tags is not cumulative.</p>
-</li>
-<li>
-<p>You can remove all the event&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>editEvent n/CS2102 Discussion t/URGENT</code><br>
-Edits name of the currently selected event to <code>CS2102 Discussion</code> and its tag to <code>URGENT</code>.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="set-the-event-date-code-setdate-code"><a class="link" href="#set-the-event-date-code-setdate-code">Set the event date : <code>setDate</code></a></h4>
-<div class="paragraph">
-<p>Sets the event date.<br>
-Format: <code>setDate d/DAY-MONTH-YEAR</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Day, month and year are specified as numbers.</p>
-</li>
-<li>
-<p>Day and month must be written as two digits, e.g. January must be specified as <code>01</code> and not <code>1</code>.</p>
-</li>
-<li>
-<p>Year must be written out in full.</p>
-</li>
-<li>
-<p>An event must first be selected, and you must be the event organiser to set the date.</p>
-</li>
-<li>
-<p>You are allowed to set a date before the current day, should you wish to do so for record-keeping purposes.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>setDate d/08-09-2018</code></p>
-</li>
-<li>
-<p><code>setDate d/11-12-2019</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="set-the-event-time-code-settime-code"><a class="link" href="#set-the-event-time-code-settime-code">Set the event time : <code>setTime</code></a></h4>
-<div class="paragraph">
-<p>Sets the event time.<br>
-Format: <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Time is specified in 24 hour format, separated by a colon.</p>
-</li>
-<li>
-<p>The time with prefix <code>t1</code> represents the start time and prefix <code>t2</code> represents the end time.</p>
-</li>
-<li>
-<p>An event must first be selected, and you must be the event organiser to set the time.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>setTime t1/23:00 t2/23:30</code></p>
-</li>
-<li>
-<p><code>setTime t1/13:30 t2/14:00</code></p>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect3">
 <h4 id="create-a-new-poll-for-an-event-code-addpoll-n-name-code"><a class="link" href="#create-a-new-poll-for-an-event-code-addpoll-n-name-code">Create a new poll for an event : <code>addPoll n/NAME</code></a></h4>
@@ -586,264 +437,6 @@ Since there are no voters yet, the most popular options list is empty.</p>
 <img src="../images/AddOptionDisplay.png" alt="AddOptionDisplay" width="800">
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="get-poll-result-code-displaypoll-code"><a class="link" href="#get-poll-result-code-displaypoll-code">Get poll result : <code>displayPoll</code></a></h4>
-<div class="paragraph">
-<p>Gets the result of a specified poll.<br>
-Format: <code>displayPoll i/POLL_INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The index is the index of the poll in the pre-selected event.</p>
-</li>
-<li>
-<p>An event must be selected before hand.</p>
-</li>
-<li>
-<p>This index can be viewed by selecting the event using the <code>selectEvent</code> command.</p>
-</li>
-<li>
-<p>This command displays the most popular options as well as the names of the users who voted for each option.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>displayPoll i/1</code><br>
-Displays the poll with index 1 associated with the already selected event, if it exists in the event.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="join-event-commands"><a class="link" href="#join-event-commands">Join event commands</a></h3>
-<div class="sect3">
-<h4 id="find-event-by-the-name-of-the-event-code-findevent-code"><a class="link" href="#find-event-by-the-name-of-the-event-code-findevent-code">Find event by the name of the event : <code>findEvent</code></a></h4>
-<div class="paragraph">
-<p>Finds events based on the attributes of the event: event name, event location, date, start time, Event Organiser, and event participants.<br>
-Format: <code>findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>findEvent e/FaceBook Recruitment Talk on/John Doe</code><br>
-Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="find-event-by-a-time-interval-code-findeventbytime-code"><a class="link" href="#find-event-by-a-time-interval-code-findeventbytime-code">Find event by a time interval: <code>findEventByTime</code></a></h4>
-<div class="paragraph">
-<p>Finds events based on a date, start and end time.<br>
-Format: <code>findEvent d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The tag <code>t1</code> specifies the start time and <code>t2</code> is the end time.</p>
-</li>
-<li>
-<p>Day, month and year are specified as numbers.</p>
-</li>
-<li>
-<p>Day and month must be written as two digits, e.g. January must be specified as <code>01</code> and not <code>1</code>.</p>
-</li>
-<li>
-<p>Year must be written out in full as four digits.</p>
-</li>
-<li>
-<p>Times are specfied in 24 hour, HOUR:MINUTE format.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>findEvent d/12-12-2018 t1/12:00 t2/18:00</code><br>
-Finds all events held between 12pm and 6pm on 12 December 2018.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="list-all-events-code-listevent-code"><a class="link" href="#list-all-events-code-listevent-code">List all events : <code>listEvent</code></a></h4>
-<div class="paragraph">
-<p>Shows a list of all events in the Event Organiser.<br>
-Format: <code>listEvent</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="join-event-code-joinevent-code"><a class="link" href="#join-event-code-joinevent-code">Join event : <code>joinEvent</code></a></h4>
-<div class="paragraph">
-<p>Joins event identified by event index in the event list.<br>
-Format: <code>joinEvent INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Login is required. The current user is added to the participant list of the event.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>joinEvent 2</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="vote-for-date-code-voteoption-code"><a class="link" href="#vote-for-date-code-voteoption-code">Vote for date : <code>voteOption</code></a></h4>
-<div class="paragraph">
-<p>Vote for a option specified in a specified poll, if there is one.
-Format: <code>voteDate i/POLL_INDEX o/POLL_OPTION</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The index is the index of the poll in the pre-selected event.</p>
-</li>
-<li>
-<p>The option specified must be in the poll.</p>
-</li>
-<li>
-<p>User must have joined the event in order to vote.</p>
-</li>
-<li>
-<p>Adding a vote may or may not change the most popular options list.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>voteDate i/3 o/12 August</code></p>
-</li>
-<li>
-<p><code>voteDate i/3 o/13 November</code><br>
-In the following example, <code>Alex Yeoh</code> has voted for <code>13 November</code>.
-Since it is the most popular option, <code>13 November</code> appears in the most popular options list.</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/VoteOptionDisplay.png" alt="VoteOptionDisplay" width="800">
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="event-organiser-commands"><a class="link" href="#event-organiser-commands">Event organiser commands</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Add Event</strong> : <code>addEvent n/EVENT_NAME a/LOCATION [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent</code></p>
-</li>
-<li>
-<p><strong>Delete Event</strong> : <code>deleteEvent INDEX</code><br>
-e.g. <code>deleteEvent 1</code></p>
-</li>
-<li>
-<p><strong>Edit Event</strong> : <code>editEvent [n/NAME] [a/ADDRESS] [t/TAG] &#8230;&#8203;</code><br>
-e.g. <code>editEvent n/CS2102 Meeting t/URGENT t/ByInvite</code></p>
-</li>
-<li>
-<p><strong>Add Poll</strong> : <code>addPoll n/POLL_NAME</code><br>
-e.g. <code>addPoll n/Activity</code></p>
-</li>
-<li>
-<p><strong>Add Option</strong> : <code>addOption i/POLL_INDEX o/POLL_OPTION</code><br>
-e.g. <code>addOption i/1 o/Play games</code></p>
-</li>
-<li>
-<p><strong>Add Time Poll</strong> : <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR</code><br>
-e.g. <code>addTimePoll d1/01-12-2018 d2/02-12-2018</code></p>
-</li>
-<li>
-<p><strong>Display Poll</strong> : <code>displayPoll INDEX</code><br>
-e.g. <code>displayPoll 1</code></p>
-</li>
-<li>
-<p><strong>Set Event Date</strong> : <code>setDate d/DAY-MONTH-YEAR</code><br>
-e.g. <code>setDate d/12-12-2018</code></p>
-</li>
-<li>
-<p><strong>Set Event Time</strong> : <code>setTime t1/HOUR:MINUTE t2/HOUR:MINUTE</code><br>
-e.g. <code>setTime t1/12:30 t2/13:45</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="event-participant-commands"><a class="link" href="#event-participant-commands">Event participant commands</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Select Event</strong> : <code>selectEvent INDEX</code><br>
-e.g. <code>selectEvent 1</code></p>
-</li>
-<li>
-<p><strong>Join Event</strong> : <code>joinEvent INDEX</code><br>
-e.g. <code>joinEvent 1</code></p>
-</li>
-<li>
-<p><strong>Vote</strong> : <code>vote i/POLL_INDEX o/POLL_OPTION</code><br>
-e.g. <code>vote i/1 o/Play games</code></p>
-</li>
-<li>
-<p><strong>Find Event With Attributes</strong> : <code>findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
-[on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]</code>
-e.g. <code>findEvent d/12-12-2018 pn/John Doe</code>
-e.g. <code>findEvent a/SoC Canteen on/Alice Tan</code></p>
-</li>
-<li>
-<p><strong>Find Event by Time</strong> : <code>findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE</code>
-e.g. <code>findEventByTime d/12-12-2018 t1/12:30 t2/13:45</code></p>
-</li>
-<li>
-<p><strong>List Events</strong> : <code>listEvent</code><br>
-e.g. <code>listEvent</code></p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -1031,4 +624,4 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 10:17:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 10:32:08 UTC</div></div></div></body></html>
