@@ -353,19 +353,6 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <div class="paragraph">
 <p>As manipulating bit strings may be complicated, getter, setter and merger methods are provided for any external access to the schedule. This allows easy use of the specific slots in the schedule without heavy calculation and memorisation of bits.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Schedule has a copy constructor to create duplicates for the schedule objects. Useful for any commands that manipulate schedule objects</p>
-</li>
-<li>
-<p>Note that schedule only takes in Slots as an argument for its methods. Slot consists of a Time object and a Day object. This is to ensure Separation of Concerns in the schedule manipulation as schedule does not need to be ensure that the argument input is valid; The Time and Day objects will ensure the validity of values.</p>
-</li>
-<li>
-<p>All commands that feed input into schedule should also validate the data input. In the event such data is not sanitised, defensive programming has been employed in Day and Time to deny the data.</p>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect4">
 <h5 id="aspect-schedule-update"><a class="link" href="#aspect-schedule-update">Aspect: Schedule Update</a></h5>
@@ -507,4 +494,4 @@ This way, we will be able to provide the most convenient way for the student to 
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 14:56:19 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 15:26:45 UTC</div></div></div></body></html>
