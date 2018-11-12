@@ -726,19 +726,7 @@ to ensure cohesiveness of the entire application.</p>
 <div class="paragraph">
 <p>We have assumed that a user with name as "Alice" and password as "password" already exists in Event
 Organiser. If such an user does not already exist before the login command is issued, login will
-not be successful.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-In this implementation, we define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
-</td>
-</tr>
-</table>
+not be successful. In this implementation, we define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.</p>
 </div>
 <div class="paragraph">
 <p>When the execute() method of the Login command is called,  the login command authenticates
@@ -778,19 +766,10 @@ to update the UI.</p>
 <div class="paragraph">
 <p>There are 2 indications that login was successful. First, a welcome message will be shown with
 the a message in the format: "Welcome back [NAME]!" where [NAME] is replaced by the full name
-of the user.</p>
-</div>
-<div class="paragraph">
-<p>For example, if the user, Alex Yeoh, successfully logs in to his account, he should see the welcome
-message: "Welcome back Alex Yeoh!"</p>
-</div>
-<div class="paragraph">
-<p>Second, upon successful login the colour of the name of the user will change from white to green.
+of the user. For example, if the user, Alex Yeoh, successfully logs in to his account, he should see the welcome
+message: "Welcome back Alex Yeoh!". Second, upon successful login the colour of the name of the user will change from white to green.
 The two images below attempts to illustrate the effects of a successful login on the UI. Again,
-we will use the scenario that a user, Alex Yeoh, wants to login to his account:</p>
-</div>
-<div class="paragraph">
-<p>Alex enters his name and password as required by the login command.</p>
+we will use the scenario that a user, Alex Yeoh, wants to login to his account. Alex enters his name and password as required by the login command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -866,18 +845,9 @@ of another users account.</p>
 <div class="paragraph">
 <p>To ensure cohesiveness of the login/logout feature with the EditUser Command and DeleteUser
 Command that were implemented in AddressBook-Level 4, appropriate changes was made to these
-two commands.</p>
-</div>
-<div class="paragraph">
-<p>First and foremost, we will need users to be logged in to edit or delete his/her user account.</p>
-</div>
-<div class="paragraph">
-<p>Once the user issues an <code>deleteUser</code> command, it is automatically assumed that the user wants to
+two commands. First and foremost, we will need users to be logged in to edit or delete his/her user account. Once the user issues an <code>deleteUser</code> command, it is automatically assumed that the user wants to
 delete his/her own account. This ensures that only the user of the account is allowed to delete
-his/her account.</p>
-</div>
-<div class="paragraph">
-<p>Once the user issues an <code>editUser</code> command, it is also automatically assumed that the user wants to
+his/her account. Once the user issues an <code>editUser</code> command, it is also automatically assumed that the user wants to
 delete his/her own account. This ensures that only the user of the account is allowed to edit
 his/her account. However, due to the way users are uniquely identified in EventOrganiser,
 a user may find that they are unable to change their name or password. In these situations, the user
@@ -3049,4 +3019,4 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 11:58:01 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 12:03:35 UTC</div></div></div></body></html>
