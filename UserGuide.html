@@ -90,7 +90,7 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>EventOrganiser is an application for managing and organising events built for NUS students, also known as Event Organiser.
+<p>EventOrganiser is an application for managing and organising events built for NUS students, also known as EventOrganiser.
 More importantly, EventOrganiser is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, EventOrganiser can help you to arrange events faster than traditional GUI apps.
 Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
@@ -128,13 +128,13 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>listUser</code></strong> : lists all users in the Event Organiser</p>
+<p><strong><code>listUser</code></strong> : lists all users in EventOrganiser</p>
 </li>
 <li>
-<p><strong><code>addUser</code></strong><code>n/John Doe p/98765432 e/johnd@example.com pass/password a/John street, block 123, #01-01</code> : creates new user named <code>John Doe</code> to the Event Organiser.</p>
+<p><strong><code>addUser</code></strong>` n/John Doe p/98765432 e/johnd@example.com pass/password a/John street, block 123, #01-01` : creates new user named <code>John Doe</code> to EventOrganiser.</p>
 </li>
 <li>
-<p><strong><code>addEvent</code></strong><code>n/CS2103 Project Meeting a/SoC Canteen t/Urgent</code> : adds an event named CS2103 Project Meeting to be held at SoC Canteen.</p>
+<p><strong><code>addEvent</code></strong>` n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.</p>
 </li>
 <li>
 <p><strong><code>exit</code></strong> : exits the app</p>
@@ -179,7 +179,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p>You may create polls to get participants to vote on the details of the event using <code>addPoll</code> and <code>addPollOption</code>.</p>
 </li>
 <li>
-<p>You can create a special TimePoll using <code>addTimePoll</code> after all participants have joined to decide on a suitable time. This generates poll options based on the NUS timetables/schedules of the participants.</p>
+<p>You can create a special TimePoll using <code>addTimePoll</code> after all participants have joined to decide on a suitable time. This generates poll options based on the NUSMOD schedules of the participants.</p>
 </li>
 <li>
 <p>You may decide to <code>deleteEvent</code> after the event is over, or leave it in the organiser as a form of record.</p>
@@ -282,6 +282,9 @@ Format <code>Command tt/ <a href="http://modsn.us/XXXX&#8230;&#8203" class="bare
 <div class="ulist">
 <ul>
 <li>
+<p>Ensure that your computer is synced with an atomic clock.</p>
+</li>
+<li>
 <p>Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".</p>
 </li>
 <li>
@@ -323,6 +326,9 @@ Format <code>Command tt/ <a href="http://modsn.us/XXXX&#8230;&#8203" class="bare
 <div class="ulist">
 <ul>
 <li>
+<p>If there than one prefix of the same kind with valid keywords, only the last prefix with valid keywords will be parsed.</p>
+</li>
+<li>
 <p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
 </li>
 <li>
@@ -352,8 +358,8 @@ Format <code>Command tt/ <a href="http://modsn.us/XXXX&#8230;&#8203" class="bare
 <div class="sect3">
 <h4 id="add-a-user-code-adduser-code"><a class="link" href="#add-a-user-code-adduser-code">5.2.1. Add a user : <code>addUser</code></a></h4>
 <div class="paragraph">
-<p>Adds a new uniqiue user to EventOrganiser.<br>
-Format: <code>addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST]&#8230;&#8203; [tt/TIMETABLE] [t/TAG]&#8230;&#8203;</code></p>
+<p>Adds a new unique user to EventOrganiser.<br>
+Format: <code>addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/PASSWORD a/ADDRESS [i/INTEREST]&#8230;&#8203; [tt/TIMETABLE] [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -413,7 +419,7 @@ Format: <code>addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/I
 <p>Examples:</p>
 </div>
 <div class="paragraph">
-<p><code>login n/John Doe pass/password123</code></p>
+<p><code>login n/Alex Yeoh pass/password</code></p>
 </div>
 </div>
 <div class="sect3">
@@ -427,17 +433,11 @@ Format: <code>addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/I
 <div class="paragraph">
 <p><code>logout</code></p>
 </div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="paragraph">
-<p><code>logout</code></p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="list-all-users-code-listuser-code"><a class="link" href="#list-all-users-code-listuser-code">5.2.4. List all users : <code>listUser</code></a></h4>
 <div class="paragraph">
-<p>Shows a list of all users in the Event Organiser.<br>
+<p>Shows a list of all users in EventOrganiser.<br>
 Format: <code>listUser</code></p>
 </div>
 </div>
@@ -445,7 +445,7 @@ Format: <code>listUser</code></p>
 <h4 id="find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code"><a class="link" href="#find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code">5.2.5. Find users by name, phone number, email, address, interest, tag : <code>findUser</code></a></h4>
 <div class="paragraph">
 <p>Finds users with matching name, phone number, email, address, interest, tag.<br>
-Format: <code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]&#8230;&#8203; [t/TAG]&#8230;&#8203;</code></p>
+Format: <code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [t/TAG]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -461,7 +461,7 @@ Format: <code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTERE
 <p>The order of the conditions does not matter.</p>
 </li>
 <li>
-<p>At least one prefix with keywords must be present</p>
+<p>At least one prefix with valid keywords must be present</p>
 </li>
 <li>
 <p>The search is based on CONDITION 1 AND CONDITION 2 AND &#8230;&#8203; . For example, <code>findUser n/John i/dance</code> will search for users that satisfy the conditions of both name 'John' and interest 'dance'. Likewise for attributes that can be stated more than one (interest and tag), <code>findUser i/tennis i/soccer</code> will search for users that satisfy the conditions of both interest 'tennis' and interest 'soccer'.</p>
@@ -510,8 +510,13 @@ Returns any user with the name <code>87438807</code> AND email <code>john@exampl
 </li>
 </ul>
 </div>
-<div class="exampleblock">
-<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -520,7 +525,9 @@ only the last prefix and its keyword will be parsed.</p>
 </li>
 </ul>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="ulist">
 <ul>
@@ -534,8 +541,13 @@ Returns any user with name <code>Li</code></p>
 </li>
 </ul>
 </div>
-<div class="exampleblock">
-<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -544,7 +556,9 @@ satisfy at least one of the conditions will be shown.</p>
 </li>
 </ul>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="ulist">
 <ul>
@@ -562,8 +576,8 @@ Returns any user with the tag <code>SOC</code> OR <code>FASS</code> OR <code>SDE
 <div class="sect3">
 <h4 id="delete-a-user-code-deleteuser-code"><a class="link" href="#delete-a-user-code-deleteuser-code">5.2.6. Delete a user : <code>deleteUser</code></a></h4>
 <div class="paragraph">
-<p>Deletes the currently logged in user from Event Organiser.<br>
-Format: `deleteUser `</p>
+<p>Deletes the currently logged in user from EventOrganiser.<br>
+Format: <code>deleteUser</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -576,7 +590,7 @@ Format: `deleteUser `</p>
 <p>The events organised by this user will also be deleted.</p>
 </li>
 <li>
-<p>After the user is deleted, no other user in the Event Organiser will be currently logged-in.</p>
+<p>After the user is deleted, no other user in the EventOrganiser will be currently logged-in.</p>
 </li>
 <li>
 <p>After the user is deleted, if the deleted user is in the friend list of another user, the other user&#8217;s friend list will be updated to show that the deleted user is no longer in the list.</p>
@@ -617,7 +631,7 @@ Format: <code>selectUser INDEX</code></p>
 <li>
 <p><code>listUser</code><br>
 <code>selectUser 2</code><br>
-Selects the 2nd user in the Event Organiser.</p>
+Selects the 2nd user in EventOrganiser.</p>
 </li>
 <li>
 <p><code>findUser Betsy</code><br>
@@ -630,7 +644,7 @@ Selects the 1st user in the results of the <code>find</code> command.</p>
 <div class="sect3">
 <h4 id="edit-a-user-code-edituser-code"><a class="link" href="#edit-a-user-code-edituser-code">5.2.8. Edit a user : <code>editUser</code></a></h4>
 <div class="paragraph">
-<p>Edits the currently logged-in user in the Event Organiser.<br>
+<p>Edits the currently logged-in user in EventOrganiser.<br>
 Format: <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pass/PASSWORD] [i/INTEREST]&#8230;&#8203; [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
@@ -653,10 +667,10 @@ Format: <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pass/PAS
 <p>Due to what is mentioned above, you can remove all the user&#8217;s interests/tags by typing <code>i/</code> or <code>t/</code> without specifying any interests/tags after it.</p>
 </li>
 <li>
-<p>Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE</p>
+<p>After the user is edited (eg change of name), if the edited user is in the friend list of another user, the other user&#8217;s friend list will be updated to show the updated version of the edited user.</p>
 </li>
 <li>
-<p>After the user is edited (eg change of name), if the edited user is in the friend list of another user, the other user&#8217;s friend list will be updated to show the updated version of the edited user.</p>
+<p>Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE</p>
 </li>
 <li>
 <p>When using schedule update, the parameter should be "day 0000" where day is the day of the week and 0000 is the 24h representation of the time. Note that schedule only records in 30 min slots, thus the minute value will be rounded off to the nearest 30 minutes.</p>
@@ -780,7 +794,7 @@ User specified at <code>INDEX</code> 2 is deleted from the logged-in user&#8217;
 <div class="sect3">
 <h4 id="suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code"><a class="link" href="#suggest-friends-based-on-similar-interests-code-suggestfriendsbyinterests-code">5.2.11. Suggest friends based on similar interests : <code>suggestFriendsByInterests</code></a></h4>
 <div class="paragraph">
-<p>Suggest friends for an existing user in the Event Organiser that have at least one similar interest with the selected user.<br>
+<p>Suggest friends for an existing user in EventOrganiser that have at least one similar interest with the selected user.<br>
 Format: <code>suggestFriendsByInterests INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -816,7 +830,7 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <ul>
 <li>
 <p><code>suggestFriendsByInterests 1</code><br>
-Displays users in the Event Organiser that have at least one similar interest with the selected 1st user, and are not yet in the selected user&#8217;s friend list.</p>
+Displays users in EventOrganiser that have at least one similar interest with the selected 1st user, and are not yet in the selected user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
@@ -851,7 +865,7 @@ Format: <code>listFriends INDEX</code></p>
 <ul>
 <li>
 <p><code>listFriends 1</code><br>
-List all the users who are in the friend list of the 1st user in the Event Organiser.</p>
+List all the users who are in the friend list of the 1st user in EventOrganiser.</p>
 </li>
 </ul>
 </div>
@@ -860,7 +874,7 @@ List all the users who are in the friend list of the 1st user in the Event Organ
 <h4 id="get-free-time-between-users-code-maxschedule-code"><a class="link" href="#get-free-time-between-users-code-maxschedule-code">5.2.13. Get free time between users : <code>maxSchedule</code></a></h4>
 <div class="paragraph">
 <p>Compares the schedule of multiple users and return a string of common free time slots. LIMIT is a XXXX-XXX specified timing to limit the time range displayed.<br>
-Format: <code>maxSchedule INDEX INDEX [sl/ LIMIT]&#8230;&#8203;</code></p>
+Format: <code>maxSchedule INDEX INDEX&#8230;&#8203; [sl/ LIMIT]&#8230;&#8203;</code></p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -884,7 +898,7 @@ Compares the schedule of users of index 1 and 2 and return a string of common fr
 <div class="sect3">
 <h4 id="create-a-new-event-code-addevent-code"><a class="link" href="#create-a-new-event-code-addevent-code">5.3.1. Create a new event : <code>addEvent</code></a></h4>
 <div class="paragraph">
-<p>Adds a new event to the Event Organiser.<br>
+<p>Adds a new event to EventOrganiser.<br>
 Format: <code>addEvent n/NAME a/LOCATION [t/TAG] &#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
@@ -930,7 +944,7 @@ Format: <code>addEvent n/NAME a/LOCATION [t/TAG] &#8230;&#8203;</code></p>
 <div class="sect3">
 <h4 id="delete-an-event-code-deleteevent-code"><a class="link" href="#delete-an-event-code-deleteevent-code">5.3.2. Delete an event : <code>deleteEvent</code></a></h4>
 <div class="paragraph">
-<p>Deletes the specified event from the Event Organiser.<br>
+<p>Deletes the specified event from EventOrganiser.<br>
 Format: <code>deleteEvent INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -941,7 +955,7 @@ Format: <code>deleteEvent INDEX</code></p>
 <p>Deletes the event at the specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed user list.</p>
+<p>The index refers to the index number shown in the displayed event list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
@@ -962,9 +976,9 @@ Format: <code>deleteEvent INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>list</code><br>
+<p><code>listEvent</code><br>
 <code>deleteEvent 2</code><br>
-Deletes the 2nd event in the Event Organiser.</p>
+Deletes the 2nd event in EventOrganiser.</p>
 </li>
 </ul>
 </div>
@@ -973,7 +987,7 @@ Deletes the 2nd event in the Event Organiser.</p>
 <h4 id="select-an-event-code-selectevent-code"><a class="link" href="#select-an-event-code-selectevent-code">5.3.3. Select an event : <code>selectEvent</code></a></h4>
 <div class="paragraph">
 <p>Selects an event to be edited.<br>
-Format: <code>selectEvent index</code></p>
+Format: <code>selectEvent INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1004,7 +1018,7 @@ Format: <code>selectEvent index</code></p>
 <div class="sect3">
 <h4 id="edit-an-event-code-editevent-code"><a class="link" href="#edit-an-event-code-editevent-code">5.3.4. Edit an event : <code>editEvent</code></a></h4>
 <div class="paragraph">
-<p>Edits an existing event in the Event Organiser. Only the event name, location and tags may be edited using this command.<br>
+<p>Edits an existing event in EventOrganiser. Only the event name, location and tags may be edited using this command.<br>
 Format: <code>editEvent [n/NAME] [a/ADDRESS] [t/TAG] &#8230;&#8203;</code></p>
 </div>
 <div class="admonitionblock note">
@@ -1167,8 +1181,12 @@ Selecting the event again using the <code>selectEvent</code> command displays th
 </ul>
 </div>
 <div class="paragraph">
-<p>The following screenshot shows the outcome of this command.
-image::AddPollDisplay.png[width="800"]</p>
+<p>The following screenshot shows the outcome of this command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddPollDisplay.png" alt="AddPollDisplay" width="800">
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -1186,7 +1204,7 @@ Format: <code>addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR</code></p>
 participants who have joined the event.</p>
 </li>
 <li>
-<p>The time poll options represent 30 minute slots starting at the date and time specified. All event particpants must be free at that slot for it to be in the time poll.</p>
+<p>The time poll options represent 30 minute slots within the start and end date specified. All event particpants must be free at that slot for it to be in the time poll.</p>
 </li>
 <li>
 <p>The date with prefix <code>d1</code> represents the start of the given date range and <code>d2</code> represents the end of the date range.</p>
@@ -1309,7 +1327,7 @@ Displays the poll with index 1 associated with the already selected event, if it
 <div class="sect3">
 <h4 id="find-event-by-the-name-of-the-event-code-findevent-code"><a class="link" href="#find-event-by-the-name-of-the-event-code-findevent-code">5.4.1. Find event by the name of the event : <code>findEvent</code></a></h4>
 <div class="paragraph">
-<p>Finds events based on the attributes of the event: event name, event location, date, start time, Event Organiser, and event participants.<br>
+<p>Finds events based on the attributes of the event: event name, event location, date, start time, event organiser, and event participants.<br>
 Format: <code>findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]</code></p>
 </div>
 <div class="sidebarblock">
@@ -1382,7 +1400,7 @@ Finds all events held between 12pm and 6pm on 12 December 2018.</p>
 <div class="sect3">
 <h4 id="list-all-events-code-listevent-code"><a class="link" href="#list-all-events-code-listevent-code">5.4.3. List all events : <code>listEvent</code></a></h4>
 <div class="paragraph">
-<p>Shows a list of all events in the Event Organiser.<br>
+<p>Shows a list of all events in EventOrganiser.<br>
 Format: <code>listEvent</code></p>
 </div>
 </div>
@@ -1527,7 +1545,7 @@ Format: <code>exit</code></p>
 <div class="sect2">
 <h3 id="saving-the-data"><a class="link" href="#saving-the-data">5.8. Saving the data</a></h3>
 <div class="paragraph">
-<p>Event Organiser data are saved in the hard disk automatically after any command that changes the data.<br>
+<p>EventOrganiser data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
@@ -1538,7 +1556,7 @@ There is no need to save manually.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Event Organiser folder.</p>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EventOrganiser folder.</p>
 </div>
 </div>
 </div>
@@ -1604,7 +1622,7 @@ e.g. <code>listFriends 1</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Edit User</strong> : <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] &#8230;&#8203;</code><br>
+<p><strong>Edit User</strong> : <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]&#8230;&#8203; [t/TAG]&#8230;&#8203; [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] &#8230;&#8203;</code><br>
 e.g. <code>editUser n/Alex Yeoh e/jameslee@example.com</code><br>
 e.g. <code>editUser tt/ <a href="http://modsn.us/H4v8s" class="bare">http://modsn.us/H4v8s</a></code><br>
 e.g. <code>editUser su/ monday 0000</code></p>
@@ -1690,12 +1708,12 @@ e.g. <code>vote i/1 o/Play games</code></p>
 <li>
 <p><strong>Find Event With Attributes</strong> : <code>findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
 [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]</code><br>
-e.g. <code>findEvent d/12-12-2018 on/Alex Yeoh</code><br>
-e.g. <code>findEvent a/SoC Canteen</code></p>
+e.g. <code>findEvent d/19-12-2018 on/Alex Yeoh</code><br>
+e.g. <code>findEvent a/NUS SoC Canteen</code></p>
 </li>
 <li>
 <p><strong>Find Event by Time</strong> : <code>findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE</code><br>
-e.g. <code>findEventByTime d/12-12-2018 t1/12:30 t2/13:45</code></p>
+e.g. <code>findEventByTime d/19-12-2018 t1/12:30 t2/13:45</code></p>
 </li>
 <li>
 <p><strong>List Events</strong> : <code>listEvent</code><br>
@@ -1705,4 +1723,4 @@ e.g. <code>listEvent</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:21:45 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:54:10 UTC</div></div></div></body></html>
