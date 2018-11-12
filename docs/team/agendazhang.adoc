@@ -27,8 +27,8 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 
 ** Project management
 ** Enhancements to existing features:
-*** Updated the GUI browser display (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/123 [#123])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/163 [#163], https://github.com/CS2103-AY1819S1-W10-3/main/pull/189 [#189])
+*** Updated the GUI browser display to divide the sections regarding user attributes (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/123 [#123])
+*** Wrote additional tests for existing features to increase coverage (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/163 [#163], https://github.com/CS2103-AY1819S1-W10-3/main/pull/189 [#189])
 ** Documentation:
 *** Updated the original user commands (from Address Book Level 4) in the developer guide (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/189 [#189])
 ** Community:

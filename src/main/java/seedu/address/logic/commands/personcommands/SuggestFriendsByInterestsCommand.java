@@ -48,6 +48,7 @@ public class SuggestFriendsByInterestsCommand extends Command {
         }
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+        assert targetPerson != null;
 
         InterestSimilarPredicate predicate = new InterestSimilarPredicate(targetPerson);
 

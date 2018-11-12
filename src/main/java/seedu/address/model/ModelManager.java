@@ -191,6 +191,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
         event.setOrganiser(currentUser);
         event.addParticipant(currentUser);
+
+        assert(!hasEvent(event));
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
@@ -207,6 +209,9 @@ public class ModelManager extends ComponentManager implements Model {
         if (!target.getOrganiser().equals(currentUser)) {
             throw new NotEventOrganiserException();
         }
+
+        assert(hasEvent(target));
+        currentEvent = null;
         versionedAddressBook.removeEvent(target);
         indicateAddressBookChanged();
     }
@@ -224,12 +229,11 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         Event editedEvent = createEditedEvent(name, location, tags);
-
         if (hasEvent(editedEvent)) {
             throw new DuplicateEventException();
         }
-
-        versionedAddressBook.updateEvent(currentEvent, editedEvent);
+        updateEvent(currentEvent, editedEvent);
+        currentEvent = editedEvent;
         indicateAddressBookChanged();
     }
 
@@ -312,9 +316,8 @@ public class ModelManager extends ComponentManager implements Model {
         if (!currentUser.equals(currentEvent.getOrganiser())) {
             throw new NotEventOrganiserException();
         }
-        int index = versionedAddressBook.getEventList().indexOf(currentEvent);
         String pollDetails = currentEvent.addPoll(pollName);
-        updateEvent(index, currentEvent);
+        updateEvent(currentEvent, currentEvent);
         return pollDetails;
     }
 
@@ -401,16 +404,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
+        if (currentEvent.equals(target)) {
+            currentEvent = editedEvent;
+        }
 
         versionedAddressBook.updateEvent(target, editedEvent);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updateEvent(int index, Event editedEvent) {
-        requireAllNonNull(index, editedEvent);
-
-        versionedAddressBook.updateEvent(index, editedEvent);
         indicateAddressBookChanged();
     }
 

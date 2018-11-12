@@ -1,4 +1,4 @@
-= Event Organiser - Developer Guide
+= EventOrganiser - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -148,7 +148,7 @@ image::LogicClassDiagram.png[width="800"]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `deleteUser`.
-It is assumed that the user has already logged in to his/her account in Event Organiser.
+It is assumed that the user has already logged in to his/her account EventOrganiser.
 
 .Component interactions for `deleteUser` command (part 1)
 image::SDforDeletePerson.png[width="800"]
@@ -200,7 +200,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteUser")` API call.
-Once again, note that we have assumed that the user has already logged in to his/her account in Event Organiser.
+Once again, note that we have assumed that the user has already logged in to his/her account in EventOrganiser.
 
 .Interactions Inside the Logic Component for the `deleteUser` Command.
 
@@ -242,11 +242,11 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Event Organiser data in xml format and read it back.
+* can save EventOrganiser data in xml format and read it back.
 
-Each event contains references to persons in the list of persons in the event organiser.
-The storage component stores these people in the form of XmlPersonIndex objects, which are constructed from the index of the person as it is stored in the event organiser.
-When converting XmlAdaptedEvent objects back to a model type Event object, the XmlPersonIndex must be converted to the corresponding person in the event organiser person list.
+Each event contains references to persons in the list of persons in the EventOrganiser.
+The storage component stores these people in the form of XmlPersonIndex objects, which are constructed from the index of the person as it is stored in EventOrganiser.
+When converting XmlAdaptedEvent objects back to a model type Event object, the XmlPersonIndex must be converted to the corresponding person in the EventOrganiser person list.
 
 [[Design-Commons]]
 === Common classes
@@ -264,10 +264,10 @@ This section describes some noteworthy details on how certain features are imple
 
 The goal of this section is to explain the implementation of the
 login/logout feature and to briefly explain the changes that were made on relevant
-components of Event Organiser, namely, the EditUser Command, and the DeleteUser Command,
+components of EventOrganiser, namely, the EditUser Command, and the DeleteUser Command,
 to ensure cohesiveness of the entire application.
 
-.Sequence Diagram for the Logic component when the user issues an `login n/Alice pass/password` command.
+.Sequence Diagram for the Logic component when the user issues a `login n/Alice pass/password` command.
 image::LoginFeature_SequenceDiagram_includes_Logic.png[width="800"]
 
 We have assumed that a user with name as "Alice" and password as "password" already exists in Event
@@ -278,17 +278,17 @@ not be successful.
 In this implementation, we define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
 
 When the execute() method of the Login command is called,  the login command authenticates
-the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in Event Organiser.
+the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in EventOrganiser.
 A CommandException will be thrown in the following 2 scenarios:
 
-* When the user does not exist in Event Organiser.
+* When the user does not exist in EventOrganiser.
 
 * When there is already a user that is logged in.
 
 On the other hand, when the execute() method of the Logout command is called,
 a CommandException will be thrown when there isn't any user that is logged in.
 
-.Sequence Diagram for the Model component when the user issues an `login n/Alice pass/password` command.
+.Sequence Diagram for the Model component when the user issues a `login n/Alice pass/password` command.
 image::LoginFeature_SequenceDiagram_includes_Model.png[width:"50%"]
 
 After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
@@ -318,19 +318,6 @@ Once Alex Yeoh successfully logs in, the UI will automatically be updated as sho
 
 image::LoginFeatureAfterLogin.png[width="300"]
 
-The images below shows the Class Diagram for the Model component of the Login command.
-Note that some minute details where ommited for the sake of simplicity.
-
-image::LoginFeature_ClassDiagram_Model_1.png[width="800", margin-bottom="0"]
-
-image::LoginFeature_ClassDiagram_Model_2.png[width="600", margin-top="0"]
-
-image::LoginFeature_ClassDiagram_Model_3.png[width="800"]
-
-.Class Diagram for the Model component of the Login Command
-image::LoginFeature_ClassDiagram_Model_4.png[width="800"]
-
-
 Again, note that some minute details for the Logic component where omitted for the sake of simplicity.
 
 .Class Diagram for the Logic component of the Login Command
@@ -342,15 +329,15 @@ image::LoginFeature_ClassDiagram_Logic_1.png[width="800"]
 
 * **Alternative 1**(Current implementation) :
 In the current implementation, we need to uniquely identify an user using both their name and
-password. If two users have different names, they will be identified users. Even if two users have
-the same name, they can simply choose different passwords for both users to use Event Organiser.
+password. If two users have different names, they will be different users. Even if two users have
+the same name, they can simply choose different passwords for both users to use EventOrganiser.
+** Pros: Fairly easy to implement
+** Cons: Fairly easy for a malicious user to login to another user's account.
 However, the problem arises when a malicious user wants to login to other user's account. This can
 be achieved fairly simply using the login command. The malicious user can look for the name of
 the user that already has an account, and brunt force their way in, especially if the
 password is weak. Similar technique can be used using the EditUser command to comprise the integrity
 of another users account.
-** Pros: Fairly easy to implement
-** Cons: Fairly easy for a malicious user to login to another user's account
 
 * **Alternative 2** : Implement login command with one-time passwords.
 ** Pros: High level of security
@@ -369,7 +356,7 @@ his/her account.
 
 Once the user issues an `editUser` command, it is also automatically assumed that the user wants to
 delete his/her own account. This ensures that only the user of the account is allowed to edit
-his/her account. However, due to the way users are uniquely identified in Event Organiser,
+his/her account. However, due to the way users are uniquely identified in EventOrganiser,
 a user may find that they are unable to change their name or password. In these situations, the user
 is encouraged to change their name or password to a different name or password respectively from
 the new name or password that they have chosen before.
@@ -482,14 +469,14 @@ image::PollClassDiagram.png[width="800"]
 When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
 each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
 Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects,
-which serve as pointers to the actual Person objects stored in the event organiser.
+which serve as pointers to the actual Person objects stored in EventOrganiser.
 
 As an example, the following sequence diagram illustrates the workings of the `VoteCommand`.
 
 image::VoteSequenceDiagram.png[width="800"]
 
 As stated above, since Model already stores the current user and the selected event from prior user commands,
-the Model can call the correct Event e and Person object in the `addVoteToPoll` method. If there is no logged-in user,
+the Model can call the correct Event 'e' and Person object 'user' in the `addVoteToPoll` method. If there is no logged-in user,
 a `NoUserLoggedInException` is thrown, and if there is no selected event, a `NoEventSelectedException` is thrown.
 
 In addition, four other possible exceptions might be thrown by the VoteCommand:
@@ -506,7 +493,7 @@ image::AddPollSequenceDiagram.png[width="600"]
 
 In all cases, the contents of the poll is returned to the calling Command object as String through the `Poll#displayPoll()` method.
 The displayed details of the poll contains the most popular options, computed using the `Poll#getPopularOptions()` method.
-This method returns an empty list if there no user has voted for any option yet.
+This method returns an empty list if no user has voted for any option yet.
 A new `DisplayPollEvent` is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.
 
 The `TimePoll` class extends from the abstract `AbstractPoll` class which is constructed by calling the `AddTimePollCommand`.
@@ -543,11 +530,11 @@ The voter list must also be manually updated every time the person details are u
 // tag::schedule[]
 === Schedule feature
 ==== Current implementation
-This section explains the implementation of the features associated with the Schedule class of each Schedule while detailing some implementation details of the Schedule class. The relevant commands which are callable by the user to be discussed are:
+This section explains the implementation of the features associated with the Schedule class of each schedule while detailing some implementation details of the Schedule class. The relevant commands which are callable by the user to be discussed are:
 
-`EditUserCommand` - The base Edit command for person with two additions - Schedule and Schedule Update parameter
+`EditUserCommand` - The base Edit command for person with one additions - Schedule Update parameter
 
-`MaxScheduleCommand` - Compare two persons' schedules and return the common free time.
+`MaxScheduleCommand` - Compare two or more persons' schedules and return the common free time.
 
 ==== Design considerations
 
@@ -585,13 +572,13 @@ As manipulating bit strings may be complicated, getter, setter and merger method
 
 ===== Aspect: Schedule Update
 
-To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be entered. The strings are then converted into a Slot(which contains Time and Day objects). The setter methods of schedule is then called to effect the change. Note that this is a "bit flip" operation, so it will set a free Slot to an occupied Slot and vice versa.
+To effect a schedule update, a pair of strings representing the time of the day and the day of the week are to be entered. The strings are then converted into a Slot(which contains Time and Day objects). The setter methods of schedule is then called to effect the change. Note that this is a "bit flip" operation, so it will set a free Slot to an occupied Slot and vice versa.
 
 ===== Aspect: MaxSchedule Command
 
-Similarly, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.
+Similarly, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This Schedule object is then translated into slots and print back to the application.
 
-Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
+Noted that we have 336 Slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
 It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.
 
 The sequence diagram of MaxSchedule command is illustrated below.
@@ -650,7 +637,7 @@ The above short link will be parsed into the full nusmods link as followed:
 https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:11&CS2103=LEC:1,TUT:01&CS2105=LEC:1,TUT:16&CS2106=LAB:09,LEC:1,TUT:09&MA1521=LEC:1,TUT:4&UCV2209=SEM:01
 ```
 
-Breakdown on how to obtain the full timetable and convert it into a schedule.
+Breakdown on how to obtain the full timetable and convert it into a Schedule.
 
 Step 1. We can easily obtain the person's timetable by splitting the GET parameters by ';' delimiter. The resulting array would contain Module Code /=/ Lesson Type /:/ Number Slot.
 
@@ -660,9 +647,9 @@ Step 3. We will then filter out the lessons obtained in step 1 from the full det
 
 Step 4. The filtered lessons is then converted into a list of Slot.
 
-Step 5. The list of Slot will be passed in a Schedule constructor to generate a new schedule.
+Step 5. The list of Slot will be passed in a Schedule constructor to generate a new Schedule.
 
-Step 6. The new schedule object is returned to the application.
+Step 6. The new Schedule object is returned to the application.
 
 // end::timetable[]
 
@@ -670,7 +657,7 @@ Step 6. The new schedule object is returned to the application.
 === Add/Delete Friend feature
 
 ==== Current implementation
-This section explains the implementation of the addition/deletion of friends feature associated with each user in EventOrganizer. The relevant commands which are callable by the user to be discussed are:
+This section explains the implementation of the addition/deletion of friends feature associated with each user in EventOrganiser. The relevant commands which are callable by the user to be discussed are:
 
 * `AddFriendCommand` - takes in an `INDEX`, and adds the person specified at the `INDEX` to the logged-in person's friend list.
 * `DeleteFriendCommand` - takes in an `INDEX,` and deletes the person specified at the `INDEX` from the logged-in person's friend list.
@@ -686,7 +673,7 @@ image::AddFriendCommand.png[width="800"]
 
 Friendships are unilateral, so if person A is a friend of person B, then person B may not be a friend of person A.
 
-In Event Organiser, adding a user into the friend list is similar to following someone on Instagram. This is because having a person in your friend list will make it easier for you to be kept updated of his/her details, such as viewing his/her personal particulars or viewing the events that he/she had joined. This is because of the `ListFriendsCommand` which can display all the friends of the particular user and their details in the display panel as shown below.
+In EventOrganiser, adding a user into the friend list is similar to following someone on Instagram. This is because having a person in your friend list will make it easier for you to be kept updated of his/her details, such as viewing his/her personal particulars or viewing the events that he/she had joined. This is because of the `ListFriendsCommand` which can display all the friends of the particular user and their details in the display panel as shown below.
 
 image::ListAllFriendsExample.png[width="800"]
 
@@ -694,8 +681,8 @@ To specify the addition of a user into the logged-in user's friend list (`AddFri
 
 ===== Aspect: Friend class
 
-Like other attributes, we represents a friend of a Person using a `Friend` class. The `Friend` class has a constructor which takes in a Person object, and initializes the string field `friendAttributes` that combines the 4 main attributes of `Person` (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a `Person`. Example:
-For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the `Friend` object's `friendAttributes` string field will be 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
+Like other attributes, we represents a friend of a Person using a `Friend` class. The `Friend` class has a constructor which takes in a Person object, and initializes the string field `friendAttributes` that combines the 2 attributes that define the uniqueness of a `Person` (name and password) in string form using a vertical bar(|). Example:
+For a person with name `Alex Yeoh`, password `password123`, the `Friend` object's `friendAttributes` string field will be `Alex Yeoh|password123`.
 
 In the `Person` class, his/her friends will be represented using a `Set` of `Friend` objects as the friend list. In the example below, we will describe the procedures when `Person` A (logged-in user) wants to add `Person` B (user specified by `INDEX`) into his/her friend list.
 
@@ -711,14 +698,14 @@ Similarly, if `Person` B is not yet in `Person` A's (logged-in user) friend list
 
 ===== Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person
 
-The friend lists of each user have to be constantly updated when a user is deleted from the Event Organizer or his/her attributes are modified (such as change of name).
+The friend lists of each user have to be constantly updated when a user is deleted from the EventOrganiser or his/her attributes are modified (such as change of name).
 
 The following scenario describes what happens if `Person` B is already on the friend list of `Person` A.
 
 `Person` B gets deleted from the Event Organizer:
 This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteUserCommand` class, which searches through the friend lists of all the other persons. If someone has `Person` B in their friend list (such as `Person` A), then `Person` B will be removed from `Person` A's friend list.
 
-`Person` B's attributes gets modified (eg change name/phone):
+`Person` B's attributes gets modified (eg change of name):
 This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has `Person` B in their friend list (such as `Person` A), the original Friend object in `Person` A's friend list will be replaced by the new Friend object created using the new attributes of `Person` B.
 
 // end:::addDeleteFriend[]
@@ -929,286 +916,6 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-////
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-////
-
-
 [appendix]
 == Product Scope
 
@@ -1217,7 +924,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * Busy NUS students.
 * Need to organise group project meetings.
 *  Need to organise interest group meet-ups and encourage new participants to attend.
-*  Need to find the best time and location based on the schedules of participants and addresses.
+*  Need to find the best time to meet-up based on the schedules of participants and addresses.
 *  Some level of tech-savviness to appreciate CLI apps.
 *  Have a schedule that works on a weekly basis.
 
@@ -1280,19 +987,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|Event Organiser|Have a specialised platform to post events aimed at a tech-savvy audience.| Promote my event to an audience that I am interested in.
 
-|`* * *`|Busy User|Have a platform to search for all the events that are near the place I stay.| Go to an event without the trouble of travelling long distances.
-
 |`* * *`|Busy User|Have a platform to search for all the events that occur during my free time.| Easily find a event that I have time to go for.
 
 |`* * *`|Tech-savvy User| Have a platform that supports CLI.| Easily write scripts to automatic the task that I want to accomplish on a regular basis.
 
 |`* * *`|User|Keep track of all the events that I can gone to.| Have a record of the events that I have been to.
 
-|`* * *`|User|Visualise the event location on Google maps.| Find out exactly how to get to that location.
+|`* * *`|User| [Coming in v2.0] Visualise the event location on Google maps.| Find out exactly how to get to that location.
 
-|`* * *`|User|A social media kind of platform which specialises on organising events.| Know the events that my friends are going to and let my friends know about the events that I am going to.
+|`* * *`|User|Have a social media kind of platform which specialises on organising events.| Know the events that my friends are going to and let my friends know about the events that I am going to.
 
-|`* * *`|User|Easily find other users based on their particulars.| Find my friends and family members, or anyone that might be of interest to me.
+|`* * *`|User|Easily find other users based on their particulars.| Find my friends or anyone that might be of interest to me.
 
 |`* * *`|User|Create an individual profile with some security features.| I can access and make changes to my own profile easily, but other people will not have access to it.
 
@@ -1300,12 +1005,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|NUS student|Have a platform that can facilitate the task of finding the ideal time and location for project group meet-ups.| Easily organise project group meet-ups instead of asking each individual group mates one by one.
 
-|`* *`|Event Organiser|Find people who live close to a specific location and people who are available at a specific time.| Find people who are at least able to attend the event.
-
 |`* *`|User|Find mutual friends in among my social circle and people with similar interests as me.|I can widen my social circle and meet like minded people.
-
-|`*`|User|Visualise my social network and the groups I am a part of.| See how I am connected with another person.
-
 
 |=======================================================================
 
@@ -1399,7 +1099,7 @@ Use case resumes from step 3.
 [discrete]
 === Use case: U04 – Create new event
 
-*Actor: Event Organiser*
+*Actor: Event organiser*
 
 *Precondition: Event organiser has logged himself/herself in*
 
@@ -1552,7 +1252,7 @@ Use case ends.
 
 [discrete]
 
-=== Use case: U08 – Event organiser confirms the event details
+=== Use case: U09 – Event organiser confirms the event details
 
 *Actor: Event organiser*
 
@@ -1627,7 +1327,7 @@ Use case resumes from step 12.
 
 [appendix]
 == Non Functional Requirements
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Should work on any mainstream OS as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Commands should be intuitive for users to pick up easily.
@@ -1706,14 +1406,13 @@ The result of the test cases under each command is assumed to not persist to the
    Expected: The most recent window size and location is retained.
 
 === Add a user
-.. Test case: `addUser p\95642244 e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
-      Expected: Add user unsuccessful.
-.. Test case: `addUser n\Alex Yeoh e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
-      Expected: Add user unsuccessful.
-.. Test case: `addUser n\Alex Yeoh`
-      Expected: Add user unsuccessful.
-.. Test case: `addUser n\Alex Yeoh p\95642244 e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
-   Expected: Add user successful.
+.. Note: The states of each test case is continued in the next test case.
+.. Prerequisites:
+EventOrganiser has no users currently.
+.. Test case: `addUser n/Alex Yeoh pass/password`
+      Expected: Invalid command format.
+.. Test case: `addUser n/Alex Yeoh e/alex@exmple.com a/Blk 12 John Street, #10-11 pass/password p/91234567`
+      Expected: New person added.
 
 === Login a user
 .. Note: The states of each test case is continued in the next test case.
@@ -1725,12 +1424,8 @@ EventOrganiser does not have a user with name as "Michael Lim" and password as "
    Expected: Login unsuccessful.
 .. Test case: `login n/Michael Lim pass/password`
    Expected: Login unsuccessful.
-
 .. Test case `login n/Alex Yeoh pass/password`
    Expected: Login successful.
-
-.. Test case: `login n/Michael Lim pass/password`
-   Expected: Login unsuccessful.
 
 === Logout a user
 .. Note: The states of each test case is continued in the next test case.
@@ -1781,9 +1476,9 @@ The second user has name as "Bernice Yu" and interest as "play".
 
 === Find free time between two users
 .. Prerequisites: EventOrganiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.
-.. Test case `maxSchedule sl/0000-0000`
+.. Test case `maxSchedule 1 2 sl/0000-0000`
    Expected: Free time of 0000 from Monday to Sunday is displayed.
-.. Test case `maxSchedule sl/0800-0900`
+.. Test case `maxSchedule 1 2 sl/0800-0900`
    Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
 
 === Add a friend
@@ -1802,15 +1497,17 @@ The second user has name as "Bernice Yu" and interest as "play".
    Expected: new event with details `CS1234 Group Meeting Location: SoC Canteen Tags: [URGENT]` is added and selected.
    "Alex Yeoh" is the event organiser.
    Event details are displayed in the event details panel, and "Alex Yeoh" is a participant of the event under "People attending".
+.. Test case `addEvent n/CS1234 Group Meeting t/URGENT`
+   Expected: Add event unsuccessful.
 
 === Add a poll
-.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the event list, created by him.
 .. Test case `addPoll n/Meeting date`
    Expected: a new poll with name "Meeting date" is created and displayed in the event details panel.
 
 === Add a time poll
 .. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
-.. Test case `addTimePoll d/19-12-2018 d2/20-12-2018`
+.. Test case `addTimePoll d1/19-12-2018 d2/20-12-2018`
    Expected: a new poll with name "Time Poll" is created and displayed in
    the event details panel. It is populated by 30 minute slots based on the schedules of the participants.
 
@@ -1849,7 +1546,7 @@ The second user has name as "Bernice Yu" and interest as "play".
 .. Prerequisites: The event list is not empty.
 .. Test case `findEvent e/Linguistics Reading Group`
    Expected: all and only events with name "Linguistics Reading Group" are displayed in the event list.
-.. Test case findEvent t1/17:30 on/Charlotte Oliveiro`
+.. Test case `findEvent t1/17:30 on/Charlotte Oliveiro`
    Expected: all and only events starting at 17:30 and organised by "Charlotte Oliveiro" are displayed in the event list.
 
 === Find event by time

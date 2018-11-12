@@ -316,8 +316,7 @@ public class EditUserCommand extends Command {
         }
 
         /**
-         * Returns true if both persons have the same primary attributes
-         * that consist of name, phone, email, address
+         * Returns true if both persons have the same name and password
          */
         @Override
         public boolean equals(Object other) {
@@ -335,9 +334,7 @@ public class EditUserCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                && getPhone().equals(e.getPhone())
-                && getEmail().equals(e.getEmail())
-                && getAddress().equals(e.getAddress());
+                && getPassword().equals(e.getPassword());
         }
     }
 }

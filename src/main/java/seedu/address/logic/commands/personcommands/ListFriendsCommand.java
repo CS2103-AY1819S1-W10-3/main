@@ -45,6 +45,7 @@ public class ListFriendsCommand extends Command {
         }
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+        assert targetPerson != null;
 
         IsFriendPredicate predicate = new IsFriendPredicate(targetPerson);
 

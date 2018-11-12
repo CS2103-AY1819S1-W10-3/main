@@ -155,11 +155,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateEvent(int index, Event editedEvent) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void setCurrentUser(Person person) {
         throw new AssertionError("This method should not be called.");
     }

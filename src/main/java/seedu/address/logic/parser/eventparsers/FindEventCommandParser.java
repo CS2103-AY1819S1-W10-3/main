@@ -55,7 +55,7 @@ public class FindEventCommandParser implements Parser<FindEventCommand> {
             predicate.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_ORGANISER_NAME).isPresent()) {
-            predicate.setParticipant(ParserUtil.parseName(argMultimap.getValue(PREFIX_ORGANISER_NAME).get()));
+            predicate.setOrganiser(ParserUtil.parseName(argMultimap.getValue(PREFIX_ORGANISER_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PARTICIPANT_NAME).isPresent()) {
             predicate.setParticipant(ParserUtil.parseName(argMultimap.getValue(PREFIX_PARTICIPANT_NAME).get()));

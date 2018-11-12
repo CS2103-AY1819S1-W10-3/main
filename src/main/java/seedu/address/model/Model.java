@@ -68,8 +68,6 @@ public interface Model {
 
     void updateEvent(Event target, Event editedEvent);
 
-    void updateEvent(int index, Event event);
-
     /**
      * Returns an unmodifiable view of the filtered person list
      */

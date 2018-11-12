@@ -176,8 +176,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both persons have the same name and password
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
@@ -248,8 +247,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same primary attributes
-     * that consist of name, phone, email, address
+     * Returns true if both persons have the same name and password
      */
     @Override
     public boolean equals(Object other) {
@@ -263,16 +261,13 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && (this.phone == null || otherPerson.getPhone().equals(getPhone()))
-                && (this.email == null || otherPerson.getEmail().equals(getEmail()))
-                && otherPerson.getPassword().equals(getPassword())
-                && (this.address == null || otherPerson.getAddress().equals(getAddress()));
+                && otherPerson.getPassword().equals(getPassword());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, password, address);
+        return Objects.hash(name, password);
     }
 
     @Override

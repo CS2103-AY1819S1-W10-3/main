@@ -60,9 +60,21 @@ public class EventAttributesPredicate implements Predicate<Event> {
                 || event.getLocation().equals(address))
                 && startTimesAreEqual
                 && (organiser == null
-                || event.getOrganiser().equals(organiser))
+                || event.getOrganiser().getName().equals(organiser))
                 && (participant == null
                 || event.containsPerson(participant));
+    }
+
+    /**
+     * Returns true if all the attributes are null.
+     */
+    public boolean allAttributesNull() {
+        return (name == null
+                && address == null
+                && organiser == null
+                && participant == null
+                && date == null
+                && startTime == null);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class AddEventCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_TAG + "TAG ";
+            + "[" + PREFIX_TAG + "TAG]...";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event organiser";

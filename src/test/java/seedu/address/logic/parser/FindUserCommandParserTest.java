@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INTEREST_DESC_PLAY;
 import static seedu.address.logic.commands.CommandTestUtil.INTEREST_DESC_STUDY;
+import static seedu.address.logic.commands.CommandTestUtil.INTEREST_DESC_STUDY_AND_PLAY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -14,6 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND_AND_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_PLAY;
@@ -51,19 +53,14 @@ public class FindUserCommandParserTest {
         List<String> phoneKeywordList = Collections.singletonList(VALID_PHONE_BOB);
         List<String> addressKeywordList = Arrays.asList(VALID_ADDRESS_BOB.split(" "));
         List<String> emailKeywordList = Collections.singletonList(VALID_EMAIL_BOB);
-        List<String> singleInterestKeywordList = Collections.singletonList(VALID_INTEREST_STUDY);
-        List<String> multipleInterestsKeywordList = Arrays.asList(VALID_INTEREST_STUDY, VALID_INTEREST_PLAY);
-        List<String> singleTagKeywordList = Collections.singletonList(VALID_TAG_FRIEND);
-        List<String> multipleTagsKeywordList = Arrays.asList(VALID_TAG_FRIEND, VALID_TAG_HUSBAND);
-        UserContainsKeywordsPredicate predicateWithSingleInterestTag =
+        List<String> interestsKeywordList = Collections.singletonList(VALID_INTEREST_STUDY);
+        List<String> tagsKeywordList = Collections.singletonList(VALID_TAG_FRIEND);
+        UserContainsKeywordsPredicate predicate =
                 new UserContainsKeywordsPredicate(nameKeywordList, phoneKeywordList, addressKeywordList,
-                        emailKeywordList, singleInterestKeywordList, singleTagKeywordList);
-        UserContainsKeywordsPredicate predicateWithMultipleInterestTag =
-                new UserContainsKeywordsPredicate(nameKeywordList, phoneKeywordList, addressKeywordList,
-                        emailKeywordList, multipleInterestsKeywordList, multipleTagsKeywordList);
+                        emailKeywordList, interestsKeywordList, tagsKeywordList);
 
         // whitespace only preamble
-        FindUserCommand expectedFindUserCommand = new FindUserCommand(predicateWithSingleInterestTag);
+        FindUserCommand expectedFindUserCommand = new FindUserCommand(predicate);
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND, expectedFindUserCommand);
 
@@ -79,28 +76,38 @@ public class FindUserCommandParserTest {
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND,
-                new FindUserCommand(predicateWithSingleInterestTag));
+                + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND, new FindUserCommand(predicate));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND,
-                new FindUserCommand(predicateWithSingleInterestTag));
+                + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND, new FindUserCommand(predicate));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND,
-                new FindUserCommand(predicateWithSingleInterestTag));
+                + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND, new FindUserCommand(predicate));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND,
-                new FindUserCommand(predicateWithSingleInterestTag));
+                + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND, new FindUserCommand(predicate));
 
-        // multiple interests and tags - all interests and tags accepted
+        // multiple interests - last interest accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INTEREST_DESC_STUDY + INTEREST_DESC_PLAY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
-                new FindUserCommand(predicateWithMultipleInterestTag));
+                + INTEREST_DESC_PLAY + INTEREST_DESC_STUDY + TAG_DESC_FRIEND, new FindUserCommand(predicate));
+
+        // multiple tags - last tag accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INTEREST_DESC_STUDY + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new FindUserCommand(predicate));
+
+        interestsKeywordList = Arrays.asList(VALID_INTEREST_STUDY, VALID_INTEREST_PLAY);
+        predicate = new UserContainsKeywordsPredicate(nameKeywordList, phoneKeywordList, addressKeywordList,
+                emailKeywordList, interestsKeywordList, tagsKeywordList);
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INTEREST_DESC_STUDY_AND_PLAY + TAG_DESC_FRIEND, new FindUserCommand(predicate));
+        tagsKeywordList = Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_FRIEND);
+        predicate = new UserContainsKeywordsPredicate(nameKeywordList, phoneKeywordList, addressKeywordList,
+                emailKeywordList, interestsKeywordList, tagsKeywordList);
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INTEREST_DESC_STUDY_AND_PLAY + TAG_DESC_HUSBAND_AND_FRIEND, new FindUserCommand(predicate));
     }
 
     @Test
@@ -122,14 +129,14 @@ public class FindUserCommandParserTest {
 
         // missing phone
         predicate = new UserContainsKeywordsPredicate(nameKeywordList, null, addressKeywordList,
-                        emailKeywordList, interestsKeywordList, tagsKeywordList);
+                emailKeywordList, interestsKeywordList, tagsKeywordList);
         expectedFindUserCommand = new FindUserCommand(predicate);
         assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY
                 + TAG_DESC_FRIEND, expectedFindUserCommand);
 
         // missing address
         predicate = new UserContainsKeywordsPredicate(nameKeywordList, phoneKeywordList, null,
-                        emailKeywordList, interestsKeywordList, tagsKeywordList);
+                emailKeywordList, interestsKeywordList, tagsKeywordList);
         expectedFindUserCommand = new FindUserCommand(predicate);
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INTEREST_DESC_STUDY
                 + TAG_DESC_FRIEND, expectedFindUserCommand);

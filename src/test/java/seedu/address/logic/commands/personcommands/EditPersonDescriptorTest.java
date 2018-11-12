@@ -40,23 +40,23 @@ public class EditPersonDescriptorTest {
         EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different phone -> returns false
+        // different phone -> returns true
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        assertTrue(DESC_AMY.equals(editedAmy));
 
-        // different email -> returns false
+        // different email -> returns true
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        assertTrue(DESC_AMY.equals(editedAmy));
 
-        // different address -> returns false
+        // different address -> returns true
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        assertTrue(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns true
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(DESC_AMY.equals(editedAmy));
 
-        // different schedule
+        // different schedule -> returns true
         try {
             editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
                 .withUpdateSchedule("monday", "0100").build();

@@ -1,4 +1,4 @@
-= Event Organiser - User Guide
+= EventOrganiser - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -19,7 +19,7 @@ By: `Team W10-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-EventOrganiser is an application for managing and organising events built for NUS students, also known as Event Organiser.
+EventOrganiser is an application for managing and organising events built for NUS students, also known as EventOrganiser.
 More importantly, EventOrganiser is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, EventOrganiser can help you to arrange events faster than traditional GUI apps.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
@@ -37,9 +37,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listUser`* : lists all users in the Event Organiser
-* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com pass/password a/John street, block 123, #01-01` : creates new user named `John Doe` to the Event Organiser.
-* **`addEvent`**`n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
+* *`listUser`* : lists all users in EventOrganiser
+* **`addUser`**` n/John Doe p/98765432 e/johnd@example.com pass/password a/John street, block 123, #01-01` : creates new user named `John Doe` to EventOrganiser.
+* **`addEvent`**` n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
 * *`exit`* : exits the app
 
 // tag::InBrief[]
@@ -54,7 +54,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * If you are looking to organise an event, you may do so using the `addEvent` command.
 * After creating the event, you may wish to specify the date, time, or specify only after participants have joined.
 * You may create polls to get participants to vote on the details of the event using `addPoll` and `addPollOption`.
-* You can create a special TimePoll using `addTimePoll` after all participants have joined to decide on a suitable time. This generates poll options based on the NUS timetables/schedules of the participants.
+* You can create a special TimePoll using `addTimePoll` after all participants have joined to decide on a suitable time. This generates poll options based on the NUSMOD schedules of the participants.
 * You may decide to `deleteEvent` after the event is over, or leave it in the organiser as a form of record.
 
 === Join an event
@@ -82,17 +82,23 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
 * As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others.
 
+=== Event Uniqueness
+
+* We define the uniqueness of an event by the event name, location, tags and event organiser. No two events may be identical with respect to these four attributes.
+
 === Timetable
+
 Timetable download guide
 
 To be referenced by any commands that use `tt/` prefix.
-Format `Command tt/ http://modsn.com/XXXX...`
+Format `Command tt/ http://modsn.us/XXXX...`
 
 Example: +
 * http://modsn.us/eDmp1 +
 * http://modsn.us/H4v8s
 
 ****
+* Ensure that your computer is synced with an atomic clock.
 * Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".
 * Note that the timetable download may take a while regardless if the link is valid or not.
 * Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
@@ -101,6 +107,9 @@ Example: +
 * If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
 * If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
 ****
+
+Warning: Timetable download will overwrite any existing schedule in the user.
+
 // end::scheduletimetable[]
 
 [[Features]]
@@ -109,6 +118,7 @@ Example: +
 ====
 *Command Format*
 
+* If there than one prefix of the same kind with valid keywords, only the last prefix with valid keywords will be parsed.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -125,8 +135,8 @@ Shows all the commands in the application and how to use them.
 
 ==== Add a user : `addUser`
 
-Adds a new uniqiue user to EventOrganiser. +
-Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST]... [tt/TIMETABLE] [t/TAG]...`
+Adds a new unique user to EventOrganiser. +
+Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/PASSWORD a/ADDRESS [i/INTEREST]... [tt/TIMETABLE] [t/TAG]...`
 
 ****
 * INTEREST refers to the things that the user is interested in, such as hobbies.
@@ -155,7 +165,7 @@ Format:
 
 Examples:
 
-`login n/John Doe pass/password123`
+`login n/Alex Yeoh pass/password`
 
 ==== Logout a user : `logout`
 
@@ -165,14 +175,11 @@ Format:
 
 `logout`
 
-Examples:
-
-`logout`
 // end::yaofeng(login/logout)[]
 
 ==== List all users : `listUser`
 
-Shows a list of all users in the Event Organiser. +
+Shows a list of all users in EventOrganiser. +
 Format: `listUser`
 
 // tag::yaofeng(finduser)[]
@@ -180,12 +187,13 @@ Format: `listUser`
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with matching name, phone number, email, address, interest, tag. +
-Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]... [t/TAG]...`
+Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [t/TAG]`
 
 ****
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
 * Any combination of the above prefixes and keywords (let's call them conditions for now) is valid. Eg. `findUser e/EMAIL a/ADDRESS` searches based on the email and address conditions.
 * The order of the conditions does not matter.
+* At least one prefix with valid keywords must be present
 * The search is based on CONDITION 1 AND CONDITION 2 AND ... . For example, `findUser n/John i/dance` will search for users that satisfy the conditions of both name 'John' and interest 'dance'. Likewise for attributes that can be stated more than one (interest and tag), `findUser i/tennis i/soccer` will search for users that satisfy the conditions of both interest 'tennis' and interest 'soccer'.
 * The search for all attributes is not case sensitive. For example, `findUser n/john` will search for all users with the name 'John'.
 * Substrings or superstrings of any attribute will not be matched e.g. phone number `87438807` will not match `874388070`, and likewise, name `Ale` will not match `Alex`.
@@ -193,22 +201,47 @@ Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]..
 
 Examples:
 
+[NOTE]
+====
+* If there are multiple prefixes with accompanying valid keywords, only users that satisfy all
+the conditions will be shown.
+====
 * `findUser p/87438807 i/dance` +
-Returns any user with the phone number `87438807` and interest `dance`
+Returns any user with the phone number `87438807` AND interest `dance`
 * `findUser n/john e/john@example.com t/teacher` +
-Returns any user with the name `87438807` and email `john@example.com` and tag `teacher`
+Returns any user with the name `87438807` AND email `john@example.com` AND tag `teacher`
+
+[NOTE]
+====
+* If there are multiple of the same prefixes with accompanying valid keywords,
+only the last prefix and its keyword will be parsed.
+====
 * `findUser i/tennis i/soccer` +
-Returns any user with the interest `tennis` and interest `soccer`
+Returns any user with the interest `soccer`
+* `findUser n/Alex n/Bernice n/Li` +
+Returns any user with name `Li`
+
+[NOTE]
+====
+* Within each prefix, if the keyword has space, the keyword will be split by space. Users that
+satisfy at least one of the conditions will be shown.
+====
+
+* `findUser n/Alex Yu` +
+Returns any user with the name `Alex` OR `Yu`
+* `findUser t/SOC FASS SDE` +
+Returns any user with the tag `SOC` OR `FASS` OR `SDE`
+
 
 ==== Delete a user : `deleteUser`
 
-Deletes the currently logged in user from Event Organiser. +
-Format: `deleteUser `
+Deletes the currently logged in user from EventOrganiser. +
+Format: `deleteUser`
 
 ****
 * There must be a user that is currently logged in and this is the user that is intended to be deleted.
 * The events organised by this user will also be deleted.
-* After the user is deleted, no other user in the Event Organiser will be currently logged-in.
+* After the user is deleted, no other user in the EventOrganiser will be currently logged-in.
 * After the user is deleted, if the deleted user is in the friend list of another user, the other user's friend list will be updated to show that the deleted user is no longer in the list.
 ****
 
@@ -229,14 +262,14 @@ Examples:
 
 * `listUser` +
 `selectUser 2` +
-Selects the 2nd user in the Event Organiser.
+Selects the 2nd user in EventOrganiser.
 * `findUser Betsy` +
 `selectUser 1` +
 Selects the 1st user in the results of the `find` command.
 
 ==== Edit a user : `editUser`
 
-Edits the currently logged-in user in the Event Organiser. +
+Edits the currently logged-in user in EventOrganiser. +
 Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pass/PASSWORD] [i/INTEREST]... [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]...`
 
 ****
@@ -245,8 +278,9 @@ Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pass/PASSWORD
 * Existing values will be updated to the input values.
 * When editing interests/tags, the existing interests/tags of the user will be removed (adding of tags is not cumulative). Hence if you want to add new interests/tags on top of the existing ones, you have to include the existing ones in the edit command.
 * Due to what is mentioned above, you can remove all the user's interests/tags by typing `i/` or `t/` without specifying any interests/tags after it.
-* Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE
 * After the user is edited (eg change of name), if the edited user is in the friend list of another user, the other user's friend list will be updated to show the updated version of the edited user.
+* Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE
+* When using schedule update, the parameter should be "day 0000" where day is the day of the week and 0000 is the 24h representation of the time. Note that schedule only records in 30 min slots, thus the minute value will be rounded off to the nearest 30 minutes.
 * <<Timetable>> download requires a valid nusmods link
 * <<User Uniqueness>> property must be satisified.
 ****
@@ -305,7 +339,7 @@ User specified at `INDEX` 2 is deleted from the logged-in user's friend list.
 // tag::suggestFriends[]
 ==== Suggest friends based on similar interests : `suggestFriendsByInterests`
 
-Suggest friends for an existing user in the Event Organiser that have at least one similar interest with the selected user. +
+Suggest friends for an existing user in EventOrganiser that have at least one similar interest with the selected user. +
 Format: `suggestFriendsByInterests INDEX`
 
 ****
@@ -320,7 +354,7 @@ Format: `suggestFriendsByInterests INDEX`
 Examples:
 
 * `suggestFriendsByInterests 1` +
-Displays users in the Event Organiser that have at least one similar interest with the selected 1st user, and are not yet in the selected user's friend list.
+Displays users in EventOrganiser that have at least one similar interest with the selected 1st user, and are not yet in the selected user's friend list.
 // end::suggestFriends[]
 
 // tag::listFriends[]
@@ -338,14 +372,14 @@ Format: `listFriends INDEX`
 Examples:
 
 * `listFriends 1` +
-List all the users who are in the friend list of the 1st user in the Event Organiser.
+List all the users who are in the friend list of the 1st user in EventOrganiser.
 // end::listFriends[]
 
 // tag::maxschedule[]
 ==== Get free time between users : `maxSchedule`
 
 Compares the schedule of multiple users and return a string of common free time slots. LIMIT is a XXXX-XXX specified timing to limit the time range displayed. +
-Format: `maxSchedule INDEX INDEX [sl/ LIMIT]...`
+Format: `maxSchedule INDEX INDEX... [sl/ LIMIT]...`
 
 Example:
 
@@ -361,7 +395,7 @@ Compares the schedule of users of index 1 and 2 and return a string of common fr
 === Create and confirm event commands
 
 ==== Create a new event : `addEvent`
-Adds a new event to the Event Organiser. +
+Adds a new event to EventOrganiser. +
 Format: `addEvent n/NAME a/LOCATION [t/TAG] ...`
 
 ****
@@ -375,16 +409,16 @@ Format: `addEvent n/NAME a/LOCATION [t/TAG] ...`
 
 Examples:
 
-* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL`
+* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/Public`
 * `addEvent n/CS1101S Meet-up a/UTown t/ByInvite`
 
 ==== Delete an event : `deleteEvent`
-Deletes the specified event from the Event Organiser. +
+Deletes the specified event from EventOrganiser. +
 Format: `deleteEvent INDEX`
 
 ****
 * Deletes the event at the specified `INDEX`.
-* The index refers to the index number shown in the displayed user list.
+* The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Login is required, and the event can only be deleted by the event organiser.
 * While it is recommended that the event organiser closes the event after it is over, this is not required, in case the details of the event is needed to record-keeping purposes.
@@ -392,13 +426,13 @@ Format: `deleteEvent INDEX`
 
 Examples:
 
-* `list` +
+* `listEvent` +
 `deleteEvent 2` +
-Deletes the 2nd event in the Event Organiser.
+Deletes the 2nd event in EventOrganiser.
 
 ==== Select an event : `selectEvent`
 Selects an event to be edited. +
-Format: `selectEvent index`
+Format: `selectEvent INDEX`
 
 ****
 * An event must be selected before setDate, setTime, addPoll, addTimePoll, addOption, and vote commands can be used.
@@ -411,7 +445,7 @@ Format: `selectEvent index`
 image::EventSelectedDisplay.png[width="800"]
 
 ==== Edit an event : `editEvent`
-Edits an existing event in the Event Organiser. Only the event name, location and tags may be edited using this command. +
+Edits an existing event in EventOrganiser. Only the event name, location and tags may be edited using this command. +
 Format: `editEvent [n/NAME] [a/ADDRESS] [t/TAG] ...`
 
 [NOTE]
@@ -465,12 +499,12 @@ Examples:
 * `setTime t1/13:30 t2/14:00`
 
 // tag::KengJi(2)[]
-==== Create a new poll for an event : `addPoll n/NAME`
-Sets up a new poll for the event with the specified name. +
+==== Create a new poll for an event : `addPoll`
+Sets up a new poll for the pre-selected event with the specified name. +
 Format: `addPoll n/POLL_NAME`
 
 ****
-* Only the event organiser may create a new poll.
+* Events must be selected first. Only the event organiser may create a new poll.
 * Multiple polls of the same name are allowed.
 ****
 
@@ -481,6 +515,7 @@ Selecting the event again using the `selectEvent` command displays the list of a
 // end::KengJi(2)[]
 
 The following screenshot shows the outcome of this command.
+
 image::AddPollDisplay.png[width="800"]
 
 // tag::KengJi(3)[]
@@ -491,7 +526,7 @@ Format: `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR`
 ****
 * This is a special type of poll which generates poll options based on the given date range and the schedules of the
 participants who have joined the event.
-* The time poll options represent 30 minute slots starting at the date and time specified. All event particpants must be free at that slot for it to be in the time poll.
+* The time poll options represent 30 minute slots within the start and end date specified. All event particpants must be free at that slot for it to be in the time poll.
 * The date with prefix `d1` represents the start of the given date range and `d2` represents the end of the date range.
 * The start date must not be after the end date, and the given dates must not be more than 30 days apart.
 * The time poll does not automatically update if a new user joins the event, and should be created only after all users have joined.
@@ -547,13 +582,18 @@ Displays the poll with index 1 associated with the already selected event, if it
 === Join event commands
 
 ==== Find event by the name of the event : `findEvent`
-Finds events based on the attributes of the event: event name, event location, date, start time, Event Organiser, and event participants. +
+Finds events based on the attributes of the event: event name, event location, date, start time, event organiser, and event participants. +
 Format: `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
+
+****
+* All names of event, location, organiser and participant names must match exactly.
+* Only one of each attribute can be searched (last argument of each tag is used).
+****
 
 Examples:
 
-* `findEvent e/FaceBook Recruitment Talk on/John Doe` +
-Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".
+* `findEvent e/CS2103 weekly meeting on/Alex Yeoh` +
+Finds all events with the name "CS2103 weekly meeting" and with the organiser whose name is "Alex Yeoh".
 
 ==== Find event by a time interval: `findEventByTime`
 Finds events held on a specific date, and is held between a start and end time. +
@@ -574,7 +614,7 @@ Finds all events held between 12pm and 6pm on 12 December 2018.
 
 ==== List all events : `listEvent`
 
-Shows a list of all events in the Event Organiser. +
+Shows a list of all events in EventOrganiser. +
 Format: `listEvent`
 
 ==== Join event : `joinEvent`
@@ -641,16 +681,15 @@ Format: `exit`
 
 === Saving the data
 
-Event Organiser data are saved in the hard disk automatically after any command that changes the data. +
+EventOrganiser data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Event Organiser folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EventOrganiser folder.
 
 == Command Summary
-
 
 === User commands
 * *Help* : `help`
@@ -689,7 +728,7 @@ e.g. `listFriends 1`
 // end::agendazhang(commandsummary)[]
 
 // tag::scheduletimetable[]
-* *Edit User* : `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
+* *Edit User* : `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]... [t/TAG]... [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
 e.g. `editUser n/Alex Yeoh e/jameslee@example.com` +
 e.g. `editUser tt/ http://modsn.us/H4v8s` +
 e.g. `editUser su/ monday 0000`
@@ -718,6 +757,9 @@ e.g. `deleteEvent 1`
 * *Edit Event* : `editEvent [n/NAME] [a/ADDRESS] [t/TAG] ...` +
   e.g. `editEvent n/CS2102 Meeting t/URGENT t/ByInvite`
 
+* *Select Event* : `selectEvent INDEX` +
+e.g. `selectEvent 1`
+
 * *Add Poll* : `addPoll n/POLL_NAME` +
 e.g. `addPoll n/Activity`
 
@@ -737,8 +779,6 @@ e.g. `setDate d/12-12-2018`
 e.g. `setTime t1/12:30 t2/13:45`
 
 === Event participant commands
-* *Select Event* : `selectEvent INDEX` +
-e.g. `selectEvent 1`
 
 * *Join Event* : `joinEvent INDEX` +
 e.g. `joinEvent 1`
@@ -748,11 +788,11 @@ e.g. `vote i/1 o/Play games`
 
 * *Find Event With Attributes* : `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
 [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]` +
-e.g. `findEvent d/12-12-2018 on/Alex Yeoh` +
-e.g. `findEvent a/SoC Canteen`
+e.g. `findEvent d/19-12-2018 on/Alex Yeoh` +
+e.g. `findEvent a/NUS SoC Canteen`
 
 * *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE` +
-e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`
+e.g. `findEventByTime d/19-12-2018 t1/12:30 t2/13:45`
 
 * *List Events* : `listEvent` +
 e.g. `listEvent`

@@ -2,6 +2,7 @@
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
@@ -40,9 +41,7 @@ public class FindEventByTimeCommand extends Command {
      * Creates an FindEventByTimeCommand to add a date to the specified {@code Event}
      */
     public FindEventByTimeCommand(LocalDate date, LocalTime startTime, LocalTime endTime) {
-        requireNonNull(date);
-        requireNonNull(startTime);
-        requireNonNull(endTime);
+        requireAllNonNull(date, startTime, endTime);
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;

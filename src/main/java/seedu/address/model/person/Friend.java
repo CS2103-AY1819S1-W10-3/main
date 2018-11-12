@@ -4,7 +4,8 @@ import java.util.StringTokenizer;
 
 /**
  * Represents a Person that is a friend of the current person using a String
- * that consists of his/her name, phone, email, address as the primary key.
+ * that consists of his/her name and password, since both these attributes
+ * determine the uniqueness of a person.
  *
  * @author agendazhang
  *
@@ -18,8 +19,7 @@ public class Friend {
      * Constructs a {@code Friend} given a {@code Person}
      */
     public Friend(Person person) {
-        friendAttributes = person.getName() + verticalBar + person.getPhone() + verticalBar
-                + person.getEmail() + verticalBar + person.getAddress();
+        friendAttributes = person.getName() + verticalBar + person.getPassword();
     }
 
     /**

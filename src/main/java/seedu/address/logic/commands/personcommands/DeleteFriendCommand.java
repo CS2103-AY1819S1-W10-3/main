@@ -44,12 +44,14 @@ public class DeleteFriendCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
         Person personToEdit = model.getCurrentUser();
+        assert personToEdit != null;
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person friendToDelete = lastShownList.get(index.getZeroBased());
+        assert friendToDelete != null;
         if (personToEdit.equals(friendToDelete)) {
             throw new CommandException(Messages.MESSAGE_CANNOT_ADD_FRIEND_OWNSELF);
         }

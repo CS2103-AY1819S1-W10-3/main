@@ -198,7 +198,7 @@ public class UserContainsKeywordsPredicateTest {
         predicate =
                 new UserContainsKeywordsPredicate(null, null, null,
                         null, Arrays.asList(VALID_INTEREST_STUDY, VALID_INTEREST_SWIM), null);
-        assertFalse(predicate.test(ALICE));
+        assertTrue(predicate.test(ALICE));
 
         // Mixed-case keywords
         predicate =
@@ -228,7 +228,7 @@ public class UserContainsKeywordsPredicateTest {
         predicate =
                 new UserContainsKeywordsPredicate(null, null, null,
                         null, null, Arrays.asList(VALID_TAG_ALICE, VALID_TAG_HUSBAND));
-        assertFalse(predicate.test(ALICE));
+        assertTrue(predicate.test(ALICE));
 
         // Mixed-case keywords
         predicate =
@@ -369,12 +369,12 @@ public class UserContainsKeywordsPredicateTest {
 
         // multiple keyword
         predicate = new UserContainsKeywordsPredicate(
-                        Arrays.asList(VALID_NAME_BOB.split(" ")),
-                        Arrays.asList(VALID_PHONE_BOB, VALID_PHONE_AMY),
-                        Arrays.asList(PART_OF_VALID_ADDRESS_BOB),
-                        Arrays.asList(VALID_EMAIL_BOB, VALID_EMAIL_AMY),
-                        Arrays.asList(VALID_INTEREST_SWIM, VALID_INTEREST_PLAY),
-                        Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_STUDENT));
+                Arrays.asList(VALID_NAME_BOB.split(" ")),
+                Arrays.asList(VALID_PHONE_BOB, VALID_PHONE_AMY),
+                Arrays.asList(PART_OF_VALID_ADDRESS_BOB),
+                Arrays.asList(VALID_EMAIL_BOB, VALID_EMAIL_AMY),
+                Arrays.asList(VALID_INTEREST_SWIM, VALID_INTEREST_PLAY),
+                Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_STUDENT));
         assertFalse(predicate.test(ALICE));
     }
 }

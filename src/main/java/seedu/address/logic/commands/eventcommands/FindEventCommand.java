@@ -38,6 +38,7 @@ public class FindEventCommand extends Command {
      * Creates an FindEventCommand to add a date to the specified {@code Event}
      */
     public FindEventCommand(EventAttributesPredicate predicate) {
+        assert(!predicate.allAttributesNull());
         this.predicate = predicate;
     }
 

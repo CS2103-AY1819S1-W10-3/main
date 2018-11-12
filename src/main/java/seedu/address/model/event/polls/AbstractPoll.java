@@ -20,6 +20,8 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public abstract class AbstractPoll {
     private static final Logger logger = LogsCenter.getLogger(AbstractPoll.class);
+    private static final String POLL_HEADER = "Poll %1$s: %2$s";
+    private static final String MOST_POPULAR_OPTIONS_HEADER = "Most popular options:\n";
     protected int id;
     protected String pollName;
     protected HashMap<String, UniquePersonList> pollData;
@@ -101,10 +103,10 @@ public abstract class AbstractPoll {
      * Returns a string representation of the poll.
      */
     public String displayPoll() {
-        String title = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
+        String title = String.format(POLL_HEADER, Integer.toString(id), pollName);
         String mostPopularEntries = "";
         if (!pollData.isEmpty()) {
-            mostPopularEntries = "Most popular options:\n" + getPopularOptions().toString();
+            mostPopularEntries = MOST_POPULAR_OPTIONS_HEADER + getPopularOptions().toString();
         }
         String data = displayPollData();
         return title + "\n" + mostPopularEntries + "\n\n" + data;

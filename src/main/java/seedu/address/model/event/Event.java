@@ -33,6 +33,9 @@ import seedu.address.model.tag.Tag;
  * Represents a Event in the event organiser.
  */
 public class Event {
+    private static final String EVENT_HEADER = "People attending: " + '\n';
+    private static final String POLLS_HEADER = "Polls: " + '\n';
+
 
     private EventName name;
     private Address location;
@@ -422,15 +425,27 @@ public class Event {
         return pollListCopy;
     }
 
+    /**
+     * Returns the event details as a string for the event display panel.
+     */
     public String getInfo() {
+        final StringBuilder builder = new StringBuilder();
+        String personNameList = participantList.getNameList();
+        builder.append(EVENT_HEADER)
+                .append(personNameList + '\n')
+                .append(POLLS_HEADER)
+                .append(getPollsAsString());
+        return builder.toString();
+    }
+
+    /**
+     * Returns list of polls as a string.
+     */
+    private String getPollsAsString() {
         final StringBuilder builder = new StringBuilder();
         List<String> pollList = polls.stream()
                 .map(p -> p.getPollName())
                 .collect(Collectors.toList());
-        String personNameList = participantList.getNameList();
-        builder.append("People attending: " + '\n')
-                .append(personNameList + '\n')
-                .append("Polls: " + '\n');
         Integer index = 1;
         for (String poll : pollList) {
             builder.append(index.toString() + ": " + poll + '\n');

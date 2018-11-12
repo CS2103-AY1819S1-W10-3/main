@@ -344,7 +344,7 @@ public class SampleDataUtil {
                     LocalDate.of(2018, 12, 10), LocalTime.of(21, 30),
                     LocalTime.of(22, 30), DAVID),
             new Event(new EventName("CS1101S Discussion"), new Address("Tembusu College"), getTagSet(),
-                    LocalDate.of(2018, 12, 11), LocalTime.of(21, 30),
+                    LocalDate.of(2018, 11, 19), LocalTime.of(21, 30),
                     LocalTime.of(22, 30), RICHARD),
             new Event(new EventName("CS1101S Discussion"), new Address("Tembusu College"), getTagSet(),
                     LocalDate.of(2018, 12, 13), LocalTime.of(21, 30),
