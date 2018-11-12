@@ -1639,20 +1639,19 @@ Expected: The most recent window size and location is retained.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Test case: <code>addUser p\95642244 ealex@exmple.com a\Blk 12 John Street, #10-11 pass\password</code>
-Expected: Add user unsuccessful.</p>
+<p>Note: The states of each test case is continued in the next test case.</p>
 </li>
 <li>
-<p>Test case: <code>addUser n\Alex Yeoh ealex@exmple.com a\Blk 12 John Street, #10-11 pass\password</code>
-Expected: Add user unsuccessful.</p>
+<p>Prerequisites:
+EventOrganiser has no users currently.</p>
 </li>
 <li>
-<p>Test case: <code>addUser n\Alex Yeoh</code>
-Expected: Add user unsuccessful.</p>
+<p>Test case: <code>addUser n/Alex Yeoh pass/password</code>
+Expected: Invalid command format.</p>
 </li>
 <li>
-<p>Test case: <code>addUser n\Alex Yeoh p\95642244 ealex@exmple.com a\Blk 12 John Street, #10-11 pass\password</code>
-Expected: Add user successful.</p>
+<p>Test case: <code>addUser n/Alex Yeoh e/alex@exmple.com a/Blk 12 John Street, #10-11 pass/password p/91234567</code>
+Expected: New person added.</p>
 </li>
 </ol>
 </div>
@@ -1681,10 +1680,6 @@ Expected: Login unsuccessful.</p>
 <li>
 <p>Test case <code>login n/Alex Yeoh pass/password</code>
 Expected: Login successful.</p>
-</li>
-<li>
-<p>Test case: <code>login n/Michael Lim pass/password</code>
-Expected: Login unsuccessful.</p>
 </li>
 </ol>
 </div>
@@ -1810,11 +1805,11 @@ Expected: Schedule of user "Alex Yeoh" successfully changed. Second bit of the s
 <p>Prerequisites: EventOrganiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.</p>
 </li>
 <li>
-<p>Test case <code>maxSchedule sl/0000-0000</code>
+<p>Test case <code>maxSchedule 1 2 sl/0000-0000</code>
 Expected: Free time of 0000 from Monday to Sunday is displayed.</p>
 </li>
 <li>
-<p>Test case <code>maxSchedule sl/0800-0900</code>
+<p>Test case <code>maxSchedule 1 2 sl/0800-0900</code>
 Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.</p>
 </li>
 </ol>
@@ -2105,4 +2100,4 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 04:07:53 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 04:43:01 UTC</div></div></div></body></html>
