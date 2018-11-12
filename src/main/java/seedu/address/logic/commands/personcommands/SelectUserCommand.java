@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Selects a person identified using its displayed index from the address book.
+ * Selects a person identified using its displayed index from the event organiser.
  */
 public class SelectUserCommand extends Command {
 
@@ -44,10 +44,6 @@ public class SelectUserCommand extends Command {
         if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        // to be changed to login feature
-        // Person person = model.getPerson(targetIndex);
-        // model.setCurrentUser(person);
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(null));
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));

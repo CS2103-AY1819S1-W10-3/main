@@ -1,0 +1,4 @@
+= Adeel Dhedhi Bhyria - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets

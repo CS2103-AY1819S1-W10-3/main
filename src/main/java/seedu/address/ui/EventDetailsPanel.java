@@ -15,20 +15,20 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.DisplayPollEvent;
 
 /**
- * Panel displaying the poll.
+ * Panel which displays the event and poll details.
  */
-public class PollDisplayPanel extends UiPart<Region> {
+public class EventDetailsPanel extends UiPart<Region> {
     private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
-    private static final String FXML = "PollDisplayPanel.fxml";
+    private static final String FXML = "EventDetailsPanel.fxml";
 
     private final StringProperty displayed = new SimpleStringProperty("");
 
     @FXML
-    private TextArea pollDisplay;
+    private TextArea eventDetails;
 
-    public PollDisplayPanel() {
+    public EventDetailsPanel() {
         super(FXML);
-        pollDisplay.textProperty().bind(displayed);
+        eventDetails.textProperty().bind(displayed);
         registerAsAnEventHandler(this);
     }
 

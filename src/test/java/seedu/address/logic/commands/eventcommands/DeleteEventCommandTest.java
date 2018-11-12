@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showEventAtIndex;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Test;
 
@@ -48,7 +49,7 @@ public class DeleteEventCommandTest {
     public void execute_notEventOrganiser_throwsCommandException() {
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
         DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST);
-
+        model.setCurrentUser(BOB);
         String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -97,78 +98,6 @@ public class DeleteEventCommandTest {
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
-
-    /*@Test
-    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
-        Person user = new PersonBuilder().build();
-        eventToDelete.setOrganiser(user);
-        model.setCurrentUser(user);
-        DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setCurrentUser(user);
-        expectedModel.deleteEvent(eventToDelete);
-        expectedModel.commitAddressBook();
-
-        // delete -> first event deleted
-        deleteCommand.execute(model, commandHistory);
-
-        // undo -> reverts event organiser back to previous state and filtered event list to show all events
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        // redo -> same first event deleted again
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
-    @Test
-    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredEventList().size() + 1);
-        DeleteEventCommand deleteCommand = new DeleteEventCommand(outOfBoundIndex);
-
-        // execution failed -> address book state not added into model
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-
-        // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-    }
-    */
-
-    /**
-     * 1. Deletes a {@code Event} from a filtered list.
-     * 2. Undo the deletion.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted event in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the event object regardless of indexing.
-     */
-    /*@Test
-    public void executeUndoRedo_validIndexFilteredList_sameEventDeleted() throws Exception {
-        DeleteEventCommand deleteCommand = new DeleteEventCommand(INDEX_FIRST);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-
-        showEventAtIndex(model, INDEX_SECOND);
-        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
-        Person user = new PersonBuilder().build();
-        eventToDelete.setOrganiser(user);
-        model.setCurrentUser(user);
-        expectedModel.setCurrentUser(user);
-        expectedModel.deleteEvent(eventToDelete);
-        expectedModel.commitAddressBook();
-
-        // delete -> deletes second event in unfiltered event list / first event in filtered event list
-        deleteCommand.execute(model, commandHistory);
-
-        // undo -> reverts event organiser back to previous state and filtered event list to show all events
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(eventToDelete, model.getFilteredEventList().get(INDEX_FIRST.getZeroBased()));
-        // redo -> deletes same second event in unfiltered event list
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    } */
 
     @Test
     public void equals() {

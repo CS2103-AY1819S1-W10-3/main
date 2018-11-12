@@ -19,9 +19,11 @@ import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.AddTimePollCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.commands.eventcommands.EditEventCommand;
 import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
 import seedu.address.logic.commands.eventcommands.FindEventCommand;
 import seedu.address.logic.commands.eventcommands.JoinEventCommand;
+import seedu.address.logic.commands.eventcommands.ListEventCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.eventcommands.SetDateCommand;
 import seedu.address.logic.commands.eventcommands.SetTimeCommand;
@@ -33,6 +35,7 @@ import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListFriendsCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.logic.commands.personcommands.SuggestFriendsByInterestsCommand;
@@ -42,6 +45,7 @@ import seedu.address.logic.parser.eventparsers.AddPollOptionCommandParser;
 import seedu.address.logic.parser.eventparsers.AddTimePollCommandParser;
 import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
 import seedu.address.logic.parser.eventparsers.DisplayPollCommandParser;
+import seedu.address.logic.parser.eventparsers.EditEventCommandParser;
 import seedu.address.logic.parser.eventparsers.FindEventByTimeCommandParser;
 import seedu.address.logic.parser.eventparsers.FindEventCommandParser;
 import seedu.address.logic.parser.eventparsers.JoinEventCommandParser;
@@ -89,6 +93,9 @@ public class AddressBookParser {
         case AddUserCommand.COMMAND_WORD:
             return new AddUserCommandParser().parse(arguments);
 
+        case DeleteUserCommand.COMMAND_WORD:
+            return new DeleteUserCommandParser().parse(arguments);
+
         case AddFriendCommand.COMMAND_WORD:
             return new AddFriendCommandParser().parse(arguments);
 
@@ -97,6 +104,9 @@ public class AddressBookParser {
 
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
+
+        case EditEventCommand.COMMAND_WORD:
+            return new EditEventCommandParser().parse(arguments);
 
         case SelectEventCommand.COMMAND_WORD:
             return new SelectEventCommandParser().parse(arguments);
@@ -119,6 +129,9 @@ public class AddressBookParser {
         case AddPollOptionCommand.COMMAND_WORD:
             return new AddPollOptionCommandParser().parse(arguments);
 
+        case ListEventCommand.COMMAND_WORD:
+            return new ListEventCommand();
+
         case ClearUserCommand.COMMAND_WORD:
             return new ClearUserCommand();
 
@@ -140,14 +153,14 @@ public class AddressBookParser {
         case SelectUserCommand.COMMAND_WORD:
             return new SelectUserCommandParser().parse(arguments);
 
-        case DeleteUserCommand.COMMAND_WORD:
-            return new DeleteUserCommandParser().parse(arguments);
-
         case FindUserCommand.COMMAND_WORD:
             return new FindUserCommandParser().parse(arguments);
 
         case SuggestFriendsByInterestsCommand.COMMAND_WORD:
             return new SuggestFriendsByInterestsCommandParser().parse(arguments);
+
+        case ListFriendsCommand.COMMAND_WORD:
+            return new ListFriendsCommandParser().parse(arguments);
 
         case ListUserCommand.COMMAND_WORD:
             return new ListUserCommand();

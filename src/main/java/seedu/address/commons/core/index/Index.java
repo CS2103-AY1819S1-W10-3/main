@@ -10,7 +10,6 @@ package seedu.address.commons.core.index;
  */
 public class Index {
     private int zeroBasedIndex;
-    private int zeroBasedIndex2;
 
     /**
      * Index can only be created by calling {@link Index#fromZeroBased(int)} or
@@ -24,31 +23,12 @@ public class Index {
         this.zeroBasedIndex = zeroBasedIndex;
     }
 
-    /**
-     * Index can only be created by calling {@link Index#fromZeroBased(int)} or
-     * {@link Index#fromOneBased(int)}.
-     */
-    private Index(int zeroBasedIndex, int zeroBasedIndex2) {
-        if (zeroBasedIndex < 0 || zeroBasedIndex2 < 0) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        this.zeroBasedIndex = zeroBasedIndex;
-        this.zeroBasedIndex2 = zeroBasedIndex2;
-    }
-
     public int getZeroBased() {
         return zeroBasedIndex;
-    }
-    public int getZeroBased2() {
-        return zeroBasedIndex2;
     }
 
     public int getOneBased() {
         return zeroBasedIndex + 1;
-    }
-    public int getOneBased2() {
-        return zeroBasedIndex2 + 1;
     }
 
     /**
@@ -59,31 +39,16 @@ public class Index {
     }
 
     /**
-     * Creates a new {@code Index} using a zero-based index.
-     */
-    public static Index fromZeroBased(int zeroBasedIndex, int zeroBasedIndex2) {
-        return new Index(zeroBasedIndex, zeroBasedIndex2);
-    }
-
-    /**
      * Creates a new {@code Index} using a one-based index.
      */
     public static Index fromOneBased(int oneBasedIndex) {
         return new Index(oneBasedIndex - 1);
     }
 
-    /**
-     * Creates a new {@code Index} using a one-based index.
-     */
-    public static Index fromOneBased(int oneBasedIndex, int oneBasedIndex2) {
-        return new Index(oneBasedIndex - 1, oneBasedIndex2 - 1);
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Index // instanceof handles nulls
-                && zeroBasedIndex == ((Index) other).zeroBasedIndex
-                && zeroBasedIndex2 == ((Index) other).zeroBasedIndex2); // state check
+                && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
     }
 }

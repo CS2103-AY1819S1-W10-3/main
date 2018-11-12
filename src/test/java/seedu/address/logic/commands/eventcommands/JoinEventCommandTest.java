@@ -11,7 +11,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -30,12 +29,12 @@ public class JoinEventCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_acceptedJoinEvent() throws NoUserLoggedInException {
+    public void execute_acceptedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = TypicalPersons.BENSON;
         model.setCurrentUser(user);
         Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
-        String expectedMessage = String.format(command.MESSAGE_SUCCESS, event);
+        String expectedMessage = String.format(JoinEventCommand.MESSAGE_SUCCESS, event);
         expectedMessage += "\n" + "People attending: [Alice Pauline, Benson Meier]";
         expectedModel.setCurrentUser(user);
         expectedModel.joinEvent(TypicalIndexes.INDEX_FIRST);
@@ -48,7 +47,7 @@ public class JoinEventCommandTest {
         JoinEventCommand command = new JoinEventCommand(INVALID_INDEX);
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        String expectedMessage = Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -57,7 +56,7 @@ public class JoinEventCommandTest {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Event event = new EventBuilder().build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        String expectedMessage = Messages.MESSAGE_NO_USER_LOGGED_IN;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -67,7 +66,7 @@ public class JoinEventCommandTest {
         model.setCurrentUser(ALICE);
         Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         model.updateEvent(TypicalIndexes.INDEX_FIRST.getZeroBased(), event);
-        String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);
+        String expectedMessage = Messages.MESSAGE_ALREADY_JOINED;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 }

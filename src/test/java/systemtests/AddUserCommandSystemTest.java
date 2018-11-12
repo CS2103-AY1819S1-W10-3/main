@@ -67,17 +67,6 @@ public class AddUserCommandSystemTest extends AddressBookSystemTest {
 
         assertCommandSuccess(command, toAdd);
 
-        /* Case: undo adding Amy to the list -> Amy deleted */
-        //command = UndoCommand.COMMAND_WORD;
-        //String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        //assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: redo adding Amy to the list -> Amy added again */
-        //command = RedoCommand.COMMAND_WORD;
-        //model.addPerson(toAdd);
-        //expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        //assertCommandSuccess(command, model, expectedResultMessage);
-
         /* Case: add a person with all fields same as another person in the address book except name -> added */
         toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddUserCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + PASSWORD_DESC_AMY
@@ -89,7 +78,7 @@ public class AddUserCommandSystemTest extends AddressBookSystemTest {
          */
         toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
+        assertCommandFailure(command, AddUserCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();

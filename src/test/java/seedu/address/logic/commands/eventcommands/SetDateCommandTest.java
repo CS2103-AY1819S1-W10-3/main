@@ -1,8 +1,8 @@
 //@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
@@ -37,7 +37,7 @@ public class SetDateCommandTest {
         model.setCurrentUser(ALICE);
         Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(command.MESSAGE_SUCCESS, date.format(dateFormat), event);
+        String expectedMessage = String.format(SetDateCommand.MESSAGE_SUCCESS, date.format(dateFormat), event);
         Event eventEdited = expectedModel.getEvent(TypicalIndexes.INDEX_FIRST);
         eventEdited.setDate(date);
         expectedModel.commitAddressBook();
@@ -49,7 +49,7 @@ public class SetDateCommandTest {
         SetDateCommand command = new SetDateCommand(date);
         Event event = new EventBuilder().build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        String expectedMessage = Messages.MESSAGE_NO_USER_LOGGED_IN;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -57,7 +57,7 @@ public class SetDateCommandTest {
     public void execute_noEventSetDate() {
         SetDateCommand command = new SetDateCommand(date);
         model.setCurrentUser(ALICE);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
+        String expectedMessage = Messages.MESSAGE_NO_EVENT_SELECTED;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -67,11 +67,9 @@ public class SetDateCommandTest {
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
         Person anotherUser = new PersonBuilder(user).withName("Bob").build();
-        EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(anotherUser);
-        Event event = eventBuilder.build();
+        Event event = new EventBuilder().withOrganiser(anotherUser).build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+        String expectedMessage = Messages.MESSAGE_NOT_EVENT_ORGANISER;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -83,19 +81,19 @@ public class SetDateCommandTest {
         SetDateCommand setDateTwoCommand = new SetDateCommand(dateTwo);
 
         // same object -> returns true
-        assertTrue(setDateOneCommand.equals(setDateOneCommand));
+        assertEquals(setDateOneCommand, setDateOneCommand);
 
         // same values -> returns true
         SetDateCommand setDateOneCommandCopy = new SetDateCommand(dateOne);
-        assertTrue(setDateOneCommand.equals(setDateOneCommandCopy));
+        assertEquals(setDateOneCommand, setDateOneCommandCopy);
 
         // different types -> returns false
-        assertFalse(setDateOneCommand.equals(1));
+        assertNotEquals(setDateOneCommand, 1);
 
         // null -> returns false
-        assertFalse(setDateOneCommand.equals(null));
+        assertNotEquals(setDateOneCommand, null);
 
         // different date -> returns false
-        assertFalse(setDateOneCommand.equals(setDateTwoCommand));
+        assertNotEquals(setDateOneCommand, setDateTwoCommand);
     }
 }

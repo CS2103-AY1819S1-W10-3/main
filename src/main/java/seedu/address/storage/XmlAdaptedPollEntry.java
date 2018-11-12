@@ -60,14 +60,17 @@ public class XmlAdaptedPollEntry {
         return name;
     }
 
-    public UniquePersonList getPersonList(ObservableList<Person> personList) {
+    /**
+     * Returns a UniquePersonList constructed from the voter list stored by XmlPersonIndex.
+     */
+    public UniquePersonList getPersonList() {
         UniquePersonList persons = new UniquePersonList();
         for (XmlPersonIndex personIndex : voterList) {
             try {
                 Person modelPerson = personIndex.toModelType();
                 persons.add(modelPerson);
             } catch (PersonNotFoundException e) {
-                logger.info("Person not added to voter list.");
+                logger.info("Person cannot be found and not added to voter list.");
             }
         }
         return persons;

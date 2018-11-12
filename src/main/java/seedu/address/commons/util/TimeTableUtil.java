@@ -7,16 +7,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Lesson;
 import seedu.address.model.person.TimeTable;
 
 
-
 /**
+ * Utilities for Timetable Download
  * @author adjscent
  */
 public class TimeTableUtil {
@@ -51,23 +53,26 @@ public class TimeTableUtil {
     private static final String REGEX_GET_SEPARATER = "\\?";
     private static final String REGEX_MODULE_SEPARATER = "&";
 
+    private static final Logger logger = LogsCenter.getLogger(TimeTableUtil.class);
 
     /**
+     * Parse links from the share command of Nusmods
      * @param url
-     * @return
-     * @throws ParseException
+     * @return Timetable
+     * @throws ParseException if the url link is invalid
      */
     public static TimeTable parseUrl(String url) throws ParseException {
         return parseLongUrl(parseShortUrl(url));
     }
 
     /**
+     * Part of parse link
      * @param urlString
-     * @return
+     * @return Timetable
      * @throws ParseException
      */
     public static String parseShortUrl(String urlString) throws ParseException {
-
+        logger.info("NusMods TimeTable shortlink: " + urlString);
         try {
             URL url = new URL(urlString);
             HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
@@ -85,43 +90,49 @@ public class TimeTableUtil {
             }
 
             // Invalid short url handler
-            if (longUrlString.equals(("http://modsn.us"))) {
-                throw new ParseException(INVALID_URL);
-            }
+            //if (longUrlString.equals(("http://modsn.us"))) {
+            //    throw new ParseException(INVALID_URL);
+            //}
 
-            if (httpUrlConnection.getResponseCode() == 403) {
-                throw new ParseException(INVALID_URL);
-            }
+            //if (httpUrlConnection.getResponseCode() == 403) {
+            //    throw new ParseException(INVALID_URL);
+            //}
 
             return longUrlString;
 
         } catch (IOException e) {
-            throw new ParseException(API_CALL_FAILURE);
-        } catch (NullPointerException e) {
             throw new ParseException(API_CALL_FAILURE);
         }
 
     }
 
     /**
+     * Part of parse link
+     * Breaks down the long url into sections
      * @param urlString
-     * @return
+     * @return Timetable
      * @throws ParseException
      */
     public static TimeTable parseLongUrl(String urlString) throws ParseException {
 
+        logger.info("NusMods TimeTable longlink: " + urlString);
+
         // variables
         ArrayList<Lesson> lessonList = new ArrayList<>();
 
-
         // split url into /../../../
         String[] parts = urlString.split(REGEX_SLASH);
+        assert (parts.length == 6);
 
-        // get semster from url
         String semster = parts[SEMSTER_INDEX];
 
         // get each modules from url and remove share?
-        String[] modules = parts[MODULE_INDEX].split(REGEX_GET_SEPARATER)[1].split(REGEX_MODULE_SEPARATER);
+        String[] share = parts[MODULE_INDEX].split(REGEX_GET_SEPARATER);
+        if (share.length < 2) {
+            TimeTable timetable = new TimeTable(lessonList);
+            return timetable;
+        }
+        String[] modules = share[1].split(REGEX_MODULE_SEPARATER);
 
         // Get all of the (limited) module information via api call
         for (String module : modules) {
@@ -130,13 +141,15 @@ public class TimeTableUtil {
         }
 
         TimeTable timetable = new TimeTable(lessonList);
+        logger.info("NusMods TimeTable download is successful.");
         return timetable;
     }
 
     /**
+     * Convert the module into list of lesson
      * @param module
      * @param semster
-     * @return
+     * @return ArrayList
      * @throws ParseException
      */
     public static ArrayList<Lesson> parseModule(String module, String semster) throws ParseException {
@@ -153,6 +166,8 @@ public class TimeTableUtil {
             String[] temp = moduleChosenSlot.split(REGEX_COLON);
             moduleChosenSlotMap.put(temp[0], temp[1]);
         }
+
+        assert (semster.split(REGEX_DASH).length == 2);
         // Get Semester number
         int semsterNumber = Integer.parseInt(semster.split(REGEX_DASH)[1]);
 
@@ -183,15 +198,19 @@ public class TimeTableUtil {
      * @throws ParseException
      */
     public static ArrayList<Lesson> obtainModuleInfoFromApi(String moduleCode, int semNum) throws ParseException {
+
         LocalDate currentDate = LocalDate.now();
+
         String acadYear;
 
         // Calculate current academic year
-        if (currentDate.getMonthValue() <= 6) {
-            acadYear = (currentDate.getYear() - 1) + "-" + (currentDate.getYear());
-        } else {
-            acadYear = currentDate.getYear() + "-" + (currentDate.getYear() + 1);
-        }
+        // Correct as of 9/11/2018
+        acadYear = currentDate.getYear() + "-" + (currentDate.getYear() + 1);
+        //if (currentDate.getMonthValue() <= 6) {
+        //    acadYear = (currentDate.getYear() - 1) + "-" + (currentDate.getYear());
+        //} else {
+        //    acadYear = currentDate.getYear() + "-" + (currentDate.getYear() + 1);
+        //}
 
         // Link format is correct as of 25/9/2018
         String link = "http://api.nusmods.com/" + acadYear + "/" + semNum + "/modules/" + moduleCode + ".json";

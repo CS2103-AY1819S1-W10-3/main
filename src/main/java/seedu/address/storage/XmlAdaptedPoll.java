@@ -9,10 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import javafx.collections.ObservableList;
 import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.event.polls.Poll;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -64,11 +62,10 @@ public class XmlAdaptedPoll {
     /**
      * Converts this jaxb-friendly adapted event object into the model's Poll object.
      */
-    public Poll toModelType(ObservableList<Person> personList) {
-        //need to check for illegal arguments
+    public Poll toModelType() {
         HashMap<String, UniquePersonList> pollData = new HashMap<>();
         for (XmlAdaptedPollEntry entry : options) {
-            pollData.put(entry.getOptionName(), entry.getPersonList(personList));
+            pollData.put(entry.getOptionName(), entry.getPersonList());
         }
         Poll poll = new Poll(Integer.valueOf(id), name, pollData);
         return poll;

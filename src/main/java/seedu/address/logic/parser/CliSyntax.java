@@ -26,5 +26,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_POLL_OPTION = new Prefix("o/");
     public static final Prefix PREFIX_PARTICIPANT_NAME = new Prefix("pn/");
     public static final Prefix PREFIX_ORGANISER_NAME = new Prefix("on/");
+    public static final Prefix PREFIX_SCHEDULE_LIMIT = new Prefix("sl/");
+
 
 }

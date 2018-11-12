@@ -11,17 +11,17 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the event organiser.
  */
 public class ClearUserCommand extends Command {
 
     public static final String COMMAND_WORD = "clearUser";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Event Organiser has been cleared!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        if (!model.getClearEnabled()) {
+        if (!model.getClearIsEnabled()) {
             throw new CommandException(MESSAGE_UNKNOWN_COMMAND);
         }
 

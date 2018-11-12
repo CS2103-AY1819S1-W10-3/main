@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalEvents.getEmptyAddressBook;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
@@ -29,7 +31,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class AddEventCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -50,7 +51,7 @@ public class AddEventCommandTest {
         AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new
                 AddEventCommandTest.ModelStubAcceptingEventAdded();
         Event validEvent = new EventBuilder().build();
-        modelStub.setCurrentUser(new PersonBuilder().build());
+        modelStub.setCurrentUser(ALICE);
 
         CommandResult commandResult = new AddEventCommand(validEvent).execute(modelStub, commandHistory);
 
@@ -129,6 +130,16 @@ public class AddEventCommandTest {
         final ArrayList<Event> eventsAdded = new ArrayList<>();
         private Person currentUser = null;
         private Event currentEvent;
+
+        @Override
+        public int getNumEvents() {
+            return eventsAdded.size();
+        }
+
+        @Override
+        public Event getEvent(Index index) {
+            return eventsAdded.get(index.getZeroBased());
+        }
 
         @Override
         public boolean hasEvent(Event event) {

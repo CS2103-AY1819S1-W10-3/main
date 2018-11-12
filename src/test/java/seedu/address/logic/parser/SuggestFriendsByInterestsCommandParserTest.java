@@ -21,12 +21,12 @@ public class SuggestFriendsByInterestsCommandParserTest {
     private SuggestFriendsByInterestsCommandParser parser = new SuggestFriendsByInterestsCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    public void parseValidArgsReturnsSuggestFriendsByInterestsCommand() {
         assertParseSuccess(parser, "1", new SuggestFriendsByInterestsCommand(INDEX_FIRST));
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
+    public void parseInvalidArgsThrowsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SuggestFriendsByInterestsCommand.MESSAGE_USAGE));
     }

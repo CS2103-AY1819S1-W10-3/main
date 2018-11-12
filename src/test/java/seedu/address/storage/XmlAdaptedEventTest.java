@@ -17,8 +17,8 @@ import org.junit.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.TypicalPersons;
@@ -60,7 +60,7 @@ public class XmlAdaptedEventTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         XmlAdaptedEvent event = new XmlAdaptedEvent(null, VALID_ADDRESS, VALID_ORGANISER, VALID_DATE,
                 VALID_START_TIME, VALID_END_TIME, VALID_TAGS, VALID_POLL_LIST, VALID_PERSON_LIST);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, EventName.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
 

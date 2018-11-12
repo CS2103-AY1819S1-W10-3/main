@@ -28,8 +28,8 @@ public class VoteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": User adds vote to the option of the specified poll.\n"
             + "Parameters: "
-            + PREFIX_INDEX + "INDEX "
-            + PREFIX_POLL_OPTION + "OPTION ";
+            + PREFIX_INDEX + "POLL_INDEX "
+            + PREFIX_POLL_OPTION + "POLL_OPTION ";
 
     public static final String MESSAGE_SUCCESS = "Voted for option '%1$s' of poll %2$s.";
 

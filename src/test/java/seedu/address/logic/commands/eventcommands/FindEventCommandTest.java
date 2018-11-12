@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +34,7 @@ public class FindEventCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_multipleKeywords_eventFound() throws ParseException {
+    public void execute_singleKeyword_eventFound() throws ParseException {
         EventAttributesPredicate predicate = makeEventsAttributesPredicate(NAME_DESC_MEETING);
         FindEventCommand command = new FindEventCommand(predicate);
         expectedModel.updateFilteredEventList(predicate);
@@ -52,7 +53,7 @@ public class FindEventCommandTest {
 
         EventAttributesPredicate predicate = new EventAttributesPredicate();
         if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
-            predicate.setName(ParserUtil.parseGenericString(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
+            predicate.setName(ParserUtil.parseEventName(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             predicate.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));

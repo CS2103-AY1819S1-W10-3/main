@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -13,7 +14,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W10-3/main/tree/master
 
 By: `Team W10-03`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -172,7 +173,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `EventDetailsPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -289,16 +290,15 @@ image::LoginFeatureAfterLogin.png[width="300"]
 
 ===== Aspect: security
 
-* Alternative 1(Current choice) : store the password for each user as an attribute of Person class
+* **Alternative 1**(Current implementation) : store the password for each user as an attribute of Person class
 ** Pros: Enforce some level of authentication with minimal code
 ** Cons: Level of security is minimal
 
-
-* Alternative 2 : Use Java API to hash the password
+* **Alternative 2** : Use Java API to hash the password
 ** Pros: Higher level of security for users
 ** Cons: May not be pertinent for the EventOrganiser app as of v1.3
 
-* Alternative 3 : implement "login" via select command
+* **Alternative 3** : implement "login" via select command
 ** Pros: Easy to implement
 ** Cons: No security at all
 // end::login/logout[]
@@ -422,18 +422,18 @@ a `NoUserLoggedInException` is thrown, and if there is no selected event, a `NoE
 In addition, four other possible exceptions might be thrown by the VoteCommand:
 
 * A user must have already joined the event as a participant, or be on the invite list in order to vote, failing which, a UserNotJoinedEventException is thrown.
-* A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someeone tries to vote twice.
+* A user must not already have voted for that particular option in the poll already. This is enforced by the UniquePersonList, which throws a DuplicatePersonException if someone tries to vote twice.
 * A poll must exist at the given poll index for the selected event, else, an IndexOutOfBoundsException is thrown.
 * The given option must exist in the selected poll, else, an IllegalArgumentException is thrown.
 
 The other commands `AddPollCommand` and `AddPollOptionCommand` follow a very similar structure.
 The sequence diagram within the model for the `AddPollCommand` is illustrated here:
 
-image::AddPollSequenceDiagram.png[width="800"]
+image::AddPollSequenceDiagram.png[width="600"]
 
-In all cases, the Poll object is returned to the calling Command object,
-so that the contents of the poll can be retrieved as a String through the `Poll#displayPoll()` method.
+In all cases, the contents of the poll is returned to the calling Command object as String through the `Poll#displayPoll()` method.
 The displayed details of the poll contains the most popular options, computed using the `Poll#getPopularOptions()` method.
+This method returns an empty list if there no user has voted for any option yet.
 A new `DisplayPollEvent` is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.
 
 The `TimePoll` class extends from the abstract `AbstractPoll` class which is constructed by calling the `AddTimePollCommand`.
@@ -447,7 +447,7 @@ Hence, the event organiser must wait for all participants to be confirmed before
 
 ===== Aspect: The relationship between `Poll` and `TimePoll`
 
-* **Alternative 1** (current implementation): Design them as separate classes which both inherit from an abstract `AbstractPoll` class.
+* **Alternative 1** (Current implementation): Design them as separate classes which both inherit from an abstract `AbstractPoll` class.
 ** Pros: Allows for future extendability from the abstract Poll class eg additional types of Polls (location, date) which constrain the option types
  and include additional features to recommend the best option eg most convenient location by distance for participants.
 
@@ -457,7 +457,7 @@ Hence, the event organiser must wait for all participants to be confirmed before
 
 ===== Aspect: Storage of voters in Poll
 
-* **Alternative 1** (current implementation): Store the voters as Persons.
+* **Alternative 1** (Current implementation): Store the voters as Persons.
 ** Pros: All information about the voters are stored.
 ** Cons: Need for complete reference to the actual person via the XmlPersonIndex class in storage, rather than duplicating the person details.
 The voter list must also be manually updated every time the person details are updated.
@@ -478,36 +478,54 @@ This section explains the implementation of the features associated with the Sch
 
 ==== Design considerations
 
-For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not have a schedule object included and adjustments have to be made. Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatability with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the week's schedule is stored.
+For EditCommand, despite the fact that schedule piggybacks off the original edit command, the original person did not include a schedule object, and so adjustments have to be made.
+Firstly, if the person does not have the schedule object, a new schedule object would be created by the logic layer. This is to ensure backwards compatibility with past test cases without schedule objects. Next, the schedule needs to be stored in the xml file in a concise way so that it would not be bloated. As the persons in the applications are students, we can be certain that their schedules will be likely the same through the week, thus only the weekly schedule is stored.
+
 
 ===== Aspect: Storage of schedule in person
 
-* **Alternative 1:**: Store all schedule as a slot just like how a calendar does, which includes day, time, etc.
+* **Alternative 1** Store all schedule as a slot just like how a calendar does, which includes day, time, etc.
 ** Pros: All information about the schedule are stored.
 ** Cons: Expensive storage as a lot of data needs to be stored. Management of schedule may become an issue here if the schedule needs to store for more than a year worth.
 
-* **Alternative 2:**: Store weekly schedule
-** Pros: Cheap storage as only a subnet of schedule needs to be stored. Possible O(1) access times.
-** Cons: Explict details of the schedule may be lost such as an event that appears only once a year.
+* **Alternative 2:** (current implementation) Store weekly schedule
+** Pros: Cheap storage as only a subset of schedule needs to be stored. Possible O(1) access times.
+** Cons: Explicit details of the schedule may be lost such as an event that appears only once a year.
 
 We have chosen the second option for the ease of storage management and low access times.
 To store the schedule, a unique approach of using bit counters is used.
 Each bit stores a 30 minute block, totalling to 24 hours * 2 30-mins * 7 days =  336 bits.
 1-bit signifies an occupied slot while a 0-bit signifies an empty slot.
-This 336 bit string is then stored as a string in the xml.
+This 336 bit-string is then stored as a string in the xml.
 However, in the application, it will stored as a two-dimensional array [7][48].
-This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bitstring into an array.
+This allows O(1) access times for each slot, while only requiring O(n) on startup to reload the bit-string into an array.
 
 Each bit string is then translated into a Slot, detailing its time of the day and the day of the week, to be used by the application
 
+image::ScheduleDiagram.png[width="800"]
+
+As manipulating bit strings may be complicated, getter, setter and merger methods are provided for any external access to the schedule. This allows easy use of the specific slots in the schedule without heavy calculation and memorisation of bits.
+
+* Schedule has a copy constructor to create duplicates for the schedule objects. Useful for any commands that manipulate schedule objects 
+* Note that schedule only takes in Slots as an argument for its methods. Slot consists of a Time object and a Day object. This is to ensure Separation of Concerns in the schedule manipulation as schedule does not need to be ensure that the argument input is valid; The Time and Day objects will ensure the validity of values.
+* All commands that feed input into schedule should also validate the data input. In the event such data is not sanitised, defensive programming has been employed in Day and Time to deny the data.
+
 ===== Aspect: Schedule Update
 
-As the schedule is stored as a bitstring, we can employ bitwise operations for updates. To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be inputed. The following is then implemented into a new empty schedule, with that specific slot as 1-bit. Finally, the new schedule is to be xor-ed with the existing schedule, implementating a "bit flipper", and stored back to the person.
+To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be entered. The strings are then converted into a Slot(which contains Time and Day objects). The setter methods of schedule is then called to effect the change. Note that this is a "bit flip" operation, so it will set a free Slot to an occupied Slot and vice versa.
 
 ===== Aspect: MaxSchedule Command
 
-Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.
+Similarly, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.
 
+Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
+It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.
+
+The sequence diagram of MaxSchedule command is illustrated below.
+
+image::MaxScheduleDiagram.png[width="800"]
+
+As noted from the schedule component, MaxSchedule command passes a Time object into the schedule. This abstraction of Time/Day objects reduces the possibility of invalid input resulting from the user input in MaxSchedule command.
 
 // end::schedule[]
 
@@ -521,18 +539,45 @@ This section explains the implementation of the features associated with the Tim
 
 `EditUserCommand` - The base Edit command for person with one addition - Timetable parameter
 
-TimeTable is data downloaded from nusmods.com, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule/ schedule update parameters in the EditCommand. This timetable is also not stored as it is inside the xml but immediately translated into a schedule object to be passed back to the application.
+`AddUserCommand` - The base Add command for person with one addition - Timetable parameter
+
+TimeTable is a collection of data downloaded from an external source, detailing the students' weekly schedule for the semester. This is to allow ease of access for the students, without having them to enter their schedules manually using schedule update parameters in the EditCommand.
+This timetable is also not stored inside the xml, but rather immediately translated into a schedule object to be passed back to the application, which would store the object inside the model.
+
+
+===== Aspect: Timetable Source
+
+* **Alternative 1** Google Calendar
+** Pros: Academic and non-academic calendar events can be downloaded.
+** Cons: Not tailored for NUS students - students must acquire their academic events from their own CORS (NUS module slot bidding) result to populate their own google calendar. Google authorization token (per user) will have to stored securely.
+
+* **Alternative 2:** (current implementation) NusMod
+** Pros: Academic events can be downloaded. Many students are already using this platform to store their academic events.
+** Cons: Non-academic events cannot be downloaded from this source.
+
+NusMods will be used to provide academic events for the student. As for their non-academic events, he can use schedule update to manually update those slots.
+This way, we will be able to provide the most convenient way for the student to populate the schedule.
+
+===== Aspect: Timetable Download
 
 As nusmods.com is an external web server, internet access needs to be checked first. Following up, the nusmods.com gives the user a modsn.com shortlink which can translated back to a nusmods.com/... full link, if he wants to share his timetable with himself or others. Finally, a valid nusmods.com timetable would include json data in its GET parameters. All of these must be fulfilled or else a Invalid Nusmods link will be returned to the application.
 
-A full valid example of the nusmods link is as follows:
+The sequence diagram for the timetable download is illustrated below.
+
+image::TimeTableScheduleDiagram.png[width="800"]
+
+
+This is the valid short link of the nusmod timetable.
+```
+http://modsn.us/H4v8s
+```
+
+The above short link will be parsed into the full nusmods link as followed:
 ```
 https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:11&CS2103=LEC:1,TUT:01&CS2105=LEC:1,TUT:16&CS2106=LAB:09,LEC:1,TUT:09&MA1521=LEC:1,TUT:4&UCV2209=SEM:01
 ```
 
-image::TimeTableScheduleDiagram.png[width="800"]
-
-How to obtain the full timetable.
+Breakdown on how to obtain the full timetable and convert it into a schedule.
 
 Step 1. We can easily obtain the person's timetable by splitting the GET parameters by ';' delimiter. The resulting array would contain Module Code /=/ Lesson Type /:/ Number Slot.
 
@@ -540,7 +585,11 @@ Step 2. Then, to obtain the full details of the module (including all lessons an
 
 Step 3. We will then filter out the lessons obtained in step 1 from the full detail in step 2.
 
-Step 4. The filtered lessons is then converted into an arraylist of Slot before returning to the aplication.
+Step 4. The filtered lessons is then converted into a list of Slot.
+
+Step 5. The list of Slot will be passed in a Schedule constructor to generate a new schedule.
+
+Step 6. The new schedule object is returned to the application.
 
 // end::timetable[]
 
@@ -567,16 +616,16 @@ To specify the friendship relation between two users, both the indexes of the us
 
 ===== Aspect: Friend class
 
-Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string field that combines the 4 main attributes of Person (name, phone, email, address) using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
-For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object will have a string field that is 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
+Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a constructor which takes in a Person object, and initializes the string field `friendAttributes` that combines the 4 main attributes of Person (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
+For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object's `friendAttributes` string field will be 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
 
-In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is called, a Friend object will be created and added into the set.
+In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is executed, once the checking is done (as described in the next aspect), a copy each of the 2 persons (2 new Person objects) represented by the index will be created. Then the addFriendInList() method from Person class will be called by each of them on each other, which creases a Friend object as described by the paragraph above and adds it to each of their friend lists. Finally, both these new Person objects will replace the old Person objects in the Model using the updatePerson() method from the Model class.
 
 In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.
 
-===== Aspect: Friendships can only be added once and deleted if they are current friends
+===== Aspect: Friendships can only be added once, deleted if they are currently friends
 
-Each person can only be added as a friend once by another person. If two persons are already friends and `AddFriendCommand` is called again on these two persons, each of their friend lists will be checked to confirm that each other is already on it, hence the same person will not be added twice.
+Each person can only be added as a friend once by another person. If two persons are already friends and `AddFriendCommand` is called again on these two persons, each of their friend lists will be checked using the hasFriendInList() method in Person class to confirm that each other is already on it, hence the same person will not be added twice.
 
 Similarly, if two persons are not yet friends, or were friends but the friendship was deleted, if `DeleteFriendCommand` is called on these two persons, each of their friend lists will be checked to confirm that each other is not on it, hence the delete action will not be taken.
 
@@ -1107,30 +1156,30 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [Discrete]
 === Feature
 
-==== Division of work
+Division of work
 
-#### Keng Ji : Add event feature with polls and time, location features
+==== Keng Ji : Add event feature with polls and time, location features
 
 - [x] V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.
 - [x] V1.2: Users able to search for events by attributes (date, time, location, interest) and time range.
 - [x] V1.3: Application able to generate poll options based on participants' schedules.
 
-#### Yao Feng : Add login function and improve on search functions
+==== Yao Feng : Add login function and improve on search functions
 - [x] V1.1: Basic login command.
-- [X] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
-- [X] V1.3: Improved login command with password.
+- [x] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
+- [x] V1.3: Improved login command with password.
 
-#### Zhang Cheng : Add additional attributes for networking among users
+==== Zhang Cheng : Add additional attributes for networking among users
 - [x] V1.1: Users able to specify their interests.
 - [x] V1.2: Users able to specify friendships with other people.
-- [ ] V1.3: Users able to form groups and find mutual friends.
+- [x] V1.3: Users able to search for friends and become more connected.
 
-#### Adeel : Add location-related features
+==== Adeel : Add location-related features
 - [ ] V1.1: Add feature of nearest MRT for each individual.
 - [ ] V1.2: Implement recommendation of best meet-up location via MRT lines.
 - [ ] V1.3: Implement Google maps visualisation.
 
-#### Jason : Event Management/Recommendation
+==== Jason : Event Management/Recommendation
 - [x] V1.1: Pull schedule from NUS Mods and convert to a timetable. Allow Unions of timetable.
 - [x] V1.2: Create, Update, Delete individual slots in timetable. Find best possible time for events using timetables.
 - [x] V1.3: Visualize timetables of multiple friends.
@@ -1269,26 +1318,26 @@ Use case resumes from step 3.
 [discrete]
 === Use case: U04 – Create new event
 
-*Actor: User*
+*Actor: Event Organiser*
 
-*Precondition: User has identified himself/herself*
+*Precondition: Event organiser has logged himself/herself in*
 
 *MSS:*
 
-1.	User creates a new event by specifying the details of the event.
+1.	Event organiser creates a new event by specifying the name, location and tags of the event.
 2.	System checks that the details are valid.
-3.	System informs the user that the event has been successfully created.
+3.	System informs the event organiser that the event has been successfully created.
 
 +
 Use case ends.
 
 *Extensions:*
 
-* 2a. User enters invalid details.
+* 2a. Event organiser enters invalid details.
 +
-** 2a1. System will prompt user to re-enter the event details.
+** 2a1. System will prompt event organiser to re-enter the event details.
 +
-** 2a2. User enters event details again.
+** 2a2. Event organiser enters event details again.
 +
 Steps 2a1 - 2a2 are repeated until the details entered are valid.
 +
@@ -1297,15 +1346,15 @@ Use case resumes from step 3.
 [discrete]
 === Use case: U05 – Delete an event
 
-*Actor: User*
+*Actor: Event organiser*
 
-*Precondition: User has identified himself/herself*
+*Precondition: Event organiser has identified himself/herself*
 
 *MSS:*
 
-1.	User chooses to delete an event.
+1.	Event organiser chooses to delete an event.
 2.	System checks that the event belongs to the user.
-3.	System informs the user that the event has been successfully deleted.
+3.	System informs the event organiser that the event has been successfully deleted.
 
 +
 Use case ends.
@@ -1327,7 +1376,7 @@ Use case resumes from step 3.
 
 *Actor: User*
 
-*Precondition: User has identified himself*
+*Precondition: User has logged in*
 
 *MSS:*
 
@@ -1346,6 +1395,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
+
+////
 === Use case: U07 – User invites other to join him/her event
 
 *Actor: Event organiser, another user that will be invited to join the event organiser’s event*
@@ -1378,26 +1429,68 @@ Use case resumes at step 2.
 ** 6a1. System informs the user that he/she has rejected the event invitation.
 +
 Use case ends.
-
+////
 [discrete]
-=== Use case: U08 – User who is keen on joining an event chooses their preferred date, time and location for the event, given that the event organiser has created a polling session for this event
 
-*Actor: Event organiser, user who is keen to join an event*
+=== Use case: U07 – Event organiser creates a poll
 
-*Precondition: All relevant User has identified himself*
+*Actor: Event organiser*
+
+*Precondition: Event organiser has logged in and created an event*
 
 *MSS:*
 
-1.	User searches for the event that he wants to join.
-2.	System shows all the possible date, time, and location options that the event organiser has allocated for this event.
-3.	User chooses his/her preferred date, time, and locations.
-4.	System informs the user’s options has been successfully updated.
+1.	Event organiser selects an event.
+2.	Event organiser creates a new poll.
+3.	Event organiser creates options for the poll.
+4.	System informs the event organiser’s options has been successfully updated.
 5.	System updates polling information in its storage.
 
 +
 Use case ends.
 
 [discrete]
+
+=== Use case: U08 – User votes in a poll
+
+*Actor: User who is keen to join an event*
+
+*Precondition: User has logged in and has joined an event*
+
+*MSS:*
+
+1.	User selects a poll from the poll list of the event.
+2.	System displays the poll selected by the user.
+3.	User looks at the options given in the poll and votes for his/her preferred options.
+4.	System adds the user to the voter list of that option.
+5.  System updates the list of most popular options in the poll.
+6.	System updates polling information in its storage.
+
++
+Use case ends.
+
+[discrete]
+
+=== Use case: U08 – Event organiser confirms the event details
+
+*Actor: Event organiser*
+
+*Precondition: Event organiser has logged in, event participants have all joined and voted in polls*
+
+*MSS:*
+
+1.	Event organiser looks at the poll results.
+2.	System shows the top options for each of the polls.
+3.	Event organiser decides on the ideal time, date and location for the event and sets them accordingly.
+4.	System informs the user’s options has been successfully updated.
+5.	System updates event information in its storage.
+
++
+Use case ends.
+
+[discrete]
+
+////
 === Use case: U09 – Event organiser gets the recommended date, time and location for his event from the system’s algorithm and the polling session. Thereafter, chooses the date, time and location for his event
 
 *Actor: Event organiser*
@@ -1449,6 +1542,7 @@ highest votes.
 ** 10a1. System will show all the options that have the highest votes only.
 +
 Use case resumes from step 12.
+////
 // end::UC[]
 
 [appendix]
@@ -1527,8 +1621,174 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Login a user
+.. Note: The states of each test case is continued in the next test case.
+.. Prerequisites: Event Organiser already has a user with name as "Alex Yeoh" and password as "password". Futhermore, no user is currently logged in. The Event Organiser does not have a user with name as "Michael Lim" and password as "password".
+.. Test case: `login`
+   Expected: Login unsuccessful.
+.. Test case: `login n/Michael Lim pass/password`
+   Expected: Login unsuccessful.
 
+.. Test case `login n/Alex Yeoh pass/password`
+   Expected: Login successful.
+
+.. Test case: `login n/Michael Lim pass/password`
+   Expected: Login unsuccessful.
+
+=== Logout a user
+.. Note: The states of each test case is continued in the next test case.
+.. Prerequisites: There is no user currently logged in and the user with name as "Alex Yeoh" and password as "password" is currently logged in.
+.. Test case `logout`
+   Expected: Logout successful.
+.. Test case: `logout`
+   Expected: Logout unsuccessful.
+
+=== Find users
+.. Prerequisites: Event Organiser currently has two user accounts. The first user has name as "Alex Yeoh" and interests as "study". The second user has name as "Bernice Yu" and interest as "play".
+.. Test case `findUser n/Alex Yeoh`
+   Expected: Only user "Alex Yeoh" is listed.
+.. Test case: `findUser i/interest`
+   Expected: Only user "Bernice Yu" is listed.
+.. Test case: `findUser n/Alex Yeoh i/interest`
+   Expected: Only users "Bernice Yu" and "Alex Yeoh" are listed.
+
+=== Edit a user
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Test case `editUser n/Alex Tan`
+   Expected: Name of user successfully changed to "Alex Tan".
+
+=== Delete a user
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Test case `deleteUser`
+   Expected: user "Alex Yeoh" successfully deleted.
+
+=== Populate a user schedule via Timetable
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Test case `editUser tt/http://modsn.us/H4v8s`
+   Expected: Schedule of user successfully overwritten to 100000000000000011110000000011110000000000
+000000000000000000000000000000111111110000000000000000000000000000000000001100000011110000000000
+000000000000000000000000000000111100001111000000000000000000000000000000111100001111111111000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000.
+.. Test case `editUser tt/http://modsn.us/H`
+    Expected: Invalid NUSmods Link
+
+=== Edit a user schedule
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.
+.. Test case `editUser su/monday 0000`
+   Expected: Schedule of user "Alex Yeoh" successfully changed. First bit of the schedule is now 1.
+.. Test case `editUser su/monday 0030`
+   Expected: Schedule of user "Alex Yeoh" successfully changed. Second bit of the schedule is now 1.
+
+=== Find free time between two users
+.. Prerequisites: Event Organiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.
+.. Test case `maxSchedule sl/0000-0000`
+   Expected: Free time of 0000 from Monday to Sunday is displayed.
+.. Test case `maxSchedule sl/0800-0900`
+   Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
+
+=== Add a friend
+.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.
+.. Test case `addFriend 1,2`
+   Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.
+
+=== Delete a friend
+.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.
+.. Test case `deleteFriend 1,2`
+   Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.
+
+=== Add an event
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Test case `addEvent n/CS1234 Group Meeting a/SoC Canteen t/URGENT`
+   Expected: new event with details `CS1234 Group Meeting Location: SoC Canteen Tags: [URGENT]` is added and selected.
+   "Alex Yeoh" is the event organiser.
+   Event details are displayed in the event details panel, and "Alex Yeoh" is a participant of the event under "People attending".
+
+=== Add a poll
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
+.. Test case `addPoll n/Meeting date`
+   Expected: a new poll with name "Meeting date" is created and displayed in the event details panel.
+
+=== Add a time poll
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
+.. Test case `addTimePoll d/19-12-2018 d2/20-12-2018`
+   Expected: a new poll with name "Time Poll" is created and displayed in
+   the event details panel. It is populated by 30 minute slots based on the schedules of the participants.
+
+=== Add poll options
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
+.. Test case `addOption i/1 o/12 December`
+   Expected: a new poll option with name "12 December" is created and displayed in the event details panel.
+.. Test case `addOption i/1 o/13 December`
+   Expected: a new poll option with name "13 December" is created and displayed in the event details panel.
+
+=== Delete an event
+.. Prerequisites: Event organiser "David Li" is logged in and "David Li" is the organiser of event at index 2 but not event at index 1.
+.. Test case `deleteEvent 2`
+   Expected: Event at index 2 is deleted
+.. Test case `deleteEvent 1`
+   Expected: Event 1 is not deleted, an error message "You are not the organiser of this event." is returned.
+
+=== Select an event
+.. Prerequisites: The event list is not empty.
+.. Test case `selectEvent 1`
+   Expected: The event details panel displays the details of the event at index 1.
+
+=== Display poll
+.. Prerequisites: The event at index 1 has been selected and there is a poll in the event.
+.. Test case `displayPoll 1`
+   Expected: Poll at index 1 of the poll list of the first event is displayed.
+
+=== Edit an event
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
+.. Test case `editEvent n/CS2100 Discussion a/NUS UTown`
+   Expected: The selected event is edited to have the name "CS2100 Discussion" and the location "NUS UTown".
+.. Test case `editEvent t/URGENT`
+   Expected: The selected event is edited to have only one tag "URGENT"
+
+=== Find an event by attributes
+.. Prerequisites: The event list is not empty.
+.. Test case `findEvent e/Linguistics Reading Group`
+   Expected: all and only events with name "Linguistics Reading Group" are displayed in the event list.
+.. Test case findEvent t1/17:30 on/Charlotte Oliveiro`
+   Expected: all and only events starting at 17:30 and organised by "Charlotte Oliveiro" are displayed in the event list.
+
+=== Find event by time
+.. Prerequisites: The event list is not empty.
+.. Test case `findEventByTime d/01-12-2018 t1/07:30 t2/17:30`
+   Expected: all and only events held between 07:30 and 17:30 on 01-12-2018 are displayed.
+
+=== List all events
+.. Prerequisites: NIL
+.. Test case `listEvent`
+   Expected: All events in the event organiser are displayed in the events list.
+
+=== Set date
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
+.. Test case `setDate d/12-12-2018`
+   Expected: the date "12-12-2018" is set and appears in the event card of the event.
+
+=== Set time
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
+.. Test case `setTime t1/12:30 t2/14:30`
+   Expected: the times "12:30 - 14:30" are set and appear in the event card of the event.
+
+=== Join event
+.. Prerequisites: A user "Charlotte Oliveiro" is logged in and has yet to join the first event in the list.
+.. Test case `joinEvent 1`
+   Expected: The user "Charlotte Oliveiro" is added to the participants list of the first event.
+   The new event details are displayed in the event details panel.
+
+=== Vote in poll
+.. Prerequisites: User "Charlotte Oliveiro" is logged in and joined the first event in the list,
+to which the event organiser has added a poll "Meeting Date" at poll index 1. In the poll, there are the options `12 December` and `13 December` with no voters.
+.. Test case `vote i/1 o/12 December`
+   Expected: The user "Charlotte Oliveiro" is added to the voter list of the option "12 December"
+   The most popular options list updates to include "12 December"
+
+
+
+////
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -1542,11 +1802,12 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 _{ more test cases ... }_
-
+////
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Corrupted XML file: the application would not run to prevent unexpected responses.
 
-_{ more test cases ... }_
+.. Missing XML file: the application will re-generate the sample xml, and save it as data/addressbook.xml when a change in the sample data.
+

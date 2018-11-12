@@ -15,11 +15,11 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 == Summary of
 
 * *Major enhancement*: Added the ability to specify friendships among users
-** What it does: Allows the users to add or delete friends with each other and have their friend lists displayed
-** Justification: This feature allows users to keep a friendship list which they can refer to it themselves when creating new events. For example, if they would like to organize a friends meetup, they will know who to add to the event. Also, it allows users to search for friends with common interests and expand their friendship lists.
+** What it does: Allows the users to add or delete users from their friend lists and have their friend lists displayed
+** Justification: This feature allows users to keep a list of friends where they can be updated of their details and the events that they join, similar to following someone on Instagram. For example, a user can look through the displayed profile of the users in their friend list to see what are the current events that they are in. Also, this feature allows users to search for friends with common interests and add them into their friend lists.
 
 * *Minor enhancement*: Added a new attribute Interest for a user
-** Justification: This attribute allows users to specify any number of interests, which can be identified for friendships and events.
+** Justification: The original tag attribute allows users to specify the groups that they are associated with (eg faculty and tutorial class names). This new Interest attribute allows users to specify the things that they are interested in (eg hobbies). This improves the connectivity among users in the Event Organiser as they can now find friends through common interests.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=agendazhang[Functional code]]
 
@@ -27,12 +27,12 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 
 ** Project management
 ** Enhancements to existing features:
-*** Updated the GUI browser display (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/123[#123])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/163[#163])
+*** Updated the GUI browser display (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/123 [#123])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/163 [#163], https://github.com/CS2103-AY1819S1-W10-3/main/pull/189 [#189])
 ** Documentation:
-*** Finalise User Stories: https://github.com/CS2103-AY1819S1-W10-3/main/pull/18[#18]
+*** Updated the original user commands (from Address Book Level 4) in the developer guide (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/189 [#189])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/164[#164], https://github.com/CS2103-AY1819S1-W10-3/main/pull/165[#165]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/164 [#164], https://github.com/CS2103-AY1819S1-W10-3/main/pull/165 [#165]
 *** Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)
 
 == Contributions to the User Guide
@@ -43,6 +43,10 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 include::../UserGuide.adoc[tag=addDeleteFriend]
 
 include::../UserGuide.adoc[tag=suggestFriends]
+
+include::../UserGuide.adoc[tag=listFriends]
+
+include::../UserGuide.adoc[tag=agendazhang(commandsummary)]
 
 == Contributions to the Developer Guide
 

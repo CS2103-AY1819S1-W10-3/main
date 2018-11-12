@@ -7,7 +7,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +15,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventName;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -32,7 +32,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_EMPTY_STRING = "Name argument provided should not be empty.";
+    public static final String MESSAGE_EMPTY_STRING = "String argument provided should not be empty.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -44,10 +44,6 @@ public class ParserUtil {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
-        if (trimmedIndex.contains(StringUtil.COMMA)) {
-            ArrayList<Integer> indexes = StringUtil.splitIntegersWithComma(trimmedIndex);
-            return Index.fromOneBased(indexes.get(0), indexes.get(1));
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -128,6 +124,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String eventName} into an {@code EventName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code eventName} is invalid.
+     */
+    public static EventName parseEventName(String eventName) throws ParseException {
+        requireNonNull(eventName);
+        String trimmedEventName = eventName.trim();
+        if (!Address.isValidAddress(trimmedEventName)) {
+            throw new ParseException(EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
+        }
+        return new EventName(trimmedEventName);
+    }
+
+    /**
      * Parses a {@code String date} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -137,8 +148,8 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            LocalDate newDate = LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")
-                .withResolverStyle(ResolverStyle.SMART));
+            LocalDate newDate = LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern("dd-MM-uuuu")
+                .withResolverStyle(ResolverStyle.STRICT));
             return newDate;
         } catch (DateTimeParseException e) {
             throw new ParseException(Messages.MESSAGE_WRONG_DATE_FORMAT);

@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import org.junit.Test;
 
 import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {
@@ -53,6 +54,15 @@ public class EditPersonDescriptorTest {
 
         // different tags -> returns true
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(DESC_AMY.equals(editedAmy));
+
+        // different schedule
+        try {
+            editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
+                .withUpdateSchedule("monday", "0100").build();
+        } catch (ParseException e) {
+            // ignore as we know it is correct
+        }
         assertTrue(DESC_AMY.equals(editedAmy));
     }
 }

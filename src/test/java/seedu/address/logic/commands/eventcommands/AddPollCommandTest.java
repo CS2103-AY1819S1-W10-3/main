@@ -10,13 +10,10 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.NoEventSelectedException;
-import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -30,17 +27,15 @@ public class AddPollCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_acceptedAddPoll() throws NoEventSelectedException, NoUserLoggedInException,
-            NotEventOrganiserException {
+    public void execute_acceptedAddPoll() {
         AddPollCommand command = new AddPollCommand(POLLNAME);
-        Person user = ALICE;
-        model.setCurrentUser(user);
+        model.setCurrentUser(ALICE);
         Event event = model.getFilteredEventList().get(0);
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(command.MESSAGE_SUCCESS, POLLNAME, event);
+        String expectedMessage = String.format(AddPollCommand.MESSAGE_SUCCESS, POLLNAME, event);
         Event expectedEvent = expectedModel.getEvent(TypicalIndexes.INDEX_FIRST);
         expectedModel.setSelectedEvent(expectedEvent);
-        expectedModel.setCurrentUser(user);
+        expectedModel.setCurrentUser(ALICE);
         expectedModel.addPoll(POLLNAME);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -51,7 +46,7 @@ public class AddPollCommandTest {
         AddPollCommand command = new AddPollCommand(POLLNAME);
         Event event = new EventBuilder().build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        String expectedMessage = Messages.MESSAGE_NO_USER_LOGGED_IN;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -60,7 +55,7 @@ public class AddPollCommandTest {
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
         AddPollCommand command = new AddPollCommand(POLLNAME);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
+        String expectedMessage = Messages.MESSAGE_NO_EVENT_SELECTED;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -70,11 +65,9 @@ public class AddPollCommandTest {
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
         Person anotherUser = new PersonBuilder(user).withName("Bob").build();
-        EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(anotherUser);
-        Event event = eventBuilder.build();
+        Event event = new EventBuilder().withOrganiser(anotherUser).build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+        String expectedMessage = Messages.MESSAGE_NOT_EVENT_ORGANISER;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 }

@@ -4,14 +4,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 class SlotTest {
 
     @Test
-    void testMethodsS() {
-        Slot slot = new Slot();
-        slot.setDay("tuesday");
-        slot.setTime("0800");
-        assertTrue (slot.getDay().equals("tuesday"));
-        assertTrue (slot.getTime().equals("0800"));
+    void testMethods() throws ParseException {
+        Slot slot = new Slot("tuesday", "0800");
+        assertTrue(slot.getDay().getStringRepresentation().equals("tuesday"));
+        assertTrue(slot.getTime().getStringRepresentation().equals("0800"));
     }
 }
+

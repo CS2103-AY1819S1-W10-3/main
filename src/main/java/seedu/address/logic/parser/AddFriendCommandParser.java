@@ -20,8 +20,8 @@ public class AddFriendCommandParser implements Parser<AddFriendCommand> {
      */
     public AddFriendCommand parse(String args) throws ParseException {
         try {
-            Index indexes = ParserUtil.parseIndex(args);
-            return new AddFriendCommand(indexes);
+            Index index = ParserUtil.parseIndex(args);
+            return new AddFriendCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFriendCommand.MESSAGE_USAGE), pe);

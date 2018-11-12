@@ -5,15 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -115,24 +113,17 @@ public class FindUserCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        List<String> nameKeywordList = Arrays.asList("Alice", "Elle");
-        List<String> phoneKeywordList = Arrays.asList("98765432", "9482442");
-        List<String> addressKeywordList = Arrays.asList("Clementi", "wall");
-        List<String> emailKeywordList = Arrays.asList("anna@example.com", "lydia@example.com");
-        List<String> interestsKeywordList = Arrays.asList("study");
-        List<String> tagsKeywordList = Arrays.asList("friends");
-        UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(nameKeywordList,
-                        phoneKeywordList,
-                        addressKeywordList,
-                        emailKeywordList,
-                        interestsKeywordList,
-                        tagsKeywordList);
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 7);
+    public void execute_multipleKeywords_onePersonFound() {
+        List<String> nameKeywordList = Arrays.asList(VALID_NAME_ALICE.split(" "));
+        List<String> phoneKeywordList = Collections.singletonList(VALID_PHONE_ALICE);
+        List<String> addressKeywordList = Arrays.asList(VALID_ADDRESS_ALICE.split(" "));
+        List<String> emailKeywordList = Collections.singletonList(VALID_EMAIL_ALICE);
+        UserContainsKeywordsPredicate predicate = new UserContainsKeywordsPredicate(nameKeywordList, phoneKeywordList,
+                addressKeywordList, emailKeywordList, null, null);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         FindUserCommand command = new FindUserCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+        assertEquals(Collections.singletonList(ALICE), model.getFilteredPersonList());
     }
 }

@@ -5,9 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.StringTokenizer;
 
 /**
  * Helper functions for handling strings.
@@ -63,47 +61,10 @@ public class StringUtil {
     public static boolean isNonZeroUnsignedInteger(String s) {
         requireNonNull(s);
         try {
-            ArrayList<Integer> values = new ArrayList<>();
-            if (s.contains(COMMA) && countCommas(s) <= 1) { // check if more than two indexes are passed
-                values = splitIntegersWithComma(s);
-            } else {
-                values.add(Integer.parseInt(s));
-            }
-            for (int value : values) {
-                if (!(value > 0 && !s.startsWith("+"))) { // "+1" successfully parsed by Integer#parseInt(String)
-                    return false;
-                }
-            }
-            return true;
+            int value = Integer.parseInt(s);
+            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
         }
-    }
-
-    /**
-     * Given a string that separates two integers with a comma (eg "1,2"), this function returns
-     * an ArrayList that contains the two integers
-     */
-    public static ArrayList<Integer> splitIntegersWithComma(String s) throws NumberFormatException {
-        ArrayList<Integer> values = new ArrayList<>();
-        StringTokenizer st = new StringTokenizer(s, COMMA);
-        while (st.hasMoreTokens()) {
-            values.add(Integer.parseInt(st.nextToken()));
-        }
-        return values;
-    }
-
-    /**
-     * Given a string that separates two integers with a comma (eg "1,2,3"), this function returns
-     * the number of commas in the string.
-     */
-    public static int countCommas(String s) {
-        int count = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == ',') {
-                count++;
-            }
-        }
-        return count;
     }
 }

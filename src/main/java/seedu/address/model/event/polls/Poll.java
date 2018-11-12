@@ -10,26 +10,21 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class Poll extends AbstractPoll {
     /**
-     * Creates a new Poll object
-     * @param pollName The name of the poll
+     * Creates a new Poll object with no existing poll data.
      */
     public Poll(int id, String pollName) {
-        super.id = id;
-        super.pollName = pollName;
-        super.pollData = new HashMap<>();
+        super(id, pollName, new HashMap<>());
     }
 
     /**
      * Creates a new poll object with the poll data.
      */
     public Poll(int id, String pollName, HashMap<String, UniquePersonList> pollData) {
-        super.id = id;
-        super.pollName = pollName;
-        super.pollData = pollData;
+        super(id, pollName, pollData);
     }
 
     /**
-     * Add an option into the poll
+     * Adds an option into the poll
      * @param option The string representing the option to be added
      */
     public void addOption(String option) {
@@ -40,9 +35,10 @@ public class Poll extends AbstractPoll {
     /**
      * Returns a copy of the poll.
      */
+    @Override
     public Poll copy() {
         Poll copy = new Poll(id, pollName);
-        copy.pollData = super.copyData();
+        copy.pollData = copyData();
         return copy;
     }
 }

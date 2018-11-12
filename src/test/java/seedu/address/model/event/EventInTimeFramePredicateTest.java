@@ -1,4 +1,4 @@
-//@@theJrLinguist
+//@@author theJrLinguist
 package seedu.address.model.event;
 
 import static org.junit.Assert.assertFalse;
@@ -57,9 +57,9 @@ public class EventInTimeFramePredicateTest {
 
         //time range exact
         Event event = new EventBuilder().build();
-        date = event.getDate();
-        startTime = event.getStartTime();
-        endTime = event.getEndTime();
+        date = event.getDate().get();
+        startTime = event.getStartTime().get();
+        endTime = event.getEndTime().get();
         predicate = new EventInTimeFramePredicate(startTime, endTime, date);
         assertTrue(predicate.test(event));
     }

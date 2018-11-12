@@ -15,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -54,20 +53,11 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getCurrentUser_currentUserHasBeenSet() throws NoUserLoggedInException {
+    public void getCurrentUser_currentUserHasBeenSet() {
         modelManager.setCurrentUser(ALICE);
         assertTrue(modelManager.hasSetCurrentUser());
         assertEquals(ALICE, modelManager.getCurrentUser());
     }
-
-    @Test
-    public void getCurrentUser_currentUserHasNotBeenSet_throwsNoUserLoggedInException() throws NoUserLoggedInException {
-        assertFalse(modelManager.hasSetCurrentUser());
-        thrown.expect (NoUserLoggedInException.class);
-        modelManager.getCurrentUser();
-    }
-
-
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
@@ -99,7 +89,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = ALICE.getName().value.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 

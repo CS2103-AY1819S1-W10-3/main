@@ -96,4 +96,12 @@ public class TimeTableUtilTest {
         assertThrows(ParseException.class, () -> {
             TimeTableUtil.obtainModuleInfoFromApi("", 2); });
     }
+
+    @Test
+    public void emptyTimetable() throws ParseException {
+        String emptyTimetableLink = "http://modsn.us/eDmp1";
+        assert !TimeTableUtil.parseUrl(emptyTimetableLink).convertToSchedule()
+            .valueToString().contains("1");
+
+    }
 }

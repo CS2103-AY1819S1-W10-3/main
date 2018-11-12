@@ -11,13 +11,10 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.NoEventSelectedException;
-import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -32,14 +29,13 @@ public class AddPollOptionCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_acceptedAddPollOption() throws NoEventSelectedException,
-            NoUserLoggedInException, NotEventOrganiserException {
+    public void execute_acceptedAddPollOption() {
         Index index = TypicalIndexes.INDEX_FIRST;
         AddPollOptionCommand command = new AddPollOptionCommand(index, OPTION_NAME);
         model.setSelectedEvent(model.getEvent(index));
         model.setCurrentUser(ALICE);
         model.addPoll(POLLNAME);
-        String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
+        String expectedMessage = String.format(AddPollOptionCommand.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
         expectedModel.setSelectedEvent(expectedModel.getEvent(index));
         expectedModel.setCurrentUser(ALICE);
         expectedModel.addPoll(POLLNAME);
@@ -53,7 +49,7 @@ public class AddPollOptionCommandTest {
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
+        String expectedMessage = Messages.MESSAGE_NO_EVENT_SELECTED;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -65,7 +61,7 @@ public class AddPollOptionCommandTest {
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_POLL_AT_INDEX);
+        String expectedMessage = Messages.MESSAGE_NO_POLL_AT_INDEX;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 }

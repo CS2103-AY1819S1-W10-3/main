@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -15,8 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Given two persons, add friends for each other using two displayed indexes from the address book.
- * Friendships must be bilateral, for example person A and B must be friends with each other.
+ * Adds a {@code Person} specified by the index as a friend in the current user's friend list
  *
  * @author agendazhang
  */
@@ -25,26 +23,16 @@ public class AddFriendCommand extends Command {
     public static final String COMMAND_WORD = "addFriend";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": For two persons identified by the index number used in the displayed person list, "
-            + "add friend for each other.\n"
-            + "Parameters: INDEX,INDEX (both must be a positive integer and different from each other)\n"
-            + "Example: " + COMMAND_WORD + " 1,2";
+            + ": To add a person as friend identified by the index number used in the displayed person list.\n"
+            + "Parameters: INDEX (must be a positive integer and different from the logged-in user)\n"
+            + "Example: " + COMMAND_WORD + " 2";
 
-    public static final String MESSAGE_ADD_FRIEND_SUCCESS = "Friends added: %1$s, %2$s";
+    public static final String MESSAGE_ADD_FRIEND_SUCCESS = "%1$s is added to %2$s friend list";
 
-    private final Index indexes;
+    private final Index index;
 
-    public AddFriendCommand(Index indexes) {
-        this.indexes = indexes;
-    }
-
-    /**
-     * Given two persons, add each other into their friend lists.
-     * throws {@code CommandException} if the each other is already in the list.
-     */
-    public static void addFriendEachOther(Person person1, Person person2) throws CommandException {
-        person1.addFriendInList(person2);
-        person2.addFriendInList(person1);
+    public AddFriendCommand(Index index) {
+        this.index = index;
     }
 
     @Override
@@ -52,36 +40,46 @@ public class AddFriendCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (indexes.getZeroBased() >= lastShownList.size()
-                || indexes.getZeroBased2() >= lastShownList.size()) {
+        if (!model.hasSetCurrentUser()) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        }
+        Person personToEdit = model.getCurrentUser();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        if (indexes.getZeroBased() == indexes.getZeroBased2()) {
+
+        Person friendToAdd = lastShownList.get(index.getZeroBased());
+        if (personToEdit.equals(friendToAdd)) {
             throw new CommandException(Messages.MESSAGE_CANNOT_ADD_FRIEND_OWNSELF);
         }
+        if (personToEdit.hasFriendInList(friendToAdd)) {
+            throw new CommandException(String.format(Messages.MESSAGE_ALREADY_FRIENDS,
+                    friendToAdd.getName(), personToEdit.getName()));
+        }
 
-        Person person1 = lastShownList.get(indexes.getZeroBased());
-        Person person2 = lastShownList.get(indexes.getZeroBased2());
-        Person person1Copy = new Person(person1);
-        Person person2Copy = new Person(person2);
-        addFriendEachOther(person1Copy, person2Copy);
+        model.removeCurrentUser();
 
-        model.updatePerson(person1, person1Copy);
-        model.updatePerson(person2, person2Copy);
+        Person personToEditCopy = new Person(personToEdit);
+        personToEditCopy.addFriendInList(friendToAdd);
+
+        model.updatePerson(personToEdit, personToEditCopy);
+        model.setCurrentUser(personToEditCopy);
+        model.authenticateUser(personToEditCopy);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1.getName(),
-                person2.getName()));
+        return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, friendToAdd.getName(),
+                personToEdit.getName()));
     }
 
     @Override
     public String toString() {
-        return COMMAND_WORD + " " + indexes.getZeroBased() + StringUtil.COMMA + indexes.getZeroBased2();
+        return COMMAND_WORD + " " + index.getZeroBased();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddFriendCommand // instanceof handles nulls
-                && indexes.equals(((AddFriendCommand) other).indexes)); // state check;
+                && index.equals(((AddFriendCommand) other).index)); // state check;
     }
 }

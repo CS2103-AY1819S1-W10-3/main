@@ -19,8 +19,8 @@ public class InterestSimilarPredicate implements Predicate<Person> {
     public boolean test(Person testedPerson) {
         Set<Interest> similarInterests = new HashSet<>(targetPerson.getInterests());
 
-        if (targetPerson.equals(testedPerson)) { // retain the target person in the displayed list
-            return true;
+        if (targetPerson.equals(testedPerson)) { // do not show the target person in the displayed list
+            return false;
         }
         if (targetPerson.hasFriendInList(testedPerson)) { // do not show persons who are already friends
             return false;

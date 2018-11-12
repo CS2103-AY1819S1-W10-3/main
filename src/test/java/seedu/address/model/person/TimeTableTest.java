@@ -8,7 +8,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.Assert;
 
 
-
 class TimeTableTest {
 
     @Test

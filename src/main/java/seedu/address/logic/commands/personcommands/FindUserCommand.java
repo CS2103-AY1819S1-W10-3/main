@@ -26,9 +26,7 @@ public class FindUserCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose attributes match "
             + "the specified keywords for each attribute (case-insensitive) "
             + "and displays them as a list with index numbers.\n"
-            + " Note: At least one attribute must be specified. \n"
-            + " Note: If the same attribute is specified more than once,"
-            + " only the last instance of the attribute will be accepted."
+            + "Note: At least one attribute must be specified. \n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
@@ -38,12 +36,7 @@ public class FindUserCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_INTEREST + "study "
-            + PREFIX_TAG + "friends ";
-
+            + PREFIX_INTEREST + "study ";
 
     private final UserContainsKeywordsPredicate predicate;
 

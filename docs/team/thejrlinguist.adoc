@@ -1,0 +1,62 @@
+= Chow Keng Ji - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EventOrganiser
+
+---
+== Overview
+
+EventOrganiser is a desktop application for organisation and management of events.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of
+
+* *Major enhancement*: added *Event and Poll commands and functionality*.
+
+** What it does: Event-related commands allow event organisers to create, edit and manage events, and users to find and join events.
+ Poll-related commands allow event organiser to create polls and for participants to vote in the poll.
+** Justification: Event-related commands are essential to the event organiser. Polls are useful for users to decide on a suitable activity, date and time for the event.
+** Highlights:
+*** Updated all components: logic, model, storage, UI to support event and polls
+*** Integrated Persons into Events: Persons are stored in events by index in storage and in runtime, and events are updated when user are edited or deleted.
+*** Implemented dependencies between commands e.g. users should select events before editing
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=thejrlinguist[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Pushed tags and closed milestones for v1.1 and v1.2 to GitHub
+*** Created PR from team-repo to AB4
+*** Updated AboutUs.doc: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
+*** Updated ReadMe: https://github.com/CS2103-AY1819S1-W10-3/main/pull/10[#10]
+*** Updated sample data: https://github.com/CS2103-AY1819S1-W10-3/main/pull/165[#165]
+
+** Documentation:
+*** Contributed to portions of User Guide and Developer Guide relevant to my own features as well as User Guide overview. Links can be found below.
+*** Contributed heavily to initial draft of User Guide: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
+
+== Contributions to the User Guide
+
+|===
+|_Given are excerpts from the sections which I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=InBrief]
+
+include::../UserGuide.adoc[tag=KengJi(1)]
+
+include::../UserGuide.adoc[tag=KengJi(2)]
+
+include::../UserGuide.adoc[tag=KengJi(3)]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=poll]

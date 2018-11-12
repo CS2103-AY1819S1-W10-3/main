@@ -18,11 +18,23 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 /**
  * An abstract poll class.
  */
-public class AbstractPoll {
+public abstract class AbstractPoll {
     private static final Logger logger = LogsCenter.getLogger(AbstractPoll.class);
     protected int id;
     protected String pollName;
     protected HashMap<String, UniquePersonList> pollData;
+
+    /**
+     * Constructor which is used by subclasses.
+     * @param id the unique id of the poll in the event.
+     * @param pollName the name of the poll.
+     * @param pollData the data of the poll.
+     */
+    AbstractPoll(int id, String pollName, HashMap<String, UniquePersonList> pollData) {
+        this.id = id;
+        this.pollName = pollName;
+        this.pollData = pollData;
+    }
 
     public int getId() {
         return id;
@@ -37,7 +49,8 @@ public class AbstractPoll {
     }
 
     /**
-     * Adds the vote of a user into an option
+     * Adds the vote of a user into an option.
+     * A DuplicatePersonException is thrown if the person has already voted.
      */
     public void addVote(String option, Person person) throws IllegalArgumentException, DuplicatePersonException {
         if (!pollData.containsKey(option)) {
@@ -65,6 +78,7 @@ public class AbstractPoll {
 
     /**
      * Retrieves most popular options by number of votes.
+     * Returns an empty list if no users have voted.
      */
     private LinkedList<String> getPopularOptions() {
         TreeMap<Integer, LinkedList<String>> frequency = new TreeMap<>();
@@ -77,11 +91,14 @@ public class AbstractPoll {
                 frequency.get(v.size()).add(k);
             }
         });
+        if (frequency.lastEntry().getKey().equals(0)) {
+            return new LinkedList<>();
+        }
         return frequency.lastEntry().getValue();
     }
 
     /**
-     * Returns a string representation of the poll
+     * Returns a string representation of the poll.
      */
     public String displayPoll() {
         String title = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
@@ -105,11 +122,11 @@ public class AbstractPoll {
                     .collect(Collectors.toList());
             displayData.put(k, nameList);
         });
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (Map.Entry<String, List<String>> entry : displayData.entrySet()) {
-            result += entry.getKey() + ":\n" + entry.getValue().toString() + "\n";
+            result.append(entry.getKey() + ":\n" + entry.getValue().toString() + "\n");
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -139,7 +156,12 @@ public class AbstractPoll {
     }
 
     /**
-     * Returns true if both polls have the same identity and data fields.
+     * Returns a deep copy of the AbstractPoll.
+     */
+    public abstract AbstractPoll copy();
+
+    /**
+     * Returns true if both polls have the same identity and name.
      */
     @Override
     public boolean equals(Object other) {
@@ -153,7 +175,6 @@ public class AbstractPoll {
 
         AbstractPoll otherPoll = (AbstractPoll) other;
         return otherPoll.getId() == getId()
-                && otherPoll.getPollData().equals(getPollData())
                 && otherPoll.getPollName().equals(getPollName());
     }
 }

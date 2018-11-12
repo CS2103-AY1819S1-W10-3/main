@@ -1,8 +1,8 @@
 //@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
@@ -38,7 +38,7 @@ public class SetTimeCommandTest {
         model.setCurrentUser(ALICE);
         Event event = model.getFilteredEventList().get(0);
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(command.MESSAGE_SUCCESS, startTime.format(timeFormat),
+        String expectedMessage = String.format(SetTimeCommand.MESSAGE_SUCCESS, startTime.format(timeFormat),
                 endTime.format(timeFormat), event);
         Event eventEdited = expectedModel.getEvent(TypicalIndexes.INDEX_FIRST);
         eventEdited.setTime(startTime, endTime);
@@ -52,7 +52,7 @@ public class SetTimeCommandTest {
         model.setCurrentUser(ALICE);
         Event event = model.getFilteredEventList().get(0);
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_END_BEFORE_START_TIME);
+        String expectedMessage = Messages.MESSAGE_END_BEFORE_START_TIME;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -61,7 +61,7 @@ public class SetTimeCommandTest {
         SetTimeCommand command = new SetTimeCommand(startTime, endTime);
         Event event = new EventBuilder().build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        String expectedMessage = Messages.MESSAGE_NO_USER_LOGGED_IN;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -69,7 +69,7 @@ public class SetTimeCommandTest {
     public void execute_noEventSetTime() {
         SetTimeCommand command = new SetTimeCommand(startTime, endTime);
         model.setCurrentUser(ALICE);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
+        String expectedMessage = Messages.MESSAGE_NO_EVENT_SELECTED;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -79,11 +79,9 @@ public class SetTimeCommandTest {
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
         Person anotherUser = new PersonBuilder(user).withName("Bob").build();
-        EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(anotherUser);
-        Event event = eventBuilder.build();
+        Event event = new EventBuilder().withOrganiser(anotherUser).build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+        String expectedMessage = Messages.MESSAGE_NOT_EVENT_ORGANISER;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -96,19 +94,19 @@ public class SetTimeCommandTest {
         SetTimeCommand setTimeCommandTwo = new SetTimeCommand(timeTwo, timeThree);
 
         // same object -> returns true
-        assertTrue(setTimeCommandOne.equals(setTimeCommandOne));
+        assertEquals(setTimeCommandOne, setTimeCommandOne);
 
         // same values -> returns true
         SetTimeCommand setTimeOneCommandCopy = new SetTimeCommand(timeOne, timeTwo);
-        assertTrue(setTimeCommandOne.equals(setTimeOneCommandCopy));
+        assertEquals(setTimeCommandOne, setTimeOneCommandCopy);
 
         // different types -> returns false
-        assertFalse(setTimeCommandOne.equals(1));
+        assertNotEquals(setTimeCommandOne, 1);
 
         // null -> returns false
-        assertFalse(setTimeCommandOne.equals(null));
+        assertNotEquals(setTimeCommandOne, null);
 
         // different time -> returns false
-        assertFalse(setTimeCommandOne.equals(setTimeCommandTwo));
+        assertNotEquals(setTimeCommandOne, setTimeCommandTwo);
     }
 }

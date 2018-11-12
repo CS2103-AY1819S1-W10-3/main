@@ -61,11 +61,11 @@
             <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="pollDisplay" minWidth="170" prefWidth="170" SplitPane.resizableWithParent="false" >
+          <VBox fx:id="eventDetails" minWidth="170" prefWidth="170" SplitPane.resizableWithParent="false" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="pollDisplayPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="eventDetailsPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >

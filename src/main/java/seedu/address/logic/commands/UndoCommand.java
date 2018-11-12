@@ -22,7 +22,7 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.getClearEnabled()) {
+        if (!model.getClearIsEnabled()) {
             throw new CommandException(MESSAGE_UNKNOWN_COMMAND);
         }
 

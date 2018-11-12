@@ -30,7 +30,7 @@ public class SuggestFriendsByInterestsCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void executeValidIndexUnfilteredListSuccess() {
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
         SuggestFriendsByInterestsCommand suggestFriendsByInterestsCommand = new
                 SuggestFriendsByInterestsCommand(INDEX_FIRST);
@@ -45,7 +45,7 @@ public class SuggestFriendsByInterestsCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void executeInvalidIndexUnfilteredListThrowsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         SuggestFriendsByInterestsCommand suggestFriendsByInterestsCommand = new
                 SuggestFriendsByInterestsCommand(outOfBoundIndex);

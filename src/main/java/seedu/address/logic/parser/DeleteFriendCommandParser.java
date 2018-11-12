@@ -20,8 +20,8 @@ public class DeleteFriendCommandParser implements Parser<DeleteFriendCommand> {
      */
     public DeleteFriendCommand parse(String args) throws ParseException {
         try {
-            Index indexes = ParserUtil.parseIndex(args);
-            return new DeleteFriendCommand(indexes);
+            Index index = ParserUtil.parseIndex(args);
+            return new DeleteFriendCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteFriendCommand.MESSAGE_USAGE), pe);

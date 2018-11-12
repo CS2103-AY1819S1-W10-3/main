@@ -5,5 +5,5 @@
 
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1">
-    <TextArea fx:id="pollDisplay" editable="false" styleClass="poll-display"/>
+    <TextArea fx:id="eventDetails" editable="false" styleClass="poll-display"/>
 </StackPane>

@@ -16,38 +16,29 @@ import seedu.address.model.person.UniquePersonList;
  * Represents a time poll associated with an event.
  */
 public class TimePoll extends AbstractPoll {
+    private static final String TIMEPOLL_NAME = "Time Poll";
     private Schedule sharedSchedule;
 
     /**
      * Constructs a TimePoll from the participant list, and the relevant date range.
      */
     public TimePoll(int id, UniquePersonList participantList, LocalDate startDate, LocalDate endDate) {
-        super.id = id;
-        super.pollName = "Time Poll";
-        super.pollData = new HashMap<>();
-        createOptions(participantList, startDate, endDate);
+        super(id, TIMEPOLL_NAME, new HashMap<>());
+        createSharedSchedule(participantList);
+        createOptions(startDate, endDate);
     }
 
     /**
      * Create a TimePoll without options.
      */
     private TimePoll(int id) {
-        super.id = id;
-        super.pollName = "Time Poll";
-        super.pollData = new HashMap<>();
+        super(id, TIMEPOLL_NAME, new HashMap<>());
     }
 
     /**
-     * Creates the poll options.
+     * Creates the poll options based on the schedules of the participants.
      */
-    private void createOptions(UniquePersonList participantList, LocalDate startDate, LocalDate endDate) {
-        ArrayList<Schedule> schedules = new ArrayList<>();
-        for (Person person : participantList) {
-            Schedule schedule = person.getSchedule();
-            schedules.add(schedule);
-        }
-        sharedSchedule = Schedule.maxSchedule(schedules.toArray(new Schedule[schedules.size()]));
-
+    private void createOptions(LocalDate startDate, LocalDate endDate) {
         List<LocalDate> dates = startDate.datesUntil(endDate).collect(Collectors.toList());
         for (LocalDate date : dates) {
             ArrayList<String> options = createOptionsFromDate(date);
@@ -59,6 +50,18 @@ public class TimePoll extends AbstractPoll {
     }
 
     /**
+     * Creates the shared schedule based on the schedules of all the event participants.
+     */
+    private void createSharedSchedule(UniquePersonList participantList) {
+        ArrayList<Schedule> schedules = new ArrayList<>();
+        for (Person person : participantList) {
+            Schedule schedule = person.getSchedule();
+            schedules.add(schedule);
+        }
+        sharedSchedule = Schedule.maxSchedule(schedules.toArray(new Schedule[schedules.size()]));
+    }
+
+    /**
      * Creates the options given a single date.
      */
     private ArrayList<String> createOptionsFromDate(LocalDate date) {
@@ -67,7 +70,7 @@ public class TimePoll extends AbstractPoll {
         String dateString = date.format(dateFormat);
         List<String> times = sharedSchedule.getFreeSlotsByDay(dayOfWeek)
                 .stream()
-                .map(slot -> slot.getTime())
+                .map(slot -> slot.getTime().getStringRepresentation())
                 .collect(Collectors.toList());
         ArrayList<String> options = new ArrayList<>();
         for (String time : times) {
@@ -80,9 +83,10 @@ public class TimePoll extends AbstractPoll {
     /**
      * Returns a copy of the TimePoll.
      */
+    @Override
     public TimePoll copy() {
         TimePoll copy = new TimePoll(id);
-        copy.pollData = super.copyData();
+        copy.pollData = copyData();
         return copy;
     }
 }

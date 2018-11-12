@@ -53,20 +53,7 @@ public class BrowserPanel extends UiPart<Region> {
      * @param person
      */
     private void loadPersonPage(Person person, ObservableList<seedu.address.model.event.Event> events) {
-
-        StringBuilder sb = new StringBuilder();
-        try {
-            BufferedInputStream bin = new BufferedInputStream(
-                MainApp.class.getResourceAsStream(FXML_FILE_FOLDER + PERSON_PAGE));
-            byte[] contents = new byte[1024];
-            int bytesRead = 0;
-            while ((bytesRead = bin.read(contents)) != -1) {
-                sb.append(new String(contents, 0, bytesRead));
-            }
-            bin.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String resourceHtml = readResourceHtml(PERSON_PAGE);
 
         // replace the template with person stuff
         Object[] params = new Object[] {
@@ -78,76 +65,29 @@ public class BrowserPanel extends UiPart<Region> {
             person.getInterests().stream().map(u -> u.interestName).collect(Collectors.joining(", ")),
             person.getFriends().stream()
                 .map(u -> u.toString()).collect(Collectors.joining(" ", "<p>", "</p>")),
-            events.filtered((i) -> i.getPersonList().contains(person))
-                .stream().map(u -> u.getName()).collect(Collectors.joining(", ")),
+            events.filtered((i) -> i.getParticipantList().contains(person))
+                .stream().map(u -> u.getName().value).collect(Collectors.joining(", ")),
             person.getSchedule().prettyPrint(),
         };
-        String html = MessageFormat.format(sb.toString(), params);
+        String html = MessageFormat.format(resourceHtml, params);
 
         Platform.runLater(() -> {
                 browser.getEngine().loadContent(html);
             }
         );
-
-
-        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
-    }
-
-    //    /**
-    //     * Load Person into browser panel
-    //     *
-    //     * @param event
-    //     */
-    //    private void loadEventPage(seedu.address.model.event.Event event) {
-    //
-    //        StringBuilder sb = new StringBuilder();
-    //        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + EVENT_PAGE);
-    //        try {
-    //            BufferedInputStream bin = ((BufferedInputStream) defaultPage.getContent());
-    //            byte[] contents = new byte[1024];
-    //            int bytesRead = 0;
-    //            while ((bytesRead = bin.read(contents)) != -1) {
-    //                sb.append(new String(contents, 0, bytesRead));
-    //            }
-    //            bin.close();
-    //        } catch (IOException e) {
-    //            e.printStackTrace();
-    //        }
-    //
-    //        // replace the template with person stuff
-    //        Object[] params = new Object[] {
-    //            event.getName(),
-    //            event.getOrganiser().getName(),
-    //            event.getStartTime() == null ? "No Start time" : event.getStartTime().toString(),
-    //            event.getEndTime() == null ? "No End time" : event.getEndTime().toString(),
-    //            event.getDate() == null ? "No date time" : event.getDate().toString()
-    //        };
-    //        String html = MessageFormat.format(sb.toString(), params);
-    //
-    //        Platform.runLater(() -> {
-    //                browser.getEngine().loadContent(html);
-    //            }
-    //        );
-    //
-    //
-    //        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
-    //    }
-
-
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
     }
 
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Reads resource html inside the jar
+     * @param filename
+     * @return
      */
-    private void loadDefaultPage() {
-
+    private String readResourceHtml(String filename) {
         StringBuilder sb = new StringBuilder();
         try {
             BufferedInputStream bin = new BufferedInputStream(
-                MainApp.class.getResourceAsStream(FXML_FILE_FOLDER + DEFAULT_PAGE));
-            byte[] contents = new byte[1022];
+                MainApp.class.getResourceAsStream(FXML_FILE_FOLDER + filename));
+            byte[] contents = new byte[1024];
             int bytesRead = 0;
             while ((bytesRead = bin.read(contents)) != -1) {
                 sb.append(new String(contents, 0, bytesRead));
@@ -156,9 +96,18 @@ public class BrowserPanel extends UiPart<Region> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return sb.toString();
+    }
+
+    /**
+     * Loads a default HTML file with a background that matches the general theme.
+     */
+    private void loadDefaultPage() {
+
+        String resourceHtml = readResourceHtml(DEFAULT_PAGE);
 
         Platform.runLater(() -> {
-                browser.getEngine().loadContent(sb.toString());
+                browser.getEngine().loadContent(resourceHtml);
             }
         );
     }
@@ -170,16 +119,7 @@ public class BrowserPanel extends UiPart<Region> {
         browser = null;
     }
 
-    //    @Subscribe
-    //    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
-    //        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    //        if (event.getNewSelection() == null) {
-    //            loadDefaultPage();
-    //        } else {
-    //            loadPersonPage(event.getNewSelection());
-    //        }
-    //
-    //    }
+
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonToEventPopulateEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -191,13 +131,4 @@ public class BrowserPanel extends UiPart<Region> {
 
     }
 
-    //    @Subscribe
-    //    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
-    //        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    //        if (event.getNewSelection() == null) {
-    //            loadDefaultPage();
-    //        } else {
-    //            loadEventPage(event.getNewSelection());
-    //        }
-    //    }
 }

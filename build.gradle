@@ -106,7 +106,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'eventorganiser.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

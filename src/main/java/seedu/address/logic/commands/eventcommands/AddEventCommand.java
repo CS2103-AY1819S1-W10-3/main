@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -5,7 +6,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DisplayPollEvent;
+import seedu.address.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -13,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.exceptions.DuplicateEventException;
 
 /**
  * Adds an event to the event organiser.
@@ -43,16 +49,23 @@ public class AddEventCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.hasEvent(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+        }
+
         try {
-            if (model.hasEvent(toAdd)) {
-                throw new CommandException(MESSAGE_DUPLICATE_EVENT);
-            }
             model.addEvent(toAdd);
             model.commitAddressBook();
             model.setSelectedEvent(toAdd);
+
+            Index eventIndex = Index.fromOneBased(model.getNumEvents());
+            EventsCenter.getInstance().post(new DisplayPollEvent(toAdd.getInfo()));
+            EventsCenter.getInstance().post(new JumpToEventListRequestEvent(eventIndex));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        } catch (DuplicateEventException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
     }
 

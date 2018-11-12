@@ -17,7 +17,7 @@ public class LogoutCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Goodbye.";
-    public static final String MESSAGE_NO_LOGGED_IN_USER = "No user was logged in";
+    public static final String MESSAGE_NO_LOGGED_IN_USER = "No user is logged in";
 
     /**
      * Creates an LoginCommand to log in the specified {@code CurrentUser}

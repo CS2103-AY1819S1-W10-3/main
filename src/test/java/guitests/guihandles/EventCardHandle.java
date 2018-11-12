@@ -85,7 +85,7 @@ public class EventCardHandle extends NodeHandle<Node> {
     public boolean equals(Event event) {
         return getName().equals(event.getName())
                 && getAddress().equals(event.getLocation().value)
-                && getOrganiser().equals(event.getOrganiser().getName().fullName)
+                && getOrganiser().equals(event.getOrganiser().getName().value)
                 && getDate().equals(event.getDateString())
                 && getTime().equals(event.getTimeString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(event.getTags().stream()

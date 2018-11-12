@@ -25,14 +25,15 @@ public class EventInTimeFramePredicate implements Predicate<Event> {
 
     @Override
     public boolean test(Event event) {
-        if (!event.isDateSet() || !event.isTimeSet()) {
+        if (!(event.getDate().isPresent() && event.getStartTime().isPresent()
+                && event.getEndTime().isPresent())) {
             return false;
         }
-        return event.getDate().equals(date)
-                && (startTime.isBefore(event.getStartTime())
-                || startTime.equals(event.getStartTime()))
-                && ((event.getEndTime().isBefore(endTime))
-                || event.getEndTime().equals(endTime));
+        return event.getDate().get().equals(date)
+                && (startTime.isBefore(event.getStartTime().get())
+                || startTime.equals(event.getStartTime().get()))
+                && ((event.getEndTime().get().isBefore(endTime))
+                || event.getEndTime().get().equals(endTime));
     }
 
     @Override

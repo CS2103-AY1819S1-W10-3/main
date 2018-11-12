@@ -13,6 +13,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Schedule;
+import seedu.address.model.person.Slot;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -106,7 +107,7 @@ public class EditPersonDescriptorBuilder {
      * @param schedule
      * @return
      */
-    public EditPersonDescriptorBuilder withSchedule(String schedule) throws ParseException {
+    public EditPersonDescriptorBuilder withSchedule(String schedule) {
         descriptor.setSchedule(new Schedule(schedule));
         return this;
     }
@@ -117,10 +118,11 @@ public class EditPersonDescriptorBuilder {
      * @param validScheduleUpdateDay validScheduleUpdateTime
      * @return
      */
-    public EditPersonDescriptorBuilder withUpdateSchedule(String validScheduleUpdateDay, String validScheduleUpdateTime)
-        throws ParseException {
+    public EditPersonDescriptorBuilder withUpdateSchedule(String validScheduleUpdateDay,
+                                                          String validScheduleUpdateTime) throws ParseException {
         Schedule updateSchedule = new Schedule();
-        updateSchedule.setTimeDay(validScheduleUpdateDay, validScheduleUpdateTime, true);
+        Slot slot = new Slot(validScheduleUpdateDay, validScheduleUpdateTime);
+        updateSchedule.setTimeDay(slot, true);
         descriptor.setUpdateSchedule(updateSchedule);
         return this;
     }

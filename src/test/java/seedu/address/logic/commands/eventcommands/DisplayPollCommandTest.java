@@ -28,7 +28,7 @@ public class DisplayPollCommandTest {
         EventBuilder eventBuilder = new EventBuilder();
         Event event = eventBuilder.withPoll().build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(command.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(DisplayPollCommand.MESSAGE_SUCCESS,
                 TypicalIndexes.INDEX_FIRST.getOneBased(), event);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -36,7 +36,7 @@ public class DisplayPollCommandTest {
     @Test
     public void execute_noEventDisplayPoll() {
         DisplayPollCommand command = new DisplayPollCommand(TypicalIndexes.INDEX_FIRST);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
+        String expectedMessage = Messages.MESSAGE_NO_EVENT_SELECTED;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
@@ -46,7 +46,7 @@ public class DisplayPollCommandTest {
         EventBuilder eventBuilder = new EventBuilder();
         Event event = eventBuilder.build();
         model.setSelectedEvent(event);
-        String expectedMessage = String.format(Messages.MESSAGE_NO_POLL_AT_INDEX);
+        String expectedMessage = Messages.MESSAGE_NO_POLL_AT_INDEX;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 }

@@ -26,7 +26,7 @@ This project portfolio summarizes the contributions that I have done to the Even
 ** Highlights: The implementation  was challenging as it required reading of documentation and analysing how nusmods handles external api requests (valid and invalid)
 ** Credits: JSON Reference from [https://github.com/nusmodifications/nusmods-api[NusMods API]]
 
-* *Minor enhancement*: added a schedule comparsion command that allows the user to compare multiple schedule to get the possible free slots.
+* *Minor enhancement*: added a schedule comparison command that allows the user to compare multiple schedules to get the possible free slots.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=adjscent&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Functional code]]
 
@@ -35,13 +35,16 @@ This project portfolio summarizes the contributions that I have done to the Even
 ** Project management
 ** Enhancements to existing features:
 *** Updated the GUI browser design scheme (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/126[#126], https://github.com/CS2103-AY1819S1-W10-3/main/pull/79[#79], https://github.com/CS2103-AY1819S1-W10-3/main/pull/87[#87])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/[#115])
-*** Fixed sample data to reflect the new application (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/107[#107])
+*** Removed the pre-existing GUI bug (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/93[#93])
+*** Wrote additional tests for features to increase coverage (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/[#115])
+*** Reviewed and populated sample data to reflect the new application (Pull requests https://github.com/CS2103-AY1819S1-W10-3/main/pull/107[#107], https://github.com/CS2103-AY1819S1-W10-3/main/pull/[#175])
+*** Evaluated and designed a new data scheme to hold both Person and Event data (https://github.com/CS2103-AY1819S1-W10-3/main/commit/f60817c8011f85cd9a0502c821eaa6f88d2c1b75[f60817c])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: [https://github.com/CS2103-AY1819S1-W10-3/main/pull/89[#89]],[https://github.com/CS2103-AY1819S1-W10-3/main/pull/140[#140]]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W10-3/main/pull/89[#89], https://github.com/CS2103-AY1819S1-W10-3/main/pull/140[#140]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-3/main/pull/23[#23], https://github.com/CS2103-AY1819S1-W10-3/main/pull/76[#76], https://github.com/CS2103-AY1819S1-W10-3/main/pull/128[#128]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-3/main/pull/23[#23], https://github.com/CS2103-AY1819S1-W10-3/main/pull/76[#76], https://github.com/CS2103-AY1819S1-W10-3/main/pull/128[#128], https://github.com/CS2103-AY1819S1-W10-3/main/pull/174[#174]
 *** Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)
+*** Reviewed photo upload guidelines to disseminate to other groups https://github.com/CS2103-AY1819S1-W10-3/main/pull/35[#35]
 ** Tools:
 *** Integrated a third party website (Nusmods) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (Appyevor) to the team repo

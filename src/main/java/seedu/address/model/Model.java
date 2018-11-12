@@ -2,17 +2,17 @@ package seedu.address.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.NoEventSelectedException;
-import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.exceptions.NotEventOrganiserException;
-import seedu.address.model.event.exceptions.UserNotJoinedEventException;
+import seedu.address.model.event.EventName;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -41,6 +41,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     boolean hasEvent(Event event);
+
+    /**
+     * Returns the number of events
+     */
+    int getNumEvents();
 
     /**
      * Deletes the given person.
@@ -116,7 +121,7 @@ public interface Model {
      *
      * @param toAdd the event to be added.
      */
-    void addEvent(Event toAdd) throws NoUserLoggedInException;
+    void addEvent(Event toAdd);
 
     /**
      * deletes an event from the address book.
@@ -124,6 +129,11 @@ public interface Model {
      * @param target the event to be deleted
      */
     void deleteEvent(Event target);
+
+    /**
+     * Edits the name, location and tags of the event.
+     */
+    void editEvent(Optional<EventName> name, Optional<Address> location, Optional<Set<Tag>> tags);
 
     /**
      * Gets the event in the address book.
@@ -136,51 +146,36 @@ public interface Model {
      * Adds a poll to the pre-selected event with the given name.
      *
      * @param pollName the poll name.
-     * @throws NoEventSelectedException
-     * @throws NoUserLoggedInException
-     * @throws NotEventOrganiserException
      */
-    String addPoll(String pollName) throws NoEventSelectedException, NoUserLoggedInException,
-            NotEventOrganiserException;
+    String addPoll(String pollName);
 
     /**
      * Creates a time poll to the pre-selected event with the given name.
-     *
-     * @throws NoEventSelectedException
-     * @throws NoUserLoggedInException
-     * @throws NotEventOrganiserException
      */
-    String addTimePoll(LocalDate startDate, LocalDate endDate) throws NoEventSelectedException,
-            NoUserLoggedInException, NotEventOrganiserException;
+    String addTimePoll(LocalDate startDate, LocalDate endDate);
 
     /**
      * Adds a poll option to the poll at the given index of the pre-selected event.
      *
      * @param index      the index of the poll in the list of polls.
      * @param optionName the name of the option.
-     * @throws NoEventSelectedException
      */
-    String addPollOption(Index index, String optionName) throws NoEventSelectedException;
+    String addPollOption(Index index, String optionName);
 
     /**
      * Adds the current user as a voter for a given option.
      *
      * @param pollIndex  the index of the poll in the list of polls.
      * @param optionName the name of the option.
-     * @throws NoUserLoggedInException
-     * @throws NoEventSelectedException
-     * @throws UserNotJoinedEventException
      */
-    String voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException,
-            NoEventSelectedException, UserNotJoinedEventException;
+    String voteOption(Index pollIndex, String optionName);
 
     /**
      * Adds a person to the event at the given index.
      *
      * @param index the index of the event to join.
-     * @throws NoUserLoggedInException
      */
-    void joinEvent(Index index) throws NoUserLoggedInException, DuplicatePersonException;
+    void joinEvent(Index index);
 
     /**
      * Sets the current user of the address book.
@@ -192,7 +187,7 @@ public interface Model {
     /**
      * Gets the current user of the address book.
      */
-    Person getCurrentUser() throws NoUserLoggedInException;
+    Person getCurrentUser();
 
     /**
      * Gets the person in the address book
@@ -209,7 +204,7 @@ public interface Model {
     /**
      * Gets the selected event.
      */
-    Event getSelectedEvent() throws NoEventSelectedException;
+    Event getSelectedEvent();
 
     /**
      * Enable clear command, only for testing purposes.
@@ -219,19 +214,17 @@ public interface Model {
     /**
      * Get whether clear is enabled.
      */
-    boolean getClearEnabled();
+    boolean getClearIsEnabled();
 
     /**
      * Sets the date of the pre-selected event.
      */
-    void setDate(LocalDate date) throws NotEventOrganiserException,
-            NoEventSelectedException, NoUserLoggedInException;
+    void setDate(LocalDate date);
 
     /**
      * Sets the start and end time of the pre-selected event.
      */
-    void setTime(LocalTime startTime, LocalTime endTime) throws NotEventOrganiserException,
-            NoEventSelectedException, NoUserLoggedInException;
+    void setTime(LocalTime startTime, LocalTime endTime);
 
     /**
      * Checks if a person exists within the model.
@@ -249,4 +242,3 @@ public interface Model {
      */
     boolean hasSetCurrentUser();
 }
-

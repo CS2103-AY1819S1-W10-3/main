@@ -16,14 +16,10 @@ public class IndexTest {
         // check equality using the same base
         assertEquals(1, Index.fromOneBased(1).getOneBased());
         assertEquals(5, Index.fromOneBased(5).getOneBased());
-        assertEquals(5, Index.fromOneBased(5, 8).getOneBased());
-        assertEquals(8, Index.fromOneBased(5, 8).getOneBased2());
 
         // convert from one-based index to zero-based index
         assertEquals(0, Index.fromOneBased(1).getZeroBased());
         assertEquals(4, Index.fromOneBased(5).getZeroBased());
-        assertEquals(4, Index.fromOneBased(5, 8).getZeroBased());
-        assertEquals(7, Index.fromOneBased(5, 8).getZeroBased2());
     }
 
     @Test
@@ -34,14 +30,10 @@ public class IndexTest {
         // check equality using the same base
         assertEquals(0, Index.fromZeroBased(0).getZeroBased());
         assertEquals(5, Index.fromZeroBased(5).getZeroBased());
-        assertEquals(5, Index.fromZeroBased(5, 8).getZeroBased());
-        assertEquals(8, Index.fromZeroBased(5, 8).getZeroBased2());
 
         // convert from zero-based index to one-based index
         assertEquals(1, Index.fromZeroBased(0).getOneBased());
         assertEquals(6, Index.fromZeroBased(5).getOneBased());
-        assertEquals(6, Index.fromZeroBased(5, 8).getOneBased());
-        assertEquals(9, Index.fromZeroBased(5, 8).getOneBased2());
     }
 
     /**

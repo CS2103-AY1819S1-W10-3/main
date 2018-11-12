@@ -19,7 +19,7 @@ public class EventNameContainsKeywordsPredicate implements Predicate<Event> {
     @Override
     public boolean test(Event event) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(event.getName(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(event.getName().toString(), keyword));
     }
 
     @Override

@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -53,8 +54,10 @@ public class FindEventByTimeCommand extends Command {
         try {
             EventInTimeFramePredicate predicate = new EventInTimeFramePredicate(startTime, endTime, date);
             model.updateFilteredEventList(predicate);
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
             return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredEventList().size(),
-                    date.toString(), startTime.toString(), endTime.toString()));
+                    date.format(dateFormat), startTime.format(timeFormat), endTime.format(timeFormat)));
         } catch (IllegalArgumentException e) {
             throw new CommandException(Messages.MESSAGE_END_BEFORE_START_TIME);
         }

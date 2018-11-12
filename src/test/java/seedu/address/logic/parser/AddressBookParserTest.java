@@ -31,7 +31,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -52,16 +51,15 @@ import seedu.address.logic.commands.personcommands.AddFriendCommand;
 import seedu.address.logic.commands.personcommands.AddUserCommand;
 import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
-import seedu.address.logic.commands.personcommands.EditUserCommand;
-import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListFriendsCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
+import seedu.address.logic.commands.personcommands.SuggestFriendsByInterestsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventAttributesPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UserContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.StubUserBuilder;
@@ -174,35 +172,22 @@ public class AddressBookParserTest {
     @Test
     public void parseCommandAddFriend() throws Exception {
         AddFriendCommand command = (AddFriendCommand) parser.parseCommand(
-                AddFriendCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased()
-                        + StringUtil.COMMA + INDEX_SECOND.getOneBased());
-        assertEquals(new AddFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
-                INDEX_SECOND.getOneBased())), command);
+                AddFriendCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new AddFriendCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
     }
 
     @Test
     public void parseCommandDeleteFriend() throws Exception {
         DeleteFriendCommand command = (DeleteFriendCommand) parser.parseCommand(
-                DeleteFriendCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased()
-                        + StringUtil.COMMA + INDEX_SECOND.getOneBased());
-        assertEquals(new DeleteFriendCommand(Index.fromOneBased(INDEX_FIRST.getOneBased(),
-                INDEX_SECOND.getOneBased())), command);
+                DeleteFriendCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new DeleteFriendCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteUserCommand command = (DeleteUserCommand) parser.parseCommand(
-                DeleteUserCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteUserCommand(INDEX_FIRST), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditUserCommand command = (EditUserCommand) parser.parseCommand(EditUserCommand.COMMAND_WORD + " "
-                + INDEX_FIRST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditUserCommand(INDEX_FIRST, descriptor), command);
+                DeleteUserCommand.COMMAND_WORD);
+        assertEquals(new DeleteUserCommand(), command);
     }
 
     @Test
@@ -246,6 +231,20 @@ public class AddressBookParserTest {
         } catch (ParseException pe) {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }
+    }
+
+    @Test
+    public void parseCommandSuggestFriendsByInterests() throws Exception {
+        SuggestFriendsByInterestsCommand command = (SuggestFriendsByInterestsCommand) parser.parseCommand(
+                SuggestFriendsByInterestsCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new SuggestFriendsByInterestsCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
+    }
+
+    @Test
+    public void parseCommandListFriends() throws Exception {
+        ListFriendsCommand command = (ListFriendsCommand) parser.parseCommand(
+                ListFriendsCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new ListFriendsCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
     }
 
     @Test

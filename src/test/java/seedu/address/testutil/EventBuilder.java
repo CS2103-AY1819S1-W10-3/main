@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
 import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.event.polls.Poll;
 import seedu.address.model.person.Address;
@@ -26,28 +27,32 @@ public class EventBuilder {
     public static final String DEFAULT_ADDRESS = "NUS UTown";
     public static final String DEFAULT_TAG = "friends";
     public static final String DEFAULT_POLL = "Date";
+    public static final LocalDate DEFAULT_DATE = LocalDate.of(2018, 1, 1);
+    public static final LocalTime DEFAULT_START_TIME = LocalTime.of(12, 00);
+    public static final LocalTime DEFAULT_END_TIME = LocalTime.of(13, 30);
 
-    private String name;
+
+    private EventName name;
     private Address address;
     private Person organiser;
     private Set<Tag> tags;
     private ArrayList<AbstractPoll> polls;
-    private UniquePersonList personList;
+    private UniquePersonList participantList;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
 
     public EventBuilder() {
-        name = DEFAULT_NAME;
+        name = new EventName(DEFAULT_NAME);
         address = new Address(DEFAULT_ADDRESS);
         organiser = ALICE;
         tags = new HashSet<>();
         tags.add(new Tag(DEFAULT_TAG));
         polls = new ArrayList<>();
-        personList = new UniquePersonList();
-        date = LocalDate.of(2018, 1, 1);
-        startTime = LocalTime.of(12, 00);
-        endTime = LocalTime.of(13, 30);
+        participantList = new UniquePersonList();
+        date = DEFAULT_DATE;
+        startTime = DEFAULT_START_TIME;
+        endTime = DEFAULT_END_TIME;
     }
 
     /**
@@ -59,17 +64,23 @@ public class EventBuilder {
         organiser = eventToCopy.getOrganiser();
         tags = new HashSet<>(eventToCopy.getTags());
         polls = new ArrayList<>(eventToCopy.getPolls());
-        personList = eventToCopy.getPersonList();
-        startTime = eventToCopy.getStartTime();
-        endTime = eventToCopy.getEndTime();
-        date = eventToCopy.getDate();
+        participantList = eventToCopy.getParticipantList();
+        if (eventToCopy.getStartTime().isPresent()) {
+            startTime = eventToCopy.getStartTime().get();
+        }
+        if (eventToCopy.getEndTime().isPresent()) {
+            endTime = eventToCopy.getEndTime().get();
+        }
+        if (eventToCopy.getDate().isPresent()) {
+            date = eventToCopy.getDate().get();
+        }
     }
 
     /**
      * Sets the {@code Name} of the {@code Event} that we are building.
      */
     public EventBuilder withName(String name) {
-        this.name = name;
+        this.name = new EventName(name);
         return this;
     }
 
@@ -94,6 +105,7 @@ public class EventBuilder {
      */
     public EventBuilder withOrganiser(Person person) {
         this.organiser = person;
+        this.participantList.add(person);
         return this;
     }
 
@@ -109,7 +121,7 @@ public class EventBuilder {
      * Adds one person as a participant to the event.
      */
     public EventBuilder withParticipant() {
-        personList.add(ALICE);
+        participantList.add(ALICE);
         return this;
     }
 
@@ -122,7 +134,7 @@ public class EventBuilder {
         event.setTime(startTime, endTime);
         event.setOrganiser(organiser);
         event.setPolls(polls);
-        event.setPersonList(personList);
+        event.setParticipantList(participantList);
         return event;
     }
 }

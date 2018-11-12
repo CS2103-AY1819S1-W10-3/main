@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
@@ -47,6 +48,8 @@ public class DeleteEventCommand extends Command {
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
         try {
             model.deleteEvent(eventToDelete);
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         } catch (NotEventOrganiserException e) {
             throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
         }

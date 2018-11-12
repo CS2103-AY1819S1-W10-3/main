@@ -1,39 +1,87 @@
 package seedu.address.model.person;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
+ * Represents a time slot, consisting of a day and time.
  *
- * Represents a timeslot in NUSmod, consisting of a day and time.
  * @author adjscent
  */
 public class Slot {
-    private String day;
-    private String time;
+    private Day day;
+    private Time time;
 
     /**
+     * Create a slot with day and time input
+     *
+     * @param day
+     * @param time
+     * @throws ParseException
+     */
+    public Slot(String day, String time) throws ParseException {
+        this.day = new Day(day);
+        this.time = new Time(time);
+    }
+
+
+    /**
+     * Internal use only
+     * Create a slot with day and time input
+     *
+     * @param day
+     * @param time
+     */
+    Slot(int day, int time) {
+        try {
+            this.day = new Day(Day.VALIDDAYS[day]);
+
+            if (time / 2 > 9) {
+                this.time = new Time("" + time / 2 + ((time % 2 == 1) ? "30" : "00"));
+            } else {
+                this.time = new Time("0" + time / 2 + ((time % 2 == 1) ? "30" : "00"));
+            }
+
+        } catch (ParseException e) {
+            // Note this is only used for internal ops.
+            // No errors should occur
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Returns the day
+     *
      * @return
      */
-    public String getDay() {
+    public Day getDay() {
         return day;
     }
 
     /**
+     * Sets the day
+     *
      * @param day
      */
-    public void setDay(String day) {
-        this.day = day;
+    public void setDay(String day) throws ParseException {
+        this.day = new Day(day);
     }
 
     /**
+     * Returns time
+     *
      * @return
      */
-    public String getTime() {
+    public Time getTime() {
         return time;
     }
 
     /**
+     * Sets time
+     *
      * @param time
      */
-    public void setTime(String time) {
-        this.time = time;
+    public void setTime(String time) throws ParseException {
+        this.time = new Time(time);
     }
 }
+

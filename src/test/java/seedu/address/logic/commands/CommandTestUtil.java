@@ -56,6 +56,7 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_ZOEY = "zoey@example.com";
     public static final String VALID_PASSWORD_AMY = "password";
     public static final String VALID_PASSWORD_BOB = "password";
+    public static final String VALID_PASSWORD_PASSWORD2 = "password2";
     public static final String VALID_ADDRESS_ALICE = "123, Jurong West Ave 6, #08-111";
     public static final String PART_OF_VALID_ADDRESS_ALICE = "Jurong";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
@@ -206,7 +207,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
+        final String[] splitName = person.getName().value.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
@@ -243,7 +244,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEventList().size());
 
         Event event = model.getFilteredEventList().get(targetIndex.getZeroBased());
-        final String[] splitName = event.getName().split("\\s+");
+        final String[] splitName = event.getName().value.split("\\s+");
         model.updateFilteredEventList(new EventNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredEventList().size());

@@ -63,8 +63,10 @@ public class TimeTable {
                     startime1 = "0" + start + "00";
                     startime2 = "0" + start + "30";
                 }
-                schedule.setTimeDay(lesson.getDayText(), startime1, true);
-                schedule.setTimeDay(lesson.getDayText(), startime2, true);
+                Slot slot1 = new Slot(lesson.getDayText(), startime1);
+                Slot slot2 = new Slot(lesson.getDayText(), startime2);
+                schedule.setTimeDay(slot1, true);
+                schedule.setTimeDay(slot2, true);
                 start++;
                 duration--;
             }

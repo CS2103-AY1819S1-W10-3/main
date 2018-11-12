@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHEDULE;
@@ -40,28 +41,40 @@ class ScheduleTest {
     @Test
     public void getTimeDay() throws ParseException {
         Schedule s = new Schedule();
-        assertFalse(s.getTimeDay("monday", "0100"));
-        assertFalse(s.getTimeDay("tuesday", "0100"));
-        assertFalse(s.getTimeDay("wednesday", "0100"));
-        assertFalse(s.getTimeDay("thursday", "0100"));
-        assertFalse(s.getTimeDay("friday", "0100"));
-        assertFalse(s.getTimeDay("saturday", "0100"));
-        assertFalse(s.getTimeDay("sunday", "0100"));
-        Assert.assertThrows(ParseException.class, () -> s
-            .setTimeDay("unknown", "0130", true)
-        );
-        assertFalse(s.getTimeDay("monday", "0130"));
+
+        Slot slot1 = new Slot("monday", "0100");
+        assertFalse(s.getTimeDay(slot1));
+
+        slot1.setDay("tuesday");
+        assertFalse(s.getTimeDay(slot1));
+
+        slot1.setDay("wednesday");
+        assertFalse(s.getTimeDay(slot1));
+
+        slot1.setDay("thursday");
+        assertFalse(s.getTimeDay(slot1));
+
+        slot1.setDay("friday");
+        assertFalse(s.getTimeDay(slot1));
+
+        slot1.setDay("saturday");
+        assertFalse(s.getTimeDay(slot1));
+
+        slot1.setDay("sunday");
+        assertFalse(s.getTimeDay(slot1));
+
+        slot1.setTime("0130");
+        assertFalse(s.getTimeDay(slot1));
 
     }
 
     @Test
     public void setTimeDay() throws ParseException {
         Schedule s = new Schedule();
-        s.setTimeDay("monday", "0100", true);
-        s.setTimeDay("monday", "0130", true);
-        Assert.assertThrows(ParseException.class, () -> s
-            .setTimeDay("unknown", "0130", true)
-        );
+        Slot slot1 = new Slot("monday", "0100");
+        Slot slot2 = new Slot("monday", "0130");
+        s.setTimeDay(slot1, true);
+        s.setTimeDay(slot2, true);
     }
 
     @Test
@@ -93,8 +106,11 @@ class ScheduleTest {
     @Test
     void freeTimeToString() throws ParseException {
         Schedule s1 = new Schedule();
-        s1.setTimeDay("monday", "1100", true);
-        s1.setTimeDay("monday", "0130", true);
+        Slot slot1 = new Slot("monday", "1100");
+        Slot slot2 = new Slot("monday", "0130");
+
+        s1.setTimeDay(slot1, true);
+        s1.setTimeDay(slot2, true);
 
         String ft = s1.freeTimeToString();
         assertTrue(ft.contains("monday"));
@@ -107,15 +123,11 @@ class ScheduleTest {
     }
 
     @Test
-    void getFreeSlots() {
-    }
-
-    @Test
-    void getFreeSlotsByDay() {
-    }
-
-    @Test
-    void prettyPrint() {
+    void valid() {
+        Schedule s1 = new Schedule();
+        Schedule s2 = new Schedule();
+        assertEquals(s1.getFreeSlotsByDay(1).size(), 48);
+        assertTrue(s1.equals(s2));
     }
 
 

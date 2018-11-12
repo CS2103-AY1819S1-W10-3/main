@@ -84,9 +84,9 @@ public class PersonCard extends UiPart<Region> {
      */
     private String getNameText(Person person) {
         if (person.getLoginStatus()) {
-            return person.getName().fullName;
+            return person.getName().value;
         }
-        return person.getName().fullName;
+        return person.getName().value;
     }
 
     /**

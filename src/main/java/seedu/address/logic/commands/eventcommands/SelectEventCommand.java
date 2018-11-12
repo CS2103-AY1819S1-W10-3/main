@@ -50,7 +50,7 @@ public class SelectEventCommand extends Command {
         Event event = model.getEvent(targetIndex);
         model.setSelectedEvent(event);
 
-        EventsCenter.getInstance().post(new DisplayPollEvent(event.getInfo())); //need tests
+        EventsCenter.getInstance().post(new DisplayPollEvent(event.getInfo()));
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_EVENT_SUCCESS, targetIndex.getOneBased()));
 

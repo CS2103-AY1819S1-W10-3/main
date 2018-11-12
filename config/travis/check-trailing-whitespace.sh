@@ -10,11 +10,14 @@ awk '
     }
     {
         # Only warn for markdown files (*.md) to accomodate text editors
-        # which do not properly handle trailing whitespace.
+        # which do not properly handle trailing whitespace. Applies for adoc too.
         # (e.g. GitHub web editor)
         if ($1 ~ /\.md$/) {
             severity = "WARN"
-        } else {
+        } else if ($1 ~ /\.adoc$/) {
+            severity = "WARN"
+        }
+        else {
             severity = "ERROR"
             ret = 1
         }
