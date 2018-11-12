@@ -90,7 +90,7 @@ public class BrowserPanel extends UiPart<Region> {
             Platform.runLater(() -> {
                 browser.getEngine().getLoadWorker().stateProperty()
                         .addListener((observable, oldValue, newValue) -> {
-                            if (newValue.toString() == "SUCCEEDED") {
+                            if (newValue.toString().equals("SUCCEEDED")) {
                                 browser.getEngine().executeScript("document.showEventDetails("
                                         + json + ")");
                             }
@@ -146,7 +146,7 @@ public class BrowserPanel extends UiPart<Region> {
 
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonToEventPopulateEvent event) {
+    public void handlePersonPanelSelectionChangedEvent(PersonToEventPopulateEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.getNewSelection() == null) {
             loadDefaultPage();
@@ -157,7 +157,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
+    public void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.getNewSelection() == null) {
             loadDefaultPage();
