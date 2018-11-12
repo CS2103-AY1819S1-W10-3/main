@@ -294,7 +294,7 @@ image::LoginFeature_SequenceDiagram_includes_Model.png[width:"50%"]
 After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
 to update the UI.
 
-.Sequence Diagram for the Model, EventsCenter, and UI component when the user issues an `login n/Alice pass/password` command.
+.Sequence Diagram for the Model, EventsCenter, and UI component when the user issues a `login n/Alice pass/password` command.
 image::LoginFeature_SequenceDiagram_includes_Model_EventsCenter_UI.png[width="800"]
 
 
@@ -311,14 +311,15 @@ we will use the scenario that a user, Alex Yeoh, wants to login to his account:
 
 Alex enters his name and password as required by the login command.
 
-.UI before Alex Yeoh has successfully logs in.
+.UI before Alex Yeoh logs in.
 image::LoginFeatureBeforeLogin.png[width="300"]
 
 Once Alex Yeoh successfully logs in, the UI will automatically be updated as shown below
 
+.UI after Alex Yeoh successfully logs in.
 image::LoginFeatureAfterLogin.png[width="300"]
 
-Again, note that some minute details for the Logic component where omitted for the sake of simplicity.
+Note that some minute details for the Logic component where omitted for the sake of simplicity.
 
 .Class Diagram for the Logic component of the Login Command
 image::LoginFeature_ClassDiagram_Logic_1.png[width="800"]
@@ -708,7 +709,7 @@ This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteU
 `Person` B's attributes gets modified (eg change of name):
 This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has `Person` B in their friend list (such as `Person` A), the original Friend object in `Person` A's friend list will be replaced by the new Friend object created using the new attributes of `Person` B.
 
-// end:::addDeleteFriend[]
+// end::addDeleteFriend[]
 
 === Logging
 

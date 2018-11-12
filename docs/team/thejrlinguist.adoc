@@ -5,7 +5,6 @@
 
 == PROJECT: EventOrganiser
 
----
 == Overview
 
 EventOrganiser is a desktop application for organisation and management of events.
@@ -17,10 +16,10 @@ It is written in Java, and has about 10 kLoC.
 * *Major enhancement*: added *Event and Poll commands and functionality*.
 
 ** What it does: Event-related commands allow event organisers to create, edit and manage events, and users to find and join events.
- Poll-related commands allow event organiser to create polls and for participants to vote in the poll.
-** Justification: Event-related commands are essential to the event organiser. Polls are useful for users to decide on a suitable activity, date and time for the event.
+ Poll-related commands allow the event organiser to create polls and for participants to vote in the poll.
+** Justification: Events are essential to the event organiser. Polls in the Event are useful for event organisers to decide on a suitable activity, date and time for the event.
 ** Highlights:
-*** Updated all components: logic, model, storage, UI to support event and polls
+*** Updated all components: logic, model, storage, UI to support events and polls
 *** Integrated Persons into Events: Persons are stored in events by index in storage and in runtime, and events are updated when user are edited or deleted.
 *** Implemented dependencies between commands e.g. users should select events before editing
 
@@ -37,7 +36,7 @@ It is written in Java, and has about 10 kLoC.
 
 ** Documentation:
 *** Contributed to portions of User Guide and Developer Guide relevant to my own features as well as User Guide overview. Links can be found below.
-*** Contributed heavily to initial draft of User Guide: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
+*** Contributed to initial draft of User Guide and Developer Guide (e.g. use cases): https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
 
 == Contributions to the User Guide
 
