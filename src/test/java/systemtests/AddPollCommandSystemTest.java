@@ -8,8 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLL_OPTION;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.LoginCommand;
@@ -30,7 +28,9 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
     private static final String POLLNAME = "Activity poll";
     private static final String POLL_OPTION = "Chitchat";
 
-    @Test
+    /**
+     * Tests addPoll command
+     */
     public void addPoll() throws NoUserLoggedInException, NoEventSelectedException, NotEventOrganiserException {
         Model model = getModel();
 
