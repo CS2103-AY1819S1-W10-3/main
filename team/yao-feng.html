@@ -230,8 +230,12 @@ e.g. <code>login n/John Doe pass/password</code></p>
 </li>
 <li>
 <p><strong>Find User (by name, phone number, email, address, interest, or tag)</strong> :
-<code>findUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/TAG i/INTEREST `<br>
+<code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [i/INTEREST] `<br>
 e.g. `findUser n/James i/basketball</code></p>
+</li>
+<li>
+<p><strong>Delete User</strong> : <code>deleteUser</code><br>
+e.g. <code>deleteUser</code></p>
 </li>
 </ul>
 </div>
@@ -252,109 +256,205 @@ e.g. `findUser n/James i/basketball</code></p>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="login-logout-feature"><a class="link" href="#login-logout-feature">Login/logout feature</a></h3>
+<h3 id="login-logout-feature"><a class="link" href="#login-logout-feature">Login/Logout feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>This section explains the implementation of the components associated with the login feature.</p>
+<p>The goal of this section is to explain the implementation of the
+login/logout feature and to briefly explain the changes that were made on relevant
+components of Event Organiser, namely, the EditUser Command, and the DeleteUser Command,
+to ensure cohesiveness of the entire application.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/LoginFeature_SequenceDiagram_includes_Logic_Model.png" alt="LoginFeature SequenceDiagram includes Logic Model" width="800">
+<img src="../images/LoginFeature_SequenceDiagram_includes_Logic.png" alt="LoginFeature SequenceDiagram includes Logic" width="800">
 </div>
+<div class="title">Figure 1. Sequence Diagram for the Logic component when the user issues an <code>login n/Alice pass/password</code> command.</div>
 </div>
 <div class="paragraph">
-<p>After the execute() method of the login command is called,  the login command authenticates the user.
-A commandException will be thrown in the following 2 scenarios:</p>
+<p>We have assumed that a user with name as "Alice" and password as "password" already exists in Event
+Organiser. If such an user does not already exist before the login command is issued, login will
+not be successful.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In this implementation, we define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When the execute() method of the Login command is called,  the login command authenticates
+the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in Event Organiser.
+A CommandException will be thrown in the following 2 scenarios:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>When the user does not exist.</p>
+<p>When the user does not exist in Event Organiser.</p>
 </li>
 <li>
-<p>When there is already a user that has been logged in.</p>
+<p>When there is already a user that is logged in.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>On the other hand, after the execute() method of the log out command is called,
-a commandException will be thrown when there isn&#8217;t any user that is logged in.</p>
+<p>On the other hand, when the execute() method of the Logout command is called,
+a CommandException will be thrown when there isn&#8217;t any user that is logged in.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/LoginFeature_SequenceDiagram_includes_Logic_EventsCenter_UI.png" alt="LoginFeature SequenceDiagram includes Logic EventsCenter UI" width="800">
+<img src="../images/LoginFeature_SequenceDiagram_includes_Model.png" alt="width:&quot;50%&quot;">
 </div>
-</div>
-<div class="paragraph">
-<p>After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent to update the UI.</p>
+<div class="title">Figure 2. Sequence Diagram for the Model component when the user issues an <code>login n/Alice pass/password</code> command.</div>
 </div>
 <div class="paragraph">
-<p>For example, if the user, Alex Yeoh, wants to login to his account, the following image is what he will see before he logs in.</p>
+<p>After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
+to update the UI.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoginFeature_SequenceDiagram_includes_Model_EventsCenter_UI.png" alt="LoginFeature SequenceDiagram includes Model EventsCenter UI" width="800">
+</div>
+<div class="title">Figure 3. Sequence Diagram for the Model, EventsCenter, and UI component when the user issues an <code>login n/Alice pass/password</code> command.</div>
+</div>
+<div class="paragraph">
+<p>There are 2 indications that login was successful. First, a welcome message will be shown with
+the a message in the format: "Welcome back [NAME]!" where [NAME] is replaced by the full name
+of the user.</p>
+</div>
+<div class="paragraph">
+<p>For example, if the user, Alex Yeoh, successfully logs in to his account, he should see the welcome
+message: "Welcome back Alex Yeoh!"</p>
+</div>
+<div class="paragraph">
+<p>Second, upon successful login the colour of the name of the user will change from white to green.
+The two images below attempts to illustrate the effects of a successful login on the UI. Again,
+we will use the scenario that a user, Alex Yeoh, wants to login to his account:</p>
+</div>
+<div class="paragraph">
+<p>Alex enters his name and password as required by the login command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/LoginFeatureBeforeLogin.png" alt="LoginFeatureBeforeLogin" width="300">
 </div>
+<div class="title">Figure 4. UI before Alex Yeoh has successfully logs in.</div>
 </div>
 <div class="paragraph">
-<p>After Alex Yeoh logs in, the UI will automatically be updated upon successful login as indicated by the change in colour
-of the user&#8217;s name from white to green as shown in the image below. The user&#8217;s name will remain in green as long as he is logged in. After he logs out,
-the colour of his name will revert back to white as shown in the image above.</p>
+<p>Once Alex Yeoh successfully logs in, the UI will automatically be updated as shown below</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/LoginFeatureAfterLogin.png" alt="LoginFeatureAfterLogin" width="300">
 </div>
 </div>
+<div class="paragraph">
+<p>The images below shows the Class Diagram for the Model component of the Login command.
+Note that some minute details where ommited for the sake of simplicity.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoginFeature_ClassDiagram_Model_1.png" alt="LoginFeature ClassDiagram Model 1" width="800">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoginFeature_ClassDiagram_Model_2.png" alt="LoginFeature ClassDiagram Model 2" width="600">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoginFeature_ClassDiagram_Model_3.png" alt="LoginFeature ClassDiagram Model 3" width="800">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoginFeature_ClassDiagram_Model_4.png" alt="LoginFeature ClassDiagram Model 4" width="800">
+</div>
+<div class="title">Figure 5. Class Diagram for the Model component of the Login Command</div>
+</div>
+<div class="paragraph">
+<p>Again, note that some minute details for the Logic component where omitted for the sake of simplicity.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LoginFeature_ClassDiagram_Logic_1.png" alt="LoginFeature ClassDiagram Logic 1" width="800">
+</div>
+<div class="title">Figure 6. Class Diagram for the Logic component of the Login Command</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-security"><a class="link" href="#aspect-security">Aspect: security</a></h5>
+<h5 id="aspect-security"><a class="link" href="#aspect-security">Aspect: Security</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1</strong>(Current implementation) : store the password for each user as an attribute of Person class</p>
+<p><strong>Alternative 1</strong>(Current implementation) :
+In the current implementation, we need to uniquely identify an user using both their name and
+password. If two users have different names, they will be identified users. Even if two users have
+the same name, they can simply choose different passwords for both users to use Event Organiser.
+However, the problem arises when a malicious user wants to login to other user&#8217;s account. This can
+be achieved fairly simply using the login command. The malicious user can look for the name of
+the user that already has an account, and brunt force their way in, especially if the
+password is weak. Similar technique can be used using the EditUser command to comprise the integrity
+of another users account.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Enforce some level of authentication with minimal code</p>
+<p>Pros: Fairly easy to implement</p>
 </li>
 <li>
-<p>Cons: Level of security is minimal</p>
+<p>Cons: Fairly easy for a malicious user to login to another user&#8217;s account</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2</strong> : Use Java API to hash the password</p>
+<p><strong>Alternative 2</strong> : Implement login command with one-time passwords.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Higher level of security for users</p>
+<p>Pros: High level of security</p>
 </li>
 <li>
-<p>Cons: May not be pertinent for the EventOrganiser app as of v1.3</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 3</strong> : implement "login" via select command</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement</p>
-</li>
-<li>
-<p>Cons: No security at all</p>
+<p>Cons: Highly difficult to implement</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edituser-command-and-deleteuser-command"><a class="link" href="#edituser-command-and-deleteuser-command">EditUser Command and DeleteUser Command</a></h4>
+<div class="paragraph">
+<p>To ensure cohesiveness of the login/logout feature with the EditUser Command and DeleteUser
+Command that were implemented in AddressBook-Level 4, appropriate changes was made to these
+two commands.</p>
+</div>
+<div class="paragraph">
+<p>First and foremost, we will need users to be logged in to edit or delete his/her user account.</p>
+</div>
+<div class="paragraph">
+<p>Once the user issues an <code>deleteUser</code> command, it is automatically assumed that the user wants to
+delete his/her own account. This ensures that only the user of the account is allowed to delete
+his/her account.</p>
+</div>
+<div class="paragraph">
+<p>Once the user issues an <code>editUser</code> command, it is also automatically assumed that the user wants to
+delete his/her own account. This ensures that only the user of the account is allowed to edit
+his/her account. However, due to the way users are uniquely identified in Event Organiser,
+a user may find that they are unable to change their name or password. In these situations, the user
+is encouraged to change their name or password to a different name or password respectively from
+the new name or password that they have chosen before.</p>
 </div>
 </div>
 </div>
@@ -376,7 +476,7 @@ the colour of his name will revert back to white as shown in the image above.</p
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User creates new user profile by specifying his/her contact detail, address, schedule, and interests.</p>
+<p>User creates new user profile.</p>
 </li>
 <li>
 <p>System checks that the details are valid.</p>
@@ -425,7 +525,7 @@ the colour of his name will revert back to white as shown in the image above.</p
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User creates logs in using his/her name, contact detail, address, and email</p>
+<p>User creates enters his credentials.</p>
 </li>
 <li>
 <p>System checks that the details are valid.</p>
@@ -516,250 +616,5 @@ the colour of his name will revert back to white as shown in the image above.</p
 </li>
 </ul>
 </div>
-<h3 id="use-case-u04-create-new-event" class="discrete">Use case: U04 – Create new event</h3>
-<div class="paragraph">
-<p><strong>Actor: Event Organiser</strong></p>
 </div>
-<div class="paragraph">
-<p><strong>Precondition: Event organiser has logged himself/herself in</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>MSS:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Event organiser creates a new event by specifying the name, location and tags of the event.</p>
-</li>
-<li>
-<p>System checks that the details are valid.</p>
-</li>
-<li>
-<p>System informs the event organiser that the event has been successfully created.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>2a. Event organiser enters invalid details.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>2a1. System will prompt event organiser to re-enter the event details.</p>
-</li>
-<li>
-<p>2a2. Event organiser enters event details again.</p>
-<div class="paragraph">
-<p>Steps 2a1 - 2a2 are repeated until the details entered are valid.</p>
-</div>
-<div class="paragraph">
-<p>Use case resumes from step 3.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<h3 id="use-case-u05-delete-an-event" class="discrete">Use case: U05 – Delete an event</h3>
-<div class="paragraph">
-<p><strong>Actor: Event organiser</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Precondition: Event organiser has identified himself/herself</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>MSS:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Event organiser chooses to delete an event.</p>
-</li>
-<li>
-<p>System checks that the event belongs to the user.</p>
-</li>
-<li>
-<p>System informs the event organiser that the event has been successfully deleted.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>2a. The event that will be deleted does not belong to the user.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>2a1. System will inform the user that the event cannot be deleted.</p>
-</li>
-<li>
-<p>2a2. User either change his profile or change the event that he/she wants to delete.</p>
-</li>
-<li>
-<p>Steps 2a1 – 2a2 are repeated until the event belongs to the current user.</p>
-<div class="paragraph">
-<p>Use case resumes from step 3.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<h3 id="use-case-u06-user-joins-an-event" class="discrete">Use case: U06 - User joins an event</h3>
-<div class="paragraph">
-<p><strong>Actor: User</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Precondition: User has logged in</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>MSS:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User searches for available events.</p>
-</li>
-<li>
-<p>System shows user all the events that are available.</p>
-</li>
-<li>
-<p>User chooses an event that he wants to join.</p>
-</li>
-<li>
-<p>System informs the user that he/she has been successfully joined the event.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. User may specify extra details to filter out search results.</p>
-<div class="paragraph">
-<p>Use case resumes at step 2.</p>
-</div>
-</li>
-</ul>
-</div>
-<h3 id="use-case-u07-event-organiser-creates-a-poll" class="discrete">Use case: U07 – Event organiser creates a poll</h3>
-<div class="paragraph">
-<p><strong>Actor: Event organiser</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Precondition: Event organiser has logged in and created an event</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>MSS:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Event organiser selects an event.</p>
-</li>
-<li>
-<p>Event organiser creates a new poll.</p>
-</li>
-<li>
-<p>Event organiser creates options for the poll.</p>
-</li>
-<li>
-<p>System informs the event organiser’s options has been successfully updated.</p>
-</li>
-<li>
-<p>System updates polling information in its storage.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<h3 id="use-case-u08-user-votes-in-a-poll" class="discrete">Use case: U08 – User votes in a poll</h3>
-<div class="paragraph">
-<p><strong>Actor: User who is keen to join an event</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Precondition: User has logged in and has joined an event</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>MSS:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User selects a poll from the poll list of the event.</p>
-</li>
-<li>
-<p>System displays the poll selected by the user.</p>
-</li>
-<li>
-<p>User looks at the options given in the poll and votes for his/her preferred options.</p>
-</li>
-<li>
-<p>System adds the user to the voter list of that option.</p>
-</li>
-<li>
-<p>System updates the list of most popular options in the poll.</p>
-</li>
-<li>
-<p>System updates polling information in its storage.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<h3 id="use-case-u08-event-organiser-confirms-the-event-details" class="discrete">Use case: U08 – Event organiser confirms the event details</h3>
-<div class="paragraph">
-<p><strong>Actor: Event organiser</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Precondition: Event organiser has logged in, event participants have all joined and voted in polls</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>MSS:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Event organiser looks at the poll results.</p>
-</li>
-<li>
-<p>System shows the top options for each of the polls.</p>
-</li>
-<li>
-<p>Event organiser decides on the ideal time, date and location for the event and sets them accordingly.</p>
-</li>
-<li>
-<p>System informs the user’s options has been successfully updated.</p>
-</li>
-<li>
-<p>System updates event information in its storage.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 01:02:06 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:25:21 UTC</div></div></div></body></html>

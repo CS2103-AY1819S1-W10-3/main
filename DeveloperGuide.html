@@ -36,14 +36,15 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#login-logout-feature">3.1. Login/logout feature</a>
+<li><a href="#login-logout-feature">3.1. Login/Logout feature</a>
 <ul class="sectlevel3">
 <li><a href="#current-implementation">3.1.1. Current Implementation</a></li>
 <li><a href="#design-considerations">3.1.2. Design Considerations</a>
 <ul class="sectlevel4">
-<li><a href="#aspect-security">Aspect: security</a></li>
+<li><a href="#aspect-security">Aspect: Security</a></li>
 </ul>
 </li>
+<li><a href="#edituser-command-and-deleteuser-command">3.1.3. EditUser Command and DeleteUser Command</a></li>
 </ul>
 </li>
 <li><a href="#poll-feature">3.2. Poll feature</a>
@@ -146,32 +147,33 @@
 <li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
-<li><a href="#login-a-user">H.2. Login a user</a></li>
-<li><a href="#logout-a-user">H.3. Logout a user</a></li>
-<li><a href="#find-users">H.4. Find users</a></li>
-<li><a href="#edit-a-user">H.5. Edit a user</a></li>
-<li><a href="#delete-a-user">H.6. Delete a user</a></li>
-<li><a href="#populate-a-user-schedule-via-timetable">H.7. Populate a user schedule via Timetable</a></li>
-<li><a href="#edit-a-user-schedule">H.8. Edit a user schedule</a></li>
-<li><a href="#find-free-time-between-two-users">H.9. Find free time between two users</a></li>
-<li><a href="#add-a-friend">H.10. Add a friend</a></li>
-<li><a href="#delete-a-friend">H.11. Delete a friend</a></li>
-<li><a href="#add-an-event">H.12. Add an event</a></li>
-<li><a href="#add-a-poll">H.13. Add a poll</a></li>
-<li><a href="#add-a-time-poll">H.14. Add a time poll</a></li>
-<li><a href="#add-poll-options">H.15. Add poll options</a></li>
-<li><a href="#delete-an-event">H.16. Delete an event</a></li>
-<li><a href="#select-an-event">H.17. Select an event</a></li>
-<li><a href="#display-poll">H.18. Display poll</a></li>
-<li><a href="#edit-an-event">H.19. Edit an event</a></li>
-<li><a href="#find-an-event-by-attributes">H.20. Find an event by attributes</a></li>
-<li><a href="#find-event-by-time">H.21. Find event by time</a></li>
-<li><a href="#list-all-events">H.22. List all events</a></li>
-<li><a href="#set-date">H.23. Set date</a></li>
-<li><a href="#set-time">H.24. Set time</a></li>
-<li><a href="#join-event">H.25. Join event</a></li>
-<li><a href="#vote-in-poll">H.26. Vote in poll</a></li>
-<li><a href="#saving-data">H.27. Saving data</a></li>
+<li><a href="#add-a-user">H.2. Add a user</a></li>
+<li><a href="#login-a-user">H.3. Login a user</a></li>
+<li><a href="#logout-a-user">H.4. Logout a user</a></li>
+<li><a href="#find-users">H.5. Find users</a></li>
+<li><a href="#edit-a-user">H.6. Edit a user</a></li>
+<li><a href="#delete-a-user">H.7. Delete a user</a></li>
+<li><a href="#populate-a-user-schedule-via-timetable">H.8. Populate a user schedule via Timetable</a></li>
+<li><a href="#edit-a-user-schedule">H.9. Edit a user schedule</a></li>
+<li><a href="#find-free-time-between-two-users">H.10. Find free time between two users</a></li>
+<li><a href="#add-a-friend">H.11. Add a friend</a></li>
+<li><a href="#delete-a-friend">H.12. Delete a friend</a></li>
+<li><a href="#add-an-event">H.13. Add an event</a></li>
+<li><a href="#add-a-poll">H.14. Add a poll</a></li>
+<li><a href="#add-a-time-poll">H.15. Add a time poll</a></li>
+<li><a href="#add-poll-options">H.16. Add poll options</a></li>
+<li><a href="#delete-an-event">H.17. Delete an event</a></li>
+<li><a href="#select-an-event">H.18. Select an event</a></li>
+<li><a href="#display-poll">H.19. Display poll</a></li>
+<li><a href="#edit-an-event">H.20. Edit an event</a></li>
+<li><a href="#find-an-event-by-attributes">H.21. Find an event by attributes</a></li>
+<li><a href="#find-event-by-time">H.22. Find event by time</a></li>
+<li><a href="#list-all-events">H.23. List all events</a></li>
+<li><a href="#set-date">H.24. Set date</a></li>
+<li><a href="#set-time">H.25. Set time</a></li>
+<li><a href="#join-event">H.26. Join event</a></li>
+<li><a href="#vote-in-poll">H.27. Vote in poll</a></li>
+<li><a href="#saving-data">H.28. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -493,13 +495,14 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </div>
 <h4 id="events-driven-nature-of-the-design" class="discrete">Events-Driven nature of the design</h4>
 <div class="paragraph">
-<p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>delete 1</code>.</p>
+<p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>deleteUser</code>.
+It is assumed that the user has already logged in to his/her account in Event Organiser.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/SDforDeletePerson.png" alt="SDforDeletePerson" width="800">
 </div>
-<div class="title">Figure 3. Component interactions for <code>delete 1</code> command (part 1)</div>
+<div class="title">Figure 3. Component interactions for <code>deleteUser</code> command (part 1)</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -520,7 +523,7 @@ Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</c
 <div class="content">
 <img src="images/SDforDeletePersonEventHandling.png" alt="SDforDeletePersonEventHandling" width="800">
 </div>
-<div class="title">Figure 4. Component interactions for <code>delete 1</code> command (part 2)</div>
+<div class="title">Figure 4. Component interactions for <code>deleteUser</code> command (part 2)</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -601,13 +604,14 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </ol>
 </div>
 <div class="paragraph">
-<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call.</p>
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("deleteUser")</code> API call.
+Once again, note that we have assumed that the user has already logged in to his/her account in Event Organiser.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/DeletePersonSdForLogic.png" alt="DeletePersonSdForLogic" width="800">
 </div>
-<div class="title">Figure 7. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+<div class="title">Figure 7. Interactions Inside the Logic Component for the <code>deleteUser</code> Command.</div>
 </div>
 </div>
 <div class="sect2">
@@ -705,109 +709,205 @@ When converting XmlAdaptedEvent objects back to a model type Event object, the X
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="login-logout-feature"><a class="link" href="#login-logout-feature">3.1. Login/logout feature</a></h3>
+<h3 id="login-logout-feature"><a class="link" href="#login-logout-feature">3.1. Login/Logout feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">3.1.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>This section explains the implementation of the components associated with the login feature.</p>
+<p>The goal of this section is to explain the implementation of the
+login/logout feature and to briefly explain the changes that were made on relevant
+components of Event Organiser, namely, the EditUser Command, and the DeleteUser Command,
+to ensure cohesiveness of the entire application.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/LoginFeature_SequenceDiagram_includes_Logic_Model.png" alt="LoginFeature SequenceDiagram includes Logic Model" width="800">
+<img src="images/LoginFeature_SequenceDiagram_includes_Logic.png" alt="LoginFeature SequenceDiagram includes Logic" width="800">
 </div>
+<div class="title">Figure 10. Sequence Diagram for the Logic component when the user issues an <code>login n/Alice pass/password</code> command.</div>
 </div>
 <div class="paragraph">
-<p>After the execute() method of the login command is called,  the login command authenticates the user.
-A commandException will be thrown in the following 2 scenarios:</p>
+<p>We have assumed that a user with name as "Alice" and password as "password" already exists in Event
+Organiser. If such an user does not already exist before the login command is issued, login will
+not be successful.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In this implementation, we define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When the execute() method of the Login command is called,  the login command authenticates
+the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in Event Organiser.
+A CommandException will be thrown in the following 2 scenarios:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>When the user does not exist.</p>
+<p>When the user does not exist in Event Organiser.</p>
 </li>
 <li>
-<p>When there is already a user that has been logged in.</p>
+<p>When there is already a user that is logged in.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>On the other hand, after the execute() method of the log out command is called,
-a commandException will be thrown when there isn&#8217;t any user that is logged in.</p>
+<p>On the other hand, when the execute() method of the Logout command is called,
+a CommandException will be thrown when there isn&#8217;t any user that is logged in.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/LoginFeature_SequenceDiagram_includes_Logic_EventsCenter_UI.png" alt="LoginFeature SequenceDiagram includes Logic EventsCenter UI" width="800">
+<img src="images/LoginFeature_SequenceDiagram_includes_Model.png" alt="width:&quot;50%&quot;">
 </div>
-</div>
-<div class="paragraph">
-<p>After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent to update the UI.</p>
+<div class="title">Figure 11. Sequence Diagram for the Model component when the user issues an <code>login n/Alice pass/password</code> command.</div>
 </div>
 <div class="paragraph">
-<p>For example, if the user, Alex Yeoh, wants to login to his account, the following image is what he will see before he logs in.</p>
+<p>After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
+to update the UI.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginFeature_SequenceDiagram_includes_Model_EventsCenter_UI.png" alt="LoginFeature SequenceDiagram includes Model EventsCenter UI" width="800">
+</div>
+<div class="title">Figure 12. Sequence Diagram for the Model, EventsCenter, and UI component when the user issues an <code>login n/Alice pass/password</code> command.</div>
+</div>
+<div class="paragraph">
+<p>There are 2 indications that login was successful. First, a welcome message will be shown with
+the a message in the format: "Welcome back [NAME]!" where [NAME] is replaced by the full name
+of the user.</p>
+</div>
+<div class="paragraph">
+<p>For example, if the user, Alex Yeoh, successfully logs in to his account, he should see the welcome
+message: "Welcome back Alex Yeoh!"</p>
+</div>
+<div class="paragraph">
+<p>Second, upon successful login the colour of the name of the user will change from white to green.
+The two images below attempts to illustrate the effects of a successful login on the UI. Again,
+we will use the scenario that a user, Alex Yeoh, wants to login to his account:</p>
+</div>
+<div class="paragraph">
+<p>Alex enters his name and password as required by the login command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LoginFeatureBeforeLogin.png" alt="LoginFeatureBeforeLogin" width="300">
 </div>
+<div class="title">Figure 13. UI before Alex Yeoh has successfully logs in.</div>
 </div>
 <div class="paragraph">
-<p>After Alex Yeoh logs in, the UI will automatically be updated upon successful login as indicated by the change in colour
-of the user&#8217;s name from white to green as shown in the image below. The user&#8217;s name will remain in green as long as he is logged in. After he logs out,
-the colour of his name will revert back to white as shown in the image above.</p>
+<p>Once Alex Yeoh successfully logs in, the UI will automatically be updated as shown below</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LoginFeatureAfterLogin.png" alt="LoginFeatureAfterLogin" width="300">
 </div>
 </div>
+<div class="paragraph">
+<p>The images below shows the Class Diagram for the Model component of the Login command.
+Note that some minute details where ommited for the sake of simplicity.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginFeature_ClassDiagram_Model_1.png" alt="LoginFeature ClassDiagram Model 1" width="800">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginFeature_ClassDiagram_Model_2.png" alt="LoginFeature ClassDiagram Model 2" width="600">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginFeature_ClassDiagram_Model_3.png" alt="LoginFeature ClassDiagram Model 3" width="800">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginFeature_ClassDiagram_Model_4.png" alt="LoginFeature ClassDiagram Model 4" width="800">
+</div>
+<div class="title">Figure 14. Class Diagram for the Model component of the Login Command</div>
+</div>
+<div class="paragraph">
+<p>Again, note that some minute details for the Logic component where omitted for the sake of simplicity.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoginFeature_ClassDiagram_Logic_1.png" alt="LoginFeature ClassDiagram Logic 1" width="800">
+</div>
+<div class="title">Figure 15. Class Diagram for the Logic component of the Login Command</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-security"><a class="link" href="#aspect-security">Aspect: security</a></h5>
+<h5 id="aspect-security"><a class="link" href="#aspect-security">Aspect: Security</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1</strong>(Current implementation) : store the password for each user as an attribute of Person class</p>
+<p><strong>Alternative 1</strong>(Current implementation) :
+In the current implementation, we need to uniquely identify an user using both their name and
+password. If two users have different names, they will be identified users. Even if two users have
+the same name, they can simply choose different passwords for both users to use Event Organiser.
+However, the problem arises when a malicious user wants to login to other user&#8217;s account. This can
+be achieved fairly simply using the login command. The malicious user can look for the name of
+the user that already has an account, and brunt force their way in, especially if the
+password is weak. Similar technique can be used using the EditUser command to comprise the integrity
+of another users account.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Enforce some level of authentication with minimal code</p>
+<p>Pros: Fairly easy to implement</p>
 </li>
 <li>
-<p>Cons: Level of security is minimal</p>
+<p>Cons: Fairly easy for a malicious user to login to another user&#8217;s account</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2</strong> : Use Java API to hash the password</p>
+<p><strong>Alternative 2</strong> : Implement login command with one-time passwords.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Higher level of security for users</p>
+<p>Pros: High level of security</p>
 </li>
 <li>
-<p>Cons: May not be pertinent for the EventOrganiser app as of v1.3</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 3</strong> : implement "login" via select command</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement</p>
-</li>
-<li>
-<p>Cons: No security at all</p>
+<p>Cons: Highly difficult to implement</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edituser-command-and-deleteuser-command"><a class="link" href="#edituser-command-and-deleteuser-command">3.1.3. EditUser Command and DeleteUser Command</a></h4>
+<div class="paragraph">
+<p>To ensure cohesiveness of the login/logout feature with the EditUser Command and DeleteUser
+Command that were implemented in AddressBook-Level 4, appropriate changes was made to these
+two commands.</p>
+</div>
+<div class="paragraph">
+<p>First and foremost, we will need users to be logged in to edit or delete his/her user account.</p>
+</div>
+<div class="paragraph">
+<p>Once the user issues an <code>deleteUser</code> command, it is automatically assumed that the user wants to
+delete his/her own account. This ensures that only the user of the account is allowed to delete
+his/her account.</p>
+</div>
+<div class="paragraph">
+<p>Once the user issues an <code>editUser</code> command, it is also automatically assumed that the user wants to
+delete his/her own account. This ensures that only the user of the account is allowed to edit
+his/her account. However, due to the way users are uniquely identified in Event Organiser,
+a user may find that they are unable to change their name or password. In these situations, the user
+is encouraged to change their name or password to a different name or password respectively from
+the new name or password that they have chosen before.</p>
 </div>
 </div>
 </div>
@@ -1210,7 +1310,7 @@ This way, we will be able to provide the most convenient way for the student to 
 <div class="sect3">
 <h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current implementation</a></h4>
 <div class="paragraph">
-<p>This section explains the implementation of the addition/deletion of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:</p>
+<p>This section explains the implementation of the addition/deletion of friends feature associated with each user in EventOrganizer. The relevant commands which are callable by the user to be discussed are:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1267,13 +1367,13 @@ For a person with name Alex Yeoh, phone 87438807, email <a href="mailto:alexyeoh
 <div class="sect4">
 <h5 id="aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person"><a class="link" href="#aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person">Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person</a></h5>
 <div class="paragraph">
-<p>The friend lists of each user have to be constantly updated when a person is deleted from the Event Organizer or his attributes are modified (such as name change).</p>
+<p>The friend lists of each user have to be constantly updated when a person is deleted from EventOrganizer or his attributes are modified (such as name change).</p>
 </div>
 <div class="paragraph">
 <p>The following scenario describes what happens if person A is already on the friend list of person B (person A and B are friends with each other).</p>
 </div>
 <div class="paragraph">
-<p>Person A gets deleted from the Event Organizer:
+<p>Person A gets deleted from EventOrganizer:
 This triggers the updateFriendListsDueToDeletedPerson() function in the <code>DeleteUserCommand</code> class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), person A will be removed from his/her friend list.</p>
 </div>
 <div class="paragraph">
@@ -1388,7 +1488,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 10. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 16. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -1772,7 +1872,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <p>Benefits customers seek to achieve: Students want to do all the scheduling, inviting and finalizing of a meetup in a fast and effective way.</p>
 </li>
 <li>
-<p>How value proposition is delivered: The event organiser app provides a large database of all the contacts and information of NUS students, which allows the organizers to search by name, availability, interests etc.</p>
+<p>How value proposition is delivered: EventOrganiser provides a large database of all the contacts and information of NUS students, which allows the organizers to search by name, availability, interests etc.</p>
 </li>
 </ul>
 </div>
@@ -1786,7 +1886,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p><i class="fa fa-check-square-o"></i> V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.</p>
+<p><i class="fa fa-check-square-o"></i> V1.1: EventOrganiser able to create a basic event with date, time, organiser, participant and poll features.</p>
 </li>
 <li>
 <p><i class="fa fa-check-square-o"></i> V1.2: Users able to search for events by attributes (date, time, location, interest) and time range.</p>
@@ -2008,7 +2108,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User creates new user profile by specifying his/her contact detail, address, schedule, and interests.</p>
+<p>User creates new user profile.</p>
 </li>
 <li>
 <p>System checks that the details are valid.</p>
@@ -2057,7 +2157,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User creates logs in using his/her name, contact detail, address, and email</p>
+<p>User creates enters his credentials.</p>
 </li>
 <li>
 <p>System checks that the details are valid.</p>
@@ -2424,6 +2524,10 @@ b. Require developers to download those libraries manually (this creates extra w
 <div class="sectionbody">
 <div class="dlist">
 <dl>
+<dt class="hdlist1"><a id="uniqueness"></a> Unique user</dt>
+<dd>
+<p>Refers to an user which has an unique tuple of NAME and PASSWORD.</p>
+</dd>
 <dt class="hdlist1"><a id="user"></a> User / Person</dt>
 <dd>
 <p>Refers to a person who uses EventOrganiser.</p>
@@ -2474,6 +2578,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </td>
 <td class="content">
 These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
+The result of the test cases under each command is assumed to not persist to the next test case unless otherwise stated
 </td>
 </tr>
 </table>
@@ -2514,14 +2619,40 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="login-a-user"><a class="link" href="#login-a-user">H.2. Login a user</a></h3>
+<h3 id="add-a-user"><a class="link" href="#add-a-user">H.2. Add a user</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>addUser p\95642244 ealex@exmple.com a\Blk 12 John Street, #10-11 pass\password</code>
+Expected: Add user unsuccessful.</p>
+</li>
+<li>
+<p>Test case: <code>addUser n\Alex Yeoh ealex@exmple.com a\Blk 12 John Street, #10-11 pass\password</code>
+Expected: Add user unsuccessful.</p>
+</li>
+<li>
+<p>Test case: <code>addUser n\Alex Yeoh</code>
+Expected: Add user unsuccessful.</p>
+</li>
+<li>
+<p>Test case: <code>addUser n\Alex Yeoh p\95642244 ealex@exmple.com a\Blk 12 John Street, #10-11 pass\password</code>
+Expected: Add user successful.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="login-a-user"><a class="link" href="#login-a-user">H.3. Login a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>Note: The states of each test case is continued in the next test case.</p>
 </li>
 <li>
-<p>Prerequisites: Event Organiser already has a user with name as "Alex Yeoh" and password as "password". Futhermore, no user is currently logged in. The Event Organiser does not have a user with name as "Michael Lim" and password as "password".</p>
+<p>Prerequisites:
+EventOrganiser already has a user with name as "Alex Yeoh" and password as "password".
+No user is currently logged in.
+EventOrganiser does not have a user with name as "Michael Lim" and password as "password".</p>
 </li>
 <li>
 <p>Test case: <code>login</code>
@@ -2543,14 +2674,14 @@ Expected: Login unsuccessful.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logout-a-user"><a class="link" href="#logout-a-user">H.3. Logout a user</a></h3>
+<h3 id="logout-a-user"><a class="link" href="#logout-a-user">H.4. Logout a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>Note: The states of each test case is continued in the next test case.</p>
 </li>
 <li>
-<p>Prerequisites: There is no user currently logged in and the user with name as "Alex Yeoh" and password as "password" is currently logged in.</p>
+<p>Prerequisites: A user with name as "Alex Yeoh" and password as "password" is currently logged in.</p>
 </li>
 <li>
 <p>Test case <code>logout</code>
@@ -2564,33 +2695,35 @@ Expected: Logout unsuccessful.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-users"><a class="link" href="#find-users">H.4. Find users</a></h3>
+<h3 id="find-users"><a class="link" href="#find-users">H.5. Find users</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser currently has two user accounts. The first user has name as "Alex Yeoh" and interests as "study". The second user has name as "Bernice Yu" and interest as "play".</p>
+<p>Prerequisites: EventOrganiser currently has two user accounts.
+The first user has name as "Alex Yeoh" and interests as "study".
+The second user has name as "Bernice Yu" and interest as "play".</p>
 </li>
 <li>
 <p>Test case <code>findUser n/Alex Yeoh</code>
 Expected: Only user "Alex Yeoh" is listed.</p>
 </li>
 <li>
-<p>Test case: <code>findUser i/interest</code>
+<p>Test case: <code>findUser i/play</code>
 Expected: Only user "Bernice Yu" is listed.</p>
 </li>
 <li>
-<p>Test case: <code>findUser n/Alex Yeoh i/interest</code>
-Expected: Only users "Bernice Yu" and "Alex Yeoh" are listed.</p>
+<p>Test case: <code>findUser n/Alex Yeoh i/play</code>
+Expected: No user is listed.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="edit-a-user"><a class="link" href="#edit-a-user">H.5. Edit a user</a></h3>
+<h3 id="edit-a-user"><a class="link" href="#edit-a-user">H.6. Edit a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
 <p>Test case <code>editUser n/Alex Tan</code>
@@ -2600,11 +2733,11 @@ Expected: Name of user successfully changed to "Alex Tan".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="delete-a-user"><a class="link" href="#delete-a-user">H.6. Delete a user</a></h3>
+<h3 id="delete-a-user"><a class="link" href="#delete-a-user">H.7. Delete a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
 <p>Test case <code>deleteUser</code>
@@ -2614,11 +2747,11 @@ Expected: user "Alex Yeoh" successfully deleted.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="populate-a-user-schedule-via-timetable"><a class="link" href="#populate-a-user-schedule-via-timetable">H.7. Populate a user schedule via Timetable</a></h3>
+<h3 id="populate-a-user-schedule-via-timetable"><a class="link" href="#populate-a-user-schedule-via-timetable">H.8. Populate a user schedule via Timetable</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
 <p>Test case <code>editUser tt/http://modsn.us/H4v8s</code>
@@ -2636,11 +2769,11 @@ Expected: Invalid NUSmods Link</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="edit-a-user-schedule"><a class="link" href="#edit-a-user-schedule">H.8. Edit a user schedule</a></h3>
+<h3 id="edit-a-user-schedule"><a class="link" href="#edit-a-user-schedule">H.9. Edit a user schedule</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: EventOrganiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
 <p>Test case <code>editUser su/monday 0000</code>
@@ -2654,11 +2787,11 @@ Expected: Schedule of user "Alex Yeoh" successfully changed. Second bit of the s
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-free-time-between-two-users"><a class="link" href="#find-free-time-between-two-users">H.9. Find free time between two users</a></h3>
+<h3 id="find-free-time-between-two-users"><a class="link" href="#find-free-time-between-two-users">H.10. Find free time between two users</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.</p>
+<p>Prerequisites: EventOrganiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.</p>
 </li>
 <li>
 <p>Test case <code>maxSchedule sl/0000-0000</code>
@@ -2672,11 +2805,11 @@ Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displ
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-friend"><a class="link" href="#add-a-friend">H.10. Add a friend</a></h3>
+<h3 id="add-a-friend"><a class="link" href="#add-a-friend">H.11. Add a friend</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: EventOrganiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
 <p>Test case <code>addFriend 1,2</code>
@@ -2686,11 +2819,11 @@ Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="delete-a-friend"><a class="link" href="#delete-a-friend">H.11. Delete a friend</a></h3>
+<h3 id="delete-a-friend"><a class="link" href="#delete-a-friend">H.12. Delete a friend</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: EventOrganiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
 <p>Test case <code>deleteFriend 1,2</code>
@@ -2700,11 +2833,11 @@ Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each oth
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-an-event"><a class="link" href="#add-an-event">H.12. Add an event</a></h3>
+<h3 id="add-an-event"><a class="link" href="#add-an-event">H.13. Add an event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
 <p>Test case <code>addEvent n/CS1234 Group Meeting a/SoC Canteen t/URGENT</code>
@@ -2716,7 +2849,7 @@ Event details are displayed in the event details panel, and "Alex Yeoh" is a par
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-poll"><a class="link" href="#add-a-poll">H.13. Add a poll</a></h3>
+<h3 id="add-a-poll"><a class="link" href="#add-a-poll">H.14. Add a poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2730,7 +2863,7 @@ Expected: a new poll with name "Meeting date" is created and displayed in the ev
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-time-poll"><a class="link" href="#add-a-time-poll">H.14. Add a time poll</a></h3>
+<h3 id="add-a-time-poll"><a class="link" href="#add-a-time-poll">H.15. Add a time poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2745,7 +2878,7 @@ the event details panel. It is populated by 30 minute slots based on the schedul
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-poll-options"><a class="link" href="#add-poll-options">H.15. Add poll options</a></h3>
+<h3 id="add-poll-options"><a class="link" href="#add-poll-options">H.16. Add poll options</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2763,7 +2896,7 @@ Expected: a new poll option with name "13 December" is created and displayed in 
 </div>
 </div>
 <div class="sect2">
-<h3 id="delete-an-event"><a class="link" href="#delete-an-event">H.16. Delete an event</a></h3>
+<h3 id="delete-an-event"><a class="link" href="#delete-an-event">H.17. Delete an event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2781,7 +2914,7 @@ Expected: Event 1 is not deleted, an error message "You are not the organiser of
 </div>
 </div>
 <div class="sect2">
-<h3 id="select-an-event"><a class="link" href="#select-an-event">H.17. Select an event</a></h3>
+<h3 id="select-an-event"><a class="link" href="#select-an-event">H.18. Select an event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2795,7 +2928,7 @@ Expected: The event details panel displays the details of the event at index 1.<
 </div>
 </div>
 <div class="sect2">
-<h3 id="display-poll"><a class="link" href="#display-poll">H.18. Display poll</a></h3>
+<h3 id="display-poll"><a class="link" href="#display-poll">H.19. Display poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2809,7 +2942,7 @@ Expected: Poll at index 1 of the poll list of the first event is displayed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="edit-an-event"><a class="link" href="#edit-an-event">H.19. Edit an event</a></h3>
+<h3 id="edit-an-event"><a class="link" href="#edit-an-event">H.20. Edit an event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2827,7 +2960,7 @@ Expected: The selected event is edited to have only one tag "URGENT"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-an-event-by-attributes"><a class="link" href="#find-an-event-by-attributes">H.20. Find an event by attributes</a></h3>
+<h3 id="find-an-event-by-attributes"><a class="link" href="#find-an-event-by-attributes">H.21. Find an event by attributes</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2845,7 +2978,7 @@ Expected: all and only events starting at 17:30 and organised by "Charlotte Oliv
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-event-by-time"><a class="link" href="#find-event-by-time">H.21. Find event by time</a></h3>
+<h3 id="find-event-by-time"><a class="link" href="#find-event-by-time">H.22. Find event by time</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2859,7 +2992,7 @@ Expected: all and only events held between 07:30 and 17:30 on 01-12-2018 are dis
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-all-events"><a class="link" href="#list-all-events">H.22. List all events</a></h3>
+<h3 id="list-all-events"><a class="link" href="#list-all-events">H.23. List all events</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2873,7 +3006,7 @@ Expected: All events in the event organiser are displayed in the events list.</p
 </div>
 </div>
 <div class="sect2">
-<h3 id="set-date"><a class="link" href="#set-date">H.23. Set date</a></h3>
+<h3 id="set-date"><a class="link" href="#set-date">H.24. Set date</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2887,7 +3020,7 @@ Expected: the date "12-12-2018" is set and appears in the event card of the even
 </div>
 </div>
 <div class="sect2">
-<h3 id="set-time"><a class="link" href="#set-time">H.24. Set time</a></h3>
+<h3 id="set-time"><a class="link" href="#set-time">H.25. Set time</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2901,7 +3034,7 @@ Expected: the times "12:30 - 14:30" are set and appear in the event card of the 
 </div>
 </div>
 <div class="sect2">
-<h3 id="join-event"><a class="link" href="#join-event">H.25. Join event</a></h3>
+<h3 id="join-event"><a class="link" href="#join-event">H.26. Join event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2916,7 +3049,7 @@ The new event details are displayed in the event details panel.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="vote-in-poll"><a class="link" href="#vote-in-poll">H.26. Vote in poll</a></h3>
+<h3 id="vote-in-poll"><a class="link" href="#vote-in-poll">H.27. Vote in poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2932,7 +3065,7 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.27. Saving data</a></h3>
+<h3 id="saving-data"><a class="link" href="#saving-data">H.28. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2952,4 +3085,4 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 01:02:06 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:25:21 UTC</div></div></div></body></html>
