@@ -158,11 +158,20 @@
 <li><a href="#delete-a-friend">H.11. Delete a friend</a></li>
 <li><a href="#add-an-event">H.12. Add an event</a></li>
 <li><a href="#add-a-poll">H.13. Add a poll</a></li>
-<li><a href="#add-poll-options">H.14. Add poll options</a></li>
-<li><a href="#set-date">H.15. Set date</a></li>
-<li><a href="#join-event">H.16. Join event</a></li>
-<li><a href="#vote-in-poll">H.17. Vote in poll</a></li>
-<li><a href="#saving-data">H.18. Saving data</a></li>
+<li><a href="#add-a-time-poll">H.14. Add a time poll</a></li>
+<li><a href="#add-poll-options">H.15. Add poll options</a></li>
+<li><a href="#delete-an-event">H.16. Delete an event</a></li>
+<li><a href="#select-an-event">H.17. Select an event</a></li>
+<li><a href="#display-poll">H.18. Display poll</a></li>
+<li><a href="#edit-an-event">H.19. Edit an event</a></li>
+<li><a href="#find-an-event-by-attributes">H.20. Find an event by attributes</a></li>
+<li><a href="#find-event-by-time">H.21. Find event by time</a></li>
+<li><a href="#list-all-events">H.22. List all events</a></li>
+<li><a href="#set-date">H.23. Set date</a></li>
+<li><a href="#set-time">H.24. Set time</a></li>
+<li><a href="#join-event">H.25. Join event</a></li>
+<li><a href="#vote-in-poll">H.26. Vote in poll</a></li>
+<li><a href="#saving-data">H.27. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -2721,7 +2730,22 @@ Expected: a new poll with name "Meeting date" is created and displayed in the ev
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-poll-options"><a class="link" href="#add-poll-options">H.14. Add poll options</a></h3>
+<h3 id="add-a-time-poll"><a class="link" href="#add-a-time-poll">H.14. Add a time poll</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.</p>
+</li>
+<li>
+<p>Test case <code>addTimePoll d/19-12-2018 d2/20-12-2018</code>
+Expected: a new poll with name "Time Poll" is created and displayed in
+the event details panel. It is populated by 30 minute slots based on the schedules of the participants.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-poll-options"><a class="link" href="#add-poll-options">H.15. Add poll options</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2739,7 +2763,117 @@ Expected: a new poll option with name "13 December" is created and displayed in 
 </div>
 </div>
 <div class="sect2">
-<h3 id="set-date"><a class="link" href="#set-date">H.15. Set date</a></h3>
+<h3 id="delete-an-event"><a class="link" href="#delete-an-event">H.16. Delete an event</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event organiser "David Li" is logged in and "David Li" is the organiser of event at index 2 but not event at index 1.</p>
+</li>
+<li>
+<p>Test case <code>deleteEvent 2</code>
+Expected: Event at index 2 is deleted</p>
+</li>
+<li>
+<p>Test case <code>deleteEvent 1</code>
+Expected: Event 1 is not deleted, an error message "You are not the organiser of this event." is returned.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="select-an-event"><a class="link" href="#select-an-event">H.17. Select an event</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: The event list is not empty.</p>
+</li>
+<li>
+<p>Test case <code>selectEvent 1</code>
+Expected: The event details panel displays the details of the event at index 1.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="display-poll"><a class="link" href="#display-poll">H.18. Display poll</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: The event at index 1 has been selected and there is a poll in the event.</p>
+</li>
+<li>
+<p>Test case <code>displayPoll 1</code>
+Expected: Poll at index 1 of the poll list of the first event is displayed.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edit-an-event"><a class="link" href="#edit-an-event">H.19. Edit an event</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.</p>
+</li>
+<li>
+<p>Test case <code>editEvent n/CS2100 Discussion a/NUS UTown</code>
+Expected: The selected event is edited to have the name "CS2100 Discussion" and the location "NUS UTown".</p>
+</li>
+<li>
+<p>Test case <code>editEvent t/URGENT</code>
+Expected: The selected event is edited to have only one tag "URGENT"</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-an-event-by-attributes"><a class="link" href="#find-an-event-by-attributes">H.20. Find an event by attributes</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: The event list is not empty.</p>
+</li>
+<li>
+<p>Test case <code>findEvent e/Linguistics Reading Group</code>
+Expected: all and only events with name "Linguistics Reading Group" are displayed in the event list.</p>
+</li>
+<li>
+<p>Test case findEvent t1/17:30 on/Charlotte Oliveiro`
+Expected: all and only events starting at 17:30 and organised by "Charlotte Oliveiro" are displayed in the event list.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-event-by-time"><a class="link" href="#find-event-by-time">H.21. Find event by time</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: The event list is not empty.</p>
+</li>
+<li>
+<p>Test case <code>findEventByTime d/01-12-2018 t1/07:30 t2/17:30</code>
+Expected: all and only events held between 07:30 and 17:30 on 01-12-2018 are displayed.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-all-events"><a class="link" href="#list-all-events">H.22. List all events</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: NIL</p>
+</li>
+<li>
+<p>Test case <code>listEvent</code>
+Expected: All events in the event organiser are displayed in the events list.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="set-date"><a class="link" href="#set-date">H.23. Set date</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2753,7 +2887,21 @@ Expected: the date "12-12-2018" is set and appears in the event card of the even
 </div>
 </div>
 <div class="sect2">
-<h3 id="join-event"><a class="link" href="#join-event">H.16. Join event</a></h3>
+<h3 id="set-time"><a class="link" href="#set-time">H.24. Set time</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.</p>
+</li>
+<li>
+<p>Test case <code>setTime t1/12:30 t2/14:30</code>
+Expected: the times "12:30 - 14:30" are set and appear in the event card of the event.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="join-event"><a class="link" href="#join-event">H.25. Join event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2768,7 +2916,7 @@ The new event details are displayed in the event details panel.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="vote-in-poll"><a class="link" href="#vote-in-poll">H.17. Vote in poll</a></h3>
+<h3 id="vote-in-poll"><a class="link" href="#vote-in-poll">H.26. Vote in poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2784,7 +2932,7 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.18. Saving data</a></h3>
+<h3 id="saving-data"><a class="link" href="#saving-data">H.27. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2804,4 +2952,4 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 15:32:44 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 00:38:13 UTC</div></div></div></body></html>
