@@ -63,18 +63,23 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public void setCurrentUser(Person currentUser) {
-        this.currentUser = currentUser;
+    /**
+     * Sets the current user in the model.
+     * @param person the User to be set as the current user.
+     */
+    public void setCurrentUser(Person person) {
+        assert person != null;
+        this.currentUser = person;
         indicateUserLoginStatusChanged();
     }
 
     /**
-     * Checks if a person exists within the model.
+     * Finds the user within the filteredPersons list(if the user exists) and logs the user.
      * @param person the Person to be authenticated.
      */
     public Person authenticateUser(Person person) {
         for (Person p: filteredPersons) {
-            if (person.isSameUser(p)) {
+            if (person.isSamePerson(p)) {
                 p.login();
                 return p;
             }
@@ -83,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Logs out user.
+     * Logs out the user and set the current user to null.
      */
     public void removeCurrentUser() {
         currentUser.logout();
@@ -394,18 +399,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateEvent(Event target, Event editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void updateEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
 
-        versionedAddressBook.updateEvent(target, editedPerson);
+        versionedAddressBook.updateEvent(target, editedEvent);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updateEvent(int index, Event editedPerson) {
-        requireAllNonNull(index, editedPerson);
+    public void updateEvent(int index, Event editedEvent) {
+        requireAllNonNull(index, editedEvent);
 
-        versionedAddressBook.updateEvent(index, editedPerson);
+        versionedAddressBook.updateEvent(index, editedEvent);
         indicateAddressBookChanged();
     }
 

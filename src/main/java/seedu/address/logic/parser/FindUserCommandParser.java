@@ -41,12 +41,12 @@ public class FindUserCommandParser implements Parser<FindUserCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindUserCommand.MESSAGE_USAGE));
         }
 
-        nameKeywords = getKeywordsForPrefix(PREFIX_NAME, argMultimap);
-        phoneKeywords = getKeywordsForPrefix(PREFIX_PHONE, argMultimap);
-        emailKeywords = getKeywordsForPrefix(PREFIX_EMAIL, argMultimap);
-        addressKeywords = getKeywordsForPrefix(PREFIX_ADDRESS, argMultimap);
-        interestKeywords = getKeywordsForPrefix(PREFIX_INTEREST, argMultimap);
-        tagKeywords = getKeywordsForPrefix(PREFIX_TAG, argMultimap);
+        nameKeywords = getKeywordsForMainPrefix(PREFIX_NAME, argMultimap);
+        phoneKeywords = getKeywordsForMainPrefix(PREFIX_PHONE, argMultimap);
+        emailKeywords = getKeywordsForMainPrefix(PREFIX_EMAIL, argMultimap);
+        addressKeywords = getKeywordsForMainPrefix(PREFIX_ADDRESS, argMultimap);
+        interestKeywords = getKeywordsForInterestTagPrefix(PREFIX_INTEREST, argMultimap);
+        tagKeywords = getKeywordsForInterestTagPrefix(PREFIX_TAG, argMultimap);
 
         if (nameKeywords == null && phoneKeywords == null && emailKeywords == null && addressKeywords == null
                 && interestKeywords == null && tagKeywords == null) {
@@ -59,8 +59,9 @@ public class FindUserCommandParser implements Parser<FindUserCommand> {
 
     /**
      * Parses the given keywords and returns the keywords that is stored in a list of Strings.
+     * This is for name, phone, email and address keywords.
      */
-    private List<String> parseKeywords(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
+    private List<String> parseKeywordsForMainPrefix(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
         String keywords = argMultimap.getValue(prefix).get().trim();
         if (keywords.isEmpty()) {
             throw new ParseException(
@@ -71,11 +72,31 @@ public class FindUserCommandParser implements Parser<FindUserCommand> {
 
     /**
      * Gets the given keywords for the specified prefix.
+     * This is for name, phone, email and address keywords.
      */
-    private List<String> getKeywordsForPrefix(Prefix prefix, ArgumentMultimap argMultimap) throws ParseException {
+    private List<String> getKeywordsForMainPrefix(Prefix prefix, ArgumentMultimap argMultimap) throws ParseException {
         if (!(argMultimap.getValue(prefix).isPresent())) {
             return null;
         }
-        return parseKeywords(argMultimap, prefix);
+        return parseKeywordsForMainPrefix(argMultimap, prefix);
+    }
+
+    /**
+     * Parses the given keywords and returns the keywords that is stored in a list of Strings.
+     * This is for interest and tag keywords.
+     */
+    private List<String> parseKeywordsForInterestTagPrefix(ArgumentMultimap argMultimap, Prefix prefix) {
+        return argMultimap.getAllValues(prefix);
+    }
+
+    /**
+     * Gets the given keywords for the specified prefix.
+     * This is for interest and tag keywords.
+     */
+    private List<String> getKeywordsForInterestTagPrefix(Prefix prefix, ArgumentMultimap argMultimap) {
+        if (argMultimap.getAllValues(prefix).size() == 0) {
+            return null;
+        }
+        return parseKeywordsForInterestTagPrefix(argMultimap, prefix);
     }
 }

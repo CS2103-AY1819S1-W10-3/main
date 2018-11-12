@@ -83,7 +83,6 @@ public class EditUserCommand extends Command {
             throw new CommandException(MESSAGE_NO_USER_LOGGED_IN);
         }
         Person personToEdit = model.getCurrentUser();
-        model.removeCurrentUser();
 
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -93,6 +92,7 @@ public class EditUserCommand extends Command {
 
         updateFriendListsDueToEditedPerson(model, lastShownList, personToEdit, editedPerson);
         model.updatePerson(personToEdit, editedPerson);
+        model.removeCurrentUser();
         model.setCurrentUser(editedPerson);
         model.authenticateUser(editedPerson);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));

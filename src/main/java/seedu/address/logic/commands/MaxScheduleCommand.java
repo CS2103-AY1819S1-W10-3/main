@@ -25,7 +25,7 @@ public class MaxScheduleCommand extends Command {
     public static final String COMMAND_WORD = "maxSchedule";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find free time between several users. "
         + "Parameters: "
-        + "1 2 3 4 5 ... [/sl 0800-0900]";
+        + "1 2 3 4 5 ... [sl/ 0800-0900]";
     public static final String MESSAGE_SUCCESS = "Free time found: %1$s!";
     public static final String MESSAGE_PERSON_DOES_NOT_EXIST = "This person does not exist in the address book";
 

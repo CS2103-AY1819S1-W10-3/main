@@ -147,9 +147,10 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `deleteUser`.
+It is assumed that the user has already logged in to his/her account in Event Organiser.
 
-.Component interactions for `delete 1` command (part 1)
+.Component interactions for `deleteUser` command (part 1)
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -157,7 +158,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
+.Component interactions for `deleteUser` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -198,9 +199,12 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteUser")` API call.
+Once again, note that we have assumed that the user has already logged in to his/her account in Event Organiser.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deleteUser` Command.
+
+
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -254,53 +258,122 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::login/logout[]
-=== Login/logout feature
+=== Login/Logout feature
 
 ==== Current Implementation
 
-This section explains the implementation of the components associated with the login feature.
+The goal of this section is to explain the implementation of the
+login/logout feature and to briefly explain the changes that were made on relevant
+components of Event Organiser, namely, the EditUser Command, and the DeleteUser Command,
+to ensure cohesiveness of the entire application.
 
-image::LoginFeature_SequenceDiagram_includes_Logic_Model.png[width="800"]
+.Sequence Diagram for the Logic component when the user issues an `login n/Alice pass/password` command.
+image::LoginFeature_SequenceDiagram_includes_Logic.png[width="800"]
 
-After the execute() method of the login command is called,  the login command authenticates the user.
-A commandException will be thrown in the following 2 scenarios:
+We have assumed that a user with name as "Alice" and password as "password" already exists in Event
+Organiser. If such an user does not already exist before the login command is issued, login will
+not be successful.
 
-* When the user does not exist.
+[NOTE]
+In this implementation, we define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
 
-* When there is already a user that has been logged in.
+When the execute() method of the Login command is called,  the login command authenticates
+the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in Event Organiser.
+A CommandException will be thrown in the following 2 scenarios:
 
-On the other hand, after the execute() method of the log out command is called,
-a commandException will be thrown when there isn't any user that is logged in.
+* When the user does not exist in Event Organiser.
 
-image::LoginFeature_SequenceDiagram_includes_Logic_EventsCenter_UI.png[width="800"]
+* When there is already a user that is logged in.
 
-After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent to update the UI.
+On the other hand, when the execute() method of the Logout command is called,
+a CommandException will be thrown when there isn't any user that is logged in.
 
-For example, if the user, Alex Yeoh, wants to login to his account, the following image is what he will see before he logs in.
+.Sequence Diagram for the Model component when the user issues an `login n/Alice pass/password` command.
+image::LoginFeature_SequenceDiagram_includes_Model.png[width:"50%"]
 
+After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
+to update the UI.
+
+.Sequence Diagram for the Model, EventsCenter, and UI component when the user issues an `login n/Alice pass/password` command.
+image::LoginFeature_SequenceDiagram_includes_Model_EventsCenter_UI.png[width="800"]
+
+
+There are 2 indications that login was successful. First, a welcome message will be shown with
+the a message in the format: "Welcome back [NAME]!" where [NAME] is replaced by the full name
+of the user.
+
+For example, if the user, Alex Yeoh, successfully logs in to his account, he should see the welcome
+message: "Welcome back Alex Yeoh!"
+
+Second, upon successful login the colour of the name of the user will change from white to green.
+The two images below attempts to illustrate the effects of a successful login on the UI. Again,
+we will use the scenario that a user, Alex Yeoh, wants to login to his account:
+
+Alex enters his name and password as required by the login command.
+
+.UI before Alex Yeoh has successfully logs in.
 image::LoginFeatureBeforeLogin.png[width="300"]
 
-After Alex Yeoh logs in, the UI will automatically be updated upon successful login as indicated by the change in colour
-of the user's name from white to green as shown in the image below. The user's name will remain in green as long as he is logged in. After he logs out,
-the colour of his name will revert back to white as shown in the image above.
+Once Alex Yeoh successfully logs in, the UI will automatically be updated as shown below
 
 image::LoginFeatureAfterLogin.png[width="300"]
 
+The images below shows the Class Diagram for the Model component of the Login command.
+Note that some minute details where ommited for the sake of simplicity.
+
+image::LoginFeature_ClassDiagram_Model_1.png[width="800", margin-bottom="0"]
+
+image::LoginFeature_ClassDiagram_Model_2.png[width="600", margin-top="0"]
+
+image::LoginFeature_ClassDiagram_Model_3.png[width="800"]
+
+.Class Diagram for the Model component of the Login Command
+image::LoginFeature_ClassDiagram_Model_4.png[width="800"]
+
+
+Again, note that some minute details for the Logic component where omitted for the sake of simplicity.
+
+.Class Diagram for the Logic component of the Login Command
+image::LoginFeature_ClassDiagram_Logic_1.png[width="800"]
+
 ==== Design Considerations
 
-===== Aspect: security
+===== Aspect: Security
 
-* **Alternative 1**(Current implementation) : store the password for each user as an attribute of Person class
-** Pros: Enforce some level of authentication with minimal code
-** Cons: Level of security is minimal
+* **Alternative 1**(Current implementation) :
+In the current implementation, we need to uniquely identify an user using both their name and
+password. If two users have different names, they will be identified users. Even if two users have
+the same name, they can simply choose different passwords for both users to use Event Organiser.
+However, the problem arises when a malicious user wants to login to other user's account. This can
+be achieved fairly simply using the login command. The malicious user can look for the name of
+the user that already has an account, and brunt force their way in, especially if the
+password is weak. Similar technique can be used using the EditUser command to comprise the integrity
+of another users account.
+** Pros: Fairly easy to implement
+** Cons: Fairly easy for a malicious user to login to another user's account
 
-* **Alternative 2** : Use Java API to hash the password
-** Pros: Higher level of security for users
-** Cons: May not be pertinent for the EventOrganiser app as of v1.3
+* **Alternative 2** : Implement login command with one-time passwords.
+** Pros: High level of security
+** Cons: Highly difficult to implement
 
-* **Alternative 3** : implement "login" via select command
-** Pros: Easy to implement
-** Cons: No security at all
+==== EditUser Command and DeleteUser Command
+To ensure cohesiveness of the login/logout feature with the EditUser Command and DeleteUser
+Command that were implemented in AddressBook-Level 4, appropriate changes was made to these
+two commands.
+
+First and foremost, we will need users to be logged in to edit or delete his/her user account.
+
+Once the user issues an `deleteUser` command, it is automatically assumed that the user wants to
+delete his/her own account. This ensures that only the user of the account is allowed to delete
+his/her account.
+
+Once the user issues an `editUser` command, it is also automatically assumed that the user wants to
+delete his/her own account. This ensures that only the user of the account is allowed to edit
+his/her account. However, due to the way users are uniquely identified in Event Organiser,
+a user may find that they are unable to change their name or password. In these situations, the user
+is encouraged to change their name or password to a different name or password respectively from
+the new name or password that they have chosen before.
+
 // end::login/logout[]
 
 ////
@@ -506,7 +579,7 @@ image::ScheduleDiagram.png[width="800"]
 
 As manipulating bit strings may be complicated, getter, setter and merger methods are provided for any external access to the schedule. This allows easy use of the specific slots in the schedule without heavy calculation and memorisation of bits.
 
-* Schedule has a copy constructor to create duplicates for the schedule objects. Useful for any commands that manipulate schedule objects 
+* Schedule has a copy constructor to create duplicates for the schedule objects. Useful for any commands that manipulate schedule objects.
 * Note that schedule only takes in Slots as an argument for its methods. Slot consists of a Time object and a Day object. This is to ensure Separation of Concerns in the schedule manipulation as schedule does not need to be ensure that the argument input is valid; The Time and Day objects will ensure the validity of values.
 * All commands that feed input into schedule should also validate the data input. In the event such data is not sanitised, defensive programming has been employed in Day and Time to deny the data.
 
@@ -597,10 +670,11 @@ Step 6. The new schedule object is returned to the application.
 === Add/Delete Friend feature
 
 ==== Current implementation
-This section explains the implementation of the addition/deletion of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:
+This section explains the implementation of the addition/deletion of friends feature associated with each user in EventOrganizer. The relevant commands which are callable by the user to be discussed are:
 
-* `AddFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes to be friends with each other
-* `DeleteFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes no longer friends with each other
+* `AddFriendCommand` - takes in an `INDEX`, and adds the person specified at the `INDEX` to the logged-in person's friend list.
+* `DeleteFriendCommand` - takes in an `INDEX,` and deletes the person specified at the `INDEX` from the logged-in person's friend list.
+* `ListFriendsCommand` - takes in an `INDEX`, and displays all friends of the person specified at the `INDEX`.
 
 The following sequence diagram for AddFriendCommand is illustrated below:
 
@@ -608,38 +682,44 @@ image::AddFriendCommand.png[width="800"]
 
 ==== Design considerations
 
-===== Aspect: Bilateral friendships
+===== Aspect: Unilateral friendships
 
-Friendships have to be bilateral, so if person A is a friend of person B, then person B is also a friend of person A.
+Friendships are unilateral, so if person A is a friend of person B, then person B may not be a friend of person A.
 
-To specify the friendship relation between two users, both the indexes of the users have to be provided. The command format is addFriend [INDEX,INDEX], where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index, and distinct from the other INDEX.
+In Event Organiser, adding a user into the friend list is similar to following someone on Instagram. This is because having a person in your friend list will make it easier for you to be kept updated of his/her details, such as viewing his/her personal particulars or viewing the events that he/she had joined. This is because of the `ListFriendsCommand` which can display all the friends of the particular user and their details in the display panel as shown below.
+
+image::ListAllFriendsExample.png[width="800"]
+
+To specify the addition of a user into the logged-in user's friend list (`AddFriendCommand`), the index of the user has to be provided. The command format is `addFriend INDEX`, where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index. The `INDEX` should also not be the current logged-in user himself/herself or someone who is already in his/her friend list. Whereas for `DeleteFriendCommand`, the `INDEX` should not be a user who is not currently in his/her friend list.
 
 ===== Aspect: Friend class
 
-Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a constructor which takes in a Person object, and initializes the string field `friendAttributes` that combines the 4 main attributes of Person (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
-For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object's `friendAttributes` string field will be 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
+Like other attributes, we represents a friend of a Person using a `Friend` class. The `Friend` class has a constructor which takes in a Person object, and initializes the string field `friendAttributes` that combines the 4 main attributes of `Person` (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a `Person`. Example:
+For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the `Friend` object's `friendAttributes` string field will be 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
 
-In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is executed, once the checking is done (as described in the next aspect), a copy each of the 2 persons (2 new Person objects) represented by the index will be created. Then the addFriendInList() method from Person class will be called by each of them on each other, which creases a Friend object as described by the paragraph above and adds it to each of their friend lists. Finally, both these new Person objects will replace the old Person objects in the Model using the updatePerson() method from the Model class.
+In the `Person` class, his/her friends will be represented using a `Set` of `Friend` objects as the friend list. In the example below, we will describe the procedures when `Person` A (logged-in user) wants to add `Person` B (user specified by `INDEX`) into his/her friend list.
 
-In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.
+When `AddFriendCommand` is executed by `Person` A, once the checking is done (as described in the next aspect), a copy of `Person` A object will be created. Then the addFriendInList() method from `Person` class will be called, which creates a `Friend` object using `Person` B (as described by the paragraph above) and adds the newly created `Friend` object into the copy of `Person` A object's `Set` of friends. Finally, the copy of `Person` A object will replace the original `Person` A object in the `Model` using the updatePerson() method from the `Model` class.
 
-===== Aspect: Friendships can only be added once, deleted if they are currently friends
+In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the `Friend` object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.
 
-Each person can only be added as a friend once by another person. If two persons are already friends and `AddFriendCommand` is called again on these two persons, each of their friend lists will be checked using the hasFriendInList() method in Person class to confirm that each other is already on it, hence the same person will not be added twice.
+===== Aspect: User can only be added as friend once. User can only be deleted as friend if he/she is in the friend list of the logged-in user.
 
-Similarly, if two persons are not yet friends, or were friends but the friendship was deleted, if `DeleteFriendCommand` is called on these two persons, each of their friend lists will be checked to confirm that each other is not on it, hence the delete action will not be taken.
+Each person can only be added as a friend once by another person. If `Person` B is already in the friend list of `Person` A (logged-in user) and `AddFriendCommand` is called again `Person` B, the friend list of `Person` A will be checked using the hasFriendInList() method in `Person` class to confirm that `Person` B is already in the list, thus `Person` B will not be added into the list again.
+
+Similarly, if `Person` B is not yet in `Person` A's (logged-in user) friend list, and `DeleteFriendCommand` is called on `Person` B, the friend list of `Person` A will be checked using the hasFriendInList() method to confirm that `Person` B is not in the list, thus no one will be deleted from the list.
 
 ===== Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person
 
-The friend lists of each user have to be constantly updated when a person is deleted from the Event Organizer or his attributes are modified (such as name change).
+The friend lists of each user have to be constantly updated when a user is deleted from the Event Organizer or his/her attributes are modified (such as change of name).
 
-The following scenario describes what happens if person A is already on the friend list of person B (person A and B are friends with each other).
+The following scenario describes what happens if `Person` B is already on the friend list of `Person` A.
 
-Person A gets deleted from the Event Organizer:
-This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), person A will be removed from his/her friend list.
+`Person` B gets deleted from the Event Organizer:
+This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteUserCommand` class, which searches through the friend lists of all the other persons. If someone has `Person` B in their friend list (such as `Person` A), then `Person` B will be removed from `Person` A's friend list.
 
-Person A's attributes gets modified (eg change name/phone):
-This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), the original Friend object will be replaced by the new Friend object created using the new attributes of person A.
+`Person` B's attributes gets modified (eg change name/phone):
+This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has `Person` B in their friend list (such as `Person` A), the original Friend object in `Person` A's friend list will be replaced by the new Friend object created using the new attributes of `Person` B.
 
 // end:::addDeleteFriend[]
 
@@ -1151,7 +1231,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 * Benefits customers seek to achieve: Students want to do all the scheduling, inviting and finalizing of a meetup in a fast and effective way.
 
-* How value proposition is delivered: The event organiser app provides a large database of all the contacts and information of NUS students, which allows the organizers to search by name, availability, interests etc.
+* How value proposition is delivered: EventOrganiser provides a large database of all the contacts and information of NUS students, which allows the organizers to search by name, availability, interests etc.
 
 [Discrete]
 === Feature
@@ -1160,7 +1240,7 @@ Division of work
 
 ==== Keng Ji : Add event feature with polls and time, location features
 
-- [x] V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.
+- [x] V1.1: EventOrganiser able to create a basic event with date, time, organiser, participant and poll features.
 - [x] V1.2: Users able to search for events by attributes (date, time, location, interest) and time range.
 - [x] V1.3: Application able to generate poll options based on participants' schedules.
 
@@ -1243,7 +1323,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS:*
 
-1.	User creates new user profile by specifying his/her contact detail, address, schedule, and interests.
+1.	User creates new user profile.
 2.	System checks that the details are valid.
 3.	System informs the user that the profile has been successfully created.
 
@@ -1269,7 +1349,7 @@ Use case resumes from step 3.
 
 *MSS:*
 
-1.	User creates logs in using his/her name, contact detail, address, and email
+1.	User creates enters his credentials.
 2.	System checks that the details are valid.
 3.	System informs the user that he/she has successfully logged in.
 
@@ -1314,6 +1394,7 @@ Use case ends.
 Steps 2a1 – 2a2 are repeated until the current user and the user profile that will be deleted matches.
 +
 Use case resumes from step 3.
+// end::UC[]
 
 [discrete]
 === Use case: U04 – Create new event
@@ -1543,7 +1624,6 @@ highest votes.
 +
 Use case resumes from step 12.
 ////
-// end::UC[]
 
 [appendix]
 == Non Functional Requirements
@@ -1555,6 +1635,9 @@ Use case resumes from step 12.
 
 [appendix]
 == Glossary
+[[uniqueness]] Unique user::
+Refers to an user which has an unique tuple of NAME and PASSWORD.
+
 [[user]] User / Person::
 Refers to a person who uses EventOrganiser.
 
@@ -1606,6 +1689,7 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+The result of the test cases under each command is assumed to not persist to the next test case unless otherwise stated
 
 === Launch and Shutdown
 
@@ -1621,9 +1705,22 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Add a user
+.. Test case: `addUser p\95642244 e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
+      Expected: Add user unsuccessful.
+.. Test case: `addUser n\Alex Yeoh e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
+      Expected: Add user unsuccessful.
+.. Test case: `addUser n\Alex Yeoh`
+      Expected: Add user unsuccessful.
+.. Test case: `addUser n\Alex Yeoh p\95642244 e\alex@exmple.com a\Blk 12 John Street, #10-11 pass\password`
+   Expected: Add user successful.
+
 === Login a user
 .. Note: The states of each test case is continued in the next test case.
-.. Prerequisites: Event Organiser already has a user with name as "Alex Yeoh" and password as "password". Futhermore, no user is currently logged in. The Event Organiser does not have a user with name as "Michael Lim" and password as "password".
+.. Prerequisites:
+EventOrganiser already has a user with name as "Alex Yeoh" and password as "password".
+No user is currently logged in.
+EventOrganiser does not have a user with name as "Michael Lim" and password as "password".
 .. Test case: `login`
    Expected: Login unsuccessful.
 .. Test case: `login n/Michael Lim pass/password`
@@ -1637,33 +1734,35 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Logout a user
 .. Note: The states of each test case is continued in the next test case.
-.. Prerequisites: There is no user currently logged in and the user with name as "Alex Yeoh" and password as "password" is currently logged in.
+.. Prerequisites: A user with name as "Alex Yeoh" and password as "password" is currently logged in.
 .. Test case `logout`
    Expected: Logout successful.
 .. Test case: `logout`
    Expected: Logout unsuccessful.
 
 === Find users
-.. Prerequisites: Event Organiser currently has two user accounts. The first user has name as "Alex Yeoh" and interests as "study". The second user has name as "Bernice Yu" and interest as "play".
+.. Prerequisites: EventOrganiser currently has two user accounts.
+The first user has name as "Alex Yeoh" and interests as "study".
+The second user has name as "Bernice Yu" and interest as "play".
 .. Test case `findUser n/Alex Yeoh`
    Expected: Only user "Alex Yeoh" is listed.
-.. Test case: `findUser i/interest`
+.. Test case: `findUser i/play`
    Expected: Only user "Bernice Yu" is listed.
-.. Test case: `findUser n/Alex Yeoh i/interest`
-   Expected: Only users "Bernice Yu" and "Alex Yeoh" are listed.
+.. Test case: `findUser n/Alex Yeoh i/play`
+   Expected: No user is listed.
 
 === Edit a user
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
 .. Test case `editUser n/Alex Tan`
    Expected: Name of user successfully changed to "Alex Tan".
 
 === Delete a user
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
 .. Test case `deleteUser`
    Expected: user "Alex Yeoh" successfully deleted.
 
 === Populate a user schedule via Timetable
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
 .. Test case `editUser tt/http://modsn.us/H4v8s`
    Expected: Schedule of user successfully overwritten to 100000000000000011110000000011110000000000
 000000000000000000000000000000111111110000000000000000000000000000000000001100000011110000000000
@@ -1674,31 +1773,31 @@ These instructions only provide a starting point for testers to work on; testers
     Expected: Invalid NUSmods Link
 
 === Edit a user schedule
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.
 .. Test case `editUser su/monday 0000`
    Expected: Schedule of user "Alex Yeoh" successfully changed. First bit of the schedule is now 1.
 .. Test case `editUser su/monday 0030`
    Expected: Schedule of user "Alex Yeoh" successfully changed. Second bit of the schedule is now 1.
 
 === Find free time between two users
-.. Prerequisites: Event Organiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.
+.. Prerequisites: EventOrganiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.
 .. Test case `maxSchedule sl/0000-0000`
    Expected: Free time of 0000 from Monday to Sunday is displayed.
 .. Test case `maxSchedule sl/0800-0900`
    Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
 
 === Add a friend
-.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.
-.. Test case `addFriend 1,2`
-   Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.
+.. Prerequisites: Event Organiser has users with name "Alex Yeoh"(index 1) and "Bernice Yu"(index 2), and "Bernice Yu" is not currently in "Alex Yeoh"'s friend list, and user "Alex Yeoh" is currently logged in.
+.. Test case `addFriend 2`
+   Expected: "Bernice Yu" is added to "Alex Yeoh" friend list.
 
 === Delete a friend
-.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.
-.. Test case `deleteFriend 1,2`
-   Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.
+.. Prerequisites: Event Organiser has users with name "Alex Yeoh"(index 1) and "Bernice Yu"(index 2), and "Bernice Yu" is currently in "Alex Yeoh"'s friend list, and user "Alex Yeoh" is currently logged in.
+.. Test case `deleteFriend 2`
+   Expected: "Bernice Yu" is deleted from "Alex Yeoh" friend list.
 
 === Add an event
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
 .. Test case `addEvent n/CS1234 Group Meeting a/SoC Canteen t/URGENT`
    Expected: new event with details `CS1234 Group Meeting Location: SoC Canteen Tags: [URGENT]` is added and selected.
    "Alex Yeoh" is the event organiser.
@@ -1786,23 +1885,6 @@ to which the event organiser has added a poll "Meeting Date" at poll index 1. In
    Expected: The user "Charlotte Oliveiro" is added to the voter list of the option "12 December"
    The most popular options list updates to include "12 December"
 
-
-
-////
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-////
 === Saving data
 
 . Dealing with missing/corrupted data files

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_USER_LOGGED_IN;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,7 +18,6 @@ public class LogoutCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Goodbye.";
-    public static final String MESSAGE_NO_LOGGED_IN_USER = "No user is logged in";
 
     /**
      * Creates an LoginCommand to log in the specified {@code CurrentUser}
@@ -30,7 +30,7 @@ public class LogoutCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasSetCurrentUser()) {
-            throw new CommandException(MESSAGE_NO_LOGGED_IN_USER);
+            throw new CommandException(MESSAGE_NO_USER_LOGGED_IN);
         }
 
         model.removeCurrentUser();

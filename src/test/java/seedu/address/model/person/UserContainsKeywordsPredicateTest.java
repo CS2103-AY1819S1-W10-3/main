@@ -198,7 +198,7 @@ public class UserContainsKeywordsPredicateTest {
         predicate =
                 new UserContainsKeywordsPredicate(null, null, null,
                         null, Arrays.asList(VALID_INTEREST_STUDY, VALID_INTEREST_SWIM), null);
-        assertTrue(predicate.test(ALICE));
+        assertFalse(predicate.test(ALICE));
 
         // Mixed-case keywords
         predicate =
@@ -228,7 +228,7 @@ public class UserContainsKeywordsPredicateTest {
         predicate =
                 new UserContainsKeywordsPredicate(null, null, null,
                         null, null, Arrays.asList(VALID_TAG_ALICE, VALID_TAG_HUSBAND));
-        assertTrue(predicate.test(ALICE));
+        assertFalse(predicate.test(ALICE));
 
         // Mixed-case keywords
         predicate =

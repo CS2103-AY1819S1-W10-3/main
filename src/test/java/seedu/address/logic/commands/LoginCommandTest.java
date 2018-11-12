@@ -100,7 +100,7 @@ public class LoginCommandTest {
          */
         public Person authenticateUser(Person person) {
             for (Person p: filteredPersons) {
-                if (person.isSameUser(p)) {
+                if (person.isSamePerson(p)) {
                     p.login();
                     return p;
                 }

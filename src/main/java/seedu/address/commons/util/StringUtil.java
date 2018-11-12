@@ -12,8 +12,6 @@ import java.util.Arrays;
  */
 public class StringUtil {
 
-    public static final String COMMA = ",";
-
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, but a full word match is required.

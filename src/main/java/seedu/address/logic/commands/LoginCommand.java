@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.commons.core.Messages.MESSAGE_USER_IS_CURRENTLY_LOGGED_IN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
@@ -26,8 +27,6 @@ public class LoginCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Welcome back %1$s!";
     public static final String MESSAGE_INCORRECT_LOG_IN_DETAILS = "The login details are incorrect.";
-    public static final String MESSAGE_USER_IS_CURRENTLY_LOGGED_IN = "A user is currently logged in."
-            + " Please logout if you wish to login to another user.";
 
     private Person toLogin;
 

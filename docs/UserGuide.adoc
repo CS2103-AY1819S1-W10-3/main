@@ -80,7 +80,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === User Uniqueness
 
 * We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
-* As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others. 
+* As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others.
 
 === Timetable
 Timetable download guide
@@ -88,7 +88,7 @@ Timetable download guide
 To be referenced by any commands that use `tt/` prefix.
 Format `Command tt/ http://modsn.com/XXXX...`
 
-Example:
+Example: +
 * http://modsn.us/eDmp1 +
 * http://modsn.us/H4v8s
 
@@ -96,7 +96,7 @@ Example:
 * Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".
 * Note that the timetable download may take a while regardless if the link is valid or not.
 * Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
-* In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.
+* In the case of slow internet speeds or no internet, the download will return with either A or B. Please try again with a better internet connection as we are not able to control such factors.
 * If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.
 * If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
 * If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
@@ -125,8 +125,8 @@ Shows all the commands in the application and how to use them.
 
 ==== Add a user : `addUser`
 
-Adds a new unique user to EventOrganiser. +
-Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
+Adds a new uniqiue user to EventOrganiser. +
+Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST]... [tt/TIMETABLE] [t/TAG]...`
 
 ****
 * INTEREST refers to the things that the user is interested in, such as hobbies.
@@ -179,23 +179,26 @@ Format: `listUser`
 
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
-Finds users with any matching name, phone number, email, address, interest, tag. +
-Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [t/TAG]...`
+Finds users with matching name, phone number, email, address, interest, tag. +
+Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]... [t/TAG]...`
 
 ****
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
-* Any combination of the above prefixes is valid. Eg. `findUser e/[EMAIL] a/[ADDRESS]` only search for email and address.
-* The order of the keywords does not matter.
-* Only the name, phone number, email, address, interest, tag is searched.
-* Substrings or superstrings of a phone number will not be matched e.g. `87438807` will not match `874388070`, and likewise, `8743880` will not match `87438807`
+* Any combination of the above prefixes and keywords (let's call them conditions for now) is valid. Eg. `findUser e/EMAIL a/ADDRESS` searches based on the email and address conditions.
+* The order of the conditions does not matter.
+* The search is based on CONDITION 1 AND CONDITION 2 AND ... . For example, `findUser n/John i/dance` will search for users that satisfy the conditions of both name 'John' and interest 'dance'. Likewise for attributes that can be stated more than one (interest and tag), `findUser i/tennis i/soccer` will search for users that satisfy the conditions of both interest 'tennis' and interest 'soccer'.
+* The search for all attributes is not case sensitive. For example, `findUser n/john` will search for all users with the name 'John'.
+* Substrings or superstrings of any attribute will not be matched e.g. phone number `87438807` will not match `874388070`, and likewise, name `Ale` will not match `Alex`.
 ****
 
 Examples:
 
 * `findUser p/87438807 i/dance` +
-Returns any user with the phone number `87438807` or interest `dance`
+Returns any user with the phone number `87438807` and interest `dance`
 * `findUser n/john e/john@example.com t/teacher` +
-Returns any user with the name consisting of the word `john` or email `john@example.com` or tag `teacher`
+Returns any user with the name `87438807` and email `john@example.com` and tag `teacher`
+* `findUser i/tennis i/soccer` +
+Returns any user with the interest `tennis` and interest `soccer`
 
 ==== Delete a user : `deleteUser`
 
@@ -205,6 +208,8 @@ Format: `deleteUser `
 ****
 * There must be a user that is currently logged in and this is the user that is intended to be deleted.
 * The events organised by this user will also be deleted.
+* After the user is deleted, no other user in the Event Organiser will be currently logged-in.
+* After the user is deleted, if the deleted user is in the friend list of another user, the other user's friend list will be updated to show that the deleted user is no longer in the list.
 ****
 
 // end::yaofeng(finduser)[]
@@ -232,15 +237,16 @@ Selects the 1st user in the results of the `find` command.
 ==== Edit a user : `editUser`
 
 Edits the currently logged-in user in the Event Organiser. +
-Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]...`
+Format: `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pass/PASSWORD] [i/INTEREST]... [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]...`
 
 ****
 * At least one of the optional fields must be provided.
 * There must be a user that is currently logged in and this is the user that is intended to be edited.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.
-* You can remove all the user's tags by typing `t/` without specifying any tags after it.
+* When editing interests/tags, the existing interests/tags of the user will be removed (adding of tags is not cumulative). Hence if you want to add new interests/tags on top of the existing ones, you have to include the existing ones in the edit command.
+* Due to what is mentioned above, you can remove all the user's interests/tags by typing `i/` or `t/` without specifying any interests/tags after it.
 * Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE
+* After the user is edited (eg change of name), if the edited user is in the friend list of another user, the other user's friend list will be updated to show the updated version of the edited user.
 * <<Timetable>> download requires a valid nusmods link
 * <<User Uniqueness>> property must be satisified.
 ****
@@ -303,7 +309,7 @@ Suggest friends for an existing user in the Event Organiser that have at least o
 Format: `suggestFriendsByInterests INDEX`
 
 ****
-* Suggests friends for the selected user at the specified `INDEX`.
+* Displays all the suggested friends for the selected user at the specified `INDEX`.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Users who have at least one similar interest with the selected user will be displayed.
@@ -314,7 +320,7 @@ Format: `suggestFriendsByInterests INDEX`
 Examples:
 
 * `suggestFriendsByInterests 1` +
-Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user, and are not yet in the selected user's friend list.
+Displays users in the Event Organiser that have at least one similar interest with the selected 1st user, and are not yet in the selected user's friend list.
 // end::suggestFriends[]
 
 // tag::listFriends[]
@@ -650,30 +656,30 @@ There is no need to save manually.
 * *Help* : `help`
 
 * *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/PASSWORD a/ADDRESS [t/TAG] [i/INTEREST]...` +
-e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com pass/password a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
 // tag::yaofeng(commandsummary)[]
 * *Login*  `login n/NAME pass/PASSWORD`
-e.g. `login n/John Doe pass/password`
+e.g. `login n/Alex Yeoh pass/password`
 
 * *Logout*  `logout`
 
 * *List User* : `listUser`
 
 * *Find User (by name, phone number, email, address, interest, or tag)* :
-`findUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
-e.g. `findUser n/James i/basketball`
-// end::yaofeng(commandsummary)[]
+`findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [i/INTEREST] ` +
+e.g. `findUser n/Alex Yeoh`
 
 * *Delete User* : `deleteUser` +
 e.g. `deleteUser`
+// end::yaofeng(commandsummary)[]
 
 // tag::agendazhang(commandsummary)[]
 * *Add a friend*  `addFriend INDEX`
 e.g. `addFriend 2`
 
 * *Delete a friend*  `deleteFriend INDEX`
-e.g. `addFriend 2`
+e.g. `deleteFriend 2`
 
 * *Suggest friends based on similar interests* : `suggestFriendsByInterests INDEX`
 e.g. `suggestFriendsByInterests 1`
@@ -684,7 +690,7 @@ e.g. `listFriends 1`
 
 // tag::scheduletimetable[]
 * *Edit User* : `editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
-e.g. `editUser n/James Lee e/jameslee@example.com` +
+e.g. `editUser n/Alex Yeoh e/jameslee@example.com` +
 e.g. `editUser tt/ http://modsn.us/H4v8s` +
 e.g. `editUser su/ monday 0000`
 // end::scheduletimetable[]

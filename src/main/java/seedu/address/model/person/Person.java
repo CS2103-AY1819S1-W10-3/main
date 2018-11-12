@@ -189,16 +189,6 @@ public class Person {
                 && otherPerson.getPassword().equals(getPassword());
     }
 
-    /**
-     * Returns true if both users of the same name and password.
-     * This defines a weaker notion of similarity of two persons.
-     */
-    public boolean isSameUser(Person otherPerson) {
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPassword().equals(getPassword()));
-    }
-
     public boolean isUserWithOnlyNameAndPassword() {
         return phone == null;
     }

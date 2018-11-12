@@ -16,7 +16,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonToEventPopulateEvent;
+import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.person.Person;
 
 /**
@@ -78,6 +80,29 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Load Event into browser panel
+     *
+     * @param event
+     */
+    private void loadEventPage(seedu.address.model.event.Event event) {
+        try {
+            String json = JsonUtil.toJsonString(event);
+            Platform.runLater(() -> {
+                browser.getEngine().getLoadWorker().stateProperty()
+                        .addListener((observable, oldValue, newValue) -> {
+                            if (newValue.toString() == "SUCCEEDED") {
+                                browser.getEngine().executeScript("document.showEventDetails("
+                                        + json + ")");
+                            }
+                        });
+                browser.getEngine().loadContent(readResourceHtml(EVENT_PAGE));
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Reads resource html inside the jar
      * @param filename
      * @return
@@ -129,6 +154,16 @@ public class BrowserPanel extends UiPart<Region> {
             loadPersonPage(event.getNewSelection(), event.getEventModel());
         }
 
+    }
+
+    @Subscribe
+    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.getNewSelection() == null) {
+            loadDefaultPage();
+        } else {
+            loadEventPage(event.getNewSelection());
+        }
     }
 
 }

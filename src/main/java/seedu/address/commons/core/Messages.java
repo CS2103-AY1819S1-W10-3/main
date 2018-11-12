@@ -13,8 +13,6 @@ public class Messages {
     public static final String MESSAGE_NO_EVENT_SELECTED = "There is no event selected.";
     public static final String MESSAGE_ALREADY_JOINED = "You have already joined this event.";
     public static final String MESSAGE_NO_USER_LOGGED_IN = "There is no user logged-in.";
-    public static final String MESSAGE_USER_DOES_NOT_HAVE_AUTHORITY = "The current user does not have the authority "
-            + "for this command.";
     public static final String MESSAGE_NOT_EVENT_ORGANISER = "You are not the organiser of this event.";
     public static final String MESSAGE_NO_POLL_AT_INDEX = "No poll exists at this index.";
     public static final String MESSAGE_NO_SUCH_OPTION = "No such option exists for this poll.";
@@ -27,4 +25,6 @@ public class Messages {
     public static final String MESSAGE_ALREADY_FRIENDS = "%1$s is already in %2$s friend list.";
     public static final String MESSAGE_NOT_FRIENDS = "%1$s is not yet in %2$s friend list.";
     public static final String MESSAGE_INVALID_DATE_RANGE = "This date range is invalid.";
+    public static final String MESSAGE_USER_IS_CURRENTLY_LOGGED_IN = "A user is currently logged in."
+            + " Please logout if you wish to login to another user.";
 }

@@ -20,8 +20,47 @@
     <script type="text/javascript">
         document.displayAttendees = function displayAttendees(eventAttendees) {
             var attendees = document.getElementById("event_attendees");
-            attendees.innerHTML = eventAttendees
+            attendees.innerHTML = null;
+            var list = document.createElement('ul');
+
+            for (var i = 0; i < eventAttendees.length; i++) {
+                var item = document.createElement('li');
+                item.className = "text-monospace"
+                item.appendChild(document.createTextNode(eventAttendees[i].name.value));
+                list.appendChild(item);
+            }
+
+            attendees.appendChild(list);
         }
+
+        document.goToLocation = function goToLocation(searchString) {
+            document.geocoder.geocode( {'address': searchString}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    document.map.setCenter(results[0].geometry.location);
+                    if (document.mapMarker !== undefined) {
+                        document.mapMarker.setMap(null)
+                    }
+                    document.mapMarker = new google.maps.Marker({
+                        map: document.map,
+                        position: results[0].geometry.location,
+                        label: 'Event'
+                    });
+                } else {
+                    document.map.style.display = "none"
+                }
+            });
+        }
+
+        document.showEventDetails = function showEventDetails(event) {
+            document.getElementById("eventName").innerHTML = event.name.value;
+            document.getElementById("organiserName").innerHTML = "Organiser: " + (event.organiser.name.value);
+            document.getElementById("startTime").innerHTML = "Starts: " + (event.startTime == null ? "-" : event.startTime);
+            document.getElementById("endTime").innerHTML = "Ends: " + (event.endTime == null ? "-" : event.endTime);
+            document.getElementById("eventDate").innerHTML = "Date: " + (event.date == null ? "-" : event.date);
+            document.getElementById("eventAddress").innerHTML = "Address: " + (event.location == null ? "-" : event.location.value);
+            document.displayAttendees(event.participantList.internalList);
+        }
+
         function initializeMap() {
             var latlng = new google.maps.LatLng(1.300388, 103.770727);
             var myOptions = {
@@ -33,39 +72,24 @@
                 streetViewControl: false,
                 backgroundColor: "#666970"
             };
-
             document.geocoder = new google.maps.Geocoder();
             document.map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-
-
-            document.goToLocation = function goToLocation(searchString) {
-                document.geocoder.geocode( {'address': searchString}, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        document.map.setCenter(results[0].geometry.location);
-                        var marker = new google.maps.Marker({
-                            map: document.map,
-                            position: results[0].geometry.location,
-                            label: 'Organizer'
-                        });
-                    } else {
-                        alert("Geocode was not successful for the following reason: " + status);
-                    }
-                });
-            }
         }
     </script>
 </head>
-<body style="background-color:#383838;color:white;" onload="initializeMap()">
-<div class="container">
+<body style="background-color:#383838; color:white;" onload="initializeMap()">
+<div class="jumbotron text-secondary">
     <div class="col-sm">
-        <h3>Event Profile</h3>
-        <p>{0}</p>
-        <p>{1}</p>
-        <p>{2}</p>
-        <p>{3}</p>
-        <p>{4}</p>
+        <h3 class="display-2" id="eventName"></h3>
+        <p class="text-monospace" id="organiserName"></p>
+        <p class="text-monospace" id="startTime"></p>
+        <p class="text-monospace" id="endTime"></p>
+        <p class="text-monospace" id="eventDate"></p>
+        <p class="text-monospace" id="eventAddress"></p>
     </div>
-    <div id="map_canvas" style="height: 400px;"></div>
+    <div id="map_canvas" style="min-height: 600px;"></div>
+    <br/>
+    <h3 class="display-4">Attendees</h3>
     <div id="event_attendees" style="height: 400px;"></div>
 </div>
 </body>

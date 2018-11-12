@@ -62,12 +62,12 @@ public class UserContainsKeywordsPredicate implements Predicate<Person> {
         boolean matchesEmailKeywords = (!emailKeywordsExist)
                 || attributeMatchesKeywords(person.getEmail().value, emailKeywords);
         boolean matchesInterestKeywords = (!interestKeywordsExist) || interestKeywords.stream()
-                    .anyMatch(interestKeyword -> StringUtil.containsWordIgnoreCase(person.getInterests()
+                    .allMatch(interestKeyword -> StringUtil.containsWordIgnoreCase(person.getInterests()
                             .stream()
                             .map(x -> x.interestName)
                             .collect(joining(" ")), interestKeyword));
         boolean matchesTagKeywords = (!tagKeywordsExist) || tagKeywords.stream()
-                    .anyMatch(tagKeyword -> StringUtil.containsWordIgnoreCase(person.getTags()
+                    .allMatch(tagKeyword -> StringUtil.containsWordIgnoreCase(person.getTags()
                             .stream()
                             .map(x -> x.tagName)
                             .collect(joining(" ")), tagKeyword));
