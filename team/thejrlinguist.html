@@ -470,7 +470,7 @@ Each AbstractPoll object contains a <code>HashMap&lt;String, UniquePersonList&gt
 <p>When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
 each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
 Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects,
-which serve as pointers to the actual Person objects stored in the event organiser.</p>
+which serve as pointers to the actual Person objects stored in EventOrganiser.</p>
 </div>
 <div class="paragraph">
 <p>As an example, the following sequence diagram illustrates the workings of the <code>VoteCommand</code>.</p>
@@ -482,7 +482,7 @@ which serve as pointers to the actual Person objects stored in the event organis
 </div>
 <div class="paragraph">
 <p>As stated above, since Model already stores the current user and the selected event from prior user commands,
-the Model can call the correct Event e and Person object in the <code>addVoteToPoll</code> method. If there is no logged-in user,
+the Model can call the correct Event 'e' and Person object 'user' in the <code>addVoteToPoll</code> method. If there is no logged-in user,
 a <code>NoUserLoggedInException</code> is thrown, and if there is no selected event, a <code>NoEventSelectedException</code> is thrown.</p>
 </div>
 <div class="paragraph">
@@ -516,7 +516,7 @@ The sequence diagram within the model for the <code>AddPollCommand</code> is ill
 <div class="paragraph">
 <p>In all cases, the contents of the poll is returned to the calling Command object as String through the <code>Poll#displayPoll()</code> method.
 The displayed details of the poll contains the most popular options, computed using the <code>Poll#getPopularOptions()</code> method.
-This method returns an empty list if there no user has voted for any option yet.
+This method returns an empty list if no user has voted for any option yet.
 A new <code>DisplayPollEvent</code> is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.</p>
 </div>
 <div class="paragraph">
@@ -598,4 +598,4 @@ The voter list must also be manually updated every time the person details are u
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 09:11:44 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:51:49 UTC</div></div></div></body></html>

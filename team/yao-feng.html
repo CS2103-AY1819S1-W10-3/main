@@ -349,14 +349,14 @@ e.g. <code>deleteUser</code></p>
 <div class="paragraph">
 <p>The goal of this section is to explain the implementation of the
 login/logout feature and to briefly explain the changes that were made on relevant
-components of Event Organiser, namely, the EditUser Command, and the DeleteUser Command,
+components of EventOrganiser, namely, the EditUser Command, and the DeleteUser Command,
 to ensure cohesiveness of the entire application.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/LoginFeature_SequenceDiagram_includes_Logic.png" alt="LoginFeature SequenceDiagram includes Logic" width="800">
 </div>
-<div class="title">Figure 1. Sequence Diagram for the Logic component when the user issues an <code>login n/Alice pass/password</code> command.</div>
+<div class="title">Figure 1. Sequence Diagram for the Logic component when the user issues a <code>login n/Alice pass/password</code> command.</div>
 </div>
 <div class="paragraph">
 <p>We have assumed that a user with name as "Alice" and password as "password" already exists in Event
@@ -377,13 +377,13 @@ In this implementation, we define the uniqueness of a user by its tuple of NAME 
 </div>
 <div class="paragraph">
 <p>When the execute() method of the Login command is called,  the login command authenticates
-the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in Event Organiser.
+the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in EventOrganiser.
 A CommandException will be thrown in the following 2 scenarios:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>When the user does not exist in Event Organiser.</p>
+<p>When the user does not exist in EventOrganiser.</p>
 </li>
 <li>
 <p>When there is already a user that is logged in.</p>
@@ -398,7 +398,7 @@ a CommandException will be thrown when there isn&#8217;t any user that is logged
 <div class="content">
 <img src="../images/LoginFeature_SequenceDiagram_includes_Model.png" alt="width:&quot;50%&quot;">
 </div>
-<div class="title">Figure 2. Sequence Diagram for the Model component when the user issues an <code>login n/Alice pass/password</code> command.</div>
+<div class="title">Figure 2. Sequence Diagram for the Model component when the user issues a <code>login n/Alice pass/password</code> command.</div>
 </div>
 <div class="paragraph">
 <p>After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
@@ -442,38 +442,13 @@ we will use the scenario that a user, Alex Yeoh, wants to login to his account:<
 </div>
 </div>
 <div class="paragraph">
-<p>The images below shows the Class Diagram for the Model component of the Login command.
-Note that some minute details where ommited for the sake of simplicity.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/LoginFeature_ClassDiagram_Model_1.png" alt="LoginFeature ClassDiagram Model 1" width="800">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/LoginFeature_ClassDiagram_Model_2.png" alt="LoginFeature ClassDiagram Model 2" width="600">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/LoginFeature_ClassDiagram_Model_3.png" alt="LoginFeature ClassDiagram Model 3" width="800">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/LoginFeature_ClassDiagram_Model_4.png" alt="LoginFeature ClassDiagram Model 4" width="800">
-</div>
-<div class="title">Figure 5. Class Diagram for the Model component of the Login Command</div>
-</div>
-<div class="paragraph">
 <p>Again, note that some minute details for the Logic component where omitted for the sake of simplicity.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/LoginFeature_ClassDiagram_Logic_1.png" alt="LoginFeature ClassDiagram Logic 1" width="800">
 </div>
-<div class="title">Figure 6. Class Diagram for the Logic component of the Login Command</div>
+<div class="title">Figure 5. Class Diagram for the Logic component of the Login Command</div>
 </div>
 </div>
 <div class="sect3">
@@ -485,20 +460,20 @@ Note that some minute details where ommited for the sake of simplicity.</p>
 <li>
 <p><strong>Alternative 1</strong>(Current implementation) :
 In the current implementation, we need to uniquely identify an user using both their name and
-password. If two users have different names, they will be identified users. Even if two users have
-the same name, they can simply choose different passwords for both users to use Event Organiser.
-However, the problem arises when a malicious user wants to login to other user&#8217;s account. This can
-be achieved fairly simply using the login command. The malicious user can look for the name of
-the user that already has an account, and brunt force their way in, especially if the
-password is weak. Similar technique can be used using the EditUser command to comprise the integrity
-of another users account.</p>
+password. If two users have different names, they will be different users. Even if two users have
+the same name, they can simply choose different passwords for both users to use EventOrganiser.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Fairly easy to implement</p>
 </li>
 <li>
-<p>Cons: Fairly easy for a malicious user to login to another user&#8217;s account</p>
+<p>Cons: Fairly easy for a malicious user to login to another user&#8217;s account.
+However, the problem arises when a malicious user wants to login to other user&#8217;s account. This can
+be achieved fairly simply using the login command. The malicious user can look for the name of
+the user that already has an account, and brunt force their way in, especially if the
+password is weak. Similar technique can be used using the EditUser command to comprise the integrity
+of another users account.</p>
 </li>
 </ul>
 </div>
@@ -538,7 +513,7 @@ his/her account.</p>
 <div class="paragraph">
 <p>Once the user issues an <code>editUser</code> command, it is also automatically assumed that the user wants to
 delete his/her own account. This ensures that only the user of the account is allowed to edit
-his/her account. However, due to the way users are uniquely identified in Event Organiser,
+his/her account. However, due to the way users are uniquely identified in EventOrganiser,
 a user may find that they are unable to change their name or password. In these situations, the user
 is encouraged to change their name or password to a different name or password respectively from
 the new name or password that they have chosen before.</p>
@@ -704,4 +679,4 @@ the new name or password that they have chosen before.</p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 09:11:44 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:51:49 UTC</div></div></div></body></html>

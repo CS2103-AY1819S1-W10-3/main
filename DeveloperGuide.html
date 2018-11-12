@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Event Organiser - Developer Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>EventOrganiser - Developer Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">EventOrganiser</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-W10-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Event Organiser - Developer Guide</h1></div><div id="content"><div id="preamble">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">EventOrganiser</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-W10-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>EventOrganiser - Developer Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>By: <code>Team W10-03</code>      Since: <code>Aug 2018</code>      Licence: <code>MIT</code></p>
@@ -125,8 +125,7 @@
 <li><a href="#managing-dependencies">6.6. Managing Dependencies</a></li>
 </ul>
 </li>
-<li><a href="#GetStartedProgramming">Appendix A: Suggested Programming Tasks to Get Started</a></li>
-<li><a href="#product-scope">Appendix B: Product Scope</a>
+<li><a href="#product-scope">Appendix A: Product Scope</a>
 <ul class="sectlevel2">
 <li><a href="#feature">Feature</a>
 <ul class="sectlevel3">
@@ -139,41 +138,41 @@
 </li>
 </ul>
 </li>
-<li><a href="#user-stories">Appendix C: User Stories</a></li>
-<li><a href="#use-cases">Appendix D: Use Cases</a></li>
-<li><a href="#non-functional-requirements">Appendix E: Non Functional Requirements</a></li>
-<li><a href="#glossary">Appendix F: Glossary</a></li>
-<li><a href="#product-survey">Appendix G: Product Survey</a></li>
-<li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
+<li><a href="#user-stories">Appendix B: User Stories</a></li>
+<li><a href="#use-cases">Appendix C: Use Cases</a></li>
+<li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
+<li><a href="#glossary">Appendix E: Glossary</a></li>
+<li><a href="#product-survey">Appendix F: Product Survey</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
-<li><a href="#add-a-user">H.2. Add a user</a></li>
-<li><a href="#login-a-user">H.3. Login a user</a></li>
-<li><a href="#logout-a-user">H.4. Logout a user</a></li>
-<li><a href="#find-users">H.5. Find users</a></li>
-<li><a href="#edit-a-user">H.6. Edit a user</a></li>
-<li><a href="#delete-a-user">H.7. Delete a user</a></li>
-<li><a href="#populate-a-user-schedule-via-timetable">H.8. Populate a user schedule via Timetable</a></li>
-<li><a href="#edit-a-user-schedule">H.9. Edit a user schedule</a></li>
-<li><a href="#find-free-time-between-two-users">H.10. Find free time between two users</a></li>
-<li><a href="#add-a-friend">H.11. Add a friend</a></li>
-<li><a href="#delete-a-friend">H.12. Delete a friend</a></li>
-<li><a href="#add-an-event">H.13. Add an event</a></li>
-<li><a href="#add-a-poll">H.14. Add a poll</a></li>
-<li><a href="#add-a-time-poll">H.15. Add a time poll</a></li>
-<li><a href="#add-poll-options">H.16. Add poll options</a></li>
-<li><a href="#delete-an-event">H.17. Delete an event</a></li>
-<li><a href="#select-an-event">H.18. Select an event</a></li>
-<li><a href="#display-poll">H.19. Display poll</a></li>
-<li><a href="#edit-an-event">H.20. Edit an event</a></li>
-<li><a href="#find-an-event-by-attributes">H.21. Find an event by attributes</a></li>
-<li><a href="#find-event-by-time">H.22. Find event by time</a></li>
-<li><a href="#list-all-events">H.23. List all events</a></li>
-<li><a href="#set-date">H.24. Set date</a></li>
-<li><a href="#set-time">H.25. Set time</a></li>
-<li><a href="#join-event">H.26. Join event</a></li>
-<li><a href="#vote-in-poll">H.27. Vote in poll</a></li>
-<li><a href="#saving-data">H.28. Saving data</a></li>
+<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
+<li><a href="#add-a-user">G.2. Add a user</a></li>
+<li><a href="#login-a-user">G.3. Login a user</a></li>
+<li><a href="#logout-a-user">G.4. Logout a user</a></li>
+<li><a href="#find-users">G.5. Find users</a></li>
+<li><a href="#edit-a-user">G.6. Edit a user</a></li>
+<li><a href="#delete-a-user">G.7. Delete a user</a></li>
+<li><a href="#populate-a-user-schedule-via-timetable">G.8. Populate a user schedule via Timetable</a></li>
+<li><a href="#edit-a-user-schedule">G.9. Edit a user schedule</a></li>
+<li><a href="#find-free-time-between-two-users">G.10. Find free time between two users</a></li>
+<li><a href="#add-a-friend">G.11. Add a friend</a></li>
+<li><a href="#delete-a-friend">G.12. Delete a friend</a></li>
+<li><a href="#add-an-event">G.13. Add an event</a></li>
+<li><a href="#add-a-poll">G.14. Add a poll</a></li>
+<li><a href="#add-a-time-poll">G.15. Add a time poll</a></li>
+<li><a href="#add-poll-options">G.16. Add poll options</a></li>
+<li><a href="#delete-an-event">G.17. Delete an event</a></li>
+<li><a href="#select-an-event">G.18. Select an event</a></li>
+<li><a href="#display-poll">G.19. Display poll</a></li>
+<li><a href="#edit-an-event">G.20. Edit an event</a></li>
+<li><a href="#find-an-event-by-attributes">G.21. Find an event by attributes</a></li>
+<li><a href="#find-event-by-time">G.22. Find event by time</a></li>
+<li><a href="#list-all-events">G.23. List all events</a></li>
+<li><a href="#set-date">G.24. Set date</a></li>
+<li><a href="#set-time">G.25. Set time</a></li>
+<li><a href="#join-event">G.26. Join event</a></li>
+<li><a href="#vote-in-poll">G.27. Vote in poll</a></li>
+<li><a href="#saving-data">G.28. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -392,7 +391,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <p>Get some sense of the overall design by reading <a href="#Design-Architecture">Section 2.1, &#8220;Architecture&#8221;</a>.</p>
 </li>
 <li>
-<p>Take a look at <a href="#GetStartedProgramming">Appendix A, <em>Suggested Programming Tasks to Get Started</em></a>.</p>
+<p>Take a look at <a href="#GetStartedProgramming">[GetStartedProgramming]</a>.</p>
 </li>
 </ol>
 </div>
@@ -496,7 +495,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 <h4 id="events-driven-nature-of-the-design" class="discrete">Events-Driven nature of the design</h4>
 <div class="paragraph">
 <p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>deleteUser</code>.
-It is assumed that the user has already logged in to his/her account in Event Organiser.</p>
+It is assumed that the user has already logged in to his/her account EventOrganiser.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -605,7 +604,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 <div class="paragraph">
 <p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("deleteUser")</code> API call.
-Once again, note that we have assumed that the user has already logged in to his/her account in Event Organiser.</p>
+Once again, note that we have assumed that the user has already logged in to his/her account in EventOrganiser.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -684,14 +683,14 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p>can save the Event Organiser data in xml format and read it back.</p>
+<p>can save EventOrganiser data in xml format and read it back.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Each event contains references to persons in the list of persons in the event organiser.
-The storage component stores these people in the form of XmlPersonIndex objects, which are constructed from the index of the person as it is stored in the event organiser.
-When converting XmlAdaptedEvent objects back to a model type Event object, the XmlPersonIndex must be converted to the corresponding person in the event organiser person list.</p>
+<p>Each event contains references to persons in the list of persons in the EventOrganiser.
+The storage component stores these people in the form of XmlPersonIndex objects, which are constructed from the index of the person as it is stored in EventOrganiser.
+When converting XmlAdaptedEvent objects back to a model type Event object, the XmlPersonIndex must be converted to the corresponding person in the EventOrganiser person list.</p>
 </div>
 </div>
 <div class="sect2">
@@ -715,14 +714,14 @@ When converting XmlAdaptedEvent objects back to a model type Event object, the X
 <div class="paragraph">
 <p>The goal of this section is to explain the implementation of the
 login/logout feature and to briefly explain the changes that were made on relevant
-components of Event Organiser, namely, the EditUser Command, and the DeleteUser Command,
+components of EventOrganiser, namely, the EditUser Command, and the DeleteUser Command,
 to ensure cohesiveness of the entire application.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LoginFeature_SequenceDiagram_includes_Logic.png" alt="LoginFeature SequenceDiagram includes Logic" width="800">
 </div>
-<div class="title">Figure 10. Sequence Diagram for the Logic component when the user issues an <code>login n/Alice pass/password</code> command.</div>
+<div class="title">Figure 10. Sequence Diagram for the Logic component when the user issues a <code>login n/Alice pass/password</code> command.</div>
 </div>
 <div class="paragraph">
 <p>We have assumed that a user with name as "Alice" and password as "password" already exists in Event
@@ -743,13 +742,13 @@ In this implementation, we define the uniqueness of a user by its tuple of NAME 
 </div>
 <div class="paragraph">
 <p>When the execute() method of the Login command is called,  the login command authenticates
-the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in Event Organiser.
+the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in EventOrganiser.
 A CommandException will be thrown in the following 2 scenarios:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>When the user does not exist in Event Organiser.</p>
+<p>When the user does not exist in EventOrganiser.</p>
 </li>
 <li>
 <p>When there is already a user that is logged in.</p>
@@ -764,7 +763,7 @@ a CommandException will be thrown when there isn&#8217;t any user that is logged
 <div class="content">
 <img src="images/LoginFeature_SequenceDiagram_includes_Model.png" alt="width:&quot;50%&quot;">
 </div>
-<div class="title">Figure 11. Sequence Diagram for the Model component when the user issues an <code>login n/Alice pass/password</code> command.</div>
+<div class="title">Figure 11. Sequence Diagram for the Model component when the user issues a <code>login n/Alice pass/password</code> command.</div>
 </div>
 <div class="paragraph">
 <p>After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent
@@ -808,38 +807,13 @@ we will use the scenario that a user, Alex Yeoh, wants to login to his account:<
 </div>
 </div>
 <div class="paragraph">
-<p>The images below shows the Class Diagram for the Model component of the Login command.
-Note that some minute details where ommited for the sake of simplicity.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/LoginFeature_ClassDiagram_Model_1.png" alt="LoginFeature ClassDiagram Model 1" width="800">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/LoginFeature_ClassDiagram_Model_2.png" alt="LoginFeature ClassDiagram Model 2" width="600">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/LoginFeature_ClassDiagram_Model_3.png" alt="LoginFeature ClassDiagram Model 3" width="800">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/LoginFeature_ClassDiagram_Model_4.png" alt="LoginFeature ClassDiagram Model 4" width="800">
-</div>
-<div class="title">Figure 14. Class Diagram for the Model component of the Login Command</div>
-</div>
-<div class="paragraph">
 <p>Again, note that some minute details for the Logic component where omitted for the sake of simplicity.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LoginFeature_ClassDiagram_Logic_1.png" alt="LoginFeature ClassDiagram Logic 1" width="800">
 </div>
-<div class="title">Figure 15. Class Diagram for the Logic component of the Login Command</div>
+<div class="title">Figure 14. Class Diagram for the Logic component of the Login Command</div>
 </div>
 </div>
 <div class="sect3">
@@ -851,20 +825,20 @@ Note that some minute details where ommited for the sake of simplicity.</p>
 <li>
 <p><strong>Alternative 1</strong>(Current implementation) :
 In the current implementation, we need to uniquely identify an user using both their name and
-password. If two users have different names, they will be identified users. Even if two users have
-the same name, they can simply choose different passwords for both users to use Event Organiser.
-However, the problem arises when a malicious user wants to login to other user&#8217;s account. This can
-be achieved fairly simply using the login command. The malicious user can look for the name of
-the user that already has an account, and brunt force their way in, especially if the
-password is weak. Similar technique can be used using the EditUser command to comprise the integrity
-of another users account.</p>
+password. If two users have different names, they will be different users. Even if two users have
+the same name, they can simply choose different passwords for both users to use EventOrganiser.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Fairly easy to implement</p>
 </li>
 <li>
-<p>Cons: Fairly easy for a malicious user to login to another user&#8217;s account</p>
+<p>Cons: Fairly easy for a malicious user to login to another user&#8217;s account.
+However, the problem arises when a malicious user wants to login to other user&#8217;s account. This can
+be achieved fairly simply using the login command. The malicious user can look for the name of
+the user that already has an account, and brunt force their way in, especially if the
+password is weak. Similar technique can be used using the EditUser command to comprise the integrity
+of another users account.</p>
 </li>
 </ul>
 </div>
@@ -904,7 +878,7 @@ his/her account.</p>
 <div class="paragraph">
 <p>Once the user issues an <code>editUser</code> command, it is also automatically assumed that the user wants to
 delete his/her own account. This ensures that only the user of the account is allowed to edit
-his/her account. However, due to the way users are uniquely identified in Event Organiser,
+his/her account. However, due to the way users are uniquely identified in EventOrganiser,
 a user may find that they are unable to change their name or password. In these situations, the user
 is encouraged to change their name or password to a different name or password respectively from
 the new name or password that they have chosen before.</p>
@@ -953,7 +927,7 @@ Each AbstractPoll object contains a <code>HashMap&lt;String, UniquePersonList&gt
 <p>When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
 each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
 Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects,
-which serve as pointers to the actual Person objects stored in the event organiser.</p>
+which serve as pointers to the actual Person objects stored in EventOrganiser.</p>
 </div>
 <div class="paragraph">
 <p>As an example, the following sequence diagram illustrates the workings of the <code>VoteCommand</code>.</p>
@@ -965,7 +939,7 @@ which serve as pointers to the actual Person objects stored in the event organis
 </div>
 <div class="paragraph">
 <p>As stated above, since Model already stores the current user and the selected event from prior user commands,
-the Model can call the correct Event e and Person object in the <code>addVoteToPoll</code> method. If there is no logged-in user,
+the Model can call the correct Event 'e' and Person object 'user' in the <code>addVoteToPoll</code> method. If there is no logged-in user,
 a <code>NoUserLoggedInException</code> is thrown, and if there is no selected event, a <code>NoEventSelectedException</code> is thrown.</p>
 </div>
 <div class="paragraph">
@@ -999,7 +973,7 @@ The sequence diagram within the model for the <code>AddPollCommand</code> is ill
 <div class="paragraph">
 <p>In all cases, the contents of the poll is returned to the calling Command object as String through the <code>Poll#displayPoll()</code> method.
 The displayed details of the poll contains the most popular options, computed using the <code>Poll#getPopularOptions()</code> method.
-This method returns an empty list if there no user has voted for any option yet.
+This method returns an empty list if no user has voted for any option yet.
 A new <code>DisplayPollEvent</code> is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.</p>
 </div>
 <div class="paragraph">
@@ -1085,13 +1059,13 @@ The voter list must also be manually updated every time the person details are u
 <div class="sect3">
 <h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current implementation</a></h4>
 <div class="paragraph">
-<p>This section explains the implementation of the features associated with the Schedule class of each Schedule while detailing some implementation details of the Schedule class. The relevant commands which are callable by the user to be discussed are:</p>
+<p>This section explains the implementation of the features associated with the Schedule class of each schedule while detailing some implementation details of the Schedule class. The relevant commands which are callable by the user to be discussed are:</p>
 </div>
 <div class="paragraph">
-<p><code>EditUserCommand</code> - The base Edit command for person with two additions - Schedule and Schedule Update parameter</p>
+<p><code>EditUserCommand</code> - The base Edit command for person with one additions - Schedule Update parameter</p>
 </div>
 <div class="paragraph">
-<p><code>MaxScheduleCommand</code> - Compare two persons' schedules and return the common free time.</p>
+<p><code>MaxScheduleCommand</code> - Compare two or more persons' schedules and return the common free time.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1169,16 +1143,16 @@ This allows O(1) access times for each slot, while only requiring O(n) on startu
 <div class="sect4">
 <h5 id="aspect-schedule-update"><a class="link" href="#aspect-schedule-update">Aspect: Schedule Update</a></h5>
 <div class="paragraph">
-<p>To effect a schedule update, a pair of strings "time of the day" and "day of the week" is to be entered. The strings are then converted into a Slot(which contains Time and Day objects). The setter methods of schedule is then called to effect the change. Note that this is a "bit flip" operation, so it will set a free Slot to an occupied Slot and vice versa.</p>
+<p>To effect a schedule update, a pair of strings representing the time of the day and the day of the week are to be entered. The strings are then converted into a Slot(which contains Time and Day objects). The setter methods of schedule is then called to effect the change. Note that this is a "bit flip" operation, so it will set a free Slot to an occupied Slot and vice versa.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="aspect-maxschedule-command"><a class="link" href="#aspect-maxschedule-command">Aspect: MaxSchedule Command</a></h5>
 <div class="paragraph">
-<p>Similarly, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.</p>
+<p>Similarly, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This Schedule object is then translated into slots and print back to the application.</p>
 </div>
 <div class="paragraph">
-<p>Noted that we have 336 slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
+<p>Noted that we have 336 Slots thus it is highly possible that maxSchedule command will return a large number of free time slots. Thus the sl/ tag is used to limit the range of free time displayed.
 It is implemented in the format of XXXX-XXXX where XXXX is the time slot in 24 hour format.</p>
 </div>
 <div class="paragraph">
@@ -1282,7 +1256,7 @@ This way, we will be able to provide the most convenient way for the student to 
 </div>
 </div>
 <div class="paragraph">
-<p>Breakdown on how to obtain the full timetable and convert it into a schedule.</p>
+<p>Breakdown on how to obtain the full timetable and convert it into a Schedule.</p>
 </div>
 <div class="paragraph">
 <p>Step 1. We can easily obtain the person&#8217;s timetable by splitting the GET parameters by ';' delimiter. The resulting array would contain Module Code /=/ Lesson Type /:/ Number Slot.</p>
@@ -1297,10 +1271,10 @@ This way, we will be able to provide the most convenient way for the student to 
 <p>Step 4. The filtered lessons is then converted into a list of Slot.</p>
 </div>
 <div class="paragraph">
-<p>Step 5. The list of Slot will be passed in a Schedule constructor to generate a new schedule.</p>
+<p>Step 5. The list of Slot will be passed in a Schedule constructor to generate a new Schedule.</p>
 </div>
 <div class="paragraph">
-<p>Step 6. The new schedule object is returned to the application.</p>
+<p>Step 6. The new Schedule object is returned to the application.</p>
 </div>
 </div>
 </div>
@@ -1310,7 +1284,7 @@ This way, we will be able to provide the most convenient way for the student to 
 <div class="sect3">
 <h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current implementation</a></h4>
 <div class="paragraph">
-<p>This section explains the implementation of the addition/deletion of friends feature associated with each user in EventOrganizer. The relevant commands which are callable by the user to be discussed are:</p>
+<p>This section explains the implementation of the addition/deletion of friends feature associated with each user in EventOrganiser. The relevant commands which are callable by the user to be discussed are:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1342,7 +1316,7 @@ This way, we will be able to provide the most convenient way for the student to 
 <p>Friendships are unilateral, so if person A is a friend of person B, then person B may not be a friend of person A.</p>
 </div>
 <div class="paragraph">
-<p>In Event Organiser, adding a user into the friend list is similar to following someone on Instagram. This is because having a person in your friend list will make it easier for you to be kept updated of his/her details, such as viewing his/her personal particulars or viewing the events that he/she had joined. This is because of the <code>ListFriendsCommand</code> which can display all the friends of the particular user and their details in the display panel as shown below.</p>
+<p>In EventOrganiser, adding a user into the friend list is similar to following someone on Instagram. This is because having a person in your friend list will make it easier for you to be kept updated of his/her details, such as viewing his/her personal particulars or viewing the events that he/she had joined. This is because of the <code>ListFriendsCommand</code> which can display all the friends of the particular user and their details in the display panel as shown below.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1356,8 +1330,8 @@ This way, we will be able to provide the most convenient way for the student to 
 <div class="sect4">
 <h5 id="aspect-friend-class"><a class="link" href="#aspect-friend-class">Aspect: Friend class</a></h5>
 <div class="paragraph">
-<p>Like other attributes, we represents a friend of a Person using a <code>Friend</code> class. The <code>Friend</code> class has a constructor which takes in a Person object, and initializes the string field <code>friendAttributes</code> that combines the 4 main attributes of <code>Person</code> (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a <code>Person</code>. Example:
-For a person with name Alex Yeoh, phone 87438807, email <a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>, address Blk 30 Geylang Street 29, #06-40, the <code>Friend</code> object&#8217;s <code>friendAttributes</code> string field will be 'Alex Yeoh|87438807|<a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>|Blk 30 Geylang Street 29, #06-40'.</p>
+<p>Like other attributes, we represents a friend of a Person using a <code>Friend</code> class. The <code>Friend</code> class has a constructor which takes in a Person object, and initializes the string field <code>friendAttributes</code> that combines the 2 attributes that define the uniqueness of a <code>Person</code> (name and password) in string form using a vertical bar(|). Example:
+For a person with name <code>Alex Yeoh</code>, password <code>password123</code>, the <code>Friend</code> object&#8217;s <code>friendAttributes</code> string field will be <code>Alex Yeoh|password123</code>.</p>
 </div>
 <div class="paragraph">
 <p>In the <code>Person</code> class, his/her friends will be represented using a <code>Set</code> of <code>Friend</code> objects as the friend list. In the example below, we will describe the procedures when <code>Person</code> A (logged-in user) wants to add <code>Person</code> B (user specified by <code>INDEX</code>) into his/her friend list.</p>
@@ -1381,7 +1355,7 @@ For a person with name Alex Yeoh, phone 87438807, email <a href="mailto:alexyeoh
 <div class="sect4">
 <h5 id="aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person"><a class="link" href="#aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person">Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person</a></h5>
 <div class="paragraph">
-<p>The friend lists of each user have to be constantly updated when a user is deleted from the Event Organizer or his/her attributes are modified (such as change of name).</p>
+<p>The friend lists of each user have to be constantly updated when a user is deleted from the EventOrganiser or his/her attributes are modified (such as change of name).</p>
 </div>
 <div class="paragraph">
 <p>The following scenario describes what happens if <code>Person</code> B is already on the friend list of <code>Person</code> A.</p>
@@ -1391,7 +1365,7 @@ For a person with name Alex Yeoh, phone 87438807, email <a href="mailto:alexyeoh
 This triggers the updateFriendListsDueToDeletedPerson() function in the <code>DeleteUserCommand</code> class, which searches through the friend lists of all the other persons. If someone has <code>Person</code> B in their friend list (such as <code>Person</code> A), then <code>Person</code> B will be removed from <code>Person</code> A&#8217;s friend list.</p>
 </div>
 <div class="paragraph">
-<p><code>Person</code> B&#8217;s attributes gets modified (eg change name/phone):
+<p><code>Person</code> B&#8217;s attributes gets modified (eg change of name):
 This triggers the updateFriendListsDueToEditedPerson() function in the <code>EditUserCommand</code> class, which searches through the friend lists of all the other persons. If someone has <code>Person</code> B in their friend list (such as <code>Person</code> A), the original Friend object in <code>Person</code> A&#8217;s friend list will be replaced by the new Friend object created using the new attributes of <code>Person</code> B.</p>
 </div>
 </div>
@@ -1502,7 +1476,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 16. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 15. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -1835,13 +1809,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="GetStartedProgramming"><a class="link" href="#GetStartedProgramming">Appendix A: Suggested Programming Tasks to Get Started</a></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="product-scope"><a class="link" href="#product-scope">Appendix B: Product Scope</a></h2>
+<h2 id="product-scope"><a class="link" href="#product-scope">Appendix A: Product Scope</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Target user profile</strong>:</p>
@@ -1858,7 +1826,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <p>Need to organise interest group meet-ups and encourage new participants to attend.</p>
 </li>
 <li>
-<p>Need to find the best time and location based on the schedules of participants and addresses.</p>
+<p>Need to find the best time to meet-up based on the schedules of participants and addresses.</p>
 </li>
 <li>
 <p>Some level of tech-savviness to appreciate CLI apps.</p>
@@ -1979,7 +1947,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="user-stories"><a class="link" href="#user-stories">Appendix C: User Stories</a></h2>
+<h2 id="user-stories"><a class="link" href="#user-stories">Appendix B: User Stories</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
@@ -2027,12 +1995,6 @@ b. Require developers to download those libraries manually (this creates extra w
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Busy User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Have a platform to search for all the events that are near the place I stay.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Go to an event without the trouble of travelling long distances.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Busy User</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Have a platform to search for all the events that occur during my free time.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Easily find a event that I have time to go for.</p></td>
 </tr>
@@ -2051,20 +2013,20 @@ b. Require developers to download those libraries manually (this creates extra w
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Visualise the event location on Google maps.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[Coming in v2.0] Visualise the event location on Google maps.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Find out exactly how to get to that location.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A social media kind of platform which specialises on organising events.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Have a social media kind of platform which specialises on organising events.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Know the events that my friends are going to and let my friends know about the events that I am going to.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Easily find other users based on their particulars.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Find my friends and family members, or anyone that might be of interest to me.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Find my friends or anyone that might be of interest to me.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
@@ -2086,28 +2048,16 @@ b. Require developers to download those libraries manually (this creates extra w
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Event Organiser</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Find people who live close to a specific location and people who are available at a specific time.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Find people who are at least able to attend the event.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Find mutual friends in among my social circle and people with similar interests as me.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I can widen my social circle and meet like minded people.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Visualise my social network and the groups I am a part of.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">See how I am connected with another person.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <div class="sect1">
-<h2 id="use-cases"><a class="link" href="#use-cases">Appendix D: Use Cases</a></h2>
+<h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>(For all use cases below, the <strong>System</strong> is the <code>EventOrganiser</code>, unless specified otherwise)</p>
@@ -2264,7 +2214,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 <h3 id="use-case-u04-create-new-event" class="discrete">Use case: U04 – Create new event</h3>
 <div class="paragraph">
-<p><strong>Actor: Event Organiser</strong></p>
+<p><strong>Actor: Event organiser</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>Precondition: Event organiser has logged himself/herself in</strong></p>
@@ -2475,7 +2425,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </li>
 </ol>
 </div>
-<h3 id="use-case-u08-event-organiser-confirms-the-event-details" class="discrete">Use case: U08 – Event organiser confirms the event details</h3>
+<h3 id="use-case-u09-event-organiser-confirms-the-event-details" class="discrete">Use case: U09 – Event organiser confirms the event details</h3>
 <div class="paragraph">
 <p><strong>Actor: Event organiser</strong></p>
 </div>
@@ -2510,12 +2460,12 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix E: Non Functional Requirements</a></h2>
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>9</code> or higher installed.</p>
+<p>Should work on any mainstream OS as long as it has Java <code>9</code> or higher installed.</p>
 </li>
 <li>
 <p>Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.</p>
@@ -2534,7 +2484,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="glossary"><a class="link" href="#glossary">Appendix F: Glossary</a></h2>
+<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
 <div class="sectionbody">
 <div class="dlist">
 <dl>
@@ -2567,7 +2517,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="product-survey"><a class="link" href="#product-survey">Appendix G: Product Survey</a></h2>
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -2579,7 +2529,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a></h2>
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
@@ -2598,7 +2548,7 @@ The result of the test cases under each command is assumed to not persist to the
 </table>
 </div>
 <div class="sect2">
-<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">H.1. Launch and Shutdown</a></h3>
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2633,7 +2583,7 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-user"><a class="link" href="#add-a-user">H.2. Add a user</a></h3>
+<h3 id="add-a-user"><a class="link" href="#add-a-user">G.2. Add a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2655,7 +2605,7 @@ Expected: New person added.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="login-a-user"><a class="link" href="#login-a-user">H.3. Login a user</a></h3>
+<h3 id="login-a-user"><a class="link" href="#login-a-user">G.3. Login a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2683,7 +2633,7 @@ Expected: Login successful.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logout-a-user"><a class="link" href="#logout-a-user">H.4. Logout a user</a></h3>
+<h3 id="logout-a-user"><a class="link" href="#logout-a-user">G.4. Logout a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2704,7 +2654,7 @@ Expected: Logout unsuccessful.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-users"><a class="link" href="#find-users">H.5. Find users</a></h3>
+<h3 id="find-users"><a class="link" href="#find-users">G.5. Find users</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2728,7 +2678,7 @@ Expected: No user is listed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="edit-a-user"><a class="link" href="#edit-a-user">H.6. Edit a user</a></h3>
+<h3 id="edit-a-user"><a class="link" href="#edit-a-user">G.6. Edit a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2742,7 +2692,7 @@ Expected: Name of user successfully changed to "Alex Tan".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="delete-a-user"><a class="link" href="#delete-a-user">H.7. Delete a user</a></h3>
+<h3 id="delete-a-user"><a class="link" href="#delete-a-user">G.7. Delete a user</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2756,7 +2706,7 @@ Expected: user "Alex Yeoh" successfully deleted.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="populate-a-user-schedule-via-timetable"><a class="link" href="#populate-a-user-schedule-via-timetable">H.8. Populate a user schedule via Timetable</a></h3>
+<h3 id="populate-a-user-schedule-via-timetable"><a class="link" href="#populate-a-user-schedule-via-timetable">G.8. Populate a user schedule via Timetable</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2778,7 +2728,7 @@ Expected: Invalid NUSmods Link</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="edit-a-user-schedule"><a class="link" href="#edit-a-user-schedule">H.9. Edit a user schedule</a></h3>
+<h3 id="edit-a-user-schedule"><a class="link" href="#edit-a-user-schedule">G.9. Edit a user schedule</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2796,7 +2746,7 @@ Expected: Schedule of user "Alex Yeoh" successfully changed. Second bit of the s
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-free-time-between-two-users"><a class="link" href="#find-free-time-between-two-users">H.10. Find free time between two users</a></h3>
+<h3 id="find-free-time-between-two-users"><a class="link" href="#find-free-time-between-two-users">G.10. Find free time between two users</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2814,7 +2764,7 @@ Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displ
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-friend"><a class="link" href="#add-a-friend">H.11. Add a friend</a></h3>
+<h3 id="add-a-friend"><a class="link" href="#add-a-friend">G.11. Add a friend</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2828,7 +2778,7 @@ Expected: "Bernice Yu" is added to "Alex Yeoh" friend list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="delete-a-friend"><a class="link" href="#delete-a-friend">H.12. Delete a friend</a></h3>
+<h3 id="delete-a-friend"><a class="link" href="#delete-a-friend">G.12. Delete a friend</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2842,7 +2792,7 @@ Expected: "Bernice Yu" is deleted from "Alex Yeoh" friend list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-an-event"><a class="link" href="#add-an-event">H.13. Add an event</a></h3>
+<h3 id="add-an-event"><a class="link" href="#add-an-event">G.13. Add an event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2862,7 +2812,7 @@ Expected: Add event unsuccessful.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-poll"><a class="link" href="#add-a-poll">H.14. Add a poll</a></h3>
+<h3 id="add-a-poll"><a class="link" href="#add-a-poll">G.14. Add a poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2876,7 +2826,7 @@ Expected: a new poll with name "Meeting date" is created and displayed in the ev
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-time-poll"><a class="link" href="#add-a-time-poll">H.15. Add a time poll</a></h3>
+<h3 id="add-a-time-poll"><a class="link" href="#add-a-time-poll">G.15. Add a time poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2891,7 +2841,7 @@ the event details panel. It is populated by 30 minute slots based on the schedul
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-poll-options"><a class="link" href="#add-poll-options">H.16. Add poll options</a></h3>
+<h3 id="add-poll-options"><a class="link" href="#add-poll-options">G.16. Add poll options</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2909,7 +2859,7 @@ Expected: a new poll option with name "13 December" is created and displayed in 
 </div>
 </div>
 <div class="sect2">
-<h3 id="delete-an-event"><a class="link" href="#delete-an-event">H.17. Delete an event</a></h3>
+<h3 id="delete-an-event"><a class="link" href="#delete-an-event">G.17. Delete an event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2927,7 +2877,7 @@ Expected: Event 1 is not deleted, an error message "You are not the organiser of
 </div>
 </div>
 <div class="sect2">
-<h3 id="select-an-event"><a class="link" href="#select-an-event">H.18. Select an event</a></h3>
+<h3 id="select-an-event"><a class="link" href="#select-an-event">G.18. Select an event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2941,7 +2891,7 @@ Expected: The event details panel displays the details of the event at index 1.<
 </div>
 </div>
 <div class="sect2">
-<h3 id="display-poll"><a class="link" href="#display-poll">H.19. Display poll</a></h3>
+<h3 id="display-poll"><a class="link" href="#display-poll">G.19. Display poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2955,7 +2905,7 @@ Expected: Poll at index 1 of the poll list of the first event is displayed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="edit-an-event"><a class="link" href="#edit-an-event">H.20. Edit an event</a></h3>
+<h3 id="edit-an-event"><a class="link" href="#edit-an-event">G.20. Edit an event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2973,7 +2923,7 @@ Expected: The selected event is edited to have only one tag "URGENT"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-an-event-by-attributes"><a class="link" href="#find-an-event-by-attributes">H.21. Find an event by attributes</a></h3>
+<h3 id="find-an-event-by-attributes"><a class="link" href="#find-an-event-by-attributes">G.21. Find an event by attributes</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2991,7 +2941,7 @@ Expected: all and only events starting at 17:30 and organised by "Charlotte Oliv
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-event-by-time"><a class="link" href="#find-event-by-time">H.22. Find event by time</a></h3>
+<h3 id="find-event-by-time"><a class="link" href="#find-event-by-time">G.22. Find event by time</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3005,7 +2955,7 @@ Expected: all and only events held between 07:30 and 17:30 on 01-12-2018 are dis
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-all-events"><a class="link" href="#list-all-events">H.23. List all events</a></h3>
+<h3 id="list-all-events"><a class="link" href="#list-all-events">G.23. List all events</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3019,7 +2969,7 @@ Expected: All events in the event organiser are displayed in the events list.</p
 </div>
 </div>
 <div class="sect2">
-<h3 id="set-date"><a class="link" href="#set-date">H.24. Set date</a></h3>
+<h3 id="set-date"><a class="link" href="#set-date">G.24. Set date</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3033,7 +2983,7 @@ Expected: the date "12-12-2018" is set and appears in the event card of the even
 </div>
 </div>
 <div class="sect2">
-<h3 id="set-time"><a class="link" href="#set-time">H.25. Set time</a></h3>
+<h3 id="set-time"><a class="link" href="#set-time">G.25. Set time</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3047,7 +2997,7 @@ Expected: the times "12:30 - 14:30" are set and appear in the event card of the 
 </div>
 </div>
 <div class="sect2">
-<h3 id="join-event"><a class="link" href="#join-event">H.26. Join event</a></h3>
+<h3 id="join-event"><a class="link" href="#join-event">G.26. Join event</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3062,7 +3012,7 @@ The new event details are displayed in the event details panel.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="vote-in-poll"><a class="link" href="#vote-in-poll">H.27. Vote in poll</a></h3>
+<h3 id="vote-in-poll"><a class="link" href="#vote-in-poll">G.27. Vote in poll</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3078,7 +3028,7 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.28. Saving data</a></h3>
+<h3 id="saving-data"><a class="link" href="#saving-data">G.28. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3098,4 +3048,4 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 09:11:44 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:51:49 UTC</div></div></div></body></html>
