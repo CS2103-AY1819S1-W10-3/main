@@ -338,8 +338,8 @@ Format <code>Command tt/ <a href="http://modsn.com/XXXX&#8230;&#8203" class="bar
 <div class="sect3">
 <h4 id="add-a-user-code-adduser-code"><a class="link" href="#add-a-user-code-adduser-code">5.2.1. Add a user : <code>addUser</code></a></h4>
 <div class="paragraph">
-<p>Adds a new unique user to EventOrganiser.<br>
-Format: <code>addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]&#8230;&#8203;</code></p>
+<p>Adds a new uniqiue user to EventOrganiser.<br>
+Format: <code>addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST]&#8230;&#8203; [tt/TIMETABLE] [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -430,8 +430,8 @@ Format: <code>listUser</code></p>
 <div class="sect3">
 <h4 id="find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code"><a class="link" href="#find-users-by-name-phone-number-email-address-interest-tag-code-finduser-code">5.2.5. Find users by name, phone number, email, address, interest, tag : <code>findUser</code></a></h4>
 <div class="paragraph">
-<p>Finds users with any matching name, phone number, email, address, interest, tag.<br>
-Format: <code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [t/TAG]&#8230;&#8203;</code></p>
+<p>Finds users with matching name, phone number, email, address, interest, tag.<br>
+Format: <code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]&#8230;&#8203; [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -441,16 +441,19 @@ Format: <code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTERE
 <p>Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.</p>
 </li>
 <li>
-<p>Any combination of the above prefixes is valid. Eg. <code>findUser e/[EMAIL] a/[ADDRESS]</code> only search for email and address.</p>
+<p>Any combination of the above prefixes and keywords (let&#8217;s call them conditions for now) is valid. Eg. <code>findUser e/EMAIL a/ADDRESS</code> searches based on the email and address conditions.</p>
 </li>
 <li>
-<p>The order of the keywords does not matter.</p>
+<p>The order of the conditions does not matter.</p>
 </li>
 <li>
-<p>Only the name, phone number, email, address, interest, tag is searched.</p>
+<p>The search is based on CONDITION 1 AND CONDITION 2 AND &#8230;&#8203; . For example, <code>findUser n/John i/dance</code> will search for users that satisfy the conditions of both name 'John' and interest 'dance'. Likewise for attributes that can be stated more than one (interest and tag), <code>findUser i/tennis i/soccer</code> will search for users that satisfy the conditions of both interest 'tennis' and interest 'soccer'.</p>
 </li>
 <li>
-<p>Substrings or superstrings of a phone number will not be matched e.g. <code>87438807</code> will not match <code>874388070</code>, and likewise, <code>8743880</code> will not match <code>87438807</code></p>
+<p>The search for all attributes is not case sensitive. For example, <code>findUser n/john</code> will search for all users with the name 'John'.</p>
+</li>
+<li>
+<p>Substrings or superstrings of any attribute will not be matched e.g. phone number <code>87438807</code> will not match <code>874388070</code>, and likewise, name <code>Ale</code> will not match <code>Alex</code>.</p>
 </li>
 </ul>
 </div>
@@ -463,11 +466,15 @@ Format: <code>findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTERE
 <ul>
 <li>
 <p><code>findUser p/87438807 i/dance</code><br>
-Returns any user with the phone number <code>87438807</code> or interest <code>dance</code></p>
+Returns any user with the phone number <code>87438807</code> and interest <code>dance</code></p>
 </li>
 <li>
 <p><code>findUser n/john e/john@example.com t/teacher</code><br>
-Returns any user with the name consisting of the word <code>john</code> or email <code>john@example.com</code> or tag <code>teacher</code></p>
+Returns any user with the name <code>87438807</code> and email <code>john@example.com</code> and tag <code>teacher</code></p>
+</li>
+<li>
+<p><code>findUser i/tennis i/soccer</code><br>
+Returns any user with the interest <code>tennis</code> and interest <code>soccer</code></p>
 </li>
 </ul>
 </div>
@@ -487,6 +494,12 @@ Format: `deleteUser `</p>
 </li>
 <li>
 <p>The events organised by this user will also be deleted.</p>
+</li>
+<li>
+<p>After the user is deleted, no other user in the Event Organiser will be currently logged-in.</p>
+</li>
+<li>
+<p>After the user is deleted, if the deleted user is in the friend list of another user, the other user&#8217;s friend list will be updated to show that the deleted user is no longer in the list.</p>
 </li>
 </ul>
 </div>
@@ -538,7 +551,7 @@ Selects the 1st user in the results of the <code>find</code> command.</p>
 <h4 id="edit-a-user-code-edituser-code"><a class="link" href="#edit-a-user-code-edituser-code">5.2.8. Edit a user : <code>editUser</code></a></h4>
 <div class="paragraph">
 <p>Edits the currently logged-in user in the Event Organiser.<br>
-Format: <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]&#8230;&#8203;</code></p>
+Format: <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pass/PASSWORD] [i/INTEREST]&#8230;&#8203; [tt/TIMETABLE] [su/SCHEDULE_UPDATE] [t/tags]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -554,13 +567,16 @@ Format: <code>editUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTERE
 <p>Existing values will be updated to the input values.</p>
 </li>
 <li>
-<p>When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.</p>
+<p>When editing interests/tags, the existing interests/tags of the user will be removed (adding of tags is not cumulative). Hence if you want to add new interests/tags on top of the existing ones, you have to include the existing ones in the edit command.</p>
 </li>
 <li>
-<p>You can remove all the user&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+<p>Due to what is mentioned above, you can remove all the user&#8217;s interests/tags by typing <code>i/</code> or <code>t/</code> without specifying any interests/tags after it.</p>
 </li>
 <li>
 <p>Note schedule-related parameters are applied in this order: TIMETABLE, SCHEDULE_UPDATE</p>
+</li>
+<li>
+<p>After the user is edited (eg change of name), if the edited user is in the friend list of another user, the other user&#8217;s friend list will be updated to show the updated version of the edited user.</p>
 </li>
 <li>
 <p><a href="#timetable">Section 4.3, &#8220;Timetable&#8221;</a> download requires a valid nusmods link</p>
@@ -689,7 +705,7 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Suggests friends for the selected user at the specified <code>INDEX</code>.</p>
+<p>Displays all the suggested friends for the selected user at the specified <code>INDEX</code>.</p>
 </li>
 <li>
 <p>The index refers to the index number shown in the displayed user list.</p>
@@ -717,7 +733,7 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <ul>
 <li>
 <p><code>suggestFriendsByInterests 1</code><br>
-Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user, and are not yet in the selected user&#8217;s friend list.</p>
+Displays users in the Event Organiser that have at least one similar interest with the selected 1st user, and are not yet in the selected user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
@@ -1592,4 +1608,4 @@ e.g. <code>listEvent</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:38:28 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:41:15 UTC</div></div></div></body></html>

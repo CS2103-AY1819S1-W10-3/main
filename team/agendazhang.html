@@ -208,7 +208,7 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Suggests friends for the selected user at the specified <code>INDEX</code>.</p>
+<p>Displays all the suggested friends for the selected user at the specified <code>INDEX</code>.</p>
 </li>
 <li>
 <p>The index refers to the index number shown in the displayed user list.</p>
@@ -236,7 +236,7 @@ Format: <code>suggestFriendsByInterests INDEX</code></p>
 <ul>
 <li>
 <p><code>suggestFriendsByInterests 1</code><br>
-Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user, and are not yet in the selected user&#8217;s friend list.</p>
+Displays users in the Event Organiser that have at least one similar interest with the selected 1st user, and are not yet in the selected user&#8217;s friend list.</p>
 </li>
 </ul>
 </div>
@@ -317,10 +317,13 @@ e.g. <code>listFriends 1</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>AddFriendCommand</code> - takes in a pair of indexes and makes a pair of persons associated with the indexes to be friends with each other</p>
+<p><code>AddFriendCommand</code> - takes in an <code>INDEX</code>, and adds the person specified at the <code>INDEX</code> to the logged-in person&#8217;s friend list.</p>
 </li>
 <li>
-<p><code>DeleteFriendCommand</code> - takes in a pair of indexes and makes a pair of persons associated with the indexes no longer friends with each other</p>
+<p><code>DeleteFriendCommand</code> - takes in an <code>INDEX,</code> and deletes the person specified at the <code>INDEX</code> from the logged-in person&#8217;s friend list.</p>
+</li>
+<li>
+<p><code>ListFriendsCommand</code> - takes in an <code>INDEX</code>, and displays all friends of the person specified at the <code>INDEX</code>.</p>
 </li>
 </ul>
 </div>
@@ -336,51 +339,62 @@ e.g. <code>listFriends 1</code></p>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-bilateral-friendships"><a class="link" href="#aspect-bilateral-friendships">Aspect: Bilateral friendships</a></h5>
+<h5 id="aspect-unilateral-friendships"><a class="link" href="#aspect-unilateral-friendships">Aspect: Unilateral friendships</a></h5>
 <div class="paragraph">
-<p>Friendships have to be bilateral, so if person A is a friend of person B, then person B is also a friend of person A.</p>
+<p>Friendships are unilateral, so if person A is a friend of person B, then person B may not be a friend of person A.</p>
 </div>
 <div class="paragraph">
-<p>To specify the friendship relation between two users, both the indexes of the users have to be provided. The command format is addFriend [INDEX,INDEX], where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index, and distinct from the other INDEX.</p>
+<p>In Event Organiser, adding a user into the friend list is similar to following someone on Instagram. This is because having a person in your friend list will make it easier for you to be kept updated of his/her details, such as viewing his/her personal particulars or viewing the events that he/she had joined. This is because of the <code>ListFriendsCommand</code> which can display all the friends of the particular user and their details in the display panel as shown below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ListAllFriendsExample.png" alt="ListAllFriendsExample" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>To specify the addition of a user into the logged-in user&#8217;s friend list (<code>AddFriendCommand</code>), the index of the user has to be provided. The command format is <code>addFriend INDEX</code>, where INDEX has to be a positive number that is greater than 0, less than or equals to the current greatest index. The <code>INDEX</code> should also not be the current logged-in user himself/herself or someone who is already in his/her friend list. Whereas for <code>DeleteFriendCommand</code>, the <code>INDEX</code> should not be a user who is not currently in his/her friend list.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="aspect-friend-class"><a class="link" href="#aspect-friend-class">Aspect: Friend class</a></h5>
 <div class="paragraph">
-<p>Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a constructor which takes in a Person object, and initializes the string field <code>friendAttributes</code> that combines the 4 main attributes of Person (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
-For a person with name Alex Yeoh, phone 87438807, email <a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>, address Blk 30 Geylang Street 29, #06-40, the Friend object&#8217;s <code>friendAttributes</code> string field will be 'Alex Yeoh|87438807|<a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>|Blk 30 Geylang Street 29, #06-40'.</p>
+<p>Like other attributes, we represents a friend of a Person using a <code>Friend</code> class. The <code>Friend</code> class has a constructor which takes in a Person object, and initializes the string field <code>friendAttributes</code> that combines the 4 main attributes of <code>Person</code> (name, phone, email, address) in string form using a vertical bar(|), since these attributes act as the primary identification for a <code>Person</code>. Example:
+For a person with name Alex Yeoh, phone 87438807, email <a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>, address Blk 30 Geylang Street 29, #06-40, the <code>Friend</code> object&#8217;s <code>friendAttributes</code> string field will be 'Alex Yeoh|87438807|<a href="mailto:alexyeoh@example.com">alexyeoh@example.com</a>|Blk 30 Geylang Street 29, #06-40'.</p>
 </div>
 <div class="paragraph">
-<p>In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time <code>AddFriendCommand</code> is executed, once the checking is done (as described in the next aspect), a copy each of the 2 persons (2 new Person objects) represented by the index will be created. Then the addFriendInList() method from Person class will be called by each of them on each other, which creases a Friend object as described by the paragraph above and adds it to each of their friend lists. Finally, both these new Person objects will replace the old Person objects in the Model using the updatePerson() method from the Model class.</p>
+<p>In the <code>Person</code> class, his/her friends will be represented using a <code>Set</code> of <code>Friend</code> objects as the friend list. In the example below, we will describe the procedures when <code>Person</code> A (logged-in user) wants to add <code>Person</code> B (user specified by <code>INDEX</code>) into his/her friend list.</p>
 </div>
 <div class="paragraph">
-<p>In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.</p>
+<p>When <code>AddFriendCommand</code> is executed by <code>Person</code> A, once the checking is done (as described in the next aspect), a copy of <code>Person</code> A object will be created. Then the addFriendInList() method from <code>Person</code> class will be called, which creates a <code>Friend</code> object using <code>Person</code> B (as described by the paragraph above) and adds the newly created <code>Friend</code> object into the copy of <code>Person</code> A object&#8217;s <code>Set</code> of friends. Finally, the copy of <code>Person</code> A object will replace the original <code>Person</code> A object in the <code>Model</code> using the updatePerson() method from the <code>Model</code> class.</p>
+</div>
+<div class="paragraph">
+<p>In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the <code>Friend</code> object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-friendships-can-only-be-added-once-deleted-if-they-are-currently-friends"><a class="link" href="#aspect-friendships-can-only-be-added-once-deleted-if-they-are-currently-friends">Aspect: Friendships can only be added once, deleted if they are currently friends</a></h5>
+<h5 id="aspect-user-can-only-be-added-as-friend-once-user-can-only-be-deleted-as-friend-if-he-she-is-in-the-friend-list-of-the-logged-in-user"><a class="link" href="#aspect-user-can-only-be-added-as-friend-once-user-can-only-be-deleted-as-friend-if-he-she-is-in-the-friend-list-of-the-logged-in-user">Aspect: User can only be added as friend once. User can only be deleted as friend if he/she is in the friend list of the logged-in user.</a></h5>
 <div class="paragraph">
-<p>Each person can only be added as a friend once by another person. If two persons are already friends and <code>AddFriendCommand</code> is called again on these two persons, each of their friend lists will be checked using the hasFriendInList() method in Person class to confirm that each other is already on it, hence the same person will not be added twice.</p>
+<p>Each person can only be added as a friend once by another person. If <code>Person</code> B is already in the friend list of <code>Person</code> A (logged-in user) and <code>AddFriendCommand</code> is called again <code>Person</code> B, the friend list of <code>Person</code> A will be checked using the hasFriendInList() method in <code>Person</code> class to confirm that <code>Person</code> B is already in the list, thus <code>Person</code> B will not be added into the list again.</p>
 </div>
 <div class="paragraph">
-<p>Similarly, if two persons are not yet friends, or were friends but the friendship was deleted, if <code>DeleteFriendCommand</code> is called on these two persons, each of their friend lists will be checked to confirm that each other is not on it, hence the delete action will not be taken.</p>
+<p>Similarly, if <code>Person</code> B is not yet in <code>Person</code> A&#8217;s (logged-in user) friend list, and <code>DeleteFriendCommand</code> is called on <code>Person</code> B, the friend list of <code>Person</code> A will be checked using the hasFriendInList() method to confirm that <code>Person</code> B is not in the list, thus no one will be deleted from the list.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person"><a class="link" href="#aspect-deletion-modification-of-attributes-of-a-person-who-is-currently-on-the-friend-list-of-another-person">Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person</a></h5>
 <div class="paragraph">
-<p>The friend lists of each user have to be constantly updated when a person is deleted from EventOrganizer or his attributes are modified (such as name change).</p>
+<p>The friend lists of each user have to be constantly updated when a user is deleted from the Event Organizer or his/her attributes are modified (such as change of name).</p>
 </div>
 <div class="paragraph">
-<p>The following scenario describes what happens if person A is already on the friend list of person B (person A and B are friends with each other).</p>
+<p>The following scenario describes what happens if <code>Person</code> B is already on the friend list of <code>Person</code> A.</p>
 </div>
 <div class="paragraph">
-<p>Person A gets deleted from EventOrganizer:
-This triggers the updateFriendListsDueToDeletedPerson() function in the <code>DeleteUserCommand</code> class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), person A will be removed from his/her friend list.</p>
+<p><code>Person</code> B gets deleted from the Event Organizer:
+This triggers the updateFriendListsDueToDeletedPerson() function in the <code>DeleteUserCommand</code> class, which searches through the friend lists of all the other persons. If someone has <code>Person</code> B in their friend list (such as <code>Person</code> A), then <code>Person</code> B will be removed from <code>Person</code> A&#8217;s friend list.</p>
 </div>
 <div class="paragraph">
-<p>Person A&#8217;s attributes gets modified (eg change name/phone):
-This triggers the updateFriendListsDueToEditedPerson() function in the <code>EditUserCommand</code> class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), the original Friend object will be replaced by the new Friend object created using the new attributes of person A.</p>
+<p><code>Person</code> B&#8217;s attributes gets modified (eg change name/phone):
+This triggers the updateFriendListsDueToEditedPerson() function in the <code>EditUserCommand</code> class, which searches through the friend lists of all the other persons. If someone has <code>Person</code> B in their friend list (such as <code>Person</code> A), the original Friend object in <code>Person</code> A&#8217;s friend list will be replaced by the new Friend object created using the new attributes of <code>Person</code> B.</p>
 </div>
 </div>
 </div>
@@ -1811,11 +1825,11 @@ Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displ
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: EventOrganiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: Event Organiser has users with name "Alex Yeoh"(index 1) and "Bernice Yu"(index 2), and "Bernice Yu" is not currently in "Alex Yeoh"'s friend list, and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
-<p>Test case <code>addFriend 1,2</code>
-Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.</p>
+<p>Test case <code>addFriend 2</code>
+Expected: "Bernice Yu" is added to "Alex Yeoh" friend list.</p>
 </li>
 </ol>
 </div>
@@ -1825,11 +1839,11 @@ Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: EventOrganiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.</p>
+<p>Prerequisites: Event Organiser has users with name "Alex Yeoh"(index 1) and "Bernice Yu"(index 2), and "Bernice Yu" is currently in "Alex Yeoh"'s friend list, and user "Alex Yeoh" is currently logged in.</p>
 </li>
 <li>
-<p>Test case <code>deleteFriend 1,2</code>
-Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.</p>
+<p>Test case <code>deleteFriend 2</code>
+Expected: "Bernice Yu" is deleted from "Alex Yeoh" friend list.</p>
 </li>
 </ol>
 </div>
@@ -2087,4 +2101,4 @@ The most popular options list updates to include "12 December"</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:38:28 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:41:15 UTC</div></div></div></body></html>
