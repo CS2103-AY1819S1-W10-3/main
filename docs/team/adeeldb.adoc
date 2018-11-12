@@ -2,3 +2,55 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+
+== PROJECT: EventOrganiser
+
+---
+== Overview
+
+EventOrganiser is a desktop application for organisation and management of events.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of
+
+* *Major enhancement*: added *Event display and map visualisation functionality*.
+
+** What it does: Display event details such name, start time, end time, date, address and list of attendees. A map is also used to display the exact location of the event.
+** Justification: Event details display is essential for the user to browse events and see the list of attendees for the event. Additionally, user is able to visualise the location on the map.
+** Highlights:
+*** Hooked up the event management system with the panel selection to display currently selected event
+*** Display list of persons (attendees) who are attending the selected event
+*** Integrated Google Maps through a JavaScript bridge i.e. data is passed from Java to JavaScript for display
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=adeeldb[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Feature: https://github.com/CS2103-AY1819S1-W10-3/main/pull/221
+
+** Documentation:
+*** Contributed to portions of User Guide and Developer Guide relevant to my own features as well as User Guide overview. Links can be found below.
+
+== Contributions to the User Guide
+
+|===
+|_Given are excerpts from the sections which I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=InBrief]
+
+include::../UserGuide.adoc[tag=adeeldb(eventDisplay)]
+
+include::../UserGuide.adoc[tag=adeeldb(listAttendees)]
+
+include::../UserGuide.adoc[tag=adeeldb(showLocation)]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=eventDisplay]
